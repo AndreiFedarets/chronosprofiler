@@ -1,0 +1,24 @@
+﻿<presentation:UserControlView x:Class="Rhiannon.Windows.Views.MessageBox.View"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:presentation="clr-namespace:Rhiannon.Windows.Presentation"
+							  xmlns:commanding="clr-namespace:Rhiannon.Windows.Presentation.Commands"
+                              x:Uid="Rhiannon_MessageBoxView">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Background="#F1F1F1" Height="40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Content="Ok" commanding:Event.Command="{Binding OkCommand}" />
+            <Button Grid.Column="2" Content="Cancel" commanding:Event.Command="{Binding CancelCommand}" IsCancel="True" />
+        </Grid>
+    </Grid>
+</presentation:UserControlView>

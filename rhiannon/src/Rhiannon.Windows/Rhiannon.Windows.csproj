@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F9EA2E5C-0CF3-4A74-A035-353A77783DDA}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Rhiannon.Windows</RootNamespace>
+    <AssemblyName>Rhiannon.Windows</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Rhiannon.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.Composite, Version=2.0.2.0, Culture=neutral, PublicKeyToken=c5d7825a7eeff7b0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\CAL\Microsoft.Practices.Composite.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Composite.Presentation, Version=2.0.2.0, Culture=neutral, PublicKeyToken=c5d7825a7eeff7b0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\CAL\Microsoft.Practices.Composite.Presentation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\CAL\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Interactivity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Presentation\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ClioLight\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ClioLight\Color.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ClioLight\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ClioLight\Common.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ClioLight\Expander.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ClioLight\Font.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ClioLight\ListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ClioLight\TabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ClioLight\TextBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ClioLight\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ClioLight\ToggleBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EnterName\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MessageBox\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\BlurlessImage.cs" />
+    <Compile Include="Controls\BrowseDirectory.cs" />
+    <Compile Include="Controls\BrowseFile.cs" />
+    <Compile Include="Controls\CustomWindow.cs" />
+    <Compile Include="Controls\ImageButton.cs" />
+    <Compile Include="Controls\ResizeDirection.cs" />
+    <Compile Include="Controls\TileButton.cs" />
+    <Compile Include="Controls\ToggleBox.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\BehaviorBase.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\ButtonBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\ColumnDefinitionBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\ContentControlBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\ContextMenuBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\EmptyBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\GridBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\HeaderedContentControlBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\HeaderedItemsControlBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\ImageButtonBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\ListViewBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\MenuItemBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\ResourceBehaviorCollection.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\RowDefinitionBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\TextBlockBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\TextBoxBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\UserControlViewBehavior.cs" />
+    <Compile Include="Presentation\ApplyResourceBehavior\WindowViewBehavior.cs" />
+    <Compile Include="Presentation\Behaviors\GridViewSort.cs" />
+    <Compile Include="Presentation\Behaviors\ListViewSelectedItemsBehaviour.cs" />
+    <Compile Include="Presentation\Behaviors\TreeViewSelectedItemBehaviour.cs" />
+    <Compile Include="Presentation\Commands\AsyncCommandBase.cs" />
+    <Compile Include="Presentation\Commands\AsyncNonParameterizedCommand.cs" />
+    <Compile Include="Presentation\Commands\AsyncParameterizedCommand.cs" />
+    <Compile Include="Presentation\Commands\CommandCollectionBase.cs" />
+    <Compile Include="Presentation\Commands\ControlClickCommandBehavior.cs" />
+    <Compile Include="Presentation\Commands\ControlDoubleClickCommandBehavior.cs" />
+    <Compile Include="Presentation\Commands\ControlEventCommandBehavior.cs" />
+    <Compile Include="Presentation\Commands\Event.cs" />
+    <Compile Include="Presentation\Commands\ExtendedCommandBase.cs" />
+    <Compile Include="Presentation\Commands\ICommandCollection.cs" />
+    <Compile Include="Presentation\Commands\IExtendedCommand.cs" />
+    <Compile Include="Presentation\Commands\KeyboardCommand.cs" />
+    <Compile Include="Presentation\Commands\KeyboardCommandColection.cs" />
+    <Compile Include="Presentation\Commands\SyncCommandBase.cs" />
+    <Compile Include="Presentation\Commands\SyncNonParameterizedCommand.cs" />
+    <Compile Include="Presentation\Commands\SyncParameterizedCommand.cs" />
+    <Compile Include="Presentation\Converters\BitmapToBitmapSourceConverter.cs" />
+    <Compile Include="Presentation\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Presentation\Converters\ByteArrayToBitmapSourceConverter.cs" />
+    <Compile Include="Presentation\Converters\EnumToStringConverter.cs" />
+    <Compile Include="Presentation\Converters\MessageBoxButtonToVisibilityConverter.cs" />
+    <Compile Include="Presentation\Converters\InverseBoolConverter.cs" />
+    <Compile Include="Presentation\Converters\EqualityConverter.cs" />
+    <Compile Include="Presentation\Converters\InverseBoolToVisibilityConverter.cs" />
+    <Compile Include="Presentation\Converters\PercentsToColorConverter.cs" />
+    <Compile Include="Presentation\Documents\Document.cs" />
+    <Compile Include="Presentation\Documents\DocumentCollection.cs" />
+    <Compile Include="Presentation\Documents\DocumentEventArgs.cs" />
+    <Compile Include="Presentation\Documents\IDocument.cs" />
+    <Compile Include="Presentation\Documents\IDocumentCollection.cs" />
+    <Compile Include="Presentation\INotificationService.cs" />
+    <Compile Include="Presentation\IViewActivatorBase.cs" />
+    <Compile Include="Presentation\IViewBase.cs" />
+    <Compile Include="Presentation\IViewModelBase.cs" />
+    <Compile Include="Presentation\IViewsManager.cs" />
+    <Compile Include="Presentation\IWindow.cs" />
+    <Compile Include="Presentation\MultithreadingObservableCollection.cs" />
+    <Compile Include="Presentation\PropertyChangedNotifier.cs" />
+    <Compile Include="Presentation\SimpleNotificationService.cs" />
+    <Compile Include="Presentation\UserControlView.cs" />
+    <Compile Include="Presentation\ViewActivatorBase.cs" />
+    <Compile Include="Presentation\ViewModelBase.cs" />
+    <Compile Include="Presentation\ViewsManager.cs" />
+    <Compile Include="Presentation\WindowDialogType.cs" />
+    <Compile Include="Presentation\WindowView.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Views\EnterName\IView.cs" />
+    <Compile Include="Views\EnterName\IViewModel.cs" />
+    <Compile Include="Views\EnterName\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EnterName\ViewActivator.cs" />
+    <Compile Include="Views\EnterName\ViewModel.cs" />
+    <Compile Include="Views\MessageBox\IView.cs" />
+    <Compile Include="Views\MessageBox\IViewModel.cs" />
+    <Compile Include="Views\MessageBox\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MessageBox\ViewActivator.cs" />
+    <Compile Include="Views\MessageBox\ViewModel.cs" />
+    <Compile Include="Views\ViewNames.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="..\Rhiannon.snk">
+      <Link>Rhiannon.snk</Link>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Images\CustomWindow\Close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Images\CustomWindow\Maximize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Images\CustomWindow\Minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Images\CustomWindow\Restore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Images\TileButton\Close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rhiannon\Rhiannon.csproj">
+      <Project>{FA9847FA-C6F3-4C3C-980C-EDCC740D0461}</Project>
+      <Name>Rhiannon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

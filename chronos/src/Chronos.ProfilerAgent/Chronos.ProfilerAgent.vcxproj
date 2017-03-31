@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D8094842-E989-4E32-969B-908E01061557}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ChronosProfilerAgent</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfAtl>Dynamic</UseOfAtl>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfAtl>Dynamic</UseOfAtl>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfAtl>Dynamic</UseOfAtl>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfAtl>Dynamic</UseOfAtl>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>output\$(Platform)\</OutDir>
+    <IntDir>bin\$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>output\$(Platform)\</OutDir>
+    <IntDir>bin\$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>output\$(Platform)\</OutDir>
+    <IntDir>bin\$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>output\$(Platform)\</OutDir>
+    <IntDir>bin\$(Platform)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AgentSettings.h" />
+    <ClInclude Include="AppDomainManager.h" />
+    <ClInclude Include="AssemblyManager.h" />
+    <ClInclude Include="BaseStream.h" />
+    <ClInclude Include="ByteMarshaler.h" />
+    <ClInclude Include="AgentOperationCode.h" />
+    <ClInclude Include="Callstack.h" />
+    <ClInclude Include="CallstackPage.h" />
+    <ClInclude Include="CallstackProcessor.h" />
+    <ClInclude Include="CallstackProcessorPool.h" />
+    <ClInclude Include="CallstackStorage.h" />
+    <ClInclude Include="ClassManager.h" />
+    <ClInclude Include="ClientBase.h" />
+    <ClInclude Include="Convert.h" />
+    <ClInclude Include="CoreThread.h" />
+    <ClInclude Include="CurrentProcess.h" />
+    <ClInclude Include="DaemonClient.h" />
+    <ClInclude Include="DaemonOperationCode.h" />
+    <ClInclude Include="EnvironmentVariables.h" />
+    <ClInclude Include="EventTypes.h" />
+    <ClInclude Include="ExceptionManager.h" />
+    <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="ExceptionStack.h" />
+    <ClInclude Include="FastDictionary.h" />
+    <ClInclude Include="FastDictionaryContainer.h" />
+    <ClInclude Include="FunctionManager.h" />
+    <ClInclude Include="HostClient.h" />
+    <ClInclude Include="HostOperationCode.h" />
+    <ClInclude Include="Int32Marshaler.h" />
+    <ClInclude Include="Int64Marshaler.h" />
+    <ClInclude Include="Lock.h" />
+    <ClInclude Include="LockFreeFactory.h" />
+    <ClInclude Include="Macro.h" />
+    <ClInclude Include="ManagedProvider.h" />
+    <ClInclude Include="MemoryStream.h" />
+    <ClInclude Include="ModuleManager.h" />
+    <ClInclude Include="Monitor.h" />
+    <ClInclude Include="NamedPipeClientStream.h" />
+    <ClInclude Include="NamedPipeServerStream.h" />
+    <ClInclude Include="NamedPipeStream.h" />
+    <ClInclude Include="PathResolver.h" />
+    <ClInclude Include="PipeNameFormatter.h" />
+    <ClInclude Include="ProfilerEntryPointBase.h" />
+    <ClInclude Include="ProcessShadow.h" />
+    <ClInclude Include="ProfilerController.h" />
+    <ClInclude Include="ProfilerState.h" />
+    <ClInclude Include="ProfilingHooks.h" />
+    <ClInclude Include="ProfilingStrategy.h" />
+    <ClInclude Include="RequestsServer.h" />
+    <ClInclude Include="ResultCode.h" />
+    <ClInclude Include="ConfigurationSettings.h" />
+    <ClInclude Include="ServiceContainer.h" />
+    <ClInclude Include="SessionState.h" />
+    <ClInclude Include="SqlRequestManager.h" />
+    <ClInclude Include="StackTracer.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="StringFormatter.h" />
+    <ClInclude Include="StringMarshaler.h" />
+    <ClInclude Include="ThreadLogger.h" />
+    <ClInclude Include="ThreadLoggerPool.h" />
+    <ClInclude Include="ThreadManager.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="TypeSize.h" />
+    <ClInclude Include="UInt32Marshaler.h" />
+    <ClInclude Include="UnitManagerBase.h" />
+    <ClInclude Include="Units.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AgentSettings.cpp" />
+    <ClCompile Include="AppDomainManager.cpp" />
+    <ClCompile Include="AssemblyManager.cpp" />
+    <ClCompile Include="ByteMarshaler.cpp" />
+    <ClCompile Include="Callstack.cpp" />
+    <ClCompile Include="CallstackPage.cpp" />
+    <ClCompile Include="CallstackProcessor.cpp" />
+    <ClCompile Include="CallstackProcessorPool.cpp" />
+    <ClCompile Include="CallstackStorage.cpp" />
+    <ClCompile Include="ClassManager.cpp" />
+    <ClCompile Include="ClientBase.cpp" />
+    <ClCompile Include="Convert.cpp" />
+    <ClCompile Include="CoreThread.cpp" />
+    <ClCompile Include="CurrentProcess.cpp" />
+    <ClCompile Include="DaemonClient.cpp" />
+    <ClCompile Include="ManagedProvider.cpp" />
+    <ClCompile Include="ProcDump.h" />
+    <ClCompile Include="EnvironmentVariables.cpp" />
+    <ClCompile Include="ExceptionManager.cpp" />
+    <ClCompile Include="ExceptionStack.cpp" />
+    <ClCompile Include="FunctionManager.cpp" />
+    <ClCompile Include="HostClient.cpp" />
+    <ClCompile Include="Int32Marshaler.cpp" />
+    <ClCompile Include="Int64Marshaler.cpp" />
+    <ClCompile Include="Lock.cpp" />
+    <ClCompile Include="MemoryStream.cpp" />
+    <ClCompile Include="ModuleManager.cpp" />
+    <ClCompile Include="Monitor.cpp" />
+    <ClCompile Include="NamedPipeClientStream.cpp" />
+    <ClCompile Include="NamedPipeServerStream.cpp" />
+    <ClCompile Include="NamedPipeStream.cpp" />
+    <ClCompile Include="PathResolver.cpp" />
+    <ClCompile Include="PipeNameFormatter.cpp" />
+    <ClCompile Include="ProfilerEntryPointBase.cpp" />
+    <ClCompile Include="ProcessShadow.cpp" />
+    <ClCompile Include="ProfilerController.cpp" />
+    <ClCompile Include="ConfigurationSettings.cpp" />
+    <ClCompile Include="ProfilingHooks.cpp" />
+    <ClCompile Include="RequestsServer.cpp" />
+    <ClCompile Include="ServiceContainer.cpp" />
+    <ClCompile Include="SqlRequestManager.cpp" />
+    <ClCompile Include="StackTracer.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="StringFormatter.cpp" />
+    <ClCompile Include="StringMarshaler.cpp" />
+    <ClCompile Include="ThreadLogger.cpp" />
+    <ClCompile Include="ThreadLoggerPool.cpp" />
+    <ClCompile Include="ThreadManager.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="UInt32Marshaler.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

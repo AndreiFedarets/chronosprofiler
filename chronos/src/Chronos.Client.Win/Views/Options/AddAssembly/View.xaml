@@ -1,0 +1,49 @@
+﻿<presentation:UserControlView x:Class="Chronos.Client.Win.Views.Options.AddAssembly.View"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:commanding="clr-namespace:Rhiannon.Windows.Presentation.Commands;assembly=Rhiannon.Windows"
+                              xmlns:presentation="clr-namespace:Rhiannon.Windows.Presentation;assembly=Rhiannon.Windows"
+                              x:Uid="Profiler_Options_AddAssemblyView">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" ItemsSource="{Binding FilterItems}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn>
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Path=DataContext.AreAllAssembliesSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type presentation:UserControlView}}}" />
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsChecked}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="2" Content="Select All" commanding:Event.Command="{Binding SelectedAllAssembliesCommand}" />
+            <Button Grid.Column="2" Content="From GAC" commanding:Event.Command="{Binding LoadFromGacCommand}" />
+            <Button Grid.Column="3" Content="Browse..." commanding:Event.Command="{Binding BrowseCommand}"  />
+        </Grid>
+    </Grid>
+</presentation:UserControlView>

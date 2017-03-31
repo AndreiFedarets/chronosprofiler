@@ -1,0 +1,69 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:controls="clr-namespace:Rhiannon.Windows.Controls">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Font.xaml"/>
+        <ResourceDictionary Source="Color.xaml"/>
+        <ResourceDictionary>
+
+			<Style x:Key="ExpanderToggleButton" TargetType="{x:Type ToggleButton}">
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type ToggleButton}">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+								<Path Name="arrow" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="{StaticResource PrimaryExpanderNormalForegroundBrush}"
+									  StrokeThickness="2" SnapsToDevicePixels="False" Data="M1,1.5L4.5,5 8,1.5" Margin="5" />
+								<ContentPresenter Grid.Column="1" />
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsChecked" Value="true">
+									<Setter TargetName="arrow" Property="Path.Data" Value="M1,4.5L4.5,1 8,4.5" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+
+			<Style x:Key="ExpanderDefaultStyle" TargetType="{x:Type Expander}">
+				<Setter Property="Foreground" Value="{StaticResource PrimaryExpanderNormalForegroundBrush}" />
+				<Setter Property="Background" Value="{StaticResource PrimaryExpanderNormalBackgroundBrush}" />
+				<Setter Property="BorderBrush" Value="{StaticResource PrimaryExpanderNormalBorderBrush}" />
+				<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+				<Setter Property="VerticalContentAlignment" Value="Stretch" />
+				<Setter Property="BorderThickness" Value="1" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Expander}">
+							<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+								<DockPanel>
+									<ToggleButton Name="HeaderSite" DockPanel.Dock="Top" Margin="1" MinHeight="23" Style="{StaticResource ExpanderToggleButton}" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" Foreground="{TemplateBinding Foreground}"
+												  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" IsChecked="{Binding Path=IsExpanded,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" />
+									<ContentPresenter Name="ExpandSite" DockPanel.Dock="Bottom" Visibility="Collapsed" Focusable="False" HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}" Margin="{TemplateBinding Control.Padding}" />
+								</DockPanel>
+							</Border>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsExpanded" Value="True">
+									<Setter TargetName="ExpandSite" Property="Visibility" Value="Visible" />
+								</Trigger>
+								<Trigger Property="IsMouseOver" Value="true">
+									<Setter TargetName="HeaderSite" Property="Background" Value="{StaticResource PrimaryExpanderHoverBackgroundBrush}" />
+									<Setter TargetName="HeaderSite" Property="BorderBrush" Value="{StaticResource PrimaryExpanderHoverBorderBrush}" />
+								</Trigger>
+								<Trigger Property="IsEnabled" Value="false">
+									<Setter Property="Foreground" Value="{StaticResource PrimaryExpanderDisabledForegroundBrush}" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

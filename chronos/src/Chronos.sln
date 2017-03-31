@@ -1,0 +1,169 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Client.Win.EntryPoint", "Chronos.Client.Win.EntryPoint\Chronos.Client.Win.EntryPoint.csproj", "{C2BD0566-5A99-4F50-92D9-EB54CFD78A2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Host.EntryPoint.Service", "Chronos.Host.EntryPoint.Service\Chronos.Host.EntryPoint.Service.csproj", "{6F695503-220C-46CF-80FD-8B4C3F749B54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Daemon.EntryPoint", "Chronos.Daemon.EntryPoint\Chronos.Daemon.EntryPoint.csproj", "{034E681E-F357-487B-9564-3E1B7B3AF745}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.ProfilerAgent64", "Chronos.ProfilerAgent64\Chronos.ProfilerAgent64.vcxproj", "{C2715B6E-AE10-4D19-A404-1586F898EF47}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D8094842-E989-4E32-969B-908E01061557} = {D8094842-E989-4E32-969B-908E01061557}
+		{B5EBAC78-2D2C-41F2-894D-B213E7C80CB8} = {B5EBAC78-2D2C-41F2-894D-B213E7C80CB8}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.ProfilerAgent32", "Chronos.ProfilerAgent32\Chronos.ProfilerAgent32.vcxproj", "{B5EBAC78-2D2C-41F2-894D-B213E7C80CB8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E914E044-215F-463E-BD78-283A12C4DF74} = {E914E044-215F-463E-BD78-283A12C4DF74}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.ProfilerAgent", "Chronos.ProfilerAgent\Chronos.ProfilerAgent.vcxproj", "{D8094842-E989-4E32-969B-908E01061557}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.Processor", "Chronos.Processor\Chronos.Processor.vcxproj", "{E914E044-215F-463E-BD78-283A12C4DF74}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Installer", "Chronos.Installer\Chronos.Installer.wixproj", "{B14497FF-E69A-4EA8-B58A-862F83EF4DE3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{CC569338-9BAC-4744-9343-6ED2F4D64E62}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProfilingStrategies", "ProfilingStrategies", "{7FFD86E5-DC6F-4440-BF71-9A59A959AF9A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProfilingTargets", "ProfilingTargets", "{261EB113-A2BF-4F6E-B5A0-51BC6E444306}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Extension.ProfilingTarget.ConcreteProcess", "Chronos.Extension.ProfilingTarget.ConcreteProcess\Chronos.Extension.ProfilingTarget.ConcreteProcess.csproj", "{6FAC466B-22D1-4228-9760-2B50D0129488}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Extension.ProfilingTarget.InternetInformationService", "Chronos.Extension.ProfilingTarget.InternetInformationService\Chronos.Extension.ProfilingTarget.InternetInformationService.csproj", "{36A79747-DC80-42B9-A4B1-1FBD668191D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Extension.ProfilingTarget.ProcessByName", "Chronos.Extension.ProfilingTarget.ProcessByName\Chronos.Extension.ProfilingTarget.ProcessByName.csproj", "{FED1F2CB-DA7C-4E52-9EA4-FB5B6918F04D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Extension.ProfilingStrategy.DotNetPerformance", "Chronos.Extension.ProfilingStrategy.DotNetPerformance\Chronos.Extension.ProfilingStrategy.DotNetPerformance.csproj", "{B632FA2B-6DF9-4F43-AD11-6EA35A99CE25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Extension.ProfilingStrategy.DotNetExceptionMonitor", "Chronos.Extension.ProfilingStrategy.DotNetExceptionMonitor\Chronos.Extension.ProfilingStrategy.DotNetExceptionMonitor.csproj", "{7F2A173C-467E-4C42-B445-39D5AB5FB05E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Client.Console.EntryPoint", "Chronos.Client.Console.EntryPoint\Chronos.Client.Console.EntryPoint.csproj", "{E02B655B-9006-4C2E-B866-DFEBC6DE815D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Host.EntryPoint.Application", "Chronos.Host.EntryPoint.Application\Chronos.Host.EntryPoint.Application.csproj", "{546DD23E-72CC-4D1F-8A0A-E458720C9C4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos", "Chronos\Chronos.csproj", "{72371977-75ED-4C07-A6F8-A94E58826800}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhiannon", "..\..\rhiannon\src\Rhiannon\Rhiannon.csproj", "{FA9847FA-C6F3-4C3C-980C-EDCC740D0461}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhiannon.Windows", "..\..\rhiannon\src\Rhiannon.Windows\Rhiannon.Windows.csproj", "{F9EA2E5C-0CF3-4A74-A035-353A77783DDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Client.Win", "Chronos.Client.Win\Chronos.Client.Win.csproj", "{29AE6F2F-AADA-473B-B8E6-6AF7C1B3724A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EntryPoints", "EntryPoints", "{2D7BC0AF-CB68-4C60-A058-B221D29D297C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.ProcDump32", "Chronos.ProcDump32\Chronos.ProcDump32.vcxproj", "{22F03A29-04B4-4961-9ED7-013B7529EF22}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.ProcDump64", "Chronos.ProcDump64\Chronos.ProcDump64.vcxproj", "{07AF6D54-2218-4E0C-A323-CE717652C866}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.TestConsole", "Chronos.TestConsole\Chronos.TestConsole.vcxproj", "{77D5ADC6-5149-4E1A-B3A5-D9177F87FCFB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C2BD0566-5A99-4F50-92D9-EB54CFD78A2C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{C2BD0566-5A99-4F50-92D9-EB54CFD78A2C}.Debug|Any CPU.Build.0 = Debug|x86
+		{C2BD0566-5A99-4F50-92D9-EB54CFD78A2C}.Release|Any CPU.ActiveCfg = Release|x86
+		{C2BD0566-5A99-4F50-92D9-EB54CFD78A2C}.Release|Any CPU.Build.0 = Release|x86
+		{6F695503-220C-46CF-80FD-8B4C3F749B54}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{6F695503-220C-46CF-80FD-8B4C3F749B54}.Debug|Any CPU.Build.0 = Debug|x86
+		{6F695503-220C-46CF-80FD-8B4C3F749B54}.Release|Any CPU.ActiveCfg = Release|x86
+		{6F695503-220C-46CF-80FD-8B4C3F749B54}.Release|Any CPU.Build.0 = Release|x86
+		{034E681E-F357-487B-9564-3E1B7B3AF745}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{034E681E-F357-487B-9564-3E1B7B3AF745}.Debug|Any CPU.Build.0 = Debug|x86
+		{034E681E-F357-487B-9564-3E1B7B3AF745}.Release|Any CPU.ActiveCfg = Release|x86
+		{034E681E-F357-487B-9564-3E1B7B3AF745}.Release|Any CPU.Build.0 = Release|x86
+		{C2715B6E-AE10-4D19-A404-1586F898EF47}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{C2715B6E-AE10-4D19-A404-1586F898EF47}.Debug|Any CPU.Build.0 = Debug|x64
+		{C2715B6E-AE10-4D19-A404-1586F898EF47}.Release|Any CPU.ActiveCfg = Release|x64
+		{C2715B6E-AE10-4D19-A404-1586F898EF47}.Release|Any CPU.Build.0 = Release|x64
+		{B5EBAC78-2D2C-41F2-894D-B213E7C80CB8}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{B5EBAC78-2D2C-41F2-894D-B213E7C80CB8}.Debug|Any CPU.Build.0 = Debug|Win32
+		{B5EBAC78-2D2C-41F2-894D-B213E7C80CB8}.Release|Any CPU.ActiveCfg = Release|Win32
+		{B5EBAC78-2D2C-41F2-894D-B213E7C80CB8}.Release|Any CPU.Build.0 = Release|Win32
+		{D8094842-E989-4E32-969B-908E01061557}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{D8094842-E989-4E32-969B-908E01061557}.Release|Any CPU.ActiveCfg = Release|Win32
+		{E914E044-215F-463E-BD78-283A12C4DF74}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{E914E044-215F-463E-BD78-283A12C4DF74}.Debug|Any CPU.Build.0 = Debug|Win32
+		{E914E044-215F-463E-BD78-283A12C4DF74}.Release|Any CPU.ActiveCfg = Release|Win32
+		{E914E044-215F-463E-BD78-283A12C4DF74}.Release|Any CPU.Build.0 = Release|Win32
+		{B14497FF-E69A-4EA8-B58A-862F83EF4DE3}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{B14497FF-E69A-4EA8-B58A-862F83EF4DE3}.Release|Any CPU.ActiveCfg = Release|x86
+		{6FAC466B-22D1-4228-9760-2B50D0129488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FAC466B-22D1-4228-9760-2B50D0129488}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FAC466B-22D1-4228-9760-2B50D0129488}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FAC466B-22D1-4228-9760-2B50D0129488}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36A79747-DC80-42B9-A4B1-1FBD668191D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36A79747-DC80-42B9-A4B1-1FBD668191D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36A79747-DC80-42B9-A4B1-1FBD668191D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36A79747-DC80-42B9-A4B1-1FBD668191D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FED1F2CB-DA7C-4E52-9EA4-FB5B6918F04D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FED1F2CB-DA7C-4E52-9EA4-FB5B6918F04D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FED1F2CB-DA7C-4E52-9EA4-FB5B6918F04D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FED1F2CB-DA7C-4E52-9EA4-FB5B6918F04D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B632FA2B-6DF9-4F43-AD11-6EA35A99CE25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B632FA2B-6DF9-4F43-AD11-6EA35A99CE25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B632FA2B-6DF9-4F43-AD11-6EA35A99CE25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B632FA2B-6DF9-4F43-AD11-6EA35A99CE25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F2A173C-467E-4C42-B445-39D5AB5FB05E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F2A173C-467E-4C42-B445-39D5AB5FB05E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F2A173C-467E-4C42-B445-39D5AB5FB05E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F2A173C-467E-4C42-B445-39D5AB5FB05E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E02B655B-9006-4C2E-B866-DFEBC6DE815D}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E02B655B-9006-4C2E-B866-DFEBC6DE815D}.Release|Any CPU.ActiveCfg = Release|x86
+		{546DD23E-72CC-4D1F-8A0A-E458720C9C4D}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{546DD23E-72CC-4D1F-8A0A-E458720C9C4D}.Debug|Any CPU.Build.0 = Debug|x86
+		{546DD23E-72CC-4D1F-8A0A-E458720C9C4D}.Release|Any CPU.ActiveCfg = Release|x86
+		{546DD23E-72CC-4D1F-8A0A-E458720C9C4D}.Release|Any CPU.Build.0 = Release|x86
+		{72371977-75ED-4C07-A6F8-A94E58826800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72371977-75ED-4C07-A6F8-A94E58826800}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72371977-75ED-4C07-A6F8-A94E58826800}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72371977-75ED-4C07-A6F8-A94E58826800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA9847FA-C6F3-4C3C-980C-EDCC740D0461}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA9847FA-C6F3-4C3C-980C-EDCC740D0461}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA9847FA-C6F3-4C3C-980C-EDCC740D0461}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA9847FA-C6F3-4C3C-980C-EDCC740D0461}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9EA2E5C-0CF3-4A74-A035-353A77783DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9EA2E5C-0CF3-4A74-A035-353A77783DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9EA2E5C-0CF3-4A74-A035-353A77783DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9EA2E5C-0CF3-4A74-A035-353A77783DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29AE6F2F-AADA-473B-B8E6-6AF7C1B3724A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29AE6F2F-AADA-473B-B8E6-6AF7C1B3724A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29AE6F2F-AADA-473B-B8E6-6AF7C1B3724A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29AE6F2F-AADA-473B-B8E6-6AF7C1B3724A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22F03A29-04B4-4961-9ED7-013B7529EF22}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{22F03A29-04B4-4961-9ED7-013B7529EF22}.Debug|Any CPU.Build.0 = Debug|Win32
+		{22F03A29-04B4-4961-9ED7-013B7529EF22}.Release|Any CPU.ActiveCfg = Release|Win32
+		{07AF6D54-2218-4E0C-A323-CE717652C866}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{07AF6D54-2218-4E0C-A323-CE717652C866}.Debug|Any CPU.Build.0 = Debug|x64
+		{07AF6D54-2218-4E0C-A323-CE717652C866}.Release|Any CPU.ActiveCfg = Release|x64
+		{77D5ADC6-5149-4E1A-B3A5-D9177F87FCFB}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{77D5ADC6-5149-4E1A-B3A5-D9177F87FCFB}.Release|Any CPU.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6F695503-220C-46CF-80FD-8B4C3F749B54} = {2D7BC0AF-CB68-4C60-A058-B221D29D297C}
+		{034E681E-F357-487B-9564-3E1B7B3AF745} = {2D7BC0AF-CB68-4C60-A058-B221D29D297C}
+		{C2715B6E-AE10-4D19-A404-1586F898EF47} = {2D7BC0AF-CB68-4C60-A058-B221D29D297C}
+		{B5EBAC78-2D2C-41F2-894D-B213E7C80CB8} = {2D7BC0AF-CB68-4C60-A058-B221D29D297C}
+		{E02B655B-9006-4C2E-B866-DFEBC6DE815D} = {2D7BC0AF-CB68-4C60-A058-B221D29D297C}
+		{546DD23E-72CC-4D1F-8A0A-E458720C9C4D} = {2D7BC0AF-CB68-4C60-A058-B221D29D297C}
+		{C2BD0566-5A99-4F50-92D9-EB54CFD78A2C} = {2D7BC0AF-CB68-4C60-A058-B221D29D297C}
+		{22F03A29-04B4-4961-9ED7-013B7529EF22} = {2D7BC0AF-CB68-4C60-A058-B221D29D297C}
+		{07AF6D54-2218-4E0C-A323-CE717652C866} = {2D7BC0AF-CB68-4C60-A058-B221D29D297C}
+		{7FFD86E5-DC6F-4440-BF71-9A59A959AF9A} = {CC569338-9BAC-4744-9343-6ED2F4D64E62}
+		{261EB113-A2BF-4F6E-B5A0-51BC6E444306} = {CC569338-9BAC-4744-9343-6ED2F4D64E62}
+		{B632FA2B-6DF9-4F43-AD11-6EA35A99CE25} = {7FFD86E5-DC6F-4440-BF71-9A59A959AF9A}
+		{7F2A173C-467E-4C42-B445-39D5AB5FB05E} = {7FFD86E5-DC6F-4440-BF71-9A59A959AF9A}
+		{6FAC466B-22D1-4228-9760-2B50D0129488} = {261EB113-A2BF-4F6E-B5A0-51BC6E444306}
+		{36A79747-DC80-42B9-A4B1-1FBD668191D8} = {261EB113-A2BF-4F6E-B5A0-51BC6E444306}
+		{FED1F2CB-DA7C-4E52-9EA4-FB5B6918F04D} = {261EB113-A2BF-4F6E-B5A0-51BC6E444306}
+	EndGlobalSection
+EndGlobal

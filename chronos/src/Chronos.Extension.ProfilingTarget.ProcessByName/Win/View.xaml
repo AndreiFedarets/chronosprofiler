@@ -1,0 +1,23 @@
+﻿<views:UserControlView x:Class="Chronos.Extension.ProfilingTarget.ProcessByName.Win.View"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					   x:Uid="Profiler_ProfilingAdapters_ProcessByNameView"
+                       xmlns:views="clr-namespace:Rhiannon.Windows.Presentation;assembly=Rhiannon.Windows"
+					   xmlns:commanding="clr-namespace:Rhiannon.Windows.Presentation.Commands;assembly=Rhiannon.Windows">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<TextBlock Grid.Row="0" Grid.Column="0" Text="Process Name:" HorizontalAlignment="Right" />
+		<TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ProcessName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+		<Button Grid.Row="0" Grid.Column="2" Content="Browse" commanding:Event.Command="{Binding BrowseForProcessCommand}" />
+		<TextBlock Grid.Row="1" Grid.Column="0" Text="Process Platform:" HorizontalAlignment="Right" />
+		<ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Platforms}" SelectedItem="{Binding ProcessPlatform}" />
+	</Grid>
+</views:UserControlView>

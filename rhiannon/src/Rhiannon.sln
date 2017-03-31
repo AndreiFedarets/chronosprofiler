@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhiannon.Ribbon", "Rhiannon.Ribbon\Rhiannon.Ribbon.csproj", "{A0F29EE4-13F3-4871-BF0D-024BBBE4D33D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhiannon", "Rhiannon\Rhiannon.csproj", "{FA9847FA-C6F3-4C3C-980C-EDCC740D0461}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rhiannon.Windows", "Rhiannon.Windows\Rhiannon.Windows.csproj", "{F9EA2E5C-0CF3-4A74-A035-353A77783DDA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0F29EE4-13F3-4871-BF0D-024BBBE4D33D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0F29EE4-13F3-4871-BF0D-024BBBE4D33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0F29EE4-13F3-4871-BF0D-024BBBE4D33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0F29EE4-13F3-4871-BF0D-024BBBE4D33D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA9847FA-C6F3-4C3C-980C-EDCC740D0461}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA9847FA-C6F3-4C3C-980C-EDCC740D0461}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA9847FA-C6F3-4C3C-980C-EDCC740D0461}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA9847FA-C6F3-4C3C-980C-EDCC740D0461}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9EA2E5C-0CF3-4A74-A035-353A77783DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9EA2E5C-0CF3-4A74-A035-353A77783DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9EA2E5C-0CF3-4A74-A035-353A77783DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9EA2E5C-0CF3-4A74-A035-353A77783DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,1 @@
+START %CD%\Chronos.Client.Win.EntryPoint.exe -diag

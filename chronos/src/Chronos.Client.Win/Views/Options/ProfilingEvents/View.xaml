@@ -1,0 +1,49 @@
+﻿<presentation:UserControlView x:Class="Chronos.Client.Win.Views.Options.ProfilingEvents.View"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:commanding="clr-namespace:Rhiannon.Presentation.Commands;assembly=Rhiannon.Presentation"
+                       xmlns:presentation="clr-namespace:Rhiannon.Presentation;assembly=Rhiannon.Presentation"
+                       x:Uid="Profiler_Options_ProfilingEventsView">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Configuration: " Foreground="#000" />
+            <ComboBox Grid.Column="1" ItemsSource="{Binding Configurations}" SelectedItem="{Binding SelectedConfiguration}" DisplayMemberPath="Name" />
+            <Button Grid.Column="2" Content="Set As Default" commanding:Event.Command="{Binding SetAsDefaultConfigurationCommand}" commanding:Event.CommandParameter="{Binding SelectedConfiguration}" />
+        </Grid>
+
+        <ListBox Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding ProfilingEvents}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding IsChecked}" />
+                        <TextBlock Text="{Binding ProfilingEvent}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Content="Create" commanding:Event.Command="{Binding CreateConfigurationCommand}"/>
+            <Button Grid.Column="2" Content="Delete" commanding:Event.Command="{Binding DeleteConfigurationCommand}" commanding:Event.CommandParameter="{Binding SelectedConfiguration}" />
+            <Button Grid.Column="3" Content="Save" commanding:Event.Command="{Binding SaveConfigurationCommand}" commanding:Event.CommandParameter="{Binding SelectedConfiguration}" />
+        </Grid>
+    </Grid>
+</presentation:UserControlView>

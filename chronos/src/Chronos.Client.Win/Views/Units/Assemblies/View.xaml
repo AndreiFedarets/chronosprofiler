@@ -1,0 +1,53 @@
+﻿<presentation:UserControlView x:Class="Chronos.Client.Win.Views.Units.Assemblies.View"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:presentation="clr-namespace:Rhiannon.Windows.Presentation;assembly=Rhiannon.Windows"
+                              xmlns:behaviors="clr-namespace:Rhiannon.Windows.Presentation.Behaviors;assembly=Rhiannon.Windows"
+                              xmlns:controls="clr-namespace:Chronos.Client.Win.Controls"
+                              xmlns:commanding="clr-namespace:Rhiannon.Windows.Presentation.Commands;assembly=Rhiannon.Windows"
+                              x:Uid="Profiler_Unit_AssembliesView">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnit}" IsSynchronizedWithCurrentItem="True"
+                  behaviors:GridViewSort.AutoSort="True"
+                  VirtualizingStackPanel.IsVirtualizing="True">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" behaviors:GridViewSort.PropertyName="Id" />
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" behaviors:GridViewSort.PropertyName="Name" />
+                    <GridViewColumn Header="AppDomain" behaviors:GridViewSort.PropertyName="AppDomain.Name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <controls:AppDomainInfoControl Unit="{Binding AppDomain}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Load Status" DisplayMemberBinding="{Binding LoadResult}" behaviors:GridViewSort.PropertyName="LoadResult" />
+                </GridView>
+            </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Call Tree">
+                        <MenuItem Header="Find All References" commanding:Event.Command="{Binding FindAllReferencesCommand}" commanding:Event.CommandParameter="{Binding SelectedUnit}" />
+                        <MenuItem Header="Go To Loaded" commanding:Event.Command="{Binding GoToLoadedCommand}" commanding:Event.CommandParameter="{Binding SelectedUnit}" />
+                    </MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" x:Uid="UnitCollectionView_FilterTextBlock" VerticalAlignment="Center" FontFamily="Verdana" />
+            <TextBox Grid.Column="1" Text="{Binding SelectedUnitFilter.Value, UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox Grid.Column="2" ItemsSource="{Binding UnitFilters}" SelectedItem="{Binding SelectedUnitFilter}" DisplayMemberPath="DisplayName" />
+            <!--<Button Grid.Column="3" x:Uid="UnitCollectionView_ReloadUnitsButton" Command="{Binding ReloadUnitsCommand}" />-->
+        </Grid>
+    </Grid>
+</presentation:UserControlView>

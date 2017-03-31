@@ -1,0 +1,20 @@
+<events>
+	<event token="QueryInformationForNewSessionEvent">
+		<integration>
+			<element uid="" eventName="Click" />
+		</integration>
+	</event>
+</event>
+<chain>
+	<chain token="QueryInformationForNewSessionChain">
+		<operation type="" order="100" />
+		<operation type="" order="200" />
+		<operation type="" order="300" />
+	</chain>
+</chain>
+<bindings>
+	<binding event="QueryInformationForNewSessionEvent" chain="QueryInformationForNewSessionChain" />
+</bindings>
+<ui>
+	<element uid="" />
+</ui>

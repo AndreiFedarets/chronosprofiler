@@ -1,0 +1,60 @@
+﻿<presentation:UserControlView x:Class="Chronos.Client.Win.Views.Configurations.CreateConfiguration.View"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:commanding="clr-namespace:Rhiannon.Windows.Presentation.Commands;assembly=Rhiannon.Windows"
+                              xmlns:presentation="clr-namespace:Rhiannon.Windows.Presentation;assembly=Rhiannon.Windows"
+                              x:Uid="Profiler_Sessions_StartSessionView" Margin="0,0,0,0">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+		<GroupBox Grid.Row="0" Margin="5">
+			<GroupBox.Header>
+				<TextBlock Text="Application Options" FontSize="18" FontWeight="Thin" />
+			</GroupBox.Header>
+			<GroupBox.Content>
+				<ContentControl Content="{Binding ProfilingTargetView}" />
+			</GroupBox.Content>
+		</GroupBox>
+
+		<GroupBox Grid.Row="1" Margin="5">
+			<GroupBox.Header>
+				<TextBlock Text="Profiling Type Options" FontSize="18" FontWeight="Thin" />
+			</GroupBox.Header>
+			<GroupBox.Content>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					<TextBlock Grid.Row="0" Grid.Column="0" Text="Profiling Type:" HorizontalAlignment="Right" />
+					<ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding ProfilingStrategies}" SelectedItem="{Binding SelectedProfilingStrategy}" DisplayMemberPath="DisplayName" Height="23" />
+					<ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding ProfilingStrategyView}" />
+				</Grid>
+			</GroupBox.Content>
+		</GroupBox>
+
+
+		<Grid Grid.Row="3" Background="#F1F1F1" Height="40">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="5" />
+			</Grid.ColumnDefinitions>
+			<Button Grid.Column="1" x:Uid="Profiler_Sessions_StartSessionView_StartProfilingButton" 
+					commanding:Event.Command="{Binding StartProfilingCommand}"
+					commanding:Event.CommandParameter="{Binding SelectedProfilingStrategy}" />
+			<Button Grid.Column="2" x:Uid="Profiler_Sessions_StartSessionView_CloseButton" IsCancel="True" />
+		</Grid>
+	</Grid>
+	<!--</Grid>-->
+</presentation:UserControlView>

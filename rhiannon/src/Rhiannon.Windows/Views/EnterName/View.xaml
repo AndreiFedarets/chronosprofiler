@@ -1,0 +1,9 @@
+﻿<presentation:UserControlView x:Class="Rhiannon.Windows.Views.EnterName.View"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:presentation="clr-namespace:Rhiannon.Windows.Presentation"
+                              Height="40" Width="500" Title="Enter Name">
+    <Grid>
+        <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+    </Grid>
+</presentation:UserControlView>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?define ProductName="Chronos .Net Profiler" ?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<Fragment>
+		<DirectoryRef Id="AGENT_BIN_FOLDER" FileSource="..\..\build\$(var.Configuration)\agent">
+			<Component Id="AgentComponent" Guid="3E64DB67-61E2-4728-855B-4795CDE78F37">
+				<File Id="Agent_Chronos_ProfilerAgent32_dll" DiskId="1" Name="Chronos.ProfilerAgent32.dll">
+					<TypeLib Id="{3D7F4E01-9E81-4269-A760-FE56756A46AF}" Description="ChronosProfilerAgent32Lib" Language="0" MajorVersion="1" MinorVersion="1">
+						<Class Id="{9C272F43-1A62-4AA3-B707-621D3507FA0A}" Context="InprocServer32" Description="Chronos ProfilerEntryPoint32 Class" ThreadingModel="neutral" Version="1.0" Programmable="yes" />
+						<Interface Id="{CEAA6807-1EB7-4FDD-8307-A525AAD9BDFA}" Name="IProfilerEntryPoint" ProxyStubClassId="{00020424-0000-0000-C000-000000000046}" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
+					</TypeLib>
+				</File>
+				<File Id="Agent_Chronos_ProfilerAgent32_exp" DiskId="1" Name="Chronos.ProfilerAgent32.exp"/>
+				<File Id="Agent_Chronos_ProfilerAgent32_lib" DiskId="1" Name="Chronos.ProfilerAgent32.lib"/>
+				<File Id="Agent_Chronos_ProfilerAgent64_dll" DiskId="1" Name="Chronos.ProfilerAgent64.dll">
+					<TypeLib Id="{FF71C47B-F0C5-4318-9879-0337FAC7EAF1}" Description="ChronosProfilerAgent64Lib" Language="0" MajorVersion="1" MinorVersion="1">
+						<Class Id="{7248CC0A-132A-423F-9565-90F6B6BB64A5}" Context="InprocServer32" Description="Chronos ProfilerEntryPoint64 Class" ThreadingModel="neutral" Version="1.0" Programmable="yes" />
+						<Interface Id="{F8E930CF-3BEF-4AEF-8BE8-C46652B1DA3A}" Name="IProfilerEntryPoint" ProxyStubClassId="{00020424-0000-0000-C000-000000000046}" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
+					</TypeLib>
+				</File>
+				<File Id="Agent_Chronos_ProfilerAgent64_exp" DiskId="1" Name="Chronos.ProfilerAgent64.exp"/>
+				<File Id="Agent_Chronos_ProfilerAgent64_lib" DiskId="1" Name="Chronos.ProfilerAgent64.lib"/>
+			</Component>
+		</DirectoryRef>
+
+		<DirectoryRef Id="EXTENSIONS_BIN_FOLDER" FileSource="..\..\build\$(var.Configuration)\extensions">
+			<Component Id="ExtensionsComponent" Guid="A875313F-39C9-484E-85F8-1614B012C9E6">
+				<File Id="Extensions_Chronos_Extension_ProfilingStrategy_DotNetExceptionMonitor_dll" DiskId="1" Name="Chronos.Extension.ProfilingStrategy.DotNetExceptionMonitor.dll"/>
+				<File Id="Extensions_Chronos_Extension_ProfilingStrategy_DotNetPerformance_dll" DiskId="1" Name="Chronos.Extension.ProfilingStrategy.DotNetPerformance.dll"/>
+				<File Id="Extensions_Chronos_Extension_ProfilingTarget_ConcreteProcess_dll" DiskId="1" Name="Chronos.Extension.ProfilingTarget.ConcreteProcess.dll"/>
+				<File Id="Extensions_Chronos_Extension_ProfilingTarget_InternetInformationService_dll" DiskId="1" Name="Chronos.Extension.ProfilingTarget.InternetInformationService.dll"/>
+				<File Id="Extensions_Chronos_Extension_ProfilingTarget_ProcessByName_dll" DiskId="1" Name="Chronos.Extension.ProfilingTarget.ProcessByName.dll"/>
+				<File Id="Extensions_Microsoft_Web_Administration_dll" DiskId="1" Name="Microsoft.Web.Administration.dll"/>
+			</Component>
+		</DirectoryRef>
+
+		<DirectoryRef Id="INSTALLFOLDER" FileSource="..\..\build\$(var.Configuration)\">
+			<Component Id="CommonComponent" Guid="D2A5DBDF-F570-4804-8309-8BB995D8762D">
+        <!-- CHRONOS CORE -->
+				<File Id="Common_Chronos_dll" DiskId="1" Name="Chronos.dll"/>
+        <!-- CHRONOS PROCESSOR -->
+				<File Id="Common_Chronos_Processor_dll" DiskId="1" Name="Chronos.Processor.dll"/>
+				<File Id="Common_Chronos_Processor_exp" DiskId="1" Name="Chronos.Processor.exp"/>
+				<File Id="Common_Chronos_Processor_lib" DiskId="1" Name="Chronos.Processor.lib"/>
+        <!-- CHRONOS DAEMON -->
+				<File Id="Common_Chronos_Daemon_EntryPoint_exe" DiskId="1" Name="Chronos.Daemon.EntryPoint.exe"/>
+				<File Id="Common_Chronos_Daemon_EntryPoint_exe_config" DiskId="1" Name="Chronos.Daemon.EntryPoint.exe.config"/>
+        <!-- CHRONOS HOST -->
+				<File Id="Common_Chronos_Host_EntryPoint_Application_exe" DiskId="1" Name="Chronos.Host.EntryPoint.Application.exe"/>
+				<File Id="Common_Chronos_Host_EntryPoint_Application_exe_config" DiskId="1" Name="Chronos.Host.EntryPoint.Application.exe.config"/>
+				<File Id="Common_Chronos_Host_EntryPoint_Service_exe" DiskId="1" Name="Chronos.Host.EntryPoint.Service.exe"/>
+				<File Id="Common_Chronos_Host_EntryPoint_Service_exe_config" DiskId="1" Name="Chronos.Host.EntryPoint.Service.exe.config"/>
+        <!-- CHRONOS WINCLIENT -->
+				<File Id="Common_Chronos_Client_Win_dll" DiskId="1" Name="Chronos.Client.Win.dll"/>
+        <File Id="Common_Chronos_Client_Win_Diag_bat" DiskId="1" Name="Chronos.Client.Win.Diag.bat"/>
+				<File Id="Common_Chronos_Client_Win_EntryPoint_exe" DiskId="1" Name="Chronos.Client.Win.EntryPoint.exe"/>
+				<File Id="Common_Chronos_Client_Win_EntryPoint_exe_config" DiskId="1" Name="Chronos.Client.Win.EntryPoint.exe.config"/>
+        <!-- CHRONOS CONFIG -->
+				<File Id="Common_configuration_xml" DiskId="1" Name="configuration.xml"/>
+        <!-- MICROSOFT PRISM + COMPOSIT APPLICATION LIBRARY -->
+				<File Id="Common_Microsoft_Practices_Composite_dll" DiskId="1" Name="Microsoft.Practices.Composite.dll"/>
+				<File Id="Common_Microsoft_Practices_Composite_Presentation_dll" DiskId="1" Name="Microsoft.Practices.Composite.Presentation.dll"/>
+				<File Id="Common_Microsoft_Practices_Composite_UnityExtensions_dll" DiskId="1" Name="Microsoft.Practices.Composite.UnityExtensions.dll"/>
+				<File Id="Common_Microsoft_Practices_ObjectBuilder2_dll" DiskId="1" Name="Microsoft.Practices.ObjectBuilder2.dll"/>
+				<File Id="Common_Microsoft_Practices_ServiceLocation_dll" DiskId="1" Name="Microsoft.Practices.ServiceLocation.dll"/>
+				<File Id="Common_Microsoft_Practices_Unity_dll" DiskId="1" Name="Microsoft.Practices.Unity.dll"/>
+        <!-- RHIANNON -->
+				<File Id="Common_Rhiannon_dll" DiskId="1" Name="Rhiannon.dll"/>
+				<File Id="Common_Rhiannon_Windows_dll" DiskId="1" Name="Rhiannon.Windows.dll"/>
+        <!-- MICROSOFT INTERACTIVITY -->
+				<File Id="Common_System_Windows_Interactivity_dll" DiskId="1" Name="System.Windows.Interactivity.dll"/>
+			</Component>
+		</DirectoryRef>
+
+		<DirectoryRef Id="ApplicationProgramsFolder">
+			<Component Id="ApplicationShortcutComponent" Guid="7E8EC12C-AF9D-47DF-8F8A-EEB7C878B112">
+				<Shortcut Id="ApplicationStartMenuShortcut"
+                  Name="$(var.ProductName)"
+                  Description="$(var.ProductName)"
+                  Target="[INSTALLFOLDER]\Chronos.Client.Win.EntryPoint.exe"
+                  WorkingDirectory="WINSHELL_BIN_FOLDER"/>
+				<RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+				<RegistryValue Root="HKCU" Key="Software\Microsoft\$(var.ProductName)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+			</Component>
+		</DirectoryRef>
+		
+	</Fragment>
+</Wix>

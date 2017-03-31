@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{72371977-75ED-4C07-A6F8-A94E58826800}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Chronos</RootNamespace>
+    <AssemblyName>Chronos</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Chronos.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Communication\NamedPipe\IRequestServer.cs" />
+    <Compile Include="Communication\NamedPipe\IServerInvoke.cs" />
+    <Compile Include="Communication\NamedPipe\IServerStreamController.cs" />
+    <Compile Include="Communication\NamedPipe\NamedPipeServerStreamController.cs" />
+    <Compile Include="Communication\NamedPipe\OperationException.cs" />
+    <Compile Include="Communication\NamedPipe\OperationHandlerAttribute.cs" />
+    <Compile Include="Communication\NamedPipe\RequestServer.cs" />
+    <Compile Include="Communication\NamedPipe\ResultCode.cs" />
+    <Compile Include="Communication\NamedPipe\ServerCallback.cs" />
+    <Compile Include="Communication\NamedPipe\ServerCallbacks.cs" />
+    <Compile Include="Communication\NamedPipe\ServerInvoke.cs" />
+    <Compile Include="Communication\Remoting\Channel.cs" />
+    <Compile Include="Communication\Remoting\IChannelFactory.cs" />
+    <Compile Include="Communication\Remoting\IpcChannelFactory.cs" />
+    <Compile Include="Communication\Remoting\IRemotingExecutor.cs" />
+    <Compile Include="Communication\Remoting\RemotingExecutor.cs" />
+    <Compile Include="Communication\Remoting\RemotingFactory.cs" />
+    <Compile Include="Communication\Remoting\SingletonMarshalByRefObject.cs" />
+    <Compile Include="Configuration\AgentConfiguration.cs" />
+    <Compile Include="Configuration\CommonConfiguration.cs" />
+    <Compile Include="Configuration\ConfigurationProvider.cs" />
+    <Compile Include="Configuration\DaemonConfiguration.cs" />
+    <Compile Include="Configuration\ExtensionDescription.cs" />
+    <Compile Include="Configuration\ExtensionDescriptionCollection.cs" />
+    <Compile Include="Configuration\HostConfiguration.cs" />
+    <Compile Include="Configuration\ICommonConfiguration.cs" />
+    <Compile Include="Configuration\WebClientConfiguration.cs" />
+    <Compile Include="Configuration\WinClientConfiguration.cs" />
+    <Compile Include="Core\ActivationSettings.cs" />
+    <Compile Include="Core\AgentSettings.cs" />
+    <Compile Include="Core\AppDomainCollection.cs" />
+    <Compile Include="Core\AppDomainInfo.cs" />
+    <Compile Include="Core\AssemblyCollection.cs" />
+    <Compile Include="Core\AssemblyInfo.cs" />
+    <Compile Include="Core\CallstackCollection.cs" />
+    <Compile Include="Core\CallstackInfo.cs" />
+    <Compile Include="Core\ClassCollection.cs" />
+    <Compile Include="Core\ClassInfo.cs" />
+    <Compile Include="Core\ClrEventsMask.cs" />
+    <Compile Include="Core\ConfigurationInfo.cs" />
+    <Compile Include="Core\ConfigurationSettings.cs" />
+    <Compile Include="Core\ConfigurationState.cs" />
+    <Compile Include="Core\Constants.cs" />
+    <Compile Include="Core\AgentState.cs" />
+    <Compile Include="Core\ISqlRequestCollection.cs" />
+    <Compile Include="Core\SqlRequestCollection.cs" />
+    <Compile Include="Core\SqlRequestInfo.cs" />
+    <Compile Include="Core\CounterPoint.cs" />
+    <Compile Include="Core\DiagnosticModeDetector.cs" />
+    <Compile Include="Core\DisposableScope.cs" />
+    <Compile Include="Core\EventType.cs" />
+    <Compile Include="Core\ExceptionCollection.cs" />
+    <Compile Include="Core\ExceptionInfo.cs" />
+    <Compile Include="Core\FilterType.cs" />
+    <Compile Include="Core\FunctionCollection.cs" />
+    <Compile Include="Core\FunctionInfo.cs" />
+    <Compile Include="Core\IAppDomainCollection.cs" />
+    <Compile Include="Core\IAssemblyCollection.cs" />
+    <Compile Include="Core\ICallstackCollection.cs" />
+    <Compile Include="Core\ICallstackLoader.cs" />
+    <Compile Include="Core\IClassCollection.cs" />
+    <Compile Include="Core\IEvent.cs" />
+    <Compile Include="Core\IExceptionCollection.cs" />
+    <Compile Include="Core\IFunctionCollection.cs" />
+    <Compile Include="Core\IModuleCollection.cs" />
+    <Compile Include="Core\IntermediateEvent.cs" />
+    <Compile Include="Core\Internal\DisposableMonitor.cs" />
+    <Compile Include="Core\Internal\ReferencesAnalyzer.cs" />
+    <Compile Include="Core\IPerformanceCounter.cs" />
+    <Compile Include="Core\IPerformanceCounterCollection.cs" />
+    <Compile Include="Core\IProcessShadow.cs" />
+    <Compile Include="Core\IProfilerAgentSelector.cs" />
+    <Compile Include="Core\IReferencesAnalyzer.cs" />
+    <Compile Include="Core\IThreadCollection.cs" />
+    <Compile Include="Core\IThreadTrace.cs" />
+    <Compile Include="Core\IThreadTraceCollection.cs" />
+    <Compile Include="Core\IUnitCollection.cs" />
+    <Compile Include="Core\ModuleCollection.cs" />
+    <Compile Include="Core\ModuleInfo.cs" />
+    <Compile Include="Core\PerformanceCounter.cs" />
+    <Compile Include="Core\PerformanceCounterCollection.cs" />
+    <Compile Include="Core\PerformanceCounterInfo.cs" />
+    <Compile Include="Core\ProcessInfo.cs" />
+    <Compile Include="Core\ProcessPlatform.cs" />
+    <Compile Include="Core\ProcessPlatformDetector.cs" />
+    <Compile Include="Core\ProfilerAgentSelector.cs" />
+    <Compile Include="Core\Reference.cs" />
+    <Compile Include="Core\Result.cs" />
+    <Compile Include="Core\SessionInfo.cs" />
+    <Compile Include="Core\SessionState.cs" />
+    <Compile Include="Core\ThreadCollection.cs" />
+    <Compile Include="Core\ThreadInfo.cs" />
+    <Compile Include="Core\UnitBase.cs" />
+    <Compile Include="Core\UnitCollection.cs" />
+    <Compile Include="Core\UnitType.cs" />
+    <Compile Include="Core\Unmanaged.cs" />
+    <Compile Include="CustomMarshalers\AgentSettingsMarshaller.cs" />
+    <Compile Include="CustomMarshalers\AppDomainInfoMarshaller.cs" />
+    <Compile Include="CustomMarshalers\AssemblyInfoMarshaller.cs" />
+    <Compile Include="CustomMarshalers\ClassInfoMarshaller.cs" />
+    <Compile Include="CustomMarshalers\ConfigurationSettingsMarshaller.cs" />
+    <Compile Include="CustomMarshalers\CustomMarshalersInitializer.cs" />
+    <Compile Include="CustomMarshalers\ExceptionInfoMarshaller.cs" />
+    <Compile Include="CustomMarshalers\FunctionInfoMarshaller.cs" />
+    <Compile Include="CustomMarshalers\ModuleInfoMarshaller.cs" />
+    <Compile Include="CustomMarshalers\ProcessInfoMarshaller.cs" />
+    <Compile Include="CustomMarshalers\ThreadInfoMarshaller.cs" />
+    <Compile Include="CustomMarshalers\UnitBaseMarshaler.cs" />
+    <Compile Include="Daemon\DaemonProvider.cs" />
+    <Compile Include="Daemon\DaemonRuntype.cs" />
+    <Compile Include="Daemon\IDaemonApplication.cs" />
+    <Compile Include="Daemon\Internal\AgentFunctionCode.cs" />
+    <Compile Include="Daemon\Internal\AutoExitTimer.cs" />
+    <Compile Include="Daemon\Internal\CallstackLoader.cs" />
+    <Compile Include="Daemon\Internal\IProfilerAgentClient.cs" />
+    <Compile Include="Daemon\Internal\NativeThreadStreamProcessor.cs" />
+    <Compile Include="Daemon\Internal\IConvertedPage.cs" />
+    <Compile Include="Daemon\Internal\ISourcePage.cs" />
+    <Compile Include="Daemon\Internal\PageState.cs" />
+    <Compile Include="Daemon\Internal\AgentProcessManager.cs" />
+    <Compile Include="Daemon\Internal\AsyncThreadStreamProcessor.cs" />
+    <Compile Include="Daemon\Internal\ConvertedPage.cs" />
+    <Compile Include="Daemon\Internal\DaemonApplication.cs" />
+    <Compile Include="Daemon\Internal\IWorker.cs" />
+    <Compile Include="Daemon\Internal\CallstackPageCollection.cs" />
+    <Compile Include="Daemon\Internal\ProfilerAgentClient.cs" />
+    <Compile Include="Daemon\Internal\SourcePage.cs" />
+    <Compile Include="Daemon\Internal\ThreadStreamPool.cs" />
+    <Compile Include="Daemon\Internal\Worker.cs" />
+    <Compile Include="Daemon\Internal\Task.cs" />
+    <Compile Include="Daemon\Internal\Processor.cs" />
+    <Compile Include="Communication\Remoting\EventActionsHolder.cs" />
+    <Compile Include="Daemon\Internal\IProcessor.cs" />
+    <Compile Include="Daemon\Internal\IProcessTimer.cs" />
+    <Compile Include="Daemon\Internal\IProfilingServer.cs" />
+    <Compile Include="Daemon\Internal\PipeNameFormatter.cs" />
+    <Compile Include="Daemon\Internal\ProcessPerformanceWatcher.cs" />
+    <Compile Include="Daemon\Internal\ProcessShadow.cs" />
+    <Compile Include="Daemon\Internal\ProcessTimer.cs" />
+    <Compile Include="Daemon\Internal\ProfilingServer.cs" />
+    <Compile Include="Daemon\Internal\ThreadStream.cs" />
+    <Compile Include="Daemon\Internal\SyncThreadStreamProcessor.cs" />
+    <Compile Include="Core\Internal\ThreadTrace.cs" />
+    <Compile Include="Core\Internal\ThreadTraceCollection.cs" />
+    <Compile Include="Daemon\Internal\ThreadStreamProcessorBase.cs" />
+    <Compile Include="Daemon\Internal\UnitCollectionEventsRouter.cs" />
+    <Compile Include="Daemon\Internal\UnitStream.cs" />
+    <Compile Include="Daemon\Internal\UnitStreamPool.cs" />
+    <Compile Include="Daemon\Internal\IThreadStreamProcessor.cs" />
+    <Compile Include="Daemon\Proxy\AppDomainCollection.cs" />
+    <Compile Include="Daemon\Proxy\ApplicationEventsRouter.cs" />
+    <Compile Include="Daemon\Proxy\AssemblyCollection.cs" />
+    <Compile Include="Daemon\Proxy\CallstackCollection.cs" />
+    <Compile Include="Daemon\Proxy\CallstackLoader.cs" />
+    <Compile Include="Daemon\Proxy\ClassCollection.cs" />
+    <Compile Include="Daemon\Proxy\SqlRequestCollection.cs" />
+    <Compile Include="Daemon\Proxy\DaemonApplication.cs" />
+    <Compile Include="Daemon\Proxy\ExceptionCollection.cs" />
+    <Compile Include="Daemon\Proxy\FunctionCollection.cs" />
+    <Compile Include="Daemon\Proxy\ModuleCollection.cs" />
+    <Compile Include="Daemon\Proxy\ProcessShadow.cs" />
+    <Compile Include="Daemon\Proxy\ThreadCollection.cs" />
+    <Compile Include="Daemon\Proxy\UnitCollection.cs" />
+    <Compile Include="Extensibility\ExtensionsLoader.cs" />
+    <Compile Include="Extensibility\IExtension.cs" />
+    <Compile Include="Extensibility\IProfilingStrategy.cs" />
+    <Compile Include="Extensibility\IProfilingStrategyCollection.cs" />
+    <Compile Include="Extensibility\IProfilingTarget.cs" />
+    <Compile Include="Extensibility\IProfilingTargetCollection.cs" />
+    <Compile Include="Extensibility\ISessionActivator.cs" />
+    <Compile Include="Extensibility\ISessionActivatorProvider.cs" />
+    <Compile Include="Extensibility\ProfilingStrategyCollection.cs" />
+    <Compile Include="Extensibility\ProfilingTargetCollection.cs" />
+    <Compile Include="Extensibility\SessionActivatorProvider.cs" />
+    <Compile Include="Host\HostProvider.cs" />
+    <Compile Include="Host\HostRuntype.cs" />
+    <Compile Include="Host\IConfiguration.cs" />
+    <Compile Include="Host\IConfigurationCollection.cs" />
+    <Compile Include="Host\IHostApplication.cs" />
+    <Compile Include="Host\Internal\Configuration.cs" />
+    <Compile Include="Host\Internal\ConfigurationCollection.cs" />
+    <Compile Include="Host\Internal\HostApplication.cs" />
+    <Compile Include="Host\Internal\HostFunctionCode.cs" />
+    <Compile Include="Host\Internal\HostRequestServer.cs" />
+    <Compile Include="Host\Internal\IHostRequestServer.cs" />
+    <Compile Include="Host\Internal\PipeNameFormatter.cs" />
+    <Compile Include="Host\Internal\ProcessPlatformDetector.cs" />
+    <Compile Include="Host\Internal\Session.cs" />
+    <Compile Include="Host\Internal\SessionCollection.cs" />
+    <Compile Include="Host\Internal\SingletonMarshalByRefObject.cs" />
+    <Compile Include="Host\ISession.cs" />
+    <Compile Include="Host\ISessionCollection.cs" />
+    <Compile Include="Host\Proxy\Configuration.cs" />
+    <Compile Include="Host\Proxy\ConfigurationCollection.cs" />
+    <Compile Include="Host\Proxy\ConfigurationCollectionEventsRouter.cs" />
+    <Compile Include="Host\Proxy\HostApplication.cs" />
+    <Compile Include="Host\Proxy\ProxyFactory.cs" />
+    <Compile Include="Host\Proxy\Session.cs" />
+    <Compile Include="Host\Proxy\SessionCollection.cs" />
+    <Compile Include="Host\Proxy\SessionCollectionEventsRouter.cs" />
+    <Compile Include="Installation\Constants.cs" />
+    <Compile Include="Installation\IProfilerInstaller.cs" />
+    <Compile Include="Installation\ProfilerInstaller.cs" />
+    <Compile Include="Installation\Runtime.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Client\AssemblyName.cs" />
+    <Compile Include="Core\Internal\Event.cs" />
+    <Compile Include="Client\EventNameFormatter.cs" />
+    <Compile Include="Client\EventsComparer.cs" />
+    <Compile Include="Core\Internal\EventsTreeBuilder.cs" />
+    <Compile Include="Client\GlobalAssemblyCache.cs" />
+    <Compile Include="Client\IEventNameFormatter.cs" />
+    <Compile Include="Client\IEventsComparer.cs" />
+    <Compile Include="Core\IEventsTreeBuilder.cs" />
+    <Compile Include="Client\IProfilingFilterProvider.cs" />
+    <Compile Include="Client\IProgramFilesSettings.cs" />
+    <Compile Include="Client\IClientApplication.cs" />
+    <Compile Include="Client\ProfilingFilter.cs" />
+    <Compile Include="Client\ProfilingFilterProvider.cs" />
+    <Compile Include="Client\ClientApplication.cs" />
+    <Compile Include="Storage\ISessionStorage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Storage\SessionStorage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Chronos.snk">
+      <Link>Chronos.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="configuration.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\rhiannon\src\Rhiannon\Rhiannon.csproj">
+      <Project>{FA9847FA-C6F3-4C3C-980C-EDCC740D0461}</Project>
+      <Name>Rhiannon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

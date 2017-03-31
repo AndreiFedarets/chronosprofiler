@@ -1,0 +1,115 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Font.xaml"/>
+        <ResourceDictionary Source="Color.xaml"/>
+        <ResourceDictionary>
+			
+			<Style x:Key="ComboBoxToggleButtonStyle" TargetType="ToggleButton">
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="ToggleButton">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition />
+									<ColumnDefinition Width="20" />
+								</Grid.ColumnDefinitions>
+								<Border x:Name="Border" Grid.ColumnSpan="2"	Background="{StaticResource PrimaryComboBoxNormalBackgroundBrush}"
+										BorderBrush="{StaticResource PrimaryComboBoxNormalBorderBrush}" BorderThickness="1" />
+								<Path x:Name="Arrow" Grid.Column="1" Fill="{StaticResource PrimaryComboBoxNormalForegroundBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z"/>
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="ToggleButton.IsMouseOver" Value="true">
+									<Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryComboBoxHoverBackgroundBrush}" />
+									<Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource PrimaryComboBoxHoverBorderBrush}" />
+								</Trigger>
+								<Trigger Property="ToggleButton.IsChecked" Value="true">
+									<Setter TargetName="Arrow" Property="Data" Value="M 0 0 L 4 4 L 8 0 Z" />
+								</Trigger>
+								<Trigger Property="IsEnabled" Value="False">
+									<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource PrimaryComboBoxDisabledForegroundBrush}" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+
+			<ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
+				<Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+			</ControlTemplate>
+
+			<Style x:Key="{x:Type ComboBoxItem}" TargetType="ComboBoxItem">
+				<Setter Property="SnapsToDevicePixels" Value="true"/>
+				<Setter Property="OverridesDefaultStyle" Value="true"/>
+				<Setter Property="Height" Value="25" />
+				<Setter Property="Cursor" Value="Hand" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="ComboBoxItem">
+							<Border Name="Border" Padding="3" SnapsToDevicePixels="true" Margin="1">
+								<ContentPresenter />
+							</Border>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsHighlighted" Value="true">
+									<Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryButtonHoverBackgroundBrush}" />
+									<Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource PrimaryButtonHoverBorderBrush}" />
+								</Trigger>
+								<Trigger Property="IsEnabled" Value="false">
+									<Setter TargetName="Border" Property="TextBlock.Foreground" Value="{StaticResource PrimaryComboBoxDisabledForegroundBrush}" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+
+			<Style x:Key="{x:Type ComboBox}" TargetType="ComboBox">
+				<Setter Property="SnapsToDevicePixels" Value="true"/>
+				<Setter Property="OverridesDefaultStyle" Value="true"/>
+				<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+				<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+				<Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+				<Setter Property="MinWidth" Value="120"/>
+				<Setter Property="Height" Value="22"/>
+				<Setter Property="Margin" Value="2" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="ComboBox">
+							<Grid>
+								<ToggleButton Name="ToggleButton" Style="{StaticResource ComboBoxToggleButtonStyle}" Grid.Column="2" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" />
+								<ContentPresenter Name="ContentSite" TextBlock.Foreground="{StaticResource PrimaryComboBoxNormalForegroundBrush}" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="3,3,23,3" VerticalAlignment="Center" HorizontalAlignment="Left" />
+								<Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+									<Grid Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+										<Border x:Name="DropDownBorder" Background="{StaticResource PrimaryComboBoxNormalPanelBackgroundBrush}" BorderThickness="1,0,1,1" BorderBrush="{StaticResource PrimaryComboBoxNormalBorderBrush}"/>
+										<ScrollViewer Margin="0" SnapsToDevicePixels="True">
+											<StackPanel TextBlock.Foreground="{StaticResource PrimaryComboBoxNormalForegroundBrush}" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+										</ScrollViewer>
+									</Grid>
+								</Popup>
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="HasItems" Value="false">
+									<Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+								</Trigger>
+								<Trigger Property="IsEnabled" Value="false">
+									<Setter Property="Foreground" Value="{StaticResource PrimaryComboBoxDisabledForegroundBrush}"/>
+								</Trigger>
+								<Trigger Property="IsGrouping" Value="true">
+									<Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+								</Trigger>
+								<Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+									<Setter TargetName="DropDownBorder" Property="Margin" Value="0,0,0,0"/>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+				<Style.Triggers>
+				</Style.Triggers>
+			</Style>
+
+		</ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

@@ -1,0 +1,34 @@
+// ChronosProfilerAgent64.idl : IDL source for Chronos.ProfilerAgent64
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (ChronosProfilerAgent64.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(F8E930CF-3BEF-4AEF-8BE8-C46652B1DA3A),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IProfilerEntryPoint : IDispatch{
+};
+[
+	uuid(FF71C47B-F0C5-4318-9879-0337FAC7EAF1),
+	version(1.0),
+]
+library ChronosProfilerAgent64Lib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(7248CC0A-132A-423F-9565-90F6B6BB64A5)		
+	]
+	coclass ProfilerEntryPoint
+	{
+		[default] interface IProfilerEntryPoint;
+	};
+};
+

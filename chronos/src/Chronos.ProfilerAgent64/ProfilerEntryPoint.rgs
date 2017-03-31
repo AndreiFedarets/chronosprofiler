@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {7248CC0A-132A-423F-9565-90F6B6BB64A5} = s 'ProfilerEntryPoint Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Neutral'
+			}
+			TypeLib = s '{FF71C47B-F0C5-4318-9879-0337FAC7EAF1}'
+			Version = s '1.0'
+		}
+	}
+}

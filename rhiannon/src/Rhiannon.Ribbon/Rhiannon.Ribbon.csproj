@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A0F29EE4-13F3-4871-BF0D-024BBBE4D33D}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Rhiannon.Ribbon</RootNamespace>
+    <AssemblyName>Rhiannon.Ribbon</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Rhiannon.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Client\ButtonCallbackBase.cs" />
+    <Compile Include="Client\ControlCallbackBase.cs" />
+    <Compile Include="Client\ControlCallbackCollection.cs" />
+    <Compile Include="Client\GroupCallbackBase.cs" />
+    <Compile Include="Client\IButtonCallback.cs" />
+    <Compile Include="Client\IControlCallback.cs" />
+    <Compile Include="Client\IControlCallbackCollection.cs" />
+    <Compile Include="Client\IGroupCallback.cs" />
+    <Compile Include="Client\ITabCallback.cs" />
+    <Compile Include="Client\TabCallbackBase.cs" />
+    <Compile Include="Controls\Ribbon.cs" />
+    <Compile Include="Controls\RibbonButton.cs" />
+    <Compile Include="Controls\RibbonControl.cs" />
+    <Compile Include="Controls\RibbonControlFactory.cs" />
+    <Compile Include="Controls\RibbonGroup.cs" />
+    <Compile Include="Controls\RibbonTab.cs" />
+    <Compile Include="IButton.cs" />
+    <Compile Include="IContainerControl.cs" />
+    <Compile Include="IContextMenu.cs" />
+    <Compile Include="IContextMenuCollection.cs" />
+    <Compile Include="IControl.cs" />
+    <Compile Include="IControlCollection.cs" />
+    <Compile Include="IControlFactory.cs" />
+    <Compile Include="IControlPresenter.cs" />
+    <Compile Include="IGroup.cs" />
+    <Compile Include="IGroupCollection.cs" />
+    <Compile Include="IHavePresenter.cs" />
+    <Compile Include="IMenuItem.cs" />
+    <Compile Include="INodeLocator.cs" />
+    <Compile Include="Internal\Button.cs" />
+    <Compile Include="Internal\Constants.cs" />
+    <Compile Include="Internal\ContainerControlBase.cs" />
+    <Compile Include="Internal\ContextMenu.cs" />
+    <Compile Include="Internal\ContextMenuCollection.cs" />
+    <Compile Include="Internal\ControlBase.cs" />
+    <Compile Include="Internal\ControlFactory.cs" />
+    <Compile Include="Internal\Group.cs" />
+    <Compile Include="Internal\GroupCollection.cs" />
+    <Compile Include="Internal\MenuItem.cs" />
+    <Compile Include="Internal\NodeLocator.cs" />
+    <Compile Include="Internal\Tab.cs" />
+    <Compile Include="Internal\TabCollection.cs" />
+    <Compile Include="IRibbon.cs" />
+    <Compile Include="IRibbonMerger.cs" />
+    <Compile Include="ITab.cs" />
+    <Compile Include="ITabCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Ribbon.cs" />
+    <Compile Include="RibbonMerger.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="..\Rhiannon.snk">
+      <Link>Rhiannon.snk</Link>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rhiannon.Windows\Rhiannon.Windows.csproj">
+      <Project>{F9EA2E5C-0CF3-4A74-A035-353A77783DDA}</Project>
+      <Name>Rhiannon.Windows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rhiannon\Rhiannon.csproj">
+      <Project>{FA9847FA-C6F3-4C3C-980C-EDCC740D0461}</Project>
+      <Name>Rhiannon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,201 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Chronos.Client.Win.Controls">
+	<Style x:Key="{x:Type controls:TraceTreeView}" TargetType="{x:Type controls:TraceTreeView}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type controls:TraceTreeView}">
+					<ScrollViewer x:Name="ScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+						<ItemsControl x:Name="ItemsControl" />
+					</ScrollViewer>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+	<Style x:Key="{x:Type controls:TraceTreeViewItem}" TargetType="{x:Type controls:TraceTreeViewItem}">
+		<Setter Property="FontSize" Value="13" />
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+		<Setter Property="SnapsToDevicePixels" Value="True" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type controls:TraceTreeViewItem}">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Border Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Black" Opacity="0.001" />
+						<Border Grid.Row="0" x:Name="BackgroundBorder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+						<!--<Border Grid.Row="0" BorderBrush="#FFF" BorderThickness="0,0,0,1" HorizontalAlignment="Stretch">-->
+						<Border BorderBrush="#F6F6F6" BorderThickness="0,0,0,1">
+							<StackPanel x:Name="HeaderPanel" Orientation="Horizontal" Cursor="Hand">
+								<Border x:Name="ChildrenIndicatorBorder" Width="3" Background="#000" />
+								<Border x:Name="PercentsColorIndicatorBorder" Width="40">
+									<TextBlock x:Name="PercentTextBlock" HorizontalAlignment="Center" FontSize="11" />
+								</Border>
+								<TextBlock x:Name="NameTextBlock" />
+							</StackPanel>
+						</Border>
+						<!--</Border>-->
+						<ItemsControl Grid.Row="1" x:Name="ChildrenItemsControl" Margin="15,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsHovered" Value="true">
+							<Setter TargetName="BackgroundBorder" Property="Background" Value="#F6F6F6" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter TargetName="BackgroundBorder" Property="Background" Value="#D6D6D6" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="{x:Type controls:TraceExecutionGraph}" TargetType="{x:Type controls:TraceExecutionGraph}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type controls:TraceExecutionGraph}">
+					<Border Background="#F6F6F6" BorderBrush="#CCC" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Canvas x:Name="BlocksPanel" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+							<Border Grid.Row="1" BorderBrush="#AAA" BorderThickness="0,1,0,1" Background="#DDD">
+								<TextBlock Text="Timeline" HorizontalAlignment="Center" />
+							</Border>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="{x:Type controls:TraceExecutionGraphBlock}" TargetType="{x:Type controls:TraceExecutionGraphBlock}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type controls:TraceExecutionGraphBlock}">
+					<Border Name="Border" Background="#FF0000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsHovered" Value="true">
+							<Setter TargetName="Border" Property="Background" Value="#000" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="{x:Type controls:UnitLifetimeVisual}" TargetType="{x:Type controls:UnitLifetimeVisual}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type controls:UnitLifetimeVisual}">
+					<StackPanel Opacity="0.7" Orientation="Horizontal">
+						<Border x:Name="LeftBorder" Background="#00FF00" BorderBrush="#999999" BorderThickness="1,1,0,1" />
+						<Border x:Name="CenterBorder" Background="#FF0000" BorderBrush="#999999" BorderThickness="0,1,0,1" />
+						<Border x:Name="RightBorder" Background="#00FF00" BorderBrush="#999999" BorderThickness="0,1,1,1" />
+					</StackPanel>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style TargetType="{x:Type controls:PerformanceCounterGraph}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type controls:PerformanceCounterGraph}">
+					<Border Background="#FFFFFF" BorderBrush="#BBBBBB" BorderThickness="1">
+						<Grid Width="{TemplateBinding Width}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<!--<ScrollViewer Grid.Row="0" Grid.Column="1"
+										  HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">-->
+							<Border Height="100" Background="Gray" Grid.Row="0" Grid.Column="1">
+								<Path Name="Path" Stroke="#FF0000" StrokeThickness="1" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
+									<Path.RenderTransform>
+										<ScaleTransform ScaleY="-1" />
+									</Path.RenderTransform>
+								</Path>
+							</Border>
+							<!--</ScrollViewer>-->
+
+							<!--<ItemsControl ItemsSource="{TemplateBinding PerformanceCounter}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<TextBlock>
+											<TextBlock Text="{Binding Time}" />
+											<TextBlock Text=" = "/>
+											<TextBlock Text="{Binding Value}" />
+										</TextBlock>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>-->
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+    <Style TargetType="{x:Type controls:AppDomainInfoControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:AppDomainInfoControl}">
+                    <TextBlock Text="{TemplateBinding UnitName}" ToolTip="{TemplateBinding UnitName}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type controls:AssemblyInfoControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:AssemblyInfoControl}">
+                    <TextBlock Text="{TemplateBinding UnitName}" ToolTip="{TemplateBinding UnitName}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="{x:Type controls:ModuleInfoControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:ModuleInfoControl}">
+                    <TextBlock Text="{TemplateBinding UnitName}" ToolTip="{TemplateBinding UnitName}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="{x:Type controls:ClassInfoControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:ClassInfoControl}">
+                    <TextBlock Text="{TemplateBinding UnitName}" ToolTip="{TemplateBinding UnitName}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type controls:CallstackInfoControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:CallstackInfoControl}">
+                    <TextBlock Text="{TemplateBinding UnitName}" ToolTip="{TemplateBinding UnitName}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

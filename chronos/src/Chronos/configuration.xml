@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<common>
+	<daemon>
+		<entryPoint>Chronos.Daemon.EntryPoint.exe</entryPoint>
+		<binaryPath></binaryPath>
+		<threadStreamsCount>4</threadStreamsCount>
+    <threadMergersCount>4</threadMergersCount>
+    <threadMergersPool>10</threadMergersPool>
+		<exitTimeout>5</exitTimeout>
+		<autoExitTimeout>300</autoExitTimeout>
+		<callPageSize>10000</callPageSize>
+		<performanceSamplingPeriod>100</performanceSamplingPeriod>
+		<runtype>application</runtype>
+	</daemon>
+	<agent>
+		<binaryPath>agent</binaryPath>
+		<entryPoint32>Chronos.ProfilerAgent32.dll</entryPoint32>
+		<entryPoint64>Chronos.ProfilerAgent64.dll</entryPoint64>
+	</agent>
+  <host>
+		<binaryPath></binaryPath>
+    <entryPoint>Chronos.Host.EntryPoint.Service.exe</entryPoint>
+		<dataPath>C:\ChronosProfiler</dataPath>
+		<runtype>inplace</runtype>
+		<sessionsLocation>C:\ChronosProfiler\sessions</sessionsLocation>
+		<extensions>
+			<extension name="Concrete Process Profiling Extension" subpath="extensions"
+								 type="Chronos.Extension.ProfilingTarget.ConcreteProcess.Host.Extension, Chronos.Extension.ProfilingTarget.ConcreteProcess" />
+			<extension name="Internet Information Service Profiling Extension" subpath="extensions"
+								 type="Chronos.Extension.ProfilingTarget.InternetInformationService.Host.Extension, Chronos.Extension.ProfilingTarget.InternetInformationService" />
+			<extension name="Process By Name Profiling Extension" subpath="extensions"
+								 type="Chronos.Extension.ProfilingTarget.ProcessByName.Host.Extension, Chronos.Extension.ProfilingTarget.ProcessByName" />
+		</extensions>
+  </host>
+	<winClient>
+		<extensions>
+			<extension name="Concrete Process Profiling Target" subpath="extensions"
+								 type="Chronos.Extension.ProfilingTarget.ConcreteProcess.Win.Extension, Chronos.Extension.ProfilingTarget.ConcreteProcess" />
+			<extension name="Internet Information Service Profiling Extension" subpath="extensions"
+								 type="Chronos.Extension.ProfilingTarget.InternetInformationService.Win.Extension, Chronos.Extension.ProfilingTarget.InternetInformationService" />
+			<!--<extension name="Process By Name Profiling Extension" subpath="extensions"
+								 type="Chronos.Extension.ProfilingTarget.ProcessByName.Win.Extension, Chronos.Extension.ProfilingTarget.ProcessByName" />-->
+			<extension name=".Net Performance Profiling Strategy" subpath="extensions"
+								 type="Chronos.Extension.ProfilingStrategy.DotNetPerformance.Win.Extension, Chronos.Extension.ProfilingStrategy.DotNetPerformance" />
+			<extension name=".Net Exception Monitor Strategy" subpath="extensions"
+								 type="Chronos.Extension.ProfilingStrategy.DotNetExceptionMonitor.Win.Extension, Chronos.Extension.ProfilingStrategy.DotNetExceptionMonitor" />
+		</extensions>
+	</winClient>
+	<webClient>
+
+	</webClient>
+</common>

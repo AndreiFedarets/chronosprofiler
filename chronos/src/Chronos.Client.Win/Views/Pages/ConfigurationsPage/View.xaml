@@ -1,0 +1,31 @@
+﻿<presentation:UserControlView x:Class="Chronos.Client.Win.Views.Pages.ConfigurationsPage.View"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:presentation="clr-namespace:Rhiannon.Windows.Presentation;assembly=Rhiannon.Windows"
+                              xmlns:prism="clr-namespace:Microsoft.Practices.Composite.Presentation.Regions;assembly=Microsoft.Practices.Composite.Presentation"
+                              x:Uid="Profiler_Pages_ConfigurationsPageView" Margin="10">
+	<ScrollViewer VerticalScrollBarVisibility="Auto">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<!--<RowDefinition Height="*" />-->
+			</Grid.RowDefinitions>
+			<GroupBox Grid.Row="0">
+				<GroupBox.Header>
+					<TextBlock Text="{Binding ElementName=ConfigurationTemplatesView, Path=Content.Title}" FontSize="25" FontWeight="Thin" />
+				</GroupBox.Header>
+				<GroupBox.Content>
+					<ContentControl Name="ConfigurationTemplatesView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" prism:RegionManager.RegionName="Profiler_Configurations_ConfigurationTemplatesView"/>
+				</GroupBox.Content>
+			</GroupBox>
+			<!--<GroupBox Grid.Row="1">
+				<GroupBox.Header>
+					<TextBlock Text="{Binding ElementName=RecentConfigurationsView, Path=Content.Title}" FontSize="25" FontWeight="Thin" />
+				</GroupBox.Header>
+				<GroupBox.Content>
+					<ContentControl Grid.Row="3" Name="RecentConfigurationsView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" prism:RegionManager.RegionName="Profiler_Configurations_RecentConfigurationsView"/>
+				</GroupBox.Content>
+			</GroupBox>-->
+		</Grid>
+	</ScrollViewer>
+</presentation:UserControlView>

@@ -1,0 +1,15 @@
+﻿<presentation:UserControlView x:Class="Chronos.Client.Win.Views.ThreadTrace.View"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:presentation="clr-namespace:Rhiannon.Windows.Presentation;assembly=Rhiannon.Windows"
+                              xmlns:controls="clr-namespace:Chronos.Client.Win.Controls"
+                              x:Uid="Profiler_ThreadTraceView">
+    <Grid>
+        <Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<controls:TraceTreeView Grid.Row="0" Traces="{Binding ThreadTraces}" EventNameFormatter="{Binding EventNameFormatter}"
+										  SelectedEvent="{Binding SelectedEvent, Mode=TwoWay}"/>
+	</Grid>
+</presentation:UserControlView>

@@ -1,0 +1,16 @@
+﻿<presentation:UserControlView x:Class="Chronos.Client.Win.Views.Groups.Home.View"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:prism="clr-namespace:Microsoft.Practices.Composite.Presentation.Regions;assembly=Microsoft.Practices.Composite.Presentation"
+                              xmlns:presentation="clr-namespace:Rhiannon.Windows.Presentation;assembly=Rhiannon.Windows"
+                              x:Uid="Profiler_Groups_HomeView">
+	
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<ContentControl Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" prism:RegionManager.RegionName="Profiler_Pages_ConfigurationsPageView"/>
+		<ContentControl Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" prism:RegionManager.RegionName="Profiler_Pages_SessionsPageView"/>
+	</Grid>
+</presentation:UserControlView>

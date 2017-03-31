@@ -1,0 +1,64 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Rhiannon.Windows.Presentation.Converters"
+    xmlns:presentation="clr-namespace:Rhiannon.Windows.Presentation">
+
+    <converters:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
+
+	<Style TargetType="{x:Type presentation:UserControlView}">
+        <Setter Property="Template">
+            <Setter.Value>
+				<ControlTemplate TargetType="{x:Type presentation:UserControlView}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter />
+                        <Grid Visibility="{Binding Path=IsBusy, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}">
+                            <Border Background="White" Opacity="0.5" />
+                            <TextBlock Text="Loading..." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+	<!--<Style TargetType="{x:Type presentation:WindowView}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0.0" Color="#EEEEEE" />
+                    <GradientStop Offset="1.0" Color="#EEEEEE" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+				<ControlTemplate TargetType="{x:Type presentation:WindowView}">
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Background="{TemplateBinding Background}">
+                            <ContentPresenter/>
+                        </Border>
+                        <Border Grid.Row="1" Background="#CCCCCC" Padding="2" Visibility="{TemplateBinding DialogPartVisibility}" BorderBrush="#BBB" BorderThickness="0,1,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="1" x:Name="ResumeButton" x:Uid="WindowView_ResumeButton" Content="Ok" MinWidth="70" />
+                                <Button Grid.Column="2" x:Name="CancelButton" x:Uid="WindowView_CancelButton" Content="Cancel"  MinWidth="70" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+</ResourceDictionary>

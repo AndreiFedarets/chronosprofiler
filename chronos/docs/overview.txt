@@ -1,0 +1,16 @@
+Chronos .NET Profiler is fast and convenient tool for .NET performance profiling and exceptions monitoring.
+Chronos is a line-by-line profiler. Line-by-line profiling is most detailed profiling type - it allows to catch every method call with high resolution (1 ms). At the same time this profiling type is the slowest - performance overhead is about 400-500%. But even with this overhead, Chronos is faster that other profilers:
+	Profiler						Rendering time (sec)	Absolute overhead (sec)		Relative overhead
+Clear								8.8		8.7				-							-
+Chronos .NET Profiler 				50.8	50.7			42							483%  (in 5.8 times slower)
+JetBrains DotTrace					62.6	62.8			54.6						619%  (in 7.2 times slower)
+Telerik JustTrace					136.4	137.5			127.7						1468% (in 15.6 times slower)
+RedGate ANTS Performance Profiler	374.6	380.0			356.9						4205% (in 45 times slower)
+Sample application: Demo.RayTracer.exe (included into DotTrace and JustTrace packages)
+Total methods calls: 130 000 000
+Profiling type: line-by-line
+Filter (exclusions): none (profile all methods including .NET Framework)
+Test machine: OS - Windows7x64, CPU - AMD Turion II P520 (2cores, 2.3GHz), RAM: DDR3 5Gb
+*in case of line-by-line profiling type
+
+Chronos .NET Profiler is not only performance profiler. Chronos also collects information about created appdomains, loaded assemblies, modules, classes, functions, created threads and thrown exceptions. This infomation allows you effectively track program performance and execution.

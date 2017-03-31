@@ -1,0 +1,567 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{29AE6F2F-AADA-473B-B8E6-6AF7C1B3724A}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Chronos.Client.Win</RootNamespace>
+    <AssemblyName>Chronos.Client.Win</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Chronos.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.Composite, Version=2.0.2.0, Culture=neutral, PublicKeyToken=c5d7825a7eeff7b0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\CAL\Microsoft.Practices.Composite.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Composite.Presentation, Version=2.0.2.0, Culture=neutral, PublicKeyToken=c5d7825a7eeff7b0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\CAL\Microsoft.Practices.Composite.Presentation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Composite.UnityExtensions, Version=2.0.2.0, Culture=neutral, PublicKeyToken=c5d7825a7eeff7b0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\CAL\Microsoft.Practices.Composite.UnityExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\CAL\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\CAL\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\CAL\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Configurations\ConfigurationTemplates\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Configurations\CreateConfiguration\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Configurations\RecentConfigurations\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Groups\Home\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Main\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\References\Assembly\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Options\AddAssembly\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Options\Installation\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Options\PerformanceCounters\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Options\ProfilingFilter\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Options\Shell\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Options\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Pages\ConfigurationsPage\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Pages\SessionsPage\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PerformanceCounters\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ProcessShadow\WinApplication\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\References\Class\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\References\Function\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Sessions\ActiveSessions\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Sessions\SavedSessions\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ThreadTrace\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Units\AppDomains\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Units\Assemblies\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Units\Classes\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Units\Callstacks\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Units\SqlRequests\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Units\Exceptions\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Units\Functions\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Units\Modules\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Units\Threads\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Commands\CloseDocumentCommand.cs" />
+    <Compile Include="Commands\ContinueProfilingCommand.cs" />
+    <Compile Include="Commands\PauseProfilingCommand.cs" />
+    <Compile Include="Commands\ReloadProcessShadowCommand.cs" />
+    <Compile Include="Commands\StopProfilingCommand.cs" />
+    <Compile Include="Controls\AppDomainInfoControl.cs" />
+    <Compile Include="Controls\AssemblyInfoControl.cs" />
+    <Compile Include="Controls\ClassInfoControl.cs" />
+    <Compile Include="Controls\CallstackInfoControl.cs" />
+    <Compile Include="Controls\ModuleInfoControl.cs" />
+    <Compile Include="Controls\PerformanceCounterGraph.cs" />
+    <Compile Include="Controls\TraceExecutionGraph.cs" />
+    <Compile Include="Controls\TraceExecutionGraphBlock.cs" />
+    <Compile Include="Controls\TraceTreeView.cs" />
+    <Compile Include="Controls\TraceTreeViewItem.cs" />
+    <Compile Include="Controls\UnitInfoControl.cs" />
+    <Compile Include="Controls\UnitLifetimeVisual.cs" />
+    <Compile Include="IProcessShadowNavigator.cs" />
+    <Compile Include="ProcessShadowNavigator.cs" />
+    <Compile Include="ProgramFilesSettings.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Resources\Images.Designer.cs">
+      <DependentUpon>Images.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Localization.Designer.cs">
+      <DependentUpon>Localization.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\ResourcesKeys.cs" />
+    <Compile Include="Views\Configurations\ConfigurationTemplates\IView.cs" />
+    <Compile Include="Views\Configurations\ConfigurationTemplates\IViewModel.cs" />
+    <Compile Include="Views\Configurations\ConfigurationTemplates\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configurations\ConfigurationTemplates\ViewActivator.cs" />
+    <Compile Include="Views\Configurations\ConfigurationTemplates\ViewModel.cs" />
+    <Compile Include="Views\Configurations\CreateConfiguration\IView.cs" />
+    <Compile Include="Views\Configurations\CreateConfiguration\IViewModel.cs" />
+    <Compile Include="Views\Configurations\CreateConfiguration\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configurations\CreateConfiguration\ViewActivator.cs" />
+    <Compile Include="Views\Configurations\CreateConfiguration\ViewModel.cs" />
+    <Compile Include="Views\Configurations\RecentConfigurations\IView.cs" />
+    <Compile Include="Views\Configurations\RecentConfigurations\IViewModel.cs" />
+    <Compile Include="Views\Configurations\RecentConfigurations\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configurations\RecentConfigurations\ViewActivator.cs" />
+    <Compile Include="Views\Configurations\RecentConfigurations\ViewModel.cs" />
+    <Compile Include="Views\Groups\Home\IView.cs" />
+    <Compile Include="Views\Groups\Home\IViewModel.cs" />
+    <Compile Include="Views\Groups\Home\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Groups\Home\ViewActivator.cs" />
+    <Compile Include="Views\Groups\Home\ViewModel.cs" />
+    <Compile Include="IProcessShadowRenderer.cs" />
+    <Compile Include="Views\Main\IView.cs" />
+    <Compile Include="Views\Main\IViewModel.cs" />
+    <Compile Include="Views\Main\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Main\ViewActivator.cs" />
+    <Compile Include="Views\Main\ViewModel.cs" />
+    <Compile Include="Views\References\Assembly\IView.cs" />
+    <Compile Include="Views\References\Assembly\IViewModel.cs" />
+    <Compile Include="Views\References\Assembly\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\References\Assembly\ViewActivator.cs" />
+    <Compile Include="Views\References\Assembly\ViewModel.cs" />
+    <Compile Include="Views\Options\AddAssembly\IView.cs" />
+    <Compile Include="Views\Options\AddAssembly\IViewModel.cs" />
+    <Compile Include="Views\Options\AddAssembly\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Options\AddAssembly\ViewActivator.cs" />
+    <Compile Include="Views\Options\AddAssembly\ViewModel.cs" />
+    <Compile Include="Views\Options\Installation\IView.cs" />
+    <Compile Include="Views\Options\Installation\IViewModel.cs" />
+    <Compile Include="Views\Options\Installation\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Options\Installation\ViewActivator.cs" />
+    <Compile Include="Views\Options\Installation\ViewModel.cs" />
+    <Compile Include="Views\Options\IView.cs" />
+    <Compile Include="Views\Options\IViewModel.cs" />
+    <Compile Include="Views\Options\PerformanceCounters\IView.cs" />
+    <Compile Include="Views\Options\PerformanceCounters\IViewModel.cs" />
+    <Compile Include="Views\Options\PerformanceCounters\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Options\PerformanceCounters\ViewActivator.cs" />
+    <Compile Include="Views\Options\PerformanceCounters\ViewModel.cs" />
+    <Compile Include="Views\Options\ProfilingFilter\IView.cs" />
+    <Compile Include="Views\Options\ProfilingFilter\IViewModel.cs" />
+    <Compile Include="Views\Options\ProfilingFilter\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Options\ProfilingFilter\ViewActivator.cs" />
+    <Compile Include="Views\Options\ProfilingFilter\ViewModel.cs" />
+    <Compile Include="Views\Options\Shell\IView.cs" />
+    <Compile Include="Views\Options\Shell\IViewModel.cs" />
+    <Compile Include="Views\Options\Shell\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Options\Shell\ViewActivator.cs" />
+    <Compile Include="Views\Options\Shell\ViewModel.cs" />
+    <Compile Include="Views\Options\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Options\ViewActivator.cs" />
+    <Compile Include="Views\Options\ViewModel.cs" />
+    <Compile Include="Views\Pages\ConfigurationsPage\IView.cs" />
+    <Compile Include="Views\Pages\ConfigurationsPage\IViewModel.cs" />
+    <Compile Include="Views\Pages\ConfigurationsPage\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ConfigurationsPage\ViewActivator.cs" />
+    <Compile Include="Views\Pages\ConfigurationsPage\ViewModel.cs" />
+    <Compile Include="Views\Pages\SessionsPage\IView.cs" />
+    <Compile Include="Views\Pages\SessionsPage\IViewModel.cs" />
+    <Compile Include="Views\Pages\SessionsPage\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SessionsPage\ViewActivator.cs" />
+    <Compile Include="Views\Pages\SessionsPage\ViewModel.cs" />
+    <Compile Include="Views\PerformanceCounters\IView.cs" />
+    <Compile Include="Views\PerformanceCounters\IViewModel.cs" />
+    <Compile Include="Views\PerformanceCounters\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PerformanceCounters\ViewActivator.cs" />
+    <Compile Include="Views\PerformanceCounters\ViewModel.cs" />
+    <Compile Include="ProcessShadowRenderer.cs" />
+    <Compile Include="Views\ProcessShadow\IView.cs" />
+    <Compile Include="Views\ProcessShadow\IViewModel.cs" />
+    <Compile Include="Views\ProcessShadow\ViewActivator.cs" />
+    <Compile Include="Views\ProcessShadow\ViewModel.cs" />
+    <Compile Include="Views\ProcessShadow\WinApplication\IView.cs" />
+    <Compile Include="Views\ProcessShadow\WinApplication\IViewModel.cs" />
+    <Compile Include="Views\ProcessShadow\WinApplication\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProcessShadow\WinApplication\ViewActivator.cs" />
+    <Compile Include="Views\ProcessShadow\WinApplication\ViewModel.cs" />
+    <Compile Include="ProfilingFilterItem.cs" />
+    <Compile Include="ProfilingFilterItemCollection.cs" />
+    <Compile Include="Views\References\Class\IView.cs" />
+    <Compile Include="Views\References\Class\IViewModel.cs" />
+    <Compile Include="Views\References\Class\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\References\Class\ViewActivator.cs" />
+    <Compile Include="Views\References\Class\ViewModel.cs" />
+    <Compile Include="Views\References\Function\IView.cs" />
+    <Compile Include="Views\References\Function\IViewModel.cs" />
+    <Compile Include="Views\References\Function\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\References\Function\ViewActivator.cs" />
+    <Compile Include="Views\References\Function\ViewModel.cs" />
+    <Compile Include="Views\References\EventToStringConverter.cs" />
+    <Compile Include="Views\References\ReferenceTreeViewDataTemplateSelector.cs" />
+    <Compile Include="Views\Sessions\ActiveSessions\IView.cs" />
+    <Compile Include="Views\Sessions\ActiveSessions\IViewModel.cs" />
+    <Compile Include="Views\Sessions\ActiveSessions\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sessions\ActiveSessions\ViewActivator.cs" />
+    <Compile Include="Views\Sessions\ActiveSessions\ViewModel.cs" />
+    <Compile Include="Views\Sessions\SavedSessions\IView.cs" />
+    <Compile Include="Views\Sessions\SavedSessions\IViewModel.cs" />
+    <Compile Include="Views\Sessions\SavedSessions\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sessions\SavedSessions\ViewActivator.cs" />
+    <Compile Include="Views\Sessions\SavedSessions\ViewModel.cs" />
+    <Compile Include="Views\ThreadTrace\IView.cs" />
+    <Compile Include="Views\ThreadTrace\IViewModel.cs" />
+    <Compile Include="Views\ThreadTrace\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ThreadTrace\ViewActivator.cs" />
+    <Compile Include="Views\ThreadTrace\ViewModel.cs" />
+    <Compile Include="UnitFiltering\IUnitFilter.cs" />
+    <Compile Include="UnitFiltering\UnitIdFilter.cs" />
+    <Compile Include="UnitFiltering\UnitManagedIdFilter.cs" />
+    <Compile Include="UnitFiltering\UnitNameFilter.cs" />
+    <Compile Include="Views\Units\AppDomains\IView.cs" />
+    <Compile Include="Views\Units\AppDomains\IViewModel.cs" />
+    <Compile Include="Views\Units\AppDomains\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Units\AppDomains\ViewActivator.cs" />
+    <Compile Include="Views\Units\AppDomains\ViewModel.cs" />
+    <Compile Include="Views\Units\Assemblies\IView.cs" />
+    <Compile Include="Views\Units\Assemblies\IViewModel.cs" />
+    <Compile Include="Views\Units\Assemblies\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Units\Assemblies\ViewActivator.cs" />
+    <Compile Include="Views\Units\Assemblies\ViewModel.cs" />
+    <Compile Include="Views\Units\Classes\IView.cs" />
+    <Compile Include="Views\Units\Classes\IViewModel.cs" />
+    <Compile Include="Views\Units\Classes\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Units\Classes\ViewActivator.cs" />
+    <Compile Include="Views\Units\Classes\ViewModel.cs" />
+    <Compile Include="Views\Units\Callstacks\IView.cs" />
+    <Compile Include="Views\Units\Callstacks\IViewModel.cs" />
+    <Compile Include="Views\Units\Callstacks\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Units\Callstacks\ViewActivator.cs" />
+    <Compile Include="Views\Units\Callstacks\ViewModel.cs" />
+    <Compile Include="Views\Units\SqlRequests\IView.cs" />
+    <Compile Include="Views\Units\SqlRequests\IViewModel.cs" />
+    <Compile Include="Views\Units\SqlRequests\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Units\SqlRequests\ViewActivator.cs" />
+    <Compile Include="Views\Units\SqlRequests\ViewModel.cs" />
+    <Compile Include="Views\Units\Exceptions\IView.cs" />
+    <Compile Include="Views\Units\Exceptions\IViewModel.cs" />
+    <Compile Include="Views\Units\Exceptions\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Units\Exceptions\ViewActivator.cs" />
+    <Compile Include="Views\Units\Exceptions\ViewModel.cs" />
+    <Compile Include="Views\Units\Functions\IView.cs" />
+    <Compile Include="Views\Units\Functions\IViewModel.cs" />
+    <Compile Include="Views\Units\Functions\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Units\Functions\ViewActivator.cs" />
+    <Compile Include="Views\Units\Functions\ViewModel.cs" />
+    <Compile Include="Views\Units\IView.cs" />
+    <Compile Include="Views\Units\IViewModel.cs" />
+    <Compile Include="Views\Units\Modules\IView.cs" />
+    <Compile Include="Views\Units\Modules\IViewModel.cs" />
+    <Compile Include="Views\Units\Modules\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Units\Modules\ViewActivator.cs" />
+    <Compile Include="Views\Units\Modules\ViewModel.cs" />
+    <Compile Include="Views\Units\Threads\IView.cs" />
+    <Compile Include="Views\Units\Threads\IViewModel.cs" />
+    <Compile Include="Views\Units\Threads\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Units\Threads\ViewActivator.cs" />
+    <Compile Include="Views\Units\Threads\ViewModel.cs" />
+    <Compile Include="Views\Units\UnitEventArgs.cs" />
+    <Compile Include="Views\Units\UnitsObservableCollection.cs" />
+    <Compile Include="Views\Units\ViewModel.cs" />
+    <Compile Include="Views\ViewNames.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Images.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Localization.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="..\Chronos.snk">
+      <Link>Chronos.snk</Link>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\rhiannon\src\Rhiannon.Windows\Rhiannon.Windows.csproj">
+      <Project>{F9EA2E5C-0CF3-4A74-A035-353A77783DDA}</Project>
+      <Name>Rhiannon.Windows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\rhiannon\src\Rhiannon\Rhiannon.csproj">
+      <Project>{FA9847FA-C6F3-4C3C-980C-EDCC740D0461}</Project>
+      <Name>Rhiannon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chronos\Chronos.csproj">
+      <Project>{72371977-75ED-4C07-A6F8-A94E58826800}</Project>
+      <Name>Chronos</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\details.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\icon.png" />
+    <Resource Include="Resources\images\pause.png" />
+    <Resource Include="Resources\images\play.png" />
+    <Resource Include="Resources\images\Profiler_MainView_OptionsButton_Image.png" />
+    <Resource Include="Resources\images\Profiler_PerformanceCountersView_Icon.png" />
+    <Resource Include="Resources\images\Profiler_ProcessShadow_WinApplicationView_Icon.png" />
+    <Resource Include="Resources\images\Profiler_SessionsManagementView_Icon.png" />
+    <Resource Include="Resources\images\Profiler_SessionsManagementView_ResumeProfilingButton_Image.png" />
+    <Resource Include="Resources\images\Profiler_Sessions_StartSessionView_Icon.png" />
+    <Resource Include="Resources\images\stop.png" />
+    <Resource Include="Resources\images\start.png" />
+    <Resource Include="Resources\images\reload.png" />
+    <Resource Include="Resources\images\Profiler_Unit_ThreadsView_Icon.png" />
+    <Resource Include="Resources\images\Profiler_Unit_ModulesView_Icon.png" />
+    <Resource Include="Resources\images\Profiler_Unit_FunctionsView_Icon.png" />
+    <Resource Include="Resources\images\Profiler_Unit_ExceptionsView_Icon.png" />
+    <Resource Include="Resources\images\Profiler_Unit_ClassesView_Icon.png" />
+    <Resource Include="Resources\images\Profiler_Unit_AssembliesView_Icon.png" />
+    <Resource Include="Resources\images\Profiler_Unit_AppDomainsView_Icon.png" />
+    <Resource Include="Resources\images\Profiler_ThreadTraceView_Icon.png" />
+    <Resource Include="Resources\images\Profiler_MainView_Icon.png" />
+    <Resource Include="Resources\images\open.png" />
+    <Resource Include="Resources\images\localmachine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Converters\" />
+    <Folder Include="Views\ProcessShadow\WebApplication\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\Profiler_MainView_CloseActiveDocumentButton_Image.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
