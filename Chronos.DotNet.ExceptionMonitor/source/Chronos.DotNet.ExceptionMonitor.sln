@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.DotNet.ExceptionMonitor", "Chronos.DotNet.ExceptionMonitor\Chronos.DotNet.ExceptionMonitor.csproj", "{E1E60988-E5B5-4C51-B3AB-170023811015}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.DotNet.ExceptionMonitor.Agent", "Chronos.DotNet.ExceptionMonitor.Agent\Chronos.DotNet.ExceptionMonitor.Agent.vcxproj", "{8F777EF9-72C8-4911-83A3-B0105D70C7E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1E60988-E5B5-4C51-B3AB-170023811015}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E1E60988-E5B5-4C51-B3AB-170023811015}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E1E60988-E5B5-4C51-B3AB-170023811015}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E1E60988-E5B5-4C51-B3AB-170023811015}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8F777EF9-72C8-4911-83A3-B0105D70C7E9}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{8F777EF9-72C8-4911-83A3-B0105D70C7E9}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{8F777EF9-72C8-4911-83A3-B0105D70C7E9}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{8F777EF9-72C8-4911-83A3-B0105D70C7E9}.Release|Mixed Platforms.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

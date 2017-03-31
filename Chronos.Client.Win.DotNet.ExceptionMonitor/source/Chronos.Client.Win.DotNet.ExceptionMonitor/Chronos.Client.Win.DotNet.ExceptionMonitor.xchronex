@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{7DF2B05C-A097-4E33-B185-6E4C937443BB}">
+  <Attachment TargetUid="{222BC3A0-22D0-4B8E-ADA5-3DAC76209109}" TargetVersion="0.1">
+    <Export Application="client.win" EntryPoint="Chronos.Client.Win.DotNet.ExceptionMonitor.ProfilingTypeAdapter, Chronos.Client.Win.DotNet.ExceptionMonitor" />
+  </Attachment>
+  <Localization Culture="en-US">
+    <Name>Microsoft.NET Exception Monitor (UI for Desktop Client)</Name>
+    <Description>Exception monitor for applications based on Microsoft.NET</Description>
+  </Localization>
+</Extension>

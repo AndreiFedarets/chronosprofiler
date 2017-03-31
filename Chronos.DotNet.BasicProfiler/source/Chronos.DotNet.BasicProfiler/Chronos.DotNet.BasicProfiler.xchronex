@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{8AA54638-C455-42EE-B00F-2190F9B221C8}">
+  <ProfilingType Uid="{3F6FCEF6-8A28-4F44-8F39-51DA5A804724}" Version="0.1" FrameworkUid="{6711F85A-3CD1-4E76-8502-C3D4404E47C8}" FrameworkVersion="0.1">
+    <Export Application="core" EntryPoint="Chronos.DotNet.BasicProfiler.ProfilingTypeAdapter, Chronos.DotNet.BasicProfiler" />
+    <Export Application="agent" EntryPoint32="Chronos.DotNet.BasicProfiler.Agent.dll" EntryPoint64="x64\Chronos.DotNet.BasicProfiler.Agent.dll" />
+    <Localization Culture="en-US">
+      <Name>Microsoft.NET Basic</Name>
+      <Description>Profiling applications based on Microsoft.NET</Description>
+    </Localization>
+  </ProfilingType>
+  <Localization Culture="en-US">
+    <Name>Microsoft.NET Basic</Name>
+    <Description>Profiling applications based on Microsoft.NET</Description>
+  </Localization>
+</Extension>

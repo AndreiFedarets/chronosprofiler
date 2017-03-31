@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Solution Name="Chronos.Client.Win.Common.StandaloneApplication.sln">
+  <Source>source</Source>
+  <Externals Debug="externals" Release="externals" />
+  <Build Debug="build" Release="build" />
+  <Dependencies>
+    <Solution Name="Chronos.chrsln">
+      <File Name="Chronos.dll" />
+    </Solution>
+    <Solution Name="Chronos.Client.Win.chrsln">
+      <File Name="Chronos.Client.Win.dll" />
+      <File Name="Caliburn.Micro.dll" />
+    </Solution>
+    <Solution Name="Chronos.Common.StandaloneApplication.chrsln">
+      <File Name="Chronos.Common.StandaloneApplication.dll" />
+    </Solution>
+  </Dependencies>
+</Solution>

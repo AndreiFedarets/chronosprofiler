@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <Framework Uid="{11A6E088-B964-4729-A299-3F005743A74C}" Version="0.1">
+    <Export Application="host" EntryPoint="Namespace.TypeName, Assembly" />
+    <Export Application="agent" EntryPoint32="Library" EntryPoint64="x64\Library" />
+    <Export Application="client.win" EntryPoint="Namespace.TypeName, Assembly" />
+    <Localization Culture="en-US">
+      <Name>Framework Name</Name>
+      <Description>Framework Description</Description>
+    </Localization>
+  </Framework>
+  
+  <ProfilingType Uid="{99B0A276-33E4-4ED1-8391-D6283AA22080}" Version="0.1" FrameworkUid="{11A6E088-B964-4729-A299-3F005743A74C}" FrameworkVersion="0.1">
+    <Export Application="daemon" EntryPoint="Namespace.TypeName, Assembly" />
+    <Export Application="agent" EntryPoint32="Library.dll" EntryPoint64="x64\Library.dll" />
+    <Export Application="client.win" EntryPoint="Namespace.TypeName, Assembly" />
+    <Localization Culture="en-US">
+      <Name>ProfilingType Name</Name>
+      <Description>ProfilingType Description</Description>
+    </Localization>
+  </ProfilingType>
+
+  <ProfilingType Uid="{EA62DE68-08AF-4086-A3B1-326269BD5F95}" Version="0.1" FrameworkUid="{11A6E088-B964-4729-A299-3F005743A74C}" FrameworkVersion="0.1">
+    <Dependency Uid="{99B0A276-33E4-4ED1-8391-D6283AA22080}" Version="0.1" />
+    <Export Application="daemon" EntryPoint="Namespace.TypeName, Assembly" />
+    <Export Application="agent" EntryPoint32="Library.dll" EntryPoint64="x64\Library.dll" />
+    <Export Application="client.win" EntryPoint="Namespace.TypeName, Assembly" />
+    <Localization Culture="en-US">
+      <Name>ProfilingType Name</Name>
+      <Description>ProfilingType Description</Description>
+    </Localization>
+  </ProfilingType>
+
+  <ProfilingTarget Uid="{E1609A6E-770B-4530-B8A1-B25F60E429B0}" Version="0.1">
+    <Export Application="host" EntryPoint="Namespace.TypeName, Assembly" />
+    <Export Application="client.win" EntryPoint="Namespace.TypeName, Assembly" />
+    <Localization Culture="en-US">
+      <Name>ProfilingType Name</Name>
+      <Description>ProfilingType Description</Description>
+    </Localization>
+  </ProfilingTarget>
+
+  <Productivity Uid="{6A2815B9-4A7F-4196-9461-85EE77488D06}" Version="0.1" ProfilingTypeUid="{99B0A276-33E4-4ED1-8391-D6283AA22080}" ProfilingTypeVersion="0.1">
+    <Export Application="client.win" EntryPoint="Namespace.TypeName, Assembly" />
+    <Localization Culture="en-US">
+      <Name>Productivity Name</Name>
+      <Description>Productivity Description</Description>
+    </Localization>
+  </Productivity>
+
+</Catalog>

@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos", "Chronos\Chronos.csproj", "{75BA0099-4AD5-4A8E-8CA4-4ECB842E169C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Daemon.Application", "Chronos.Daemon.Application\Chronos.Daemon.Application.csproj", "{12ADF054-6063-4572-B877-5CDCD4258C33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Host.Application", "Chronos.Host.Application\Chronos.Host.Application.csproj", "{BC621A93-A852-42B2-BAC9-4F10F09F9E79}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.Agent", "Chronos.Agent\Chronos.Agent.vcxproj", "{77D938DF-D463-407F-8CDE-3A69EFF4D8AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75BA0099-4AD5-4A8E-8CA4-4ECB842E169C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{75BA0099-4AD5-4A8E-8CA4-4ECB842E169C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{75BA0099-4AD5-4A8E-8CA4-4ECB842E169C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{75BA0099-4AD5-4A8E-8CA4-4ECB842E169C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{12ADF054-6063-4572-B877-5CDCD4258C33}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{12ADF054-6063-4572-B877-5CDCD4258C33}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{12ADF054-6063-4572-B877-5CDCD4258C33}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{12ADF054-6063-4572-B877-5CDCD4258C33}.Release|Mixed Platforms.Build.0 = Release|x86
+		{BC621A93-A852-42B2-BAC9-4F10F09F9E79}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{BC621A93-A852-42B2-BAC9-4F10F09F9E79}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{BC621A93-A852-42B2-BAC9-4F10F09F9E79}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{BC621A93-A852-42B2-BAC9-4F10F09F9E79}.Release|Mixed Platforms.Build.0 = Release|x86
+		{77D938DF-D463-407F-8CDE-3A69EFF4D8AF}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{77D938DF-D463-407F-8CDE-3A69EFF4D8AF}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{77D938DF-D463-407F-8CDE-3A69EFF4D8AF}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{77D938DF-D463-407F-8CDE-3A69EFF4D8AF}.Release|Mixed Platforms.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Solution Name="Chronos.Common.StandaloneApplication.sln">
+  <Source>source</Source>
+  <Externals Debug="externals" Release="externals" />
+  <Build Debug="build" Release="build" />
+  <Dependencies>
+    <Solution Name="Chronos.chrsln">
+      <File Name="Chronos.dll" />
+    </Solution>
+  </Dependencies>
+</Solution>

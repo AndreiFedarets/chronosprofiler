@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{A1EA6D87-CAEC-4B7A-B240-4DA2D83DD2C5}">
+  <Attachment TargetUid="{E1609A6E-770B-4530-B8A1-B25F60E429B0}" TargetVersion="0.1">
+    <Export Application="client.win" EntryPoint="Chronos.Client.Win.Common.StandaloneApplication.ProfilingTargetAdapter, Chronos.Client.Win.Common.StandaloneApplication" />
+  </Attachment>
+  <Localization Culture="en-US" IconUri="pack://application:,,,/Chronos.Client.Win.Common.StandaloneApplication;component/Resources/Icon.png">
+    <Name>Desktop Application (UI for Desktop Client)</Name>
+    <Description>Profiling of desktop applications</Description>
+  </Localization>
+</Extension>

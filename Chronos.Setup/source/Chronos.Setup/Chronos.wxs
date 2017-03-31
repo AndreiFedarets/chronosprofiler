@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <DirectoryRef Id="CHRONOS" FileSource="..\..\Chronos\build">
+      <Component Id="AgentComponent" Guid="7404716F-DD83-44C3-B97F-23A63C788345">
+        <File Id="Agent_Chronos_ProfilerAgent32_dll" DiskId="1" Name="Chronos.ProfilerAgent32.dll">
+          <TypeLib Id="{3D7F4E01-9E81-4269-A760-FE56756A46AF}" Description="ChronosProfilerAgent32Lib" Language="0" MajorVersion="1" MinorVersion="1">
+            <Class Id="{9C272F43-1A62-4AA3-B707-621D3507FA0A}" Context="InprocServer32" Description="Chronos ProfilerEntryPoint32 Class" ThreadingModel="neutral" Version="1.0" Programmable="yes" />
+            <Interface Id="{CEAA6807-1EB7-4FDD-8307-A525AAD9BDFA}" Name="IProfilerEntryPoint" ProxyStubClassId="{00020424-0000-0000-C000-000000000046}" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
+          </TypeLib>
+        </File>
+        <File Id="Agent_Chronos_ProfilerAgent32_exp" DiskId="1" Name="Chronos.ProfilerAgent32.exp"/>
+        <File Id="Agent_Chronos_ProfilerAgent32_lib" DiskId="1" Name="Chronos.ProfilerAgent32.lib"/>
+        <File Id="Agent_Chronos_ProfilerAgent64_dll" DiskId="1" Name="Chronos.ProfilerAgent64.dll">
+          <TypeLib Id="{FF71C47B-F0C5-4318-9879-0337FAC7EAF1}" Description="ChronosProfilerAgent64Lib" Language="0" MajorVersion="1" MinorVersion="1">
+            <Class Id="{7248CC0A-132A-423F-9565-90F6B6BB64A5}" Context="InprocServer32" Description="Chronos ProfilerEntryPoint64 Class" ThreadingModel="neutral" Version="1.0" Programmable="yes" />
+            <Interface Id="{F8E930CF-3BEF-4AEF-8BE8-C46652B1DA3A}" Name="IProfilerEntryPoint" ProxyStubClassId="{00020424-0000-0000-C000-000000000046}" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
+          </TypeLib>
+        </File>
+        <File Id="Agent_Chronos_ProfilerAgent64_exp" DiskId="1" Name="Chronos.ProfilerAgent64.exp"/>
+        <File Id="Agent_Chronos_ProfilerAgent64_lib" DiskId="1" Name="Chronos.ProfilerAgent64.lib"/>
+      </Component>
+    </DirectoryRef>
+	</Fragment>
+</Wix>

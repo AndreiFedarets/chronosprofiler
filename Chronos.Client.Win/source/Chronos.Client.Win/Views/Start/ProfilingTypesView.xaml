@@ -1,0 +1,45 @@
+﻿<views:View x:Class="Chronos.Client.Win.Views.Start.ProfilingTypesView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:interactivity="http://schemas.microsoft.com/expression/2010/interactivity"
+            xmlns:views="clr-namespace:Chronos.Client.Win.Views"
+            xmlns:local="clr-namespace:Chronos.Client.Win.Views.Start"
+            xmlns:viewModels="clr-namespace:Chronos.Client.Win.ViewModels.Start"
+            DisplayPanel="true">
+    <views:View.Resources>
+        <local:ProfilingTypesDataTemplateSelector x:Key="ProfilingTypesDataTemplateSelector" />
+        <HierarchicalDataTemplate x:Key="FrameworkDataTemplate" ItemsSource="{Binding ProfilingTypes}" 
+                                  DataType="{x:Type viewModels:FrameworkViewModel}">
+            <TextBlock Text="{Binding Framework.Definition.Localization.CurrentName}" />
+        </HierarchicalDataTemplate>
+        <DataTemplate x:Key="ProflingTypeDataTemplate" DataType="{x:Type viewModels:ProfilingTypeViewModel}">
+            <Grid IsEnabled="{Binding IsEnabled}">
+                <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding ProfilingType.Definition.Localization.CurrentName}" />
+            </Grid>
+        </DataTemplate>
+    </views:View.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TreeView Grid.Row="0" x:Name="Frameworks" ItemTemplateSelector="{StaticResource ProfilingTypesDataTemplateSelector}"
+                  BorderThickness="0">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="True"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <interactivity:Interaction.Behaviors>
+                <!--<client:TreeViewSelectedItemBehaviour SelectedItem="{Binding SelectedItem, Mode=TwoWay}"/>-->
+            </interactivity:Interaction.Behaviors>
+        </TreeView>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Content="Configure" />
+        </Grid>
+    </Grid>
+</views:View>

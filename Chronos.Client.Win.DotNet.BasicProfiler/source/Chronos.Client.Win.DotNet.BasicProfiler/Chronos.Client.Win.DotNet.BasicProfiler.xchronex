@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{8AA54638-C455-42EE-B00F-2190F9B221C8}">
+  <Attachment TargetUid="{3F6FCEF6-8A28-4F44-8F39-51DA5A804724}" TargetVersion="0.1">
+    <Export Application="client.win" EntryPoint="Chronos.Client.Win.DotNet.BasicProfiler.ProfilingTypeAdapter, Chronos.Client.Win.DotNet.BasicProfiler" />
+  </Attachment>
+  <Localization Culture="en-US">
+    <Name>Microsoft.NET Basic (UI for Desktop Client)</Name>
+    <Description>Profiling applications based on Microsoft.NET</Description>
+  </Localization>
+</Extension>

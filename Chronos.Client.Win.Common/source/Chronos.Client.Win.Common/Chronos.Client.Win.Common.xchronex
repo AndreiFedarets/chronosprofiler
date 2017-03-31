@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{FF3C936E-3D8E-46BE-8349-31AB48E3829C}">
+
+  <Attachment TargetUid="{11A6E088-B964-4729-A299-3F005743A74C}" TargetVersion="0.1">
+    <Export Application="client.win" EntryPoint="Chronos.Client.Win.Common.FrameworkAdapter, Chronos.Client.Win.Common" />
+    <Localization Culture="en-US">
+      <Name>Generic Framework</Name>
+      <Description>Profiling applications</Description>
+    </Localization>
+  </Attachment>
+
+  <Localization Culture="en-US">
+    <Name>Generic Framework</Name>
+    <Description>Profiling applications</Description>
+  </Localization>
+
+</Extension>

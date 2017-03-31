@@ -1,0 +1,61 @@
+﻿using System;
+using System.IO;
+
+namespace Chronos.Registry
+{
+    public sealed class RegistryValue
+    {
+        private RegistryKey _parent;
+
+        internal RegistryValue(string name, Microsoft.Win32.RegistryValueKind type, string value)
+        {
+            ValueName = name;
+            Type = type;
+            Value = value;
+        }
+
+        public string ValueName { get; private set; }
+
+        public Microsoft.Win32.RegistryValueKind Type { get; private set; }
+
+        public string Value { get; private set; }
+
+        public string FullName
+        {
+            get { return Path.Combine(_parent.FullName, ValueName); }
+        }
+
+        internal string Name
+        {
+            get { return Path.Combine(_parent.Name, ValueName); }
+        }
+
+        public object TypedValue
+        {
+            get
+            {
+                return Value;
+            }
+        }
+
+        internal void SetParent(RegistryKey parent)
+        {
+            _parent = parent;
+        }
+
+        internal void Import()
+        {
+            Microsoft.Win32.RegistryKey rootKey = Microsoft.Win32.RegistryKey.OpenBaseKey(_parent.RegistryHive, Microsoft.Win32.RegistryView.Default);
+            Microsoft.Win32.RegistryKey key = rootKey.OpenSubKey(_parent.Name);
+            if (key != null)
+            {
+                key.SetValue(ValueName, TypedValue, Type);
+            }
+        }
+
+        internal void Remove()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

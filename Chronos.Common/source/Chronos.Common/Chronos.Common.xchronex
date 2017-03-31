@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{3696F84B-7BC2-4058-A054-3D49F24A18FF}">
+  <Framework Uid="{11A6E088-B964-4729-A299-3F005743A74C}" Version="0.1">
+    <Export Application="core" EntryPoint="Chronos.Common.FrameworkAdapter, Chronos.Common" />
+    <Localization Culture="en-US">
+      <Name>Generic Framework</Name>
+      <Description>Profiling applications</Description>
+    </Localization>
+  </Framework>
+  <Localization Culture="en-US">
+    <Name>Generic Framework</Name>
+    <Description>Profiling applications</Description>
+  </Localization>
+</Extension>

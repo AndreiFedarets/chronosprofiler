@@ -1,0 +1,5 @@
+[TODO] Do note copy data if source is not needed after copy. Just return original and allocate new buffer
+[DONE] CommonGateway - reimplement using 'cycle' array [0, 255]
+[TODO] Investigate: can we send data via NamedPipe without synchronization (in SendPackage use direct write in stream)
+[TODO] Use ICallback in AgentRequestServer
+[TODO] Keep AsyncGatewayClient suspended, start it when switch to Async mode and suspend back when switch to Sync mode

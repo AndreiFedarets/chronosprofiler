@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.DotNet.BasicProfiler", "Chronos.DotNet.BasicProfiler\Chronos.DotNet.BasicProfiler.csproj", "{E4A7A762-8703-4C4D-A609-3915B0A1DFE4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.DotNet.BasicProfiler.Agent", "Chronos.DotNet.BasicProfiler.Agent\Chronos.DotNet.BasicProfiler.Agent.vcxproj", "{623A4BDD-BC7A-468F-A159-5E4B4E87CEDA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4A7A762-8703-4C4D-A609-3915B0A1DFE4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E4A7A762-8703-4C4D-A609-3915B0A1DFE4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E4A7A762-8703-4C4D-A609-3915B0A1DFE4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E4A7A762-8703-4C4D-A609-3915B0A1DFE4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{623A4BDD-BC7A-468F-A159-5E4B4E87CEDA}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{623A4BDD-BC7A-468F-A159-5E4B4E87CEDA}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{623A4BDD-BC7A-468F-A159-5E4B4E87CEDA}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{623A4BDD-BC7A-468F-A159-5E4B4E87CEDA}.Release|Mixed Platforms.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6DB0686C-3F7A-4156-A4BB-3709BC048454}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Chronos.Client.Win</RootNamespace>
+    <AssemblyName>Chronos.Client.Win</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Chronos.Client.Win.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Caliburn.Micro, Version=2.0.0.6, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\externals\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Platform, Version=2.0.0.6, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\externals\Caliburn.Micro.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Chronos">
+      <HintPath>..\..\externals\Chronos.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\externals\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Windows.Shell">
+      <HintPath>..\..\externals\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\externals\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.XML" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Alignment.cs" />
+    <Compile Include="Container.cs" />
+    <Compile Include="Contracts\ContractBase.cs" />
+    <Compile Include="Contracts\ContractCollection.cs" />
+    <Compile Include="Contracts\Dialog\Contract.cs" />
+    <Compile Include="Contracts\Dialog\IContractConsumer.cs" />
+    <Compile Include="Contracts\Dialog\IContractSource.cs" />
+    <Compile Include="Contracts\IContract.cs" />
+    <Compile Include="Contracts\IContractConsumer.cs" />
+    <Compile Include="Contracts\IContractSource.cs" />
+    <Compile Include="Controls\_Generic\ImageButton.cs" />
+    <Compile Include="Menu\Specialized\UnitsMenuItemBase.cs" />
+    <Compile Include="Views\TabItemView.cs" />
+    <Compile Include="Views\TabView.cs" />
+    <Compile Include="IContainer.cs" />
+    <Compile Include="IFrameworkAdapter.cs" />
+    <Compile Include="IProfilingTargetAdapter.cs" />
+    <Compile Include="IProfilingTypeAdapter.cs" />
+    <Compile Include="Models\IUnitsModel.cs" />
+    <Compile Include="ViewModels\PlaceholderContent.cs" />
+    <Compile Include="ViewModels\PlaceholderViewModel.cs" />
+    <Compile Include="Views\GridView.cs" />
+    <Compile Include="IHostApplicationSelector.cs" />
+    <Compile Include="IMainApplication.cs" />
+    <Compile Include="IProfilingApplication.cs" />
+    <Compile Include="Controls\_Menu\Menu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\_Menu\MenuControlConverter.cs" />
+    <Compile Include="Controls\_Menu\MenuItem.cs" />
+    <Compile Include="Converters\IconToBitmapSourceConverter.cs" />
+    <Compile Include="ViewModels\IViewModelManager.cs" />
+    <Compile Include="Menu\IAction.cs" />
+    <Compile Include="Menu\IControlStub.cs" />
+    <Compile Include="Menu\IMenu.cs" />
+    <Compile Include="Menu\IControl.cs" />
+    <Compile Include="Menu\IControlCollection.cs" />
+    <Compile Include="Menu\IMenuItem.cs" />
+    <Compile Include="Menu\Menu.cs" />
+    <Compile Include="Menu\ControlStub.cs" />
+    <Compile Include="Menu\MenuReader.cs" />
+    <Compile Include="Menu\Control.cs" />
+    <Compile Include="Menu\ControlCollection.cs" />
+    <Compile Include="Menu\MenuItem.cs" />
+    <Compile Include="Menu\_Internal\CompositeAggregator.cs" />
+    <Compile Include="Menu\_Internal\CompositeControl.cs" />
+    <Compile Include="Menu\_Internal\CompositeControlCollection.cs" />
+    <Compile Include="Menu\_Internal\CompositeControlFactory.cs" />
+    <Compile Include="Menu\_Internal\CompositeMenu.cs" />
+    <Compile Include="Menu\_Internal\CompositeMenuItem.cs" />
+    <Compile Include="Menu\_Internal\ICompositeControl.cs" />
+    <Compile Include="Menu\_Internal\ICompositeControlCollection.cs" />
+    <Compile Include="Menu\_Internal\MenuBuilder.cs" />
+    <Compile Include="Menu\_Internal\MenuReaderInternal.cs" />
+    <Compile Include="Views\PageView.cs" />
+    <Compile Include="Position.cs" />
+    <Compile Include="ResolutionDependencies.cs" />
+    <Compile Include="ApplicationManager.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Converters\UriToBitmapSourceConverter.cs" />
+    <Compile Include="Converters\InvertBoolConverter.cs" />
+    <Compile Include="IOpenFileDialog.cs" />
+    <Compile Include="Commands\CommandCollectionBase.cs" />
+    <Compile Include="Commands\ControlClickCommandBehavior.cs" />
+    <Compile Include="Commands\ControlDoubleClickCommandBehavior.cs" />
+    <Compile Include="Commands\ControlEventCommandBehavior.cs" />
+    <Compile Include="Commands\Event.cs" />
+    <Compile Include="Commands\ExtendedCommandBase.cs" />
+    <Compile Include="Commands\ICommandCollection.cs" />
+    <Compile Include="Commands\IExtendedCommand.cs" />
+    <Compile Include="Commands\SyncCommandBase.cs" />
+    <Compile Include="Commands\SyncNonParameterizedCommand.cs" />
+    <Compile Include="Commands\SyncParameterizedCommand.cs" />
+    <Compile Include="ViewModels\TabItemViewModel.cs" />
+    <Compile Include="Views\UnitsView.xaml.cs">
+      <DependentUpon>UnitsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\View.cs" />
+    <Compile Include="ViewModels\ViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\ViewModelActivationMode.cs" />
+    <Compile Include="ViewModels\PageViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\ViewModelEventArgs.cs" />
+    <Compile Include="ViewModels\GridViewModel.cs" />
+    <Compile Include="ViewModels\Common\OpenFileViewModel.cs" />
+    <Compile Include="ViewModels\Home\ActiveSessionsViewModel.cs" />
+    <Compile Include="ViewModels\Home\HomePageViewModel.cs" />
+    <Compile Include="ViewModels\Home\ProfilingTargetsViewModel.cs" />
+    <Compile Include="ViewModels\Home\RecentSessionsViewModel.cs" />
+    <Compile Include="ViewModels\TabViewModel.cs" />
+    <Compile Include="Menu\IMenuSource.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\Profiling\ProfilingViewModel.cs" />
+    <Compile Include="ViewModels\Start\FrameworkViewModel.cs" />
+    <Compile Include="ViewModels\Start\HostApplicationSelectViewModel.cs" />
+    <Compile Include="ViewModels\Start\ProfilingTargetContent.cs" />
+    <Compile Include="ViewModels\Start\ProfilingTypesViewModel.cs" />
+    <Compile Include="ViewModels\Start\ProfilingTypeViewModel.cs" />
+    <Compile Include="ViewModels\Start\StartPageViewModel.cs" />
+    <Compile Include="ViewModels\UnitsViewModel.cs" />
+    <Compile Include="Views\Common\OpenFileView.xaml.cs">
+      <DependentUpon>OpenFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\ActiveSessionsView.xaml.cs">
+      <DependentUpon>ActiveSessionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\HomePageView.xaml.cs">
+      <DependentUpon>HomePageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\ProfilingTargetsView.xaml.cs">
+      <DependentUpon>ProfilingTargetsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\RecentSessionsView.xaml.cs">
+      <DependentUpon>RecentSessionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlaceholderView.cs" />
+    <Compile Include="Views\Profiling\ProfilingView.xaml.cs">
+      <DependentUpon>ProfilingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Start\HostApplicationSelectView.xaml.cs">
+      <DependentUpon>HostApplicationSelectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Start\ProfilingTypesDataTemplateSelector.cs" />
+    <Compile Include="Views\Start\ProfilingTypesView.xaml.cs">
+      <DependentUpon>ProfilingTypesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Start\StartPageView.xaml.cs">
+      <DependentUpon>StartPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="_Extensions\AdapterResolver.cs" />
+    <Compile Include="_Extensions\DelayedNotification.cs" />
+    <Compile Include="_Extensions\ObjectExtensions.cs" />
+    <Compile Include="_Extensions\TreeViewExtensions.cs" />
+    <Compile Include="_Extensions\TreeViewSelectedItemBehaviour.cs" />
+    <Compile Include="Controls\_Generic\BlurlessImage.cs" />
+    <Compile Include="Controls\_Generic\BrowseFile.cs" />
+    <Compile Include="Controls\_Generic\ColorImage.cs" />
+    <Compile Include="Controls\_Generic\CustomWindow.cs" />
+    <Compile Include="Controls\_Generic\ResizeBorderThicknessToCaptionMarginConverter.cs" />
+    <Compile Include="Controls\_Generic\TileButton.cs" />
+    <Compile Include="Converters\BitmapToBitmapSourceConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\PercentsToColorConverter.cs" />
+    <Compile Include="_Extensions\AppDomainExtensions.cs" />
+    <Compile Include="_Internal\Bootstrapper.cs" />
+    <Compile Include="_Internal\ChronosCoreLocator.cs" />
+    <Compile Include="_Internal\ViewsManager.cs" />
+    <Compile Include="_Internal\ProfilingApplication.cs" />
+    <Compile Include="_Internal\CustomWindowManager.cs" />
+    <Compile Include="_Extensions\GridViewComposition.cs" />
+    <Compile Include="_Extensions\GridViewSorting.cs" />
+    <Compile Include="_Extensions\BitmapExtensions.cs" />
+    <Compile Include="_Extensions\DispatcherExtensions.cs" />
+    <Compile Include="_Extensions\FrameworkElementExtensions.cs" />
+    <Compile Include="IApplicationBase.cs" />
+    <Compile Include="Themes\FontsAndColors.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_Internal\ApplicationBase.cs" />
+    <Compile Include="_Internal\HostApplicationSelector.cs" />
+    <Compile Include="_Internal\IApplicationStrategy.cs" />
+    <Compile Include="_Internal\MainApplication.cs" />
+    <Compile Include="_Internal\ObservableCollectionBase.cs" />
+    <Compile Include="_Internal\ObservableDictionary.cs" />
+    <Compile Include="_Internal\OpenFileDialog.cs" />
+    <Compile Include="_Internal\PropertyChangedBase.cs" />
+    <Compile Include="_Internal\ViewModelManager.cs" />
+    <Compile Include="_Internal\WindowsDispatcher.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Common\OpenFileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Home\ActiveSessionsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Home\HomePageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Home\ProfilingTargetsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Home\RecentSessionsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Profiling\ProfilingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Start\HostApplicationSelectView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Start\ProfilingTypesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Start\StartPageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UnitsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CustomWindow\Close.png" />
+    <Resource Include="Images\CustomWindow\Maximize.png" />
+    <Resource Include="Images\CustomWindow\Minimize.png" />
+    <Resource Include="Images\CustomWindow\Restore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Chronos.Client.Win.snk">
+      <Link>Properties\Chronos.Client.Win.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CloseTab.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

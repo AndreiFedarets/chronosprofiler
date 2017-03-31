@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{6551A3AC-F98B-4789-A32F-C280D63BC5F4}">
+  <ProfilingType Uid="{912F72BB-C6C3-4F0B-9E74-7B3796F2EA2C}" Version="0.1" FrameworkUid="{6711F85A-3CD1-4E76-8502-C3D4404E47C8}" FrameworkVersion="0.1">
+    <!-- [Microsoft.NET Basic] Profiling Type  -->
+    <Dependency Uid="{3F6FCEF6-8A28-4F44-8F39-51DA5A804724}" Version="0.1" />
+    <!-- [Common Events Tree] Profiling Type  -->
+    <Dependency Uid="{B3352C62-FCAB-45CA-8EEB-EA296E8C3122}" Version="0.1" />
+    <Export Application="core" EntryPoint="Chronos.DotNet.TracingProfiler.ProfilingTypeAdapter, Chronos.DotNet.TracingProfiler" />
+    <Export Application="agent" EntryPoint32="Chronos.DotNet.TracingProfiler.Agent.dll" EntryPoint64="x64\Chronos.DotNet.TracingProfiler.Agent.dll" />
+    <Localization Culture="en-US">
+      <Name>Microsoft.NET Tracing Performance</Name>
+      <Description>Tracing performance profiler for applications based on Microsoft.NET</Description>
+    </Localization>
+  </ProfilingType>
+  <Localization Culture="en-US">
+    <Name>Microsoft.NET Tracing Performance</Name>
+    <Description>Tracing performance profiler for applications based on Microsoft.NET</Description>
+  </Localization>
+</Extension>

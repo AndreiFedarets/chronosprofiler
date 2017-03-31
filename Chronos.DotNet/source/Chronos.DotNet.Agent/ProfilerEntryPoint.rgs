@@ -1,0 +1,26 @@
+HKCR
+{
+	Chronos.DotNet.ProfilerEntryPoint.1 = s 'Chronos.DotNet.ProfilerEntryPoint'
+	{
+		CLSID = s '{925B21BB-DED1-4210-B27C-E9F859AA6E75}'
+	}
+	Chronos.DotNet.ProfilerEntryPoint = s 'Chronos.DotNet.ProfilerEntryPoint'
+	{		
+		CurVer = s 'Chronos.DotNet.ProfilerEntryPoint.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {925B21BB-DED1-4210-B27C-E9F859AA6E75} = s 'Chronos.DotNet.ProfilerEntryPoint'
+		{
+			ProgID = s 'Chronos.DotNet.ProfilerEntryPoint.1'
+			VersionIndependentProgID = s 'Chronos.DotNet.ProfilerEntryPoint'
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Free'
+			}
+			TypeLib = s '{F0A62B6E-31F1-4676-8A4A-E5A5F5655F0C}'
+			Version = s '1.0'
+		}
+	}
+}

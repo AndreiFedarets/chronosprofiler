@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?define ProductName="Chronos Profiler" ?>
+<?define ProductVersion="0.3.0.1" ?>
+<?define ProductCode="E4DE5ED7-54A0-4042-996B-C7B041B675A6"?>
+<?define UpgradeCode="1AED52B6-5FFF-4FD8-A50E-422368349AD1"?>
+<?define Manufacturer="MakeGreen Software"?>
+<?define Configuration="release"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="$(var.ProductCode)" Name="$(var.ProductName)" Language="1033" Version="$(var.ProductVersion)"
+           Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="$(var.ProductName)" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+		<WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="License.rtf"/>
+		<UIRef Id="WIXUI_INSTALLDIR"/>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="$(var.ProductName)">
+          <Directory Id="CHRONOS" Name="Chronos" />
+					<Directory Id="CHRONOS_CLIENT_WIN" Name="Chronos.Client.Win" />
+					<Directory Id="CHRONOS_CLIENT_WIN_COMMON" Name="Chronos.Client.Win.Common" />
+					<Directory Id="CHRONOS_CLIENT_WIN_COMMON_EVENTSTREE" Name="Chronos.Client.Win.Common.EventsTree" />
+					<Directory Id="CHRONOS_CLIENT_WIN_COMMON_STANDALONEAPPLICATION" Name="Chronos.Client.Win.Common.StandaloneApplication" />
+					<Directory Id="CHRONOS_CLIENT_WIN_DOTNET" Name="Chronos.Client.Win.DotNet" />
+					<Directory Id="CHRONOS_CLIENT_WIN_DOTNET_BASICPROFILER" Name="Chronos.Client.Win.DotNet.BasicProfiler" />
+					<Directory Id="CHRONOS_CLIENT_WIN_DOTNET_EXCEPTIONMONITOR" Name="Chronos.Client.Win.DotNet.ExceptionMonitor" />
+					<Directory Id="CHRONOS_CLIENT_WIN_DOTNET_TRACINGPROFILER" Name="Chronos.Client.Win.DotNet.TracingProfiler" />
+					<Directory Id="CHRONOS_COMMON" Name="Chronos.Common" />
+					<Directory Id="CHRONOS_COMMON_EVENTSTREE" Name="Chronos.Common.EventsTree" />
+					<Directory Id="CHRONOS_COMMON_STANDALONEAPPLOCATION" Name="Chronos.Common.StandaloneApplication" />
+					<Directory Id="CHRONOS_DOTNET" Name="Chronos.DotNet" />
+					<Directory Id="CHRONOS_DOTNET_BASICPROFILER" Name="Chronos.DotNet.BasicProfiler" />
+					<Directory Id="CHRONOS_DOTNET_EXCEPTIONMONITOR" Name="Chronos.DotNet.ExceptionMonitor" />
+					<Directory Id="CHRONOS_DOTNET_TRACINGPROFILER" Name="Chronos.DotNet.TracingProfiler" />
+        </Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+	
+</Wix>

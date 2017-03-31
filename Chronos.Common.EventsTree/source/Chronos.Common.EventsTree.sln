@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Common.EventsTree", "Chronos.Common.EventsTree\Chronos.Common.EventsTree.csproj", "{2F69C3FB-4DD5-440F-B96E-42BEBFBE8011}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.Common.EventsTree.Agent", "Chronos.Common.EventsTree.Agent\Chronos.Common.EventsTree.Agent.vcxproj", "{2E54B75A-153B-46A6-B85B-70CADF820627}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F69C3FB-4DD5-440F-B96E-42BEBFBE8011}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2F69C3FB-4DD5-440F-B96E-42BEBFBE8011}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2F69C3FB-4DD5-440F-B96E-42BEBFBE8011}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2F69C3FB-4DD5-440F-B96E-42BEBFBE8011}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2E54B75A-153B-46A6-B85B-70CADF820627}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{2E54B75A-153B-46A6-B85B-70CADF820627}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{2E54B75A-153B-46A6-B85B-70CADF820627}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{2E54B75A-153B-46A6-B85B-70CADF820627}.Release|Mixed Platforms.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

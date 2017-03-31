@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{31899BAF-81F5-49C2-965D-B2910D5C4D27}">
+  
+  <ProfilingType Uid="{07D2F6E8-D96F-4EE0-9E6E-6404D587F3F3}" Version="0.1" FrameworkUid="{6711F85A-3CD1-4E76-8502-C3D4404E47C8}" FrameworkVersion="0.1">
+    <Export Application="core" EntryPoint="Chronos.DotNet.SqlProfiler.ProfilingTypeAdapter, Chronos.DotNet.SqlProfiler" />
+    <Export Application="agent" EntryPoint32="Chronos.DotNet.SqlProfiler.Agent.dll" EntryPoint64="x64\Chronos.DotNet.SqlProfiler.Agent.dll" />
+    <Localization Culture="en-US">
+      <Name>Microsoft.NET SQL</Name>
+      <Description>Profiling Microsoft.NET SQL requests</Description>
+    </Localization>
+  </ProfilingType>
+  
+  <Localization Culture="en-US">
+    <Name>Microsoft.NET SQL</Name>
+    <Description>Profiling Microsoft.NET SQL requests</Description>
+  </Localization>
+  
+</Extension>

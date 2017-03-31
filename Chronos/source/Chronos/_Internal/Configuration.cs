@@ -1,0 +1,141 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Chronos
+{
+    internal sealed class Configuration : RemoteBaseObject, IConfiguration
+    {
+        private readonly Host.IApplication _application;
+        private readonly ConfigurationCollection _configurations;
+        private readonly ConfigurationSettings _configurationSettings;
+        private readonly IProfilingTarget _profilingTarget;
+        private readonly IFrameworkCollection _frameworks;
+        private readonly List<IProfilingTargetController> _controllers;
+
+        public Configuration(ConfigurationSettings configurationSettings, ConfigurationCollection configurations,
+            IProfilingTarget profilingTarget, IFrameworkCollection frameworks, Host.IApplication application)
+        {
+            _configurations = configurations;
+            _configurationSettings = configurationSettings;
+            _profilingTarget = profilingTarget;
+            _frameworks = frameworks;
+            _application = application;
+            _controllers = new List<IProfilingTargetController>();
+        }
+
+        public Guid Uid
+        {
+            get
+            {
+                VerifyDisposed();
+                return _configurationSettings.ConfigurationUid;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                VerifyDisposed();
+                return _configurationSettings.ConfigurationName;
+            }
+        }
+
+        public bool IsActive
+        {
+            get
+            {
+                lock (_controllers)
+                {
+                    VerifyDisposed();
+                    return _controllers.Any(x => x.IsActive);
+                }
+            }
+        }
+
+        public Host.IApplication Application
+        {
+            get
+            {
+                VerifyDisposed();
+                return _application;
+            }
+        }
+
+        public ConfigurationSettings ConfigurationSettings
+        {
+            get
+            {
+                VerifyDisposed();
+                return _configurationSettings.Clone();
+            }
+        }
+
+        public void Activate()
+        {
+            VerifyDisposed();
+            IProfilingTargetAdapter adapter = _profilingTarget.GetSafeAdapter();
+            IProfilingTargetController controller = adapter.CreateController(_configurationSettings);
+            //Select all Frameworks that involved into profiling and notify them
+            foreach (FrameworkSettings frameworkSettings in _configurationSettings.FrameworksSettings)
+            {
+                IFramework framework = _frameworks[frameworkSettings.Uid];
+                IFrameworkAdapter frameworkAdapter = framework.GetSafeAdapter();
+                frameworkAdapter.ConfigureForProfiling(_configurationSettings);
+            }
+            //Start profiling
+            controller.Start();
+            controller.TargetStopped += OnControllerTargetStopped;
+            lock (_controllers)
+            {
+                _controllers.Add(controller);
+            }
+        }
+
+        private void OnControllerTargetStopped(object sender, ProfilingTargetControllerEventArgs e)
+        {
+            VerifyDisposed();
+            IProfilingTargetController controller = (IProfilingTargetController)sender;
+            lock (_controllers)
+            {
+                _controllers.Remove(controller);
+            }
+            controller.TargetStopped -= OnControllerTargetStopped;
+        }
+
+        public void Deactivate()
+        {
+            VerifyDisposed();
+            List<IProfilingTargetController> controllers;
+            lock (_controllers)
+            {
+                controllers = new List<IProfilingTargetController>(_controllers);
+                _controllers.Clear();
+            }
+            foreach (IProfilingTargetController controller in controllers)
+            {
+                controller.TargetStopped -= OnControllerTargetStopped;
+                controller.Stop();
+            }
+        }
+
+        public void Remove()
+        {
+            VerifyDisposed();
+            _configurations.OnConfigurationRemoved(this);
+            throw new NotImplementedException();
+        }
+
+        public override void Dispose()
+        {
+            VerifyDisposed();
+            Deactivate();
+            lock (_controllers)
+            {
+                _controllers.Clear();
+            }
+            base.Dispose();
+        }
+    }
+}

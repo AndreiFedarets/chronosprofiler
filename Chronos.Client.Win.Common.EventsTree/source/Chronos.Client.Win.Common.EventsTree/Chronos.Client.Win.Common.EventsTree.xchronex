@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{9E92EBB3-2545-444E-9A03-0BC8CFA16ADA}">
+  <Attachment TargetUid="{B3352C62-FCAB-45CA-8EEB-EA296E8C3122}" TargetVersion="0.1">
+    <Export Application="client.win" EntryPoint="Chronos.Client.Win.Common.EventsTree.ProfilingTypeAdapter, Chronos.Client.Win.Common.EventsTree" />
+    <Attribute Name="Technical" Value="True" Type="System.Boolean" />
+  </Attachment>
+  <Localization Culture="en-US">
+    <Name>Events Tree (UI for Desktop Client)</Name>
+    <Description>Events Tree</Description>
+  </Localization>
+</Extension>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{516C5433-204D-4719-AA1C-4276C0E82812}">
+
+  <Attachment TargetUid="{6711F85A-3CD1-4E76-8502-C3D4404E47C8}" TargetVersion="0.1">
+    <Export Application="client.win" EntryPoint="Chronos.Client.Win.DotNet.FrameworkAdapter, Chronos.Client.Win.DotNet" />
+    <Localization Culture="en-US">
+      <Name>Microsoft.NET (4.0+) (UI for Desktop Client)</Name>
+      <Description>Profiling applications based on Microsoft.NET 4.0 and higher</Description>
+    </Localization>
+  </Attachment>
+
+  <Localization Culture="en-US">
+    <Name>Microsoft.NET (4.0+) (UI for Desktop Client)</Name>
+    <Description>Profiling applications based on Microsoft.NET 4.0 and higher</Description>
+  </Localization>
+
+</Extension>

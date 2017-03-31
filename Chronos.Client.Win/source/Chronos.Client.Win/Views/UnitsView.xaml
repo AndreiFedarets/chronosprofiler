@@ -1,0 +1,31 @@
+﻿<views:View x:Class="Chronos.Client.Win.Views.UnitsView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:client="clr-namespace:Chronos.Client.Win"
+            xmlns:views="clr-namespace:Chronos.Client.Win.Views">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnit}" 
+                  IsSynchronizedWithCurrentItem="True" VirtualizingStackPanel.IsVirtualizing="True"
+                  client:GridViewSorting.AutoSort="True">
+            <ListView.View>
+                <GridView client:GridViewComposition.DynamicColumns="{Binding Columns}" />
+            </ListView.View>
+        </ListView>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Search:" />
+            <TextBox Grid.Column="1" Text="{Binding SelectedColumn.FilterValue, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding SelectedColumn.SupportsFiltering}"/>
+            <ComboBox Grid.Column="2" ItemsSource="{Binding Columns}" SelectedItem="{Binding SelectedColumn}" DisplayMemberPath="Header" />
+        </Grid>
+    </Grid>
+</views:View>

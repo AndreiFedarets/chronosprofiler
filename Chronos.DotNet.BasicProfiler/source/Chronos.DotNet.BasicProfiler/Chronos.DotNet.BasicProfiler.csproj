@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E4A7A762-8703-4C4D-A609-3915B0A1DFE4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Chronos.DotNet.BasicProfiler</RootNamespace>
+    <AssemblyName>Chronos.DotNet.BasicProfiler</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Chronos.DotNet.BasicProfiler.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Chronos">
+      <HintPath>..\..\externals\Chronos.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Chronos.DotNet">
+      <HintPath>..\..\externals\Chronos.DotNet.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+    <Compile Include="AppDomainInfo.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="ClassInfo.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="FunctionInfo.cs" />
+    <Compile Include="ModuleInfo.cs" />
+    <Compile Include="Proxy\AppDomainCollection.cs" />
+    <Compile Include="Proxy\AssemblyCollection.cs" />
+    <Compile Include="Proxy\ClassCollection.cs" />
+    <Compile Include="Proxy\ThreadCollection.cs" />
+    <Compile Include="Proxy\FunctionCollection.cs" />
+    <Compile Include="Proxy\ModuleCollection.cs" />
+    <Compile Include="ThreadInfo.cs" />
+    <Compile Include="_Internal\AppDomainNativeInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\AssemblyNativeInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\ClassNativeInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\FunctionNativeInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IAppDomainCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IAssemblyCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IClassCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IFunctionCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IModuleCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\AppDomainCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\AssemblyCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\ClassCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\FunctionCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Marshaling\AppDomainInfoMarshaler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Marshaling\AssemblyInfoMarshaler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Marshaling\ClassInfoMarshaler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Marshaling\FunctionInfoMarshaler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Marshaling\ModuleInfoMarshaler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\Marshaling\ThreadInfoMarshaler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\ModuleCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\ThreadCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IThreadCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\ModuleNativeInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProfilingTypeAdapter.cs" />
+    <Compile Include="_Internal\ThreadNativeInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Internal\UnitType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Chronos.DotNet.BasicProfiler.snk">
+      <Link>Properties\Chronos.DotNet.BasicProfiler.snk</Link>
+    </None>
+    <None Include="Chronos.DotNet.BasicProfiler.xchronex">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

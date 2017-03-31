@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChronosBuildTool", "ChronosBuildTool\ChronosBuildTool.csproj", "{1DD1654E-514E-4D37-84C5-EC748FC37F4E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DD1654E-514E-4D37-84C5-EC748FC37F4E}.Debug|x86.ActiveCfg = Debug|x86
+		{1DD1654E-514E-4D37-84C5-EC748FC37F4E}.Debug|x86.Build.0 = Debug|x86
+		{1DD1654E-514E-4D37-84C5-EC748FC37F4E}.Release|x86.ActiveCfg = Release|x86
+		{1DD1654E-514E-4D37-84C5-EC748FC37F4E}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

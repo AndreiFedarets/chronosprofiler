@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<solution name="SolutionName.sln">
+  <source>source</source>
+  <externals debug="externals" release="externals" />
+  <build debug="build" release="build" />
+</solution>

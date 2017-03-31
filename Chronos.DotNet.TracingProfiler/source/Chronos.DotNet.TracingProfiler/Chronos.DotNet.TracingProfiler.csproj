@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9CCB0F7A-1475-4C1B-B8FB-6D9C52CBAE6A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Chronos.DotNet.TracingProfiler</RootNamespace>
+    <AssemblyName>Chronos.DotNet.TracingProfiler</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Chronos.DotNet.TracingProfiler.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Chronos">
+      <HintPath>..\..\externals\Chronos.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Chronos.Common.EventsTree">
+      <HintPath>..\..\externals\Chronos.Common.EventsTree.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Chronos.DotNet">
+      <HintPath>..\..\externals\Chronos.DotNet.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Chronos.DotNet.BasicProfiler">
+      <HintPath>..\..\externals\Chronos.DotNet.BasicProfiler.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+    <Compile Include="IUnmanagedToManagedTransactionEventMessage.cs" />
+    <Compile Include="IManagedToUnmanagedTransactionEventMessage.cs" />
+    <Compile Include="IManagedFunctionCallEventMessage.cs" />
+    <Compile Include="IThreadCreateEventMessage.cs" />
+    <Compile Include="IThreadDestroyEventMessage.cs" />
+    <Compile Include="ProfilingTypeAdapter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxy\UnmanagedToManagedTransactionEventMessage.cs" />
+    <Compile Include="Proxy\ManagedToUnmanagedTransactionEventMessage.cs" />
+    <Compile Include="Proxy\ThreadDestroyEventMessage.cs" />
+    <Compile Include="Proxy\ThreadCreateEventMessage.cs" />
+    <Compile Include="_Internal\UnmanagedToManagedTransactionEventMessage.cs" />
+    <Compile Include="_Internal\ManagedToUnmanagedTransactionEventMessage.cs" />
+    <Compile Include="_Internal\ThreadDestroyEventMessage.cs" />
+    <Compile Include="_Internal\ThreadCreateEventMessage.cs" />
+    <Compile Include="_Internal\ManagedFunctionCallEventMessage.cs" />
+    <Compile Include="Proxy\ManagedFunctionCallEventMessage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Chronos.DotNet.TracingProfiler.snk">
+      <Link>Properties\Chronos.DotNet.TracingProfiler.snk</Link>
+    </None>
+    <None Include="Chronos.DotNet.TracingProfiler.xchronex">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

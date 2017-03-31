@@ -1,0 +1,35 @@
+// ChronosDotNetAgent.idl : IDL source for Chronos.DotNet.Agent
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (ChronosDotNetAgent.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+//[
+//	object,
+//	uuid(294B174D-925C-4217-A224-329A4AEFA902),
+//	dual,
+//	nonextensible,
+//	pointer_default(unique)
+//]
+//interface IProfilerEntryPoint : IDispatch
+//{
+//};
+[
+	uuid(F0A62B6E-31F1-4676-8A4A-E5A5F5655F0C),
+	version(1.0),
+]
+library ChronosDotNetAgentLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(925B21BB-DED1-4210-B27C-E9F859AA6E75)		
+	]
+	coclass ProfilerEntryPoint
+	{
+		[default] interface IDispatch;
+	};
+};
+

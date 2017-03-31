@@ -1,0 +1,34 @@
+﻿<views:View x:Class="Chronos.Client.Win.Views.Home.ProfilingTargetsView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:caliburn="http://www.caliburnproject.org"
+            xmlns:converters ="clr-namespace:Chronos.Client.Win.Converters"
+            xmlns:controls="clr-namespace:Chronos.Client.Win.Controls"
+            xmlns:core="clr-namespace:Chronos.Client;assembly=Chronos"
+            xmlns:views="clr-namespace:Chronos.Client.Win.Views"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+            
+            DisplayPanel="True" MinHeight="200">
+    <views:View.Resources>
+        <converters:UriToBitmapSourceConverter x:Key="UriToBitmapSourceConverter" />
+    </views:View.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <ItemsControl x:Name="ProfilingTargets" ItemsSource="{Binding ProfilingTargets}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type core:IProfilingTarget}">
+                    <controls:TileButton Background="#31B6FD" Foreground="#FFFFFF" Margin="5" Text="{Binding Definition.Localization.CurrentName}"
+                                         Icon="{Binding Definition.Localization.CurrentIconUri, Converter={StaticResource UriToBitmapSourceConverter}}"
+                                         caliburn:Message.Attach="CreateConfiguration($dataContext)" HorizontalAlignment="Stretch"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
+</views:View>

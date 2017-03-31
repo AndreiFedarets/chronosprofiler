@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<chronex displayName="Microsoft.NET Web Application hosted in IIS 6.0+" description="Profiling of web applications based on Microsoft.NET and hosted on IIS 6.0+" uid="D6DA9FF9-1A45-41A4-B974-0A2F20128D1E">
+  <region target="host">
+    <export type="Chronos.DotNet.IISApplication.HostExport, Chronos.DotNet.IISApplication" />
+  </region>
+</chronex>

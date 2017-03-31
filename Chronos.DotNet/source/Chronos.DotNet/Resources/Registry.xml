@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<registry>
+  <key name="HKEY_LOCAL_MACHINE">
+    <key name="SOFTWARE">
+      <key name="Classes">
+        <key name="CLSID">
+          <key name="{DD431504-5551-4369-A647-6F81612A82EB}" remove="Force">
+            <key name="InprocServer32" remove="Force">
+              <value name="Test" value="%CALLER_ASSEMBLY_PATH%\Chronos.DotNet.Agent.dll" type="ExpandString" />
+              <value name="ThreadingModel" value="Neutral" type="String" />
+            </key>
+          </key>
+        </key>
+      </key>
+    </key>
+  </key>
+</registry>

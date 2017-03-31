@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{29B8EDD5-7EE3-48B1-AB85-F70C658F5B66}">
+  <ProfilingType Uid="{EA62DE68-08AF-4086-A3B1-326269BD5F95}" Version="0.1" FrameworkUid="{11A6E088-B964-4729-A299-3F005743A74C}" FrameworkVersion="0.1">
+    <Dependency Uid="{99B0A276-33E4-4ED1-8391-D6283AA22080}" Version="0.1" />
+    <Export Application="daemon" EntryPoint="Namespace.TypeName, Assembly" />
+    <Export Application="agent" EntryPoint32="Library.dll" EntryPoint64="x64\Library.dll" />
+    <Export Application="client.win" EntryPoint="Namespace.TypeName, Assembly" />
+    <Localization Culture="en-US">
+      <Name>ProfilingType Name</Name>
+      <Description>ProfilingType Description</Description>
+    </Localization>
+  </ProfilingType>
+  <Localization Culture="en-US">
+    <Name>Extension Name</Name>
+    <Description>Extension Description</Description>
+  </Localization>
+</Extension>

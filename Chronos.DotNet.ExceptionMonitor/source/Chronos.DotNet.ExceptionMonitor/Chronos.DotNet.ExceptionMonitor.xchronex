@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{0D9DACF0-09C1-4996-879E-6177BEBFD5BF}">
+  
+  <ProfilingType Uid="{222BC3A0-22D0-4B8E-ADA5-3DAC76209109}" Version="0.1" FrameworkUid="{6711F85A-3CD1-4E76-8502-C3D4404E47C8}" FrameworkVersion="0.1">
+  <!-- [Microsoft.NET Basic] Profiling Type  -->
+    <Dependency Uid="{3F6FCEF6-8A28-4F44-8F39-51DA5A804724}" Version="0.1" />
+    <Export Application="core" EntryPoint="Chronos.DotNet.ExceptionMonitor.ProfilingTypeAdapter, Chronos.DotNet.ExceptionMonitor" />
+    <Export Application="agent" EntryPoint32="Chronos.DotNet.ExceptionMonitor.Agent.dll" EntryPoint64="x64\Chronos.DotNet.ExceptionMonitor.Agent.dll" />
+    <Localization Culture="en-US">
+      <Name>Microsoft.NET Exception Monitor</Name>
+      <Description>Exception monitor for applications based on Microsoft.NET</Description>
+    </Localization>
+  </ProfilingType>
+  
+  <Localization Culture="en-US">
+    <Name>Microsoft.NET Exception Monitor</Name>
+    <Description>Exception monitor for applications based on Microsoft.NET</Description>
+  </Localization>
+  
+</Extension>

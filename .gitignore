@@ -1,0 +1,12 @@
+build
+msi
+obj
+bin
+*.user
+*.opensdf
+*.suo
+*.sdf
+*.ipch
+*.aps
+*_i.c
+*_i.h

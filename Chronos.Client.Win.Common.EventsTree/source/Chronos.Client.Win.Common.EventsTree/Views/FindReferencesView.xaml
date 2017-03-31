@@ -1,0 +1,46 @@
+﻿<views:View x:Class="Chronos.Client.Win.Views.Common.EventsTree.FindReferencesView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:interactivity="http://schemas.microsoft.com/expression/2010/interactivity"
+            xmlns:behaviours="clr-namespace:Chronos.Client.Win;assembly=Chronos.Client.Win"
+            xmlns:converters="clr-namespace:Chronos.Client.Win.Converters.Common.EventsTree"
+            xmlns:commands="clr-namespace:Chronos.Client.Win.Commands;assembly=Chronos.Client.Win"
+            xmlns:views="clr-namespace:Chronos.Client.Win.Views;assembly=Chronos.Client.Win">
+    <!--<UserControl.Resources>
+        <converters:EventToStringConverter x:Key="EventToStringConverter" />
+        <HierarchicalDataTemplate x:Key="ReferenceTreeViewUnitTemplate" ItemsSource="{Binding Collection}">
+            <TextBlock>
+                <TextBlock Text="{Binding Item}" />
+                <TextBlock Text="{Binding Count, StringFormat='({0})'}" />
+            </TextBlock>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate x:Key="ReferenceTreeViewEventTemplate">
+            <TextBlock>
+                <TextBlock.Text>
+                    <MultiBinding Converter="{StaticResource EventToStringConverter}">
+                        <Binding Path="Item" />
+                        <Binding Path="DataContext.EventNameFormatter" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </HierarchicalDataTemplate>
+        <converters:ReferenceTreeViewDataTemplateSelector x:Key="ReferenceTreeViewDataTemplateSelector"
+                         UnitDataTemplate="{StaticResource ReferenceTreeViewUnitTemplate}"
+                         EventDataTemplate="{StaticResource ReferenceTreeViewEventTemplate}"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0">
+            <TreeView ItemsSource="{Binding Reference.Collection}" ItemTemplateSelector="{StaticResource ReferenceTreeViewDataTemplateSelector}"
+                      commands:Event.Command="{Binding NavigateToEventCommand}" commands:Event.CommandParameter="{Binding SelectedNode}"
+                      commands:Event.EventName="MouseDoubleClick">
+                <interactivity:Interaction.Behaviors>
+                    <behaviours:TreeViewSelectedItemBehaviour SelectedItem="{Binding DataContext.SelectedNode, Mode=OneWayToSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" />
+                </interactivity:Interaction.Behaviors>
+            </TreeView>
+        </ScrollViewer>
+    </Grid>-->
+</views:View>

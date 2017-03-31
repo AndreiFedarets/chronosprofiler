@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{6551A3AC-F98B-4789-A32F-C280D63BC5F4}">
+  <Attachment TargetUid="{912F72BB-C6C3-4F0B-9E74-7B3796F2EA2C}" TargetVersion="0.1">
+    <Export Application="client.win" EntryPoint="Chronos.Client.Win.DotNet.TracingProfiler.ProfilingTypeAdapter, Chronos.Client.Win.DotNet.TracingProfiler" />
+  </Attachment>
+  <Localization Culture="en-US">
+    <Name>Microsoft.NET Tracing Performance (UI for Desktop Client)</Name>
+    <Description>Tracing performance profiler for applications based on Microsoft.NET</Description>
+  </Localization>
+</Extension>
