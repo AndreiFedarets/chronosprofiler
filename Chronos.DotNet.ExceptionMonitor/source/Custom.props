@@ -10,7 +10,6 @@
 	<LibraryPath>$(ChronosSolutionDir)externals\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='x64'">
-	<PlatformToolset>v110</PlatformToolset>
 	<OutDir>$(ChronosSolutionDir)build\$(Platform)\</OutDir>
 	<IntDir>$(ProjectDir)obj\$(Configuration)\$(Platform)\</IntDir>
 	<IncludePath>$(ChronosSolutionDir)externals\$(Platform)\;$(IncludePath)</IncludePath>
@@ -18,7 +17,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Platform)'=='Win32'">
     <PostBuildEvent>
-      <Command>xcopy $(ProjectName).h "$(TargetDir)" /Y</Command>
+      <Command>xcopy $(ProjectName).h "$(TargetDir)" /Y
+msbuild "$(ProjectPath)" /property:configuration=$(Configuration) /property:platform=x64</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Platform)'=='x64'">

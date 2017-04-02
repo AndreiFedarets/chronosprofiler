@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Microsoft.Win32;
 
 namespace ChronosBuildTool.Model
 {
@@ -230,7 +231,25 @@ namespace ChronosBuildTool.Model
 
         private string GetMsbuildPath()
         {
-            string msbuildPath = Environment.ExpandEnvironmentVariables(@"%windir%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe");
+            //RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\MSBuild\ToolsVersions");
+            //string latestVersionString = ""; //default
+            //double latestVersion = 0;
+            //foreach (string subKeyName in key.GetSubKeyNames())
+            //{
+            //    double version;
+            //    if (double.TryParse(subKeyName, out version) && version > latestVersion)
+            //    {
+            //        RegistryKey tempkey = key.OpenSubKey(subKeyName);
+            //        if (tempkey.GetValue("MSBuildOverrideTasksPath") != null)
+            //        {
+            //            latestVersion = version;
+            //            latestVersionString = subKeyName;
+            //        }
+            //    }
+            //}
+           
+            //string msbuildPath = key.GetValue("MSBuildOverrideTasksPath") + @"\msbuild.exe";
+            string msbuildPath = Environment.ExpandEnvironmentVariables(@"%ProgramFiles(x86)%\MSBuild\12.0\Bin\msbuild.exe");
             return msbuildPath;
         }
 
