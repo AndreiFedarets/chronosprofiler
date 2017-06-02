@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\.scripts\CSharp.targets" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +11,6 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Chronos</RootNamespace>
     <AssemblyName>Chronos</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SGenUseProxyTypes>false</SGenUseProxyTypes>
     <SGenPlatformTarget>$(Platform)</SGenPlatformTarget>
     <FileAlignment>512</FileAlignment>
@@ -20,7 +20,6 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\build\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,17 +30,10 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\build\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\Chronos.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -60,9 +52,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SolutionInfo.cs">
-      <Link>Properties\SolutionInfo.cs</Link>
-    </Compile>
     <Compile Include="Client\AdapterResolver.cs" />
     <Compile Include="Client\ApplicationBase.cs" />
     <Compile Include="Client\DispatcherHolder.cs" />
@@ -120,12 +109,8 @@
     <Compile Include="Proxy\ServiceProxyInitializationMethodAttribute.cs" />
     <Compile Include="Proxy\Model\UnitCollectionBase.cs" />
     <Compile Include="Model\UnitBase.cs" />
-    <Compile Include="Host\IApplicationCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Host\ApplicationCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Host\IApplicationCollection.cs" />
+    <Compile Include="Host\ApplicationCollection.cs" />
     <Compile Include="Communication\Native\_Internal\ManagedDataHandlerRouter.cs" />
     <Compile Include="Communication\Native\NativeGatewayServer.cs" />
     <Compile Include="Communication\Native\IDataHandler.cs" />
@@ -252,32 +237,18 @@
     <Compile Include="Communication\Managed\ChannelControllerBase.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Communication\Managed\ManagedConnector.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Communication\Managed\ManagedConnector.cs" />
     <Compile Include="Communication\Managed\InvalidConnectionSettingsException.cs" />
     <Compile Include="Communication\Managed\Tcp\TcpChannelSettings.cs" />
-    <Compile Include="Communication\Managed\Tcp\TcpChannelController.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Communication\Managed\ChannelRegistrationException.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Communication\Managed\Tcp\TcpChannelController.cs" />
+    <Compile Include="Communication\Managed\ChannelRegistrationException.cs" />
     <Compile Include="Communication\Managed\ChannelSettings.cs" />
     <Compile Include="Communication\Managed\ConnectionSettings.cs" />
-    <Compile Include="Communication\Managed\IChannelController.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Communication\Managed\InvalidChannelSettingsException.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Communication\Managed\Ipc\IpcChannelController.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Communication\Managed\IChannelController.cs" />
+    <Compile Include="Communication\Managed\InvalidChannelSettingsException.cs" />
+    <Compile Include="Communication\Managed\Ipc\IpcChannelController.cs" />
     <Compile Include="Communication\Managed\Ipc\IpcChannelSettings.cs" />
-    <Compile Include="Communication\Managed\CommunicationException.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Communication\Managed\CommunicationException.cs" />
     <Compile Include="Communication\Native\ManagedGatewayServer.cs" />
     <Compile Include="Communication\Native\_Internal\GatewayStream.cs" />
     <Compile Include="Communication\Native\IClientStream.cs" />
@@ -286,25 +257,13 @@
     <Compile Include="Communication\Native\NamedPipe\ClientStream.cs" />
     <Compile Include="Communication\Native\_Internal\RequestClient.cs" />
     <Compile Include="Communication\Native\_Internal\RequestHandler.cs" />
-    <Compile Include="Communication\Native\_Internal\Invoker.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Communication\Native\IServerStream.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Communication\Native\IStreamFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Communication\Native\NamedPipe\ServerStream.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Communication\Native\NamedPipe\StreamFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Communication\Native\_Internal\Invoker.cs" />
+    <Compile Include="Communication\Native\IServerStream.cs" />
+    <Compile Include="Communication\Native\IStreamFactory.cs" />
+    <Compile Include="Communication\Native\NamedPipe\ServerStream.cs" />
+    <Compile Include="Communication\Native\NamedPipe\StreamFactory.cs" />
     <Compile Include="Communication\Native\NativeConnector.cs" />
-    <Compile Include="Communication\Native\_Internal\RequestServer.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Communication\Native\_Internal\RequestServer.cs" />
     <Compile Include="_Exceptions\ConfigurationAlreadyExistsException.cs" />
     <Compile Include="_Exceptions\ConfigurationNotFoundException.cs" />
     <Compile Include="_DynamicSettings\ConfigurationSettings.cs" />
@@ -365,12 +324,8 @@
     <Compile Include="_Events\ConfigurationEventArgs.cs" />
     <Compile Include="IFrameworkAdapter.cs" />
     <Compile Include="IProfilingTargetAdapter.cs" />
-    <Compile Include="IConfiguration.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IConfigurationCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="IConfiguration.cs" />
+    <Compile Include="IConfigurationCollection.cs" />
     <Compile Include="Host\_Internal\Application.cs" />
     <Compile Include="_Internal\Configuration.cs" />
     <Compile Include="_Internal\ConfigurationCollection.cs" />
@@ -398,66 +353,26 @@
     <Compile Include="Extensibility\_Internal\AssemblyCache.cs" />
     <Compile Include="Extensibility\_Internal\ExtensionAssemblyResolver.cs" />
     <Compile Include="_Events\RemoteEventRouter.cs" />
-    <Compile Include="Marshaling\Collections\ArrayMarshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Generic\BoolMarshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Collections\ByteArrayMarshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Generic\ByteMarshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Generic\DateTimeMarshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Generic\DoubleMarshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Generic\EnumMarshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\GenericMarshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Generic\GuidMarshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Generic\Int32Marshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Generic\Int64Marshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Generic\IntPtrMarshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Collections\ListMarshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\MarshalerExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\MarshalingIgnoreAttribute.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\MarshalingManager.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Generic\StringMarshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Generic\UInt32Marshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Generic\UInt64Marshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Marshaling\Generic\VoidMarshaler.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Marshaling\Collections\ArrayMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\BoolMarshaler.cs" />
+    <Compile Include="Marshaling\Collections\ByteArrayMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\ByteMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\DateTimeMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\DoubleMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\EnumMarshaler.cs" />
+    <Compile Include="Marshaling\GenericMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\GuidMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\Int32Marshaler.cs" />
+    <Compile Include="Marshaling\Generic\Int64Marshaler.cs" />
+    <Compile Include="Marshaling\Generic\IntPtrMarshaler.cs" />
+    <Compile Include="Marshaling\Collections\ListMarshaler.cs" />
+    <Compile Include="Marshaling\MarshalerExtensions.cs" />
+    <Compile Include="Marshaling\MarshalingIgnoreAttribute.cs" />
+    <Compile Include="Marshaling\MarshalingManager.cs" />
+    <Compile Include="Marshaling\Generic\StringMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\UInt32Marshaler.cs" />
+    <Compile Include="Marshaling\Generic\UInt64Marshaler.cs" />
+    <Compile Include="Marshaling\Generic\VoidMarshaler.cs" />
     <Compile Include="_Exceptions\ProfilingTypeAlreadyExistsException.cs" />
     <Compile Include="_Exceptions\ProfilingTargetAlreadyExistsException.cs" />
     <Compile Include="_Exceptions\FrameworkAlreadyExistsException.cs" />
@@ -476,9 +391,7 @@
     <Compile Include="IProfilingTarget.cs" />
     <Compile Include="IProfilingTargetCollection.cs" />
     <Compile Include="IProfilingTargetController.cs" />
-    <Compile Include="IProfilingType.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="IProfilingType.cs" />
     <Compile Include="_DynamicSettings\DynamicSettings.cs" />
     <Compile Include="_DynamicSettings\DynamicSettingsValue.cs" />
     <Compile Include="Host\ApplicationManager.cs" />
@@ -490,15 +403,11 @@
     <Compile Include="IChronosApplication.cs" />
     <Compile Include="Daemon\IApplication.cs" />
     <Compile Include="Communication\Native\IManagedDataHandler.cs" />
-    <Compile Include="Host\IApplication.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Host\IApplication.cs" />
     <Compile Include="IFramework.cs" />
     <Compile Include="IFrameworkCollection.cs" />
     <Compile Include="Host\ISettings.cs" />
-    <Compile Include="IProfilingTypeCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="IProfilingTypeCollection.cs" />
     <Compile Include="IServiceContainer.cs" />
     <Compile Include="_Logging\DefaultLogger.cs" />
     <Compile Include="_Logging\FileLogger.cs" />
@@ -543,9 +452,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Chronos.snk">
-      <Link>Properties\Chronos.snk</Link>
-    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>

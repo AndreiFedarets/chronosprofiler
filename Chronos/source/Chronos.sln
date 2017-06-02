@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos", "Chronos\Chronos.csproj", "{75BA0099-4AD5-4A8E-8CA4-4ECB842E169C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Daemon.Application", "Chronos.Daemon.Application\Chronos.Daemon.Application.csproj", "{12ADF054-6063-4572-B877-5CDCD4258C33}"
@@ -8,6 +10,24 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Host.Application", "Chronos.Host.Application\Chronos.Host.Application.csproj", "{BC621A93-A852-42B2-BAC9-4F10F09F9E79}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.Agent", "Chronos.Agent\Chronos.Agent.vcxproj", "{77D938DF-D463-407F-8CDE-3A69EFF4D8AF}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Module", "Chronos.Module\Chronos.Module.wixproj", "{9FBE1CF4-D567-4D69-B5F9-83FB90296E01}"
+	ProjectSection(ProjectDependencies) = postProject
+		{12ADF054-6063-4572-B877-5CDCD4258C33} = {12ADF054-6063-4572-B877-5CDCD4258C33}
+		{BC621A93-A852-42B2-BAC9-4F10F09F9E79} = {BC621A93-A852-42B2-BAC9-4F10F09F9E79}
+		{75BA0099-4AD5-4A8E-8CA4-4ECB842E169C} = {75BA0099-4AD5-4A8E-8CA4-4ECB842E169C}
+		{77D938DF-D463-407F-8CDE-3A69EFF4D8AF} = {77D938DF-D463-407F-8CDE-3A69EFF4D8AF}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{97B888D1-EBF7-4838-BFA7-68808F886832}"
+	ProjectSection(SolutionItems) = preProject
+		.scripts\Cpp.props = .scripts\Cpp.props
+		.scripts\CSharp.targets = .scripts\CSharp.targets
+		.scripts\ModuleConfig.wxi = .scripts\ModuleConfig.wxi
+		.scripts\SolutionInfo.cs = .scripts\SolutionInfo.cs
+		.scripts\StrongName.snk = .scripts\StrongName.snk
+		.scripts\Wix.targets = .scripts\Wix.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,18 +39,22 @@ Global
 		{75BA0099-4AD5-4A8E-8CA4-4ECB842E169C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{75BA0099-4AD5-4A8E-8CA4-4ECB842E169C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{75BA0099-4AD5-4A8E-8CA4-4ECB842E169C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{12ADF054-6063-4572-B877-5CDCD4258C33}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{12ADF054-6063-4572-B877-5CDCD4258C33}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{12ADF054-6063-4572-B877-5CDCD4258C33}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{12ADF054-6063-4572-B877-5CDCD4258C33}.Release|Mixed Platforms.Build.0 = Release|x86
-		{BC621A93-A852-42B2-BAC9-4F10F09F9E79}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{BC621A93-A852-42B2-BAC9-4F10F09F9E79}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{BC621A93-A852-42B2-BAC9-4F10F09F9E79}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{BC621A93-A852-42B2-BAC9-4F10F09F9E79}.Release|Mixed Platforms.Build.0 = Release|x86
+		{12ADF054-6063-4572-B877-5CDCD4258C33}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{12ADF054-6063-4572-B877-5CDCD4258C33}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{12ADF054-6063-4572-B877-5CDCD4258C33}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{12ADF054-6063-4572-B877-5CDCD4258C33}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BC621A93-A852-42B2-BAC9-4F10F09F9E79}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BC621A93-A852-42B2-BAC9-4F10F09F9E79}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BC621A93-A852-42B2-BAC9-4F10F09F9E79}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BC621A93-A852-42B2-BAC9-4F10F09F9E79}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{77D938DF-D463-407F-8CDE-3A69EFF4D8AF}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{77D938DF-D463-407F-8CDE-3A69EFF4D8AF}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{77D938DF-D463-407F-8CDE-3A69EFF4D8AF}.Release|Mixed Platforms.ActiveCfg = Release|Win32
 		{77D938DF-D463-407F-8CDE-3A69EFF4D8AF}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{9FBE1CF4-D567-4D69-B5F9-83FB90296E01}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{9FBE1CF4-D567-4D69-B5F9-83FB90296E01}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{9FBE1CF4-D567-4D69-B5F9-83FB90296E01}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{9FBE1CF4-D567-4D69-B5F9-83FB90296E01}.Release|Mixed Platforms.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
