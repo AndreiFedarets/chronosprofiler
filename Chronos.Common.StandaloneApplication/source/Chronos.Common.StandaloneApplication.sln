@@ -1,22 +1,38 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Common.StandaloneApplication", "Chronos.Common.StandaloneApplication\Chronos.Common.StandaloneApplication.csproj", "{C37CE387-E513-478D-837C-F104C6A785A6}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Common.StandaloneApplication.Module", "Chronos.Common.StandaloneApplication.Module\Chronos.Common.StandaloneApplication.Module.wixproj", "{81860C39-5D41-4339-A498-51B1C67102B1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C37CE387-E513-478D-837C-F104C6A785A6} = {C37CE387-E513-478D-837C-F104C6A785A6}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{7F3C72CF-7EE8-45FB-BB56-D1DCB75F3069}"
+	ProjectSection(SolutionItems) = preProject
+		.scripts\CSharp.targets = .scripts\CSharp.targets
+		.scripts\ModuleConfig.wxi = .scripts\ModuleConfig.wxi
+		.scripts\SolutionInfo.cs = .scripts\SolutionInfo.cs
+		.scripts\StrongName.snk = .scripts\StrongName.snk
+		.scripts\Wix.targets = .scripts\Wix.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Debug|X64 = Debug|X64
-		Release|Any CPU = Release|Any CPU
-		Release|X64 = Release|X64
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|Mixed Platforms = Release|Mixed Platforms
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C37CE387-E513-478D-837C-F104C6A785A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C37CE387-E513-478D-837C-F104C6A785A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C37CE387-E513-478D-837C-F104C6A785A6}.Debug|X64.ActiveCfg = Debug|Any CPU
-		{C37CE387-E513-478D-837C-F104C6A785A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C37CE387-E513-478D-837C-F104C6A785A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C37CE387-E513-478D-837C-F104C6A785A6}.Release|X64.ActiveCfg = Release|Any CPU
+		{C37CE387-E513-478D-837C-F104C6A785A6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C37CE387-E513-478D-837C-F104C6A785A6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C37CE387-E513-478D-837C-F104C6A785A6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C37CE387-E513-478D-837C-F104C6A785A6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{81860C39-5D41-4339-A498-51B1C67102B1}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{81860C39-5D41-4339-A498-51B1C67102B1}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{81860C39-5D41-4339-A498-51B1C67102B1}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{81860C39-5D41-4339-A498-51B1C67102B1}.Release|Mixed Platforms.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
