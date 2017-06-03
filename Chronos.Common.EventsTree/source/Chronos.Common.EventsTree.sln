@@ -1,9 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Common.EventsTree", "Chronos.Common.EventsTree\Chronos.Common.EventsTree.csproj", "{2F69C3FB-4DD5-440F-B96E-42BEBFBE8011}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.Common.EventsTree.Agent", "Chronos.Common.EventsTree.Agent\Chronos.Common.EventsTree.Agent.vcxproj", "{2E54B75A-153B-46A6-B85B-70CADF820627}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Common.EventsTree.Module", "Chronos.Common.EventsTree.Module\Chronos.Common.EventsTree.Module.wixproj", "{9B2E6C9F-9B68-477D-8643-ED76CCB021BA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2E54B75A-153B-46A6-B85B-70CADF820627} = {2E54B75A-153B-46A6-B85B-70CADF820627}
+		{2F69C3FB-4DD5-440F-B96E-42BEBFBE8011} = {2F69C3FB-4DD5-440F-B96E-42BEBFBE8011}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{4D2E1F86-38DF-46AB-B1C8-35EBC859C98F}"
+	ProjectSection(SolutionItems) = preProject
+		.scripts\Cpp.props = .scripts\Cpp.props
+		.scripts\CSharp.targets = .scripts\CSharp.targets
+		.scripts\ModuleConfig.wxi = .scripts\ModuleConfig.wxi
+		.scripts\SolutionInfo.cs = .scripts\SolutionInfo.cs
+		.scripts\StrongName.snk = .scripts\StrongName.snk
+		.scripts\Wix.targets = .scripts\Wix.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +37,10 @@ Global
 		{2E54B75A-153B-46A6-B85B-70CADF820627}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{2E54B75A-153B-46A6-B85B-70CADF820627}.Release|Mixed Platforms.ActiveCfg = Release|Win32
 		{2E54B75A-153B-46A6-B85B-70CADF820627}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{9B2E6C9F-9B68-477D-8643-ED76CCB021BA}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{9B2E6C9F-9B68-477D-8643-ED76CCB021BA}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{9B2E6C9F-9B68-477D-8643-ED76CCB021BA}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{9B2E6C9F-9B68-477D-8643-ED76CCB021BA}.Release|Mixed Platforms.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
