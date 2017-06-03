@@ -1,40 +1,46 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.DotNet.TracingProfiler", "Chronos.DotNet.TracingProfiler\Chronos.DotNet.TracingProfiler.csproj", "{9CCB0F7A-1475-4C1B-B8FB-6D9C52CBAE6A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.DotNet.TracingProfiler.Agent", "Chronos.DotNet.TracingProfiler.Agent\Chronos.DotNet.TracingProfiler.Agent.vcxproj", "{82DBA9A9-38CA-410A-AA35-E06F75881844}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.DotNet.TracingProfiler.Module", "Chronos.DotNet.TracingProfiler.Module\Chronos.DotNet.TracingProfiler.Module.wixproj", "{ED79316E-7447-42A5-A9A1-CFDFD1C5C734}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9CCB0F7A-1475-4C1B-B8FB-6D9C52CBAE6A} = {9CCB0F7A-1475-4C1B-B8FB-6D9C52CBAE6A}
+		{82DBA9A9-38CA-410A-AA35-E06F75881844} = {82DBA9A9-38CA-410A-AA35-E06F75881844}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{6A138DFB-9192-46A2-8676-3471CBF8830E}"
+	ProjectSection(SolutionItems) = preProject
+		.scripts\Cpp.props = .scripts\Cpp.props
+		.scripts\CSharp.targets = .scripts\CSharp.targets
+		.scripts\ModuleConfig.wxi = .scripts\ModuleConfig.wxi
+		.scripts\SolutionInfo.cs = .scripts\SolutionInfo.cs
+		.scripts\StrongName.snk = .scripts\StrongName.snk
+		.scripts\Wix.targets = .scripts\Wix.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
-		Debug|Win32 = Debug|Win32
-		Release|Any CPU = Release|Any CPU
 		Release|Mixed Platforms = Release|Mixed Platforms
-		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9CCB0F7A-1475-4C1B-B8FB-6D9C52CBAE6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CCB0F7A-1475-4C1B-B8FB-6D9C52CBAE6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CCB0F7A-1475-4C1B-B8FB-6D9C52CBAE6A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{9CCB0F7A-1475-4C1B-B8FB-6D9C52CBAE6A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9CCB0F7A-1475-4C1B-B8FB-6D9C52CBAE6A}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{9CCB0F7A-1475-4C1B-B8FB-6D9C52CBAE6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CCB0F7A-1475-4C1B-B8FB-6D9C52CBAE6A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9CCB0F7A-1475-4C1B-B8FB-6D9C52CBAE6A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9CCB0F7A-1475-4C1B-B8FB-6D9C52CBAE6A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{9CCB0F7A-1475-4C1B-B8FB-6D9C52CBAE6A}.Release|Win32.ActiveCfg = Release|Any CPU
-		{82DBA9A9-38CA-410A-AA35-E06F75881844}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{82DBA9A9-38CA-410A-AA35-E06F75881844}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{82DBA9A9-38CA-410A-AA35-E06F75881844}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{82DBA9A9-38CA-410A-AA35-E06F75881844}.Debug|Win32.ActiveCfg = Debug|Win32
-		{82DBA9A9-38CA-410A-AA35-E06F75881844}.Debug|Win32.Build.0 = Debug|Win32
-		{82DBA9A9-38CA-410A-AA35-E06F75881844}.Release|Any CPU.ActiveCfg = Release|Win32
 		{82DBA9A9-38CA-410A-AA35-E06F75881844}.Release|Mixed Platforms.ActiveCfg = Release|Win32
 		{82DBA9A9-38CA-410A-AA35-E06F75881844}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{82DBA9A9-38CA-410A-AA35-E06F75881844}.Release|Win32.ActiveCfg = Release|Win32
-		{82DBA9A9-38CA-410A-AA35-E06F75881844}.Release|Win32.Build.0 = Release|Win32
+		{ED79316E-7447-42A5-A9A1-CFDFD1C5C734}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{ED79316E-7447-42A5-A9A1-CFDFD1C5C734}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{ED79316E-7447-42A5-A9A1-CFDFD1C5C734}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{ED79316E-7447-42A5-A9A1-CFDFD1C5C734}.Release|Mixed Platforms.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
