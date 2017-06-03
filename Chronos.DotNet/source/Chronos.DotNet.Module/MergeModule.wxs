@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include "$(var.SolutionDir)\.scripts\ModuleConfig.wxi"?>
+  <Module Id="Chronos.DotNet" Language="1033" Version="$(var.Version)">
+    <Package Id="f33b53a4-11e3-4ba0-9834-6e37b9b49778" Manufacturer="$(var.Manufacturer)" InstallerVersion="200" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MergeRedirectFolder">
+        <Directory Id="Chronos_DotNet_Directory" Name="$(var.TargetDir)">
+          <Component Id="Chronos_DotNet_Component" Guid="85116c38-e442-4901-bf64-50e9a4f0bb06">
+            <File Id="Chronos_DotNet_dll" Name="Chronos.DotNet.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.DotNet.dll" />
+            <File Id="Chronos_DotNet_xchronex" Name="Chronos.DotNet.xchronex" DiskId="1" Source="$(var.SourceDir)\Chronos.DotNet.xchronex" />
+            <File Id="Chronos_DotNet_Agent_dll" Name="Chronos.DotNet.Agent.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.DotNet.Agent.dll" />
+          </Component>
+          <Directory Id="Chronos_DotNet_Directory_64" Name="$(var.Dir64)">
+            <Component Id="Chronos_DotNet_Component_64" Guid="F8443E5F-1109-41BE-9079-854F67D2CD06">
+              <File Id="Chronos_DotNet_Agent_dll_64" Name="Chronos.DotNet.Agent.dll" DiskId="1" Source="$(var.SourceDir)\$(var.Dir64)\Chronos.DotNet.Agent.dll" />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>
