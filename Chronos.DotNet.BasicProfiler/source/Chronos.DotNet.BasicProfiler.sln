@@ -1,9 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.DotNet.BasicProfiler", "Chronos.DotNet.BasicProfiler\Chronos.DotNet.BasicProfiler.csproj", "{E4A7A762-8703-4C4D-A609-3915B0A1DFE4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.DotNet.BasicProfiler.Agent", "Chronos.DotNet.BasicProfiler.Agent\Chronos.DotNet.BasicProfiler.Agent.vcxproj", "{623A4BDD-BC7A-468F-A159-5E4B4E87CEDA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{07BAA784-8DC0-4CC1-A75C-E5462E7B007D}"
+	ProjectSection(SolutionItems) = preProject
+		.scripts\Cpp.props = .scripts\Cpp.props
+		.scripts\CSharp.targets = .scripts\CSharp.targets
+		.scripts\ModuleConfig.wxi = .scripts\ModuleConfig.wxi
+		.scripts\SolutionInfo.cs = .scripts\SolutionInfo.cs
+		.scripts\StrongName.snk = .scripts\StrongName.snk
+		.scripts\Wix.targets = .scripts\Wix.targets
+	EndProjectSection
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.DotNet.BasicProfiler.Module", "Chronos.DotNet.BasicProfiler.Module\Chronos.DotNet.BasicProfiler.Module.wixproj", "{87CEC1D6-951E-465B-BA2B-17EFB4E30D7C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E4A7A762-8703-4C4D-A609-3915B0A1DFE4} = {E4A7A762-8703-4C4D-A609-3915B0A1DFE4}
+		{623A4BDD-BC7A-468F-A159-5E4B4E87CEDA} = {623A4BDD-BC7A-468F-A159-5E4B4E87CEDA}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +37,10 @@ Global
 		{623A4BDD-BC7A-468F-A159-5E4B4E87CEDA}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{623A4BDD-BC7A-468F-A159-5E4B4E87CEDA}.Release|Mixed Platforms.ActiveCfg = Release|Win32
 		{623A4BDD-BC7A-468F-A159-5E4B4E87CEDA}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{87CEC1D6-951E-465B-BA2B-17EFB4E30D7C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{87CEC1D6-951E-465B-BA2B-17EFB4E30D7C}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{87CEC1D6-951E-465B-BA2B-17EFB4E30D7C}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{87CEC1D6-951E-465B-BA2B-17EFB4E30D7C}.Release|Mixed Platforms.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
