@@ -10,6 +10,7 @@
     <DumpsDirectory Path="%ProgramData%\ChronosProfiler\Dumps\" />
   </CrashDump>
   <Extensions>
+    <!-- Development -->
     <Extension IsEnabled="true" Path="..\..\Chronos.Common\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.Common.EventsTree\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.Common.StandaloneApplication\build\" />
@@ -29,6 +30,27 @@
     <Extension IsEnabled="true" Path="..\..\Chronos.Client.Win.DotNet.SqlProfiler\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.Client.Win.DotNet.TracingProfiler\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.Client.Win.DotNet.FindReference\build\" />
+
+    <!-- Production -->
+    <Extension IsEnabled="true" Path="..\Chronos.Common\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Common.EventsTree\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Common.StandaloneApplication\" />
+    <Extension IsEnabled="true" Path="..\Chronos.DotNet\" />
+    <Extension IsEnabled="true" Path="..\Chronos.DotNet.BasicProfiler\" />
+    <Extension IsEnabled="true" Path="..\Chronos.DotNet.ExceptionMonitor\" />
+    <Extension IsEnabled="true" Path="..\Chronos.DotNet.SqlProfiler\" />
+    <Extension IsEnabled="true" Path="..\Chronos.DotNet.TracingProfiler\" />
+
+    <Extension IsEnabled="true" Path="..\Chronos.Client.Win\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Client.Win.Common\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Client.Win.Common.EventsTree\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Client.Win.Common.StandaloneApplication\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Client.Win.DotNet\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Client.Win.DotNet.BasicProfiler\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Client.Win.DotNet.ExceptionMonitor\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Client.Win.DotNet.SqlProfiler\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Client.Win.DotNet.TracingProfiler\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Client.Win.DotNet.FindReference\" />
   </Extensions>
   <ProfilingResults Path="%ProgramData%\ChronosProfiler\ProfilingResults\" />
   <HostConnections RunLocal="true">

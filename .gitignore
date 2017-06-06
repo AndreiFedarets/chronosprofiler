@@ -2,6 +2,7 @@ build
 msi
 obj
 bin
+package
 *.user
 *.opensdf
 *.suo

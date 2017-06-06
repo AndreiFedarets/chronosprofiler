@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?include "$(var.SolutionDir)\.scripts\ModuleConfig.wxi"?>
-  <Module Id="Chronos.Module" Language="1033" Version="$(var.Version)">
+  <Module Id="Chronos" Language="1033" Version="$(var.Version)">
     <Package Id="80b7cbb6-b87e-4c6f-b2a2-e4aaa62f8f27" Manufacturer="$(var.Manufacturer)" InstallerVersion="200" />
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="MergeRedirectFolder">
         <Directory Id="Chronos_Directory" Name="$(var.TargetDir)">
-          <Component Id="Chronos_Module_Component" Guid="687efbb2-afec-4aa4-a51a-83a57499d627">
+          <Component Id="Chronos_Component" Guid="687efbb2-afec-4aa4-a51a-83a57499d627">
             <File Id="Chronos_dll" Name="Chronos.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.dll" />
             <File Id="Chronos_Agent_dll" Name="Chronos.Agent.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.Agent.dll" />
             <File Id="Chronos_Daemon_Application_exe" Name="Chronos.Daemon.Application.exe" DiskId="1" Source="$(var.SourceDir)\Chronos.Daemon.Application.exe" />
@@ -16,7 +16,7 @@
             <File Id="System_Data_SQLite_dll" Name="System.Data.SQLite.dll" DiskId="1" Source="$(var.SourceDir)\System.Data.SQLite.dll" />
           </Component>
           <Directory Id="Chronos_Directory_64" Name="$(var.Dir64)">
-            <Component Id="Chronos_Module_Component_64" Guid="F8443E5F-1109-41BE-9079-854F67D2CD06">
+            <Component Id="Chronos_Component_64" Guid="f8443e5f-1109-41be-9079-854f67d2cd06">
               <File Id="Chronos_Agent_dll_64" Name="Chronos.Agent.dll" DiskId="1" Source="$(var.SourceDir)\$(var.Dir64)\Chronos.Agent.dll" />
             </Component>
           </Directory>

@@ -7,7 +7,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>81860c39-5d41-4339-a498-51b1c67102b1</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>Chronos.Common.StandaloneApplication.Module</OutputName>
+    <OutputName>Chronos.Common.StandaloneApplication</OutputName>
     <OutputType>Module</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
