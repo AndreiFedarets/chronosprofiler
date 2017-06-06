@@ -63,6 +63,7 @@
     <Compile Include="Model\BuildResult.cs" />
     <Compile Include="Model\SolutionDependency.cs" />
     <Compile Include="Model\FileDependency.cs" />
+    <Compile Include="Model\_Internal\PackageFolder.cs" />
     <Compile Include="Model\_Internal\BuildFolder.cs" />
     <Compile Include="Model\Configuration.cs" />
     <Compile Include="Model\Solution.cs" />

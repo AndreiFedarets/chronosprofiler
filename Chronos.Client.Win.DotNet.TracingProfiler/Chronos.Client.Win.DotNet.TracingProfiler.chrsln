@@ -3,6 +3,7 @@
   <Source>source</Source>
   <Externals Debug="externals" Release="externals" />
   <Build Debug="build" Release="build" />
+  <Package Debug="package\module" Release="package\module" />
   <Dependencies>
     <Solution Name="Chronos.chrsln">
       <File Name="Chronos.dll" />

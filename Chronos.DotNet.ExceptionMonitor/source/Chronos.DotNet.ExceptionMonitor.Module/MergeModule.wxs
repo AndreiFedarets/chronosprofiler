@@ -12,7 +12,7 @@
             <File Id="Chronos_DotNet_ExceptionMonitor_Agent_dll" Name="Chronos.DotNet.ExceptionMonitor.Agent.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.DotNet.ExceptionMonitor.Agent.dll" />
           </Component>
           <Directory Id="Chronos_DotNet_ExceptionMonitor_Directory_64" Name="$(var.Dir64)">
-            <Component Id="Chronos_DotNet_ExceptionMonitor_Component_64" Guid="F8443E5F-1109-41BE-9079-854F67D2CD06">
+            <Component Id="Chronos_DotNet_ExceptionMonitor_Component_64" Guid="9e197dfc-7d85-4818-8159-43adc2052014">
               <File Id="Chronos_DotNet_ExceptionMonitor_Agent_dll_64" Name="Chronos.DotNet.ExceptionMonitor.Agent.dll" DiskId="1" Source="$(var.SourceDir)\$(var.Dir64)\Chronos.DotNet.ExceptionMonitor.Agent.dll" />
             </Component>
           </Directory>

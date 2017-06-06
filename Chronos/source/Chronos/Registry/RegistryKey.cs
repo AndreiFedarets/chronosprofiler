@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Chronos.Registry
@@ -7,14 +8,16 @@ namespace Chronos.Registry
     {
         private RegistryKey _parent;
         private readonly RemoveType _removeType;
+        private readonly Microsoft.Win32.RegistryView _registryView;
         private string _name;
 
-        internal RegistryKey(string name, RemoveType removeType, List<RegistryKey> keys, List<RegistryValue> values)
+        internal RegistryKey(string name, RemoveType removeType, List<RegistryKey> keys, List<RegistryValue> values, Microsoft.Win32.RegistryView registryView)
         {
             KeyName = name;
             _removeType = removeType;
             Keys = new RegistryKeyCollection(keys);
             Values = new RegistryValueCollection(values);
+            _registryView = registryView;
         }
 
         public string KeyName { get; private set; }
@@ -68,6 +71,23 @@ namespace Chronos.Registry
             }
         }
 
+        internal Microsoft.Win32.RegistryView RegistryView
+        {
+            get
+            {
+                Microsoft.Win32.RegistryView registryView;
+                if (_parent != null && _parent.RegistryView != Microsoft.Win32.RegistryView.Default)
+                {
+                    registryView = _parent.RegistryView;
+                }
+                else
+                {
+                    registryView = _registryView;
+                }
+                return registryView;
+            }
+        }
+
         internal void SetParent(RegistryKey parent)
         {
             _parent = parent;
@@ -75,32 +95,40 @@ namespace Chronos.Registry
             Values.SetParent(this);
         }
 
-        internal void Import()
+        internal void Import(VariableCollection variables)
         {
-            Microsoft.Win32.RegistryKey rootKey = Microsoft.Win32.RegistryKey.OpenBaseKey(RegistryHive, Microsoft.Win32.RegistryView.Default);
             if (!string.IsNullOrEmpty(Name))
             {
+                Microsoft.Win32.RegistryKey rootKey = Microsoft.Win32.RegistryKey.OpenBaseKey(RegistryHive, RegistryView);
                 Microsoft.Win32.RegistryKey key = rootKey.OpenSubKey(Name);
                 if (key == null)
                 {
                     rootKey.CreateSubKey(Name);
                 }
             }
-            Keys.Import();
-            Values.Import();
+            Keys.Import(variables);
+            Values.Import(variables);
         }
 
         internal void Remove()
         {
-            if (_removeType == RemoveType.No)
+            if (_removeType == RemoveType.Force)
             {
-                return;
-            }
-
-            Microsoft.Win32.RegistryKey key = RegistryExtensions.OpenSubKey(FullName, Microsoft.Win32.RegistryView.Default);
-            if (key != null)
-            {
-                RegistryExtensions.CreateSubKey(FullName, Microsoft.Win32.RegistryView.Default);
+                if (!string.IsNullOrEmpty(Name) && _parent != null)
+                {
+                    Microsoft.Win32.RegistryKey rootKey = Microsoft.Win32.RegistryKey.OpenBaseKey(RegistryHive, RegistryView);
+                    Microsoft.Win32.RegistryKey key = rootKey.OpenSubKey(_parent.Name, true);
+                    if (key != null)
+                    {
+                        try
+                        {
+                            key.DeleteSubKeyTree(KeyName);
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    }
+                }
             }
             Keys.Remove();
             Values.Remove();

@@ -29,11 +29,11 @@ namespace Chronos.Registry
             }
         }
 
-        internal void Import()
+        internal void Import(VariableCollection variables)
         {
             foreach (RegistryKey key in _keys)
             {
-                key.Import();
+                key.Import(variables);
             }
         }
 

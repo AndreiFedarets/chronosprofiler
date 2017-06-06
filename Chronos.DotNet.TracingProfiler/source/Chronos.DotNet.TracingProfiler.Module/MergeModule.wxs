@@ -12,7 +12,7 @@
             <File Id="Chronos_DotNet_TracingProfiler_Agent_dll" Name="Chronos.DotNet.TracingProfiler.Agent.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.DotNet.TracingProfiler.Agent.dll" />
           </Component>
           <Directory Id="Chronos_DotNet_TracingProfiler_Directory_64" Name="$(var.Dir64)">
-            <Component Id="Chronos_DotNet_TracingProfiler_Component_64" Guid="F8443E5F-1109-41BE-9079-854F67D2CD06">
+            <Component Id="Chronos_DotNet_TracingProfiler_Component_64" Guid="891dbbd4-108d-4bf0-b6b6-b81087b1918b">
               <File Id="Chronos_DotNet_TracingProfiler_Agent_dll_64" Name="Chronos.DotNet.TracingProfiler.Agent.dll" DiskId="1" Source="$(var.SourceDir)\$(var.Dir64)\Chronos.DotNet.TracingProfiler.Agent.dll" />
             </Component>
           </Directory>

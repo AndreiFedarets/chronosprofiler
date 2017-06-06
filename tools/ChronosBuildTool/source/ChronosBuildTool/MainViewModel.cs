@@ -22,6 +22,7 @@ namespace ChronosBuildTool
             _dispatcher = Dispatcher.CurrentDispatcher;
             _solutions = new SolutionCollection();
             _solutions.LoadFrom(AppDomain.CurrentDomain.BaseDirectory);
+            _solutions.Sort();
             BuildCommand = new Command(Build);
             RebuildCommand = new Command(Rebuild);
             CleanCommand = new Command(Clean);

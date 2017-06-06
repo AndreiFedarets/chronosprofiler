@@ -62,7 +62,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Registry.xml">
+    <Content Include="Resources\HKCURegistry.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Resources\HKLMRegistry.xml">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>

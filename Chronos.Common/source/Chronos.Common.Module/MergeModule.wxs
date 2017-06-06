@@ -12,7 +12,7 @@
             <File Id="Chronos_Common_Agent_dll" Name="Chronos.Common.Agent.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.Common.Agent.dll" />
           </Component>
           <Directory Id="Chronos_Common_Directory_64" Name="$(var.Dir64)">
-            <Component Id="Chronos_Common_Component_64" Guid="F8443E5F-1109-41BE-9079-854F67D2CD06">
+            <Component Id="Chronos_Common_Component_64" Guid="8d2e78eb-f686-4d6e-a676-6d52a1929576">
               <File Id="Chronos_Common_Agent_dll_64" Name="Chronos.Common.Agent.dll" DiskId="1" Source="$(var.SourceDir)\$(var.Dir64)\Chronos.Common.Agent.dll" />
             </Component>
           </Directory>

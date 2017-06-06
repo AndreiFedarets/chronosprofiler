@@ -124,7 +124,10 @@
     <value>Microsoft.NET</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Registry" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Registry.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="HKCURegistry" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HKCURegistry.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="HKLMRegistry" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HKLMRegistry.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

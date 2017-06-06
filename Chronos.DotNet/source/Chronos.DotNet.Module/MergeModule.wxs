@@ -12,7 +12,7 @@
             <File Id="Chronos_DotNet_Agent_dll" Name="Chronos.DotNet.Agent.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.DotNet.Agent.dll" />
           </Component>
           <Directory Id="Chronos_DotNet_Directory_64" Name="$(var.Dir64)">
-            <Component Id="Chronos_DotNet_Component_64" Guid="F8443E5F-1109-41BE-9079-854F67D2CD06">
+            <Component Id="Chronos_DotNet_Component_64" Guid="97571b57-3223-44e4-a559-3301d276c12c">
               <File Id="Chronos_DotNet_Agent_dll_64" Name="Chronos.DotNet.Agent.dll" DiskId="1" Source="$(var.SourceDir)\$(var.Dir64)\Chronos.DotNet.Agent.dll" />
             </Component>
           </Directory>

@@ -53,5 +53,16 @@ namespace Chronos
             key = key.CreateSubKey(path);
             return key;
         }
+
+        public static void DeleteSubKey(string name, RegistryHive hive, RegistryView view)
+        {
+            RegistryKey key = RegistryKey.OpenBaseKey(hive, view);
+            string path = Path.GetDirectoryName(name);
+            if (string.IsNullOrEmpty(path))
+            {
+                return;
+            }
+            key.DeleteSubKeyTree(path);
+        }
     }
 }

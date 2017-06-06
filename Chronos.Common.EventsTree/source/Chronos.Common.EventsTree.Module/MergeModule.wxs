@@ -12,7 +12,7 @@
             <File Id="Chronos_Common_EventsTree_Agent_dll" Name="Chronos.Common.EventsTree.Agent.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.Common.EventsTree.Agent.dll" />
           </Component>
           <Directory Id="Chronos_Common_EventsTree_Directory_64" Name="$(var.Dir64)">
-            <Component Id="Chronos_Common_EventsTree_Component_64" Guid="F8443E5F-1109-41BE-9079-854F67D2CD06">
+            <Component Id="Chronos_Common_EventsTree_Component_64" Guid="11c72f92-6999-464c-91e9-e3a159032201">
               <File Id="Chronos_Common_EventsTree_Agent_dll_64" Name="Chronos.Common.EventsTree.Agent.dll" DiskId="1" Source="$(var.SourceDir)\$(var.Dir64)\Chronos.Common.EventsTree.Agent.dll" />
             </Component>
           </Directory>

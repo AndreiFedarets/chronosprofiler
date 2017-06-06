@@ -16,7 +16,7 @@
             <File Id="System_Data_SQLite_dll" Name="System.Data.SQLite.dll" DiskId="1" Source="$(var.SourceDir)\System.Data.SQLite.dll" />
           </Component>
           <Directory Id="Chronos_Directory_64" Name="$(var.Dir64)">
-            <Component Id="Chronos_Component_64" Guid="f8443e5f-1109-41be-9079-854f67d2cd06">
+            <Component Id="Chronos_Component_64" Guid="7b09493b-887e-49db-acc8-248c3170752c">
               <File Id="Chronos_Agent_dll_64" Name="Chronos.Agent.dll" DiskId="1" Source="$(var.SourceDir)\$(var.Dir64)\Chronos.Agent.dll" />
             </Component>
           </Directory>

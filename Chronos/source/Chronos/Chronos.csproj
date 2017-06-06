@@ -86,6 +86,7 @@
     <Compile Include="ILifetimeSponsor.cs" />
     <Compile Include="Proxy\ProxyBaseObjectHelper.cs" />
     <Compile Include="Proxy\_Internal\LifetimeSponsorCollection.cs" />
+    <Compile Include="Registry\VariableCollection.cs" />
     <Compile Include="Settings\IChannelSettings.cs" />
     <Compile Include="Settings\ICrashDumpSettings.cs" />
     <Compile Include="Settings\IEventLoggerSettings.cs" />

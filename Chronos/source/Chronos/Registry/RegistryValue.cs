@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Microsoft.Win32;
 
 namespace Chronos.Registry
 {
@@ -43,19 +44,25 @@ namespace Chronos.Registry
             _parent = parent;
         }
 
-        internal void Import()
+        internal void Import(VariableCollection variables)
         {
-            Microsoft.Win32.RegistryKey rootKey = Microsoft.Win32.RegistryKey.OpenBaseKey(_parent.RegistryHive, Microsoft.Win32.RegistryView.Default);
-            Microsoft.Win32.RegistryKey key = rootKey.OpenSubKey(_parent.Name);
+            Microsoft.Win32.RegistryKey rootKey = Microsoft.Win32.RegistryKey.OpenBaseKey(_parent.RegistryHive, _parent.RegistryView);
+            Microsoft.Win32.RegistryKey key = rootKey.OpenSubKey(_parent.Name, true);
             if (key != null)
             {
-                key.SetValue(ValueName, TypedValue, Type);
+                object value = variables.ReplaceVariables(TypedValue, Type);
+                key.SetValue(ValueName, value, Type);
             }
         }
 
         internal void Remove()
         {
-            throw new NotImplementedException();
+            Microsoft.Win32.RegistryKey rootKey = Microsoft.Win32.RegistryKey.OpenBaseKey(_parent.RegistryHive, _parent.RegistryView);
+            Microsoft.Win32.RegistryKey key = rootKey.OpenSubKey(_parent.Name, true);
+            if (key != null)
+            {
+                key.SetValue(ValueName, string.Empty, Type);
+            }
         }
     }
 }

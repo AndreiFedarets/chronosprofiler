@@ -9,6 +9,7 @@ namespace ChronosBuildTool.Model
     {
         private const string SolutionElementName = "Solution";
         private const string BuildElementName = "Build";
+        private const string PackageElementName = "Package";
         private const string SourceElementName = "Source";
         private const string ExternalsElementName = "Externals";
         private const string DependenciesElementName = "Dependencies";
@@ -22,6 +23,7 @@ namespace ChronosBuildTool.Model
         public Solution ReadSolution(SolutionCollection solutions, FileInfo solutionFile)
         {
             BuildFolder buildFolder = null;
+            PackageFolder packageFolder = null;
             ExternalsFolder externalsFolder = null;
             List<SolutionDependency> dependencies = new List<SolutionDependency>();
             string name = string.Empty;
@@ -63,6 +65,9 @@ namespace ChronosBuildTool.Model
                             case BuildElementName:
                                 buildFolder = ReadBuildFolder(reader);
                                 break;
+                            case PackageElementName:
+                                packageFolder = ReadPackageFolder(reader);
+                                break;
                             case SourceElementName:
                                 source = reader.ReadInnerXml();
                                 break;
@@ -76,7 +81,7 @@ namespace ChronosBuildTool.Model
                     }
                 }
             }
-            Solution solution = new Solution(solutions, solutionFile, name, source, buildFolder, externalsFolder, dependencies);
+            Solution solution = new Solution(solutions, solutionFile, name, source, buildFolder, packageFolder, externalsFolder, dependencies);
             return solution;
         }
 
@@ -202,7 +207,7 @@ namespace ChronosBuildTool.Model
             ExternalsFolder externalsFolder = new ExternalsFolder(debug, release);
             return externalsFolder;
         }
-
+        
         private BuildFolder ReadBuildFolder(XmlReader reader)
         {
             MoveToElement(reader, BuildElementName);
@@ -229,6 +234,34 @@ namespace ChronosBuildTool.Model
 
             BuildFolder buildFolder = new BuildFolder(debug, release);
             return buildFolder;
+        }
+
+        private PackageFolder ReadPackageFolder(XmlReader reader)
+        {
+            MoveToElement(reader, PackageElementName);
+
+            string debug = string.Empty;
+            string release = string.Empty;
+
+            //Read Element attributes
+            while (reader.MoveToNextAttribute())
+            {
+                switch (reader.Name)
+                {
+                    case DebugAttributeName:
+                        debug = reader.ReadContentAsString();
+                        break;
+                    case ReleaseAttributeName:
+                        release = reader.ReadContentAsString();
+                        break;
+                }
+            }
+
+            //Move back to Element element
+            reader.MoveToElement();
+
+            PackageFolder packageFolder = new PackageFolder(debug, release);
+            return packageFolder;
         }
 
 

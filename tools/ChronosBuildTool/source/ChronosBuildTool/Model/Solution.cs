@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using Microsoft.Win32;
 
 namespace ChronosBuildTool.Model
 {
@@ -13,17 +11,19 @@ namespace ChronosBuildTool.Model
         private readonly List<SolutionDependency> _dependencies;
         private readonly SolutionCollection _solutions;
         private readonly BuildFolder _buildFolder;
+        private readonly PackageFolder _packageFolder;
         private readonly FileInfo _solutionFile;
         private readonly string _sourceFolder;
         private BuildResult _buildResult;
         private bool _isChecked;
 
-        internal Solution(SolutionCollection solutions, FileInfo solutionFile, string name, string sourceFolder, BuildFolder buildFolder,
-            ExternalsFolder externalsFolder, List<SolutionDependency> dependencies)
+        internal Solution(SolutionCollection solutions, FileInfo solutionFile, string name, string sourceFolder, BuildFolder buildFolder, 
+            PackageFolder packageFolder, ExternalsFolder externalsFolder, List<SolutionDependency> dependencies)
         {
             _solutions = solutions;
             _solutionFile = solutionFile;
             _buildFolder = buildFolder;
+            _packageFolder = packageFolder;
             _sourceFolder = sourceFolder;
             _externalsFolder = externalsFolder;
             _dependencies = dependencies;
@@ -81,6 +81,11 @@ namespace ChronosBuildTool.Model
                 string fullName = Path.Combine(SolutionPath, SolutionName);
                 return fullName;
             }
+        }
+
+        public IEnumerable<SolutionDependency> Dependencies
+        {
+            get { return _dependencies; }
         }
 
         public bool BuildSolution(IOutput output, Configuration configuration, bool rebuild)
@@ -226,6 +231,12 @@ namespace ChronosBuildTool.Model
             string buildPath = _buildFolder[configuration];
             buildPath = Path.Combine(ChronosSolutionPath, buildPath);
             string fullName = Path.Combine(buildPath, fileName);
+            if (!File.Exists(fullName))
+            {
+                buildPath = _packageFolder[configuration];
+                buildPath = Path.Combine(ChronosSolutionPath, buildPath);
+                fullName = Path.Combine(buildPath, fileName);
+            }
             return new FileInfo(fullName);
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
@@ -10,6 +11,7 @@ namespace Chronos.Registry
         private const string KeyElementName = "key";
         private const string ValueElementName = "value";
 
+        private const string KeyRegistryViewAttributeName = "view";
         private const string KeyNameAttributeName = "name";
         private const string KeyRemoveTypeAttributeName = "remove";
         private const string ValueNameAttributeName = "name";
@@ -29,11 +31,19 @@ namespace Chronos.Registry
             get { return _keys; }
         }
 
-        public void Import()
+        public void Import(VariableCollection variables)
         {
-            foreach (RegistryKey key in _keys)
+            try
             {
-                key.Import();
+                foreach (RegistryKey key in _keys)
+                {
+                    key.Import(variables);
+                }
+            }
+            catch (Exception)
+            {
+                Remove();
+                throw;
             }
         }
 
@@ -94,6 +104,7 @@ namespace Chronos.Registry
 
         private static RegistryKey ReadRegistryKey(XmlReader reader)
         {
+            Microsoft.Win32.RegistryView registryView = Microsoft.Win32.RegistryView.Default;
             RemoveType removeType = RemoveType.No;
             string name = string.Empty;
             List<RegistryKey> keys = new List<RegistryKey>();
@@ -105,6 +116,9 @@ namespace Chronos.Registry
                 {
                     case KeyNameAttributeName:
                         name = reader.ReadContentAsString();
+                        break;
+                    case KeyRegistryViewAttributeName:
+                        registryView = reader.ReadContentAsEnum<Microsoft.Win32.RegistryView>();
                         break;
                     case KeyRemoveTypeAttributeName:
                         removeType = reader.ReadContentAsEnum<RemoveType>();
@@ -137,7 +151,7 @@ namespace Chronos.Registry
                         break;
                 }
             }
-            RegistryKey registry = new RegistryKey(name, removeType, keys, values);
+            RegistryKey registry = new RegistryKey(name, removeType, keys, values, registryView);
             return registry;
         }
 
