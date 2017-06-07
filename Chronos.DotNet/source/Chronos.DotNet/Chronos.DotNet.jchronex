@@ -1,0 +1,33 @@
+﻿{
+    "uid": "{516C5433-204D-4719-AA1C-4276C0E82812}",
+    "localizations":[
+        {
+            "culture": "en-US",
+            "name": "Microsoft.NET (4.0+)",
+            "description": "Profiling applications based on Microsoft.NET 4.0 and higher"
+        }
+    ]
+    "framework": {
+        "uid": "{6711F85A-3CD1-4E76-8502-C3D4404E47C8}",
+        "version": "0.1",
+        "exports": [
+            {
+                "application": "core",
+                "entryPoint": "Chronos.DotNet.FrameworkAdapter, Chronos.DotNet"
+            },
+            {
+                "application": "agent",
+                "entryPoint32": "Chronos.DotNet.Agent.dll",
+                "entryPoint32": "x64\Chronos.DotNet.Agent.dll",
+                "methodName": "CreateDotNetFramework"
+            }
+        ]
+        "localizations":[
+            {
+                "culture": "en-US",
+                "name": "Microsoft.NET (4.0+)",
+                "description": "Profiling applications based on Microsoft.NET 4.0 and higher"
+            }
+        ]
+    }
+}
