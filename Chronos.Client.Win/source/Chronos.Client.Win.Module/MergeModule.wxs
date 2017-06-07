@@ -18,6 +18,14 @@
           </Component>
         </Directory>
       </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)">
+          <Component Id="ApplicationShortcut" Guid="0da40b46-8bc8-4ff5-abc5-5ef8ebb182f0">
+            <Shortcut Id="ApplicationStartMenuShortcut" Name="Chronos Profiler" Description="Chronos Profiler Client" Target="[#Chronos_Client_Win_Application_exe]" WorkingDirectory="Chronos_Client_Win_Directory"/>
+            <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall"/>
+          </Component>
+        </Directory>
+      </Directory>
     </Directory>
   </Module>
 </Wix>

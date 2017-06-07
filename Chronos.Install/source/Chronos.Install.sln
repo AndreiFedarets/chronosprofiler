@@ -5,6 +5,12 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Install", "Chronos.Install\Chronos.Install.wixproj", "{D9150473-C5EC-43FE-9CAD-14E401E6A01B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{EA53412B-8178-483C-B9C8-2E711145D637}"
+	ProjectSection(SolutionItems) = preProject
+		.scripts\ModuleConfig.wxi = .scripts\ModuleConfig.wxi
+		.scripts\Wix.targets = .scripts\Wix.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
