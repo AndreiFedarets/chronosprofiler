@@ -27,7 +27,7 @@ namespace Chronos.Client.Win.ViewModels.Common
             _fileSystemInfos = new ObservableCollection<object>();
             Drives = _accessor.GetLogicalDrives();
             SelectedDrive = Drives.FirstOrDefault();
-            OpenSelectedFileSystemInfoCommand = new Commands.SyncCommand(OpenSelectedFileSystemInfo);
+            InitialDirectory = Properties.Settings.Default.OpenFileViewLastUsedPath;
         }
 
         public override string DisplayName
@@ -52,8 +52,6 @@ namespace Chronos.Client.Win.ViewModels.Common
                 return name;
             }
         }
-
-        public ICommand OpenSelectedFileSystemInfoCommand { get; private set; }
 
         public IEnumerable<DirectoryInfo> Drives { get; private set; }
 
@@ -97,10 +95,11 @@ namespace Chronos.Client.Win.ViewModels.Common
                 }
                 finally
                 {
+                    SelectedFileSystemInfo = _fileSystemInfos.FirstOrDefault(x => x != _parentDirectory);
                     NotifyOfPropertyChange(() => CurrentDirectory);
                     NotifyOfPropertyChange(() => FileSystemInfos);
                     CurrentDirectoryPath = CurrentDirectory.FullName;
-                    SelectedFileSystemInfo = _fileSystemInfos.FirstOrDefault(x => x != _parentDirectory);
+                    FileSystemInfosChanged.SafeInvoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -158,7 +157,7 @@ namespace Chronos.Client.Win.ViewModels.Common
 
         public string FileName { get; set; }
 
-        public void OpenParentFileSystemInfo()
+        internal void OpenParentFileSystemInfo()
         {
             if (SelectedFileSystemInfo == SelectedDrive)
             {
@@ -168,12 +167,14 @@ namespace Chronos.Client.Win.ViewModels.Common
             OpenSelectedFileSystemInfo();
         }
 
-        public void OpenSelectedFileSystemInfo()
+        public event EventHandler FileSystemInfosChanged;
+
+        internal void OpenSelectedFileSystemInfo()
         {
             OpenFileSystemInfo(SelectedFileSystemInfo);
         }
 
-        public void OpenFileSystemInfo(object fileSystemInfo)
+        internal void OpenFileSystemInfo(object fileSystemInfo)
         {
             if (fileSystemInfo is DirectoryInfo)
             {
@@ -190,9 +191,13 @@ namespace Chronos.Client.Win.ViewModels.Common
             }
         }
 
-        public void OpenFileSystemInfo(string path)
+        internal void OpenFileSystemInfo(string path)
         {
-            object fileSystemInfo = null;
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return;
+            }
+            object fileSystemInfo;
             if (_accessor.DirectoryExists(path))
             {
                 fileSystemInfo = _accessor.GetDirectory(path);
@@ -208,6 +213,20 @@ namespace Chronos.Client.Win.ViewModels.Common
                 return;
             }
             OpenFileSystemInfo(fileSystemInfo);
+        }
+
+        protected override void OnDeactivate(bool close)
+        {
+            Properties.Settings.Default.OpenFileViewLastUsedPath = CurrentDirectoryPath;
+            base.OnDeactivate(close);
+        }
+
+        internal void Initialize()
+        {
+            if (!string.IsNullOrWhiteSpace(InitialDirectory))
+            {
+                OpenFileSystemInfo(InitialDirectory);
+            }
         }
 
         private class ParentDirectoryInfo

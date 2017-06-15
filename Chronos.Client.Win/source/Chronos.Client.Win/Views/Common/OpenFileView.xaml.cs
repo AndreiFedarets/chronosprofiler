@@ -1,6 +1,10 @@
-﻿using Chronos.Client.Win.ViewModels.Common;
+﻿using System;
+using System.Collections.Specialized;
+using System.Windows;
+using Chronos.Client.Win.ViewModels.Common;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Chronos.Client.Win.Views.Common
 {
@@ -9,6 +13,36 @@ namespace Chronos.Client.Win.Views.Common
         public OpenFileView()
         {
             InitializeComponent();
+            DataContextChanged += OnDataContextChanged;
+        }
+
+        private void OnDataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        {
+            OpenFileViewModel viewModel = e.OldValue as OpenFileViewModel;
+            if (viewModel != null)
+            {
+                viewModel.FileSystemInfosChanged -= OnFileSystemInfosChanged;
+            }
+            viewModel = e.NewValue as OpenFileViewModel;
+            if (viewModel != null)
+            {
+                viewModel.FileSystemInfosChanged += OnFileSystemInfosChanged;
+                viewModel.Initialize();
+            }
+            ResetFileSystemInfosSelection();
+        }
+
+        private void OnFileSystemInfosChanged(object sender, EventArgs e)
+        {
+            ResetFileSystemInfosSelection();
+        }
+
+        private void ResetFileSystemInfosSelection()
+        {
+            if (FileSystemInfosList.Items.Count > 0)
+            {
+                FileSystemInfosList.SelectedIndex = 0;
+            }
         }
 
         private void OnFilesListBoxKeyDown(object sender, KeyEventArgs e)
@@ -29,7 +63,7 @@ namespace Chronos.Client.Win.Views.Common
         {
             switch (e.Key)
             {
-                case Key.Return:
+                case Key.Enter:
                     TextBox textBox = (TextBox)sender;
                     OpenFileViewModel viewModel = (OpenFileViewModel)DataContext;
                     viewModel.OpenFileSystemInfo(textBox.Text);
@@ -41,6 +75,22 @@ namespace Chronos.Client.Win.Views.Common
         {
             ListBox listBox = (ListBox)sender;
             listBox.Focus();
+        }
+
+        private void OnFilesListBoxMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ListBox listBox = (ListBox) sender;
+            UIElement element = (UIElement)listBox.InputHitTest(e.GetPosition(listBox));
+            while (!ReferenceEquals(element, listBox))
+            {
+                if (element is ListBoxItem)
+                {
+                    OpenFileViewModel viewModel = (OpenFileViewModel)DataContext;
+                    viewModel.OpenSelectedFileSystemInfo();
+                    return;
+                }
+                element = (UIElement)VisualTreeHelper.GetParent(element);
+            }
         }
     }
 }

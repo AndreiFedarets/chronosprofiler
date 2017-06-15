@@ -5,7 +5,7 @@
             xmlns:command="clr-namespace:Chronos.Client.Win.Commands"
             xmlns:converters="clr-namespace:Chronos.Client.Win.Converters"
             xmlns:controls="clr-namespace:Chronos.Client.Win.Controls"
-            MinHeight="400" MinWidth="600">
+            MinHeight="600" MinWidth="600">
     <views:View.Resources>
         <converters:BitmapToBitmapSourceConverter x:Key="BitmapToBitmapSourceConverter" />
     </views:View.Resources>
@@ -40,12 +40,12 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <ListBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+        <ListBox Grid.Row="1" Grid.Column="1" x:Name="FileSystemInfosList"
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                  ItemsSource="{Binding FileSystemInfos}" SelectedItem="{Binding SelectedFileSystemInfo}"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 command:Event.Command="{Binding OpenSelectedFileSystemInfoCommand}"
-                 command:Event.EventName="MouseDoubleClick"
                  SelectionChanged="OnFilesListBoxSelectionChanged"
+                 MouseDoubleClick="OnFilesListBoxMouseDoubleClick"
                  KeyDown="OnFilesListBoxKeyDown">
             <ListBox.ItemTemplate>
                 <DataTemplate>

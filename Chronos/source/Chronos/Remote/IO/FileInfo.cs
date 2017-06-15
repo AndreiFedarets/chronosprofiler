@@ -10,6 +10,11 @@ namespace Chronos.Remote.IO
         {
         }
 
+        public string Extension
+        {
+            get { return System.IO.Path.GetExtension(Name); }
+        }
+
         public override bool Exists
         {
             get { return Accessor.FileExists(FullName); }

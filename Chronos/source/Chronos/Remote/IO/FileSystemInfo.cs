@@ -112,6 +112,5 @@ namespace Chronos.Remote.IO
         {
             return (FullName != null ? FullName.GetHashCode() : 0);
         }
-
     }
 }

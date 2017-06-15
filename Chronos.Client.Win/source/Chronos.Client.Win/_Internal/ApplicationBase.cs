@@ -79,6 +79,7 @@ namespace Chronos.Client.Win
         {
             AssemblyResolver.AssemblyLoaded -= OnExtensionAssemblyLoaded;
             MainViewModel.Dispose();
+            Properties.Settings.Default.Save();
             base.Dispose();
         }
     }

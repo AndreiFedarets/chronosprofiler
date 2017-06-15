@@ -53,8 +53,10 @@ namespace Chronos.Client.Win
             {
                 return;
             }
-            double extraHeight = viewControl.Margin.Top + viewControl.Margin.Bottom + SystemParameters.WindowCaptionHeight + SystemParameters.ResizeFrameHorizontalBorderHeight * 2;
-            double extraWidth = viewControl.Margin.Left + viewControl.Margin.Right + SystemParameters.ResizeFrameVerticalBorderWidth * 2;
+            Thickness padding = (Thickness)viewControl.GetValue(Control.PaddingProperty);
+            Thickness margin = viewControl.Margin;
+            double extraHeight = margin.Top + margin.Bottom + padding.Top + padding.Bottom + SystemParameters.WindowCaptionHeight + SystemParameters.ResizeFrameHorizontalBorderHeight * 2;
+            double extraWidth = margin.Left + margin.Right + padding.Left + padding.Right + SystemParameters.ResizeFrameVerticalBorderWidth * 2;
             if (!double.IsNaN(viewControl.MinHeight) && !double.IsInfinity(viewControl.MinHeight))
             {
                 window.Height = viewControl.MinHeight + extraHeight;
