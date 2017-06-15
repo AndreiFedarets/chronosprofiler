@@ -77,20 +77,10 @@ namespace Chronos.Client.Win.Views.Common
             listBox.Focus();
         }
 
-        private void OnFilesListBoxMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void OnFilesListBoxItemMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ListBox listBox = (ListBox) sender;
-            UIElement element = (UIElement)listBox.InputHitTest(e.GetPosition(listBox));
-            while (!ReferenceEquals(element, listBox))
-            {
-                if (element is ListBoxItem)
-                {
-                    OpenFileViewModel viewModel = (OpenFileViewModel)DataContext;
-                    viewModel.OpenSelectedFileSystemInfo();
-                    return;
-                }
-                element = (UIElement)VisualTreeHelper.GetParent(element);
-            }
+            OpenFileViewModel viewModel = (OpenFileViewModel)DataContext;
+            viewModel.OpenSelectedFileSystemInfo();
         }
     }
 }

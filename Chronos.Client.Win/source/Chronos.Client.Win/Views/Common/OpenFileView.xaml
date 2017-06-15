@@ -45,8 +45,12 @@
                  ItemsSource="{Binding FileSystemInfos}" SelectedItem="{Binding SelectedFileSystemInfo}"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
                  SelectionChanged="OnFilesListBoxSelectionChanged"
-                 MouseDoubleClick="OnFilesListBoxMouseDoubleClick"
                  KeyDown="OnFilesListBoxKeyDown">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <EventSetter Event="MouseDoubleClick" Handler="OnFilesListBoxItemMouseDoubleClick" />
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
