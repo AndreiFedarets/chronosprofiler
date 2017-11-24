@@ -2,5 +2,6 @@
 <Menu>
   <Control Id="Chronos.Client.Win.Menu.Common.CommonMenuItem">
     <Control Type="Chronos.Client.Win.Menu.Common.EventsTree.EventsTreeMenuItem, Chronos.Client.Win.Common.EventsTree" />
+    <Control Type="Chronos.Client.Win.Menu.Common.EventsTree.TimelineMenuItem, Chronos.Client.Win.Common.EventsTree" />
   </Control>
 </Menu>

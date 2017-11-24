@@ -17,6 +17,11 @@ namespace Chronos.Proxy
 
         public Guid Uid { get; private set; }
 
+        public uint CurrentProflingTime
+        {
+            get { return Execute(() => RemoteObject.CurrentProflingTime); }
+        }
+
         public IServiceContainer ServiceContainer
         {
             get { return _serviceContainer.Value; }

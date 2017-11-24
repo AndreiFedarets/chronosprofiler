@@ -10,6 +10,11 @@ namespace Chronos
         Guid Uid { get; }
 
         /// <summary>
+        /// Get current profiling time
+        /// </summary>
+        uint CurrentProflingTime { get; }
+
+        /// <summary>
         /// Unique token of configuration under which this session was started.
         /// </summary>
         Guid ConfigurationUid { get; }

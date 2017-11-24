@@ -5,13 +5,15 @@ namespace Chronos.Daemon
 {
     internal interface IDaemonStrategy
     {
+        uint CurrentProfilingTime { get; }
+
         SessionState SessionState { get; }
 
         IRequestClient AgentRequestClient { get; }
 
         ProcessInformation ProcessInformation { get; }
 
-        void StartProfiling(int profiledProcessId, Guid agentApplicationUid);
+        void StartProfiling(int profiledProcessId, Guid agentApplicationUid, uint profilingBeginTime);
 
         void ReloadData();
 

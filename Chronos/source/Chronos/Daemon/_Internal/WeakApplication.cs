@@ -34,6 +34,20 @@ namespace Chronos.Daemon
             get { return _daemonApplicationUid; }
         }
 
+
+        public uint CurrentProfilingTime
+        {
+            get
+            {
+                IApplication application;
+                if (VerifyDaemonLaunched(false, out application))
+                {
+                    return application.CurrentProfilingTime;
+                }
+                return 0;
+            }
+        }
+
         public bool SaveOnClose
         {
             get
@@ -159,11 +173,11 @@ namespace Chronos.Daemon
             return null;
         }
 
-        public void StartProfiling(int profiledProcessId, Guid agentApplicationUid)
+        public void StartProfiling(int profiledProcessId, Guid agentApplicationUid, uint profilingBeginTime)
         {
             IApplication application;
             VerifyDaemonLaunched(true, out application);
-            application.StartProfiling(profiledProcessId, agentApplicationUid);
+            application.StartProfiling(profiledProcessId, agentApplicationUid, profilingBeginTime);
         }
 
         public void StartDecoding(ILifetimeSponsor sponsor)

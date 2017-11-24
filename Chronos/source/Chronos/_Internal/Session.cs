@@ -34,6 +34,11 @@ namespace Chronos
             }
         }
 
+        public uint CurrentProflingTime 
+        {
+            get { return _daemonApplication.CurrentProfilingTime; }
+        }
+
         public Guid ConfigurationUid
         {
             get
@@ -105,10 +110,10 @@ namespace Chronos
             return _daemonApplication.GetProcessInformation();
         }
 
-        internal void StartProfiling(int profiledProcessId, Guid agentApplicationUid)
+        internal void StartProfiling(int profiledProcessId, Guid agentApplicationUid, uint profilingBeginTime)
         {
             VerifyDisposed();
-            _daemonApplication.StartProfiling(profiledProcessId, agentApplicationUid);
+            _daemonApplication.StartProfiling(profiledProcessId, agentApplicationUid, profilingBeginTime);
         }
 
         public void StartDecoding(ILifetimeSponsor sponsor)

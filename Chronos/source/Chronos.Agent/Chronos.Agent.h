@@ -851,6 +851,7 @@ namespace Chronos
 				ProfilingTimer();
 				~ProfilingTimer();
 				void UpdateTime();
+				__uint GetBeginTime();
 				volatile __uint CurrentTime;
 				
 				const static __guid ServiceToken;
@@ -1067,7 +1068,7 @@ namespace Chronos
 		{
 			public:
 				HostClient(IStreamFactory* streamFactory);
-				__bool StartProfilingSession(__guid configurationToken, __guid applicationUid, SessionSettings* settings);
+				__bool StartProfilingSession(__guid configurationToken, __guid applicationUid, __uint profilingBeginTime, SessionSettings* settings);
 
 			private:
 				IStreamFactory* _streamFactory;

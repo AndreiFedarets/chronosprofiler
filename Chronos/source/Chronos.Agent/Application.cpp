@@ -119,7 +119,8 @@ namespace Chronos
 			HostClient client(_streamFactory);
 
 			//Start session and load settings from Host Server
-			if (!client.StartProfilingSession(_configurationToken, _applicationUid, &_sessionSettings))
+			__uint profilingBeginTime = _profilingTimer->GetBeginTime();
+			if (!client.StartProfilingSession(_configurationToken, _applicationUid, profilingBeginTime,  &_sessionSettings))
 			{
 				return E_FAIL;
 			}

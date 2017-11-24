@@ -1,0 +1,12 @@
+﻿<views:View x:Class="Chronos.Client.Win.Views.Common.EventsTree.TimelineView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:controls="clr-namespace:Chronos.Client.Win.Controls.Common.EventsTree"
+            xmlns:views="clr-namespace:Chronos.Client.Win.Views;assembly=Chronos.Client.Win"
+            xmlns:theme="clr-namespace:Chronos.Client.Win.Themes;assembly=Chronos.Client.Win">
+    <Grid>
+        <Border BorderBrush="{x:Static theme:FontsAndColors.DarkNeutralBrush}" BorderThickness="1">
+            <controls:Timeline Events="{Binding Events}"/>
+        </Border>
+    </Grid>
+</views:View>

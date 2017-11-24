@@ -24,6 +24,8 @@ namespace Chronos.Client.Win
             _sessionUid = sessionUid;
         }
 
+        public IProfilingTimer ProfilingTimer { get; private set; }
+
         protected override PageViewModel BuildMainViewModel()
         {
             return new ProfilingViewModel(this);
@@ -133,6 +135,7 @@ namespace Chronos.Client.Win
             {
                 session.StartDecoding(this);
             }
+            ProfilingTimer = new ProfilingTimer(session);
             //hostApplications.TryDispose();
             return session;
         }

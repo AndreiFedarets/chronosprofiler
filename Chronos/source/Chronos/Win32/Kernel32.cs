@@ -22,6 +22,12 @@ namespace Chronos.Win32
         [DllImport("kernel32.dll", EntryPoint = "WaitNamedPipe", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern bool _WaitNamedPipe(string name, int timeout);
 
+        [DllImport("kernel32.dll", EntryPoint = "QueryPerformanceFrequency", SetLastError = true)]
+        private static extern bool _QueryPerformanceFrequency(out long frequency);
+
+        [DllImport("kernel32.dll", EntryPoint = "QueryPerformanceCounter", SetLastError = true)]
+        private static extern bool _QueryPerformanceCounter(out long counter);
+
         public static IntPtr LoadLibrary(string libraryPath)
         {
             IntPtr library = _LoadLibrary(libraryPath);
@@ -62,6 +68,26 @@ namespace Chronos.Win32
         {
             _CopyMemory(dest, src, count);
             VerifyLastError();
+        }
+
+        public static long QueryPerformanceFrequency()
+        {
+            long frequency;
+            if (!_QueryPerformanceFrequency(out frequency))
+            {
+                VerifyLastError();
+            }
+            return frequency;
+        }
+
+        public static long QueryPerformanceCounter()
+        {
+            long counter;
+            if (!_QueryPerformanceCounter(out counter))
+            {
+                VerifyLastError();
+            }
+            return counter;
         }
 
         public static bool IsZeroOrMinusOne(IntPtr handle)

@@ -1,4 +1,4 @@
-﻿<ResourceDictionary
+<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Chronos.Client.Win.Controls.Common.EventsTree">
@@ -38,7 +38,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:EventsTreeView}">
                     <!--<ScrollViewer x:Name="ScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">-->
-                        <ItemsControl x:Name="ItemsControl" VirtualizingStackPanel.IsVirtualizing="True" Style="{StaticResource ItemsControlVirtialisedStyle}" />
+                    <ItemsControl x:Name="ItemsControl" VirtualizingStackPanel.IsVirtualizing="True" Style="{StaticResource ItemsControlVirtialisedStyle}" />
                     <!--</ScrollViewer>-->
                 </ControlTemplate>
             </Setter.Value>
@@ -86,6 +86,53 @@
                             <Setter TargetName="BackgroundBorder" Property="Background" Value="#D6D6D6" />
                         </Trigger>
                     </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+<!-- Timeline ======================================================================================================================= -->
+    <Style x:Key="{x:Type controls:Timeline}" TargetType="{x:Type controls:Timeline}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:Timeline}">
+                    <ItemsControl x:Name="ItemsControl">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+<!-- ThreadTimeline ================================================================================================================== -->
+    <Style x:Key="{x:Type controls:ThreadTimeline}" TargetType="{x:Type controls:ThreadTimeline}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:ThreadTimeline}">
+                    <ItemsControl x:Name="ItemsControl">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+<!-- ThreadTimelineItem ============================================================================================================== -->
+    <Style x:Key="{x:Type controls:ThreadTimelineItem}" TargetType="{x:Type controls:ThreadTimelineItem}">
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:ThreadTimelineItem}">
+                    <Border Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" Margin="{TemplateBinding Margin}" Background="Red" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

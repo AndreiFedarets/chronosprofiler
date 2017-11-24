@@ -17,6 +17,7 @@ namespace Chronos.Daemon
         private IGatewayServer _gatewayServer;
         private ProfiledProcessManager _profiledProcess;
         private IDataStorage _storage;
+        private ProfilingTimer _profilingTimer;
 
         public DaemonProfilingStrategy(Application application, IProfilingTypeCollection profilingTypes)
         {
@@ -24,6 +25,11 @@ namespace Chronos.Daemon
             _application = application;
             _profilingTypes = profilingTypes;
             SessionState = SessionState.Profiling;
+        }
+
+        public uint CurrentProfilingTime 
+        { 
+            get { return _profilingTimer.CurrentTime; } 
         }
 
         public SessionState SessionState { get; private set; }
@@ -35,13 +41,14 @@ namespace Chronos.Daemon
 
         public ProcessInformation ProcessInformation { get; private set; }
 
-        public void StartProfiling(int profiledProcessId, Guid agentApplicationUid)
+        public void StartProfiling(int profiledProcessId, Guid agentApplicationUid, uint profilingBeginTime)
         {
             //Profiling is already started or decoding in progress
             if (_profiledProcess != null)
             {
                 return;
             }
+            _profilingTimer = new ProfilingTimer(profilingBeginTime);
             DirectoryInfo profilingResultsDirectory = _application.ApplicationSettings.ProfilingResults.GetDirectory();
             string profilingResultsFile = Path.Combine(profilingResultsDirectory.FullName, _application.Uid.ToString("N"));
             _storage = new DataStorage(profilingResultsFile);

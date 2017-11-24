@@ -21,6 +21,11 @@ namespace Chronos.Proxy.Daemon
             set { Execute(() => RemoteObject.SaveOnClose = value); }
         }
 
+        public uint CurrentProfilingTime
+        {
+            get { return Execute(() => RemoteObject.CurrentProfilingTime); }
+        }
+
         public SessionState SessionState
         {
             get { return Execute(() => RemoteObject.SessionState); }
@@ -42,9 +47,9 @@ namespace Chronos.Proxy.Daemon
             remove { _sessionStateChangedEventSink.Event -= value; }
         }
 
-        public void StartProfiling(int profiledProcessId, Guid agentApplicationUid)
+        public void StartProfiling(int profiledProcessId, Guid agentApplicationUid, uint profilingBeginTime)
         {
-            Execute(() => RemoteObject.StartProfiling(profiledProcessId, agentApplicationUid));
+            Execute(() => RemoteObject.StartProfiling(profiledProcessId, agentApplicationUid, profilingBeginTime));
         }
 
         public void StartDecoding(ILifetimeSponsor sponsor)

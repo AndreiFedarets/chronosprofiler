@@ -75,6 +75,7 @@
     <Compile Include="Contracts\IContractConsumer.cs" />
     <Compile Include="Contracts\IContractSource.cs" />
     <Compile Include="Controls\_Generic\ImageButton.cs" />
+    <Compile Include="IProfilingTimer.cs" />
     <Compile Include="Menu\Specialized\UnitsMenuItemBase.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -211,6 +212,7 @@
     <Compile Include="_Extensions\AppDomainExtensions.cs" />
     <Compile Include="_Internal\Bootstrapper.cs" />
     <Compile Include="_Internal\ChronosCoreLocator.cs" />
+    <Compile Include="_Internal\ProfilingTimer.cs" />
     <Compile Include="_Internal\ViewsManager.cs" />
     <Compile Include="_Internal\ProfilingApplication.cs" />
     <Compile Include="_Internal\CustomWindowManager.cs" />

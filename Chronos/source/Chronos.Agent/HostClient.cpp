@@ -10,7 +10,7 @@ namespace Chronos
 			_streamFactory = streamFactory;
 		}
 
-		__bool HostClient::StartProfilingSession(__guid configurationToken, __guid applicationUid, SessionSettings* settings)
+		__bool HostClient::StartProfilingSession(__guid configurationToken, __guid applicationUid, __uint profilingBeginTime, SessionSettings* settings)
 		{
 			IStream* stream;
 			HRESULT result = _streamFactory->ConnectHostInvokeStream(&stream);
@@ -24,6 +24,7 @@ namespace Chronos
 			Marshaler::MarshalGuid(&configurationToken, &argumentsStream);
 			Marshaler::MarshalInt(currentProcessId, &argumentsStream);
 			Marshaler::MarshalInt(CurrentProcess::GetProcessPlatform(), &argumentsStream);
+			Marshaler::MarshalUInt(profilingBeginTime, &argumentsStream);
 			Marshaler::MarshalGuid(&applicationUid, &argumentsStream);
 			
 			__guid startProfilingSessionOperationCode = Converter::ConvertStringToGuid(L"{B68D7CDC-E999-416A-A9D0-E4A22D243E5F}");

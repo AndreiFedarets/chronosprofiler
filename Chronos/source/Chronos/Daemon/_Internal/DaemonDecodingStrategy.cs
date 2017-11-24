@@ -12,6 +12,9 @@ namespace Chronos.Daemon
             _application = application;
         }
 
+        //TODO: assign correct value
+        public uint CurrentProfilingTime { get; private set; }
+
         public SessionState SessionState
         {
             get { return SessionState.Decoding; }
@@ -27,7 +30,7 @@ namespace Chronos.Daemon
             get { return null; }
         }
 
-        public void StartProfiling(int profiledProcessId, Guid agentApplicationUid)
+        public void StartProfiling(int profiledProcessId, Guid agentApplicationUid, uint profilingBeginTime)
         {
             //throw new InvalidOperationException(string.Format("This operation is not avaliable in {0} state", SessionState));
         }

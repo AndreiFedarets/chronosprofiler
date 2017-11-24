@@ -335,6 +335,7 @@
     <Compile Include="Client\_Internal\Productivity.cs" />
     <Compile Include="Client\_Internal\ProductivityCollection.cs" />
     <Compile Include="_Internal\ProfilingTarget.cs" />
+    <Compile Include="_Internal\ProfilingTimer.cs" />
     <Compile Include="_Internal\ProfilingType.cs" />
     <Compile Include="_Internal\Session.cs" />
     <Compile Include="_Internal\SessionCollection.cs" />

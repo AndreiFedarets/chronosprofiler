@@ -33,6 +33,11 @@ namespace Chronos.Daemon
         {
             get { return _sessionUid; }
         }
+
+        public uint CurrentProfilingTime 
+        {
+            get { return _currentStrategy.CurrentProfilingTime; }
+        }
         
         public SessionState SessionState
         {
@@ -80,10 +85,10 @@ namespace Chronos.Daemon
 
         public event EventHandler<SessionStateEventArgs> SessionStateChanged;
 
-        public void StartProfiling(int profiledProcessId, Guid agentApplicationUid)
+        public void StartProfiling(int profiledProcessId, Guid agentApplicationUid, uint profilingBeginTime)
         {
             //System.Diagnostics.Debugger.Launch();
-            _currentStrategy.StartProfiling(profiledProcessId, agentApplicationUid);
+            _currentStrategy.StartProfiling(profiledProcessId, agentApplicationUid, profilingBeginTime);
         }
 
         public void StartDecoding(ILifetimeSponsor sponsor)

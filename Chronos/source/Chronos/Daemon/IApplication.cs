@@ -11,6 +11,11 @@ namespace Chronos.Daemon
         bool SaveOnClose { get; set; }
 
         /// <summary>
+        /// Get current profiling time
+        /// </summary>
+        uint CurrentProfilingTime { get; }
+
+        /// <summary>
         /// Get state of session associated with this Daemon instance
         /// </summary>
         SessionState SessionState { get; }
@@ -37,7 +42,7 @@ namespace Chronos.Daemon
         /// </summary>
         /// <param name="profiledProcessId">Id of profiled process</param>
         /// <param name="agentApplicationUid">Uid of agent application inside profiled process</param>
-        void StartProfiling(int profiledProcessId, Guid agentApplicationUid);
+        void StartProfiling(int profiledProcessId, Guid agentApplicationUid, uint profilingBeginTime);
 
         /// <summary>
         /// Start decoding session.

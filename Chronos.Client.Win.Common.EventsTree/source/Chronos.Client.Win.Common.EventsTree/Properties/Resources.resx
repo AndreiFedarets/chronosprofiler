@@ -130,4 +130,7 @@
   <data name="ThreadsTreeMenuItem_Text" xml:space="preserve">
     <value>Threads Tree</value>
   </data>
+  <data name="TimelineMenuItem_Text" xml:space="preserve">
+    <value>Timeline</value>
+  </data>
 </root>

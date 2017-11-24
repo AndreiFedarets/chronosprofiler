@@ -19,6 +19,11 @@ namespace Chronos
 			__FREEOBJ(_timeThread);
 		}
 
+		__uint ProfilingTimer::GetBeginTime()
+		{
+			return _beginTime;
+		}
+
 		void ProfilingTimer::UpdateTime()
 		{
 			__uint newTime = GetTime();

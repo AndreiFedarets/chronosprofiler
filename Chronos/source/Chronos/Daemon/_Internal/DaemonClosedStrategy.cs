@@ -12,6 +12,11 @@ namespace Chronos.Daemon
             _application = application;
         }
 
+        public uint CurrentProfilingTime 
+        {
+            get { return 0; } 
+        }
+
         public SessionState SessionState
         {
             get { return SessionState.Closed; }
@@ -27,10 +32,10 @@ namespace Chronos.Daemon
             get { return null; }
         }
 
-        public void StartProfiling(int profiledProcessId, Guid agentApplicationUid)
+        public void StartProfiling(int profiledProcessId, Guid agentApplicationUid, uint profilingBeginTime)
         {
             IDaemonStrategy strategy = _application.SwitchStrategy(SessionState.Profiling);
-            strategy.StartProfiling(profiledProcessId, agentApplicationUid);
+            strategy.StartProfiling(profiledProcessId, agentApplicationUid, profilingBeginTime);
         }
 
         public void ReloadData()

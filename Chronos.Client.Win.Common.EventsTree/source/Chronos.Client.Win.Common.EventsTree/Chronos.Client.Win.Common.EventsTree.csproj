@@ -67,6 +67,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\TimelineView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\EventsTreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -77,8 +81,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Timeline.cs" />
+    <Compile Include="Controls\ThreadTimelineItem.cs" />
     <Compile Include="Controls\EventTreeItemSorter.cs" />
     <Compile Include="Controls\EventTreeSortType.cs" />
+    <Compile Include="Controls\ThreadTimeline.cs" />
+    <Compile Include="Menu\TimelineMenuItem.cs" />
     <Compile Include="ProfilingTypeAdapter.cs" />
     <Compile Include="Controls\EventTreeItem.cs" />
     <Compile Include="Controls\EventsTreeView.cs" />
@@ -93,6 +101,10 @@
     <Compile Include="ViewModels\EventsTreeViewModel.cs" />
     <Compile Include="ViewModels\FindReferencesViewModel.cs" />
     <Compile Include="ViewModels\IEventsTreeViewModel.cs" />
+    <Compile Include="ViewModels\TimelineViewModel.cs" />
+    <Compile Include="Views\TimelineView.xaml.cs">
+      <DependentUpon>TimelineView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EventsTreeView.xaml.cs">
       <DependentUpon>EventsTreeView.xaml</DependentUpon>
     </Compile>

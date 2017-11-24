@@ -26,7 +26,7 @@ namespace Chronos.Host
 
         public Guid Uid { get; private set; }
 
-        public SessionSettings Handle(Guid configurationUid, int processId, ProcessPlatform processPlatform, Guid agentApplicationUid)
+        public SessionSettings Handle(Guid configurationUid, int processId, ProcessPlatform processPlatform, uint profilingBeginTime, Guid agentApplicationUid)
         {
             Configuration configuration = (Configuration)_configurations[configurationUid];
             if (configuration == null)
@@ -43,7 +43,7 @@ namespace Chronos.Host
             }
             ActualizeConfigurationSettings(configurationSettings, processPlatform);
             Session session = (Session)_sessions.Create(configuration);
-            session.StartProfiling(processId, agentApplicationUid);
+            session.StartProfiling(processId, agentApplicationUid, profilingBeginTime);
             SessionSettings sessionSettings = new SessionSettings(session.Uid, configurationSettings.ProfilingTargetSettings,
                 configurationSettings.FrameworksSettings, configurationSettings.ProfilingTypesSettings, configurationSettings.GatewaySettings);
             sessionSettings.Validate();
