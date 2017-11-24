@@ -84,6 +84,7 @@
     <Compile Include="Client\IProductivityCollection.cs" />
     <Compile Include="ILifetimeBorrower.cs" />
     <Compile Include="ILifetimeSponsor.cs" />
+    <Compile Include="IProfilingTimer.cs" />
     <Compile Include="Proxy\ProxyBaseObjectHelper.cs" />
     <Compile Include="Proxy\_Internal\LifetimeSponsorCollection.cs" />
     <Compile Include="Registry\VariableCollection.cs" />

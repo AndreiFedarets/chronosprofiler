@@ -6,20 +6,22 @@ namespace Chronos.Proxy
     {
         private readonly Chronos.Host.IApplication _application;
         private readonly LazyValue<ServiceContainer> _serviceContainer;
+        private readonly LazyValue<ProfilingTimer> _profilingTimer;
 
         public Session(ISession session, Chronos.Host.IApplication application)
             : base(session)
         {
             _application = application;
             _serviceContainer = new LazyValue<ServiceContainer>(() => new ServiceContainer(RemoteObject.ServiceContainer));
+            _profilingTimer = new LazyValue<ProfilingTimer>(() => new ProfilingTimer(RemoteObject.ProfilingTimer.BeginProfilingTime));
             Uid = Execute(() => RemoteObject.Uid);
         }
 
         public Guid Uid { get; private set; }
 
-        public uint CurrentProflingTime
+        public IProfilingTimer ProfilingTimer
         {
-            get { return Execute(() => RemoteObject.CurrentProflingTime); }
+            get { return _profilingTimer.Value; }
         }
 
         public IServiceContainer ServiceContainer

@@ -34,9 +34,9 @@ namespace Chronos.Daemon
             get { return _sessionUid; }
         }
 
-        public uint CurrentProfilingTime 
+        public IProfilingTimer ProfilingTimer 
         {
-            get { return _currentStrategy.CurrentProfilingTime; }
+            get { return _currentStrategy.ProfilingTimer; }
         }
         
         public SessionState SessionState

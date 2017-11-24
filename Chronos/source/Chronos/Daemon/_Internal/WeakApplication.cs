@@ -35,16 +35,16 @@ namespace Chronos.Daemon
         }
 
 
-        public uint CurrentProfilingTime
+        public IProfilingTimer ProfilingTimer
         {
             get
             {
                 IApplication application;
                 if (VerifyDaemonLaunched(false, out application))
                 {
-                    return application.CurrentProfilingTime;
+                    return application.ProfilingTimer;
                 }
-                return 0;
+                return null;
             }
         }
 

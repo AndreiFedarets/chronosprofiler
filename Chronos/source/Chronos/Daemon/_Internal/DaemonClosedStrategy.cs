@@ -12,9 +12,9 @@ namespace Chronos.Daemon
             _application = application;
         }
 
-        public uint CurrentProfilingTime 
+        public IProfilingTimer ProfilingTimer
         {
-            get { return 0; } 
+            get { return null; } 
         }
 
         public SessionState SessionState

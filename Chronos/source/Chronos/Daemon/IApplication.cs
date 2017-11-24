@@ -11,9 +11,9 @@ namespace Chronos.Daemon
         bool SaveOnClose { get; set; }
 
         /// <summary>
-        /// Get current profiling time
+        /// Get profiling timer
         /// </summary>
-        uint CurrentProfilingTime { get; }
+        IProfilingTimer ProfilingTimer { get; }
 
         /// <summary>
         /// Get state of session associated with this Daemon instance

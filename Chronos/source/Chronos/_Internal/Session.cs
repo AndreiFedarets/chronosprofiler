@@ -34,9 +34,9 @@ namespace Chronos
             }
         }
 
-        public uint CurrentProflingTime 
+        public IProfilingTimer ProfilingTimer
         {
-            get { return _daemonApplication.CurrentProfilingTime; }
+            get { return _daemonApplication.ProfilingTimer; }
         }
 
         public Guid ConfigurationUid

@@ -10,9 +10,9 @@ namespace Chronos
         Guid Uid { get; }
 
         /// <summary>
-        /// Get current profiling time
+        /// Get profiling timer syncronized with (up to ms) with internal timer
         /// </summary>
-        uint CurrentProflingTime { get; }
+        IProfilingTimer ProfilingTimer { get; }
 
         /// <summary>
         /// Unique token of configuration under which this session was started.

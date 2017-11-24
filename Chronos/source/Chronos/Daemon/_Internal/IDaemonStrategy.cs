@@ -5,7 +5,7 @@ namespace Chronos.Daemon
 {
     internal interface IDaemonStrategy
     {
-        uint CurrentProfilingTime { get; }
+        IProfilingTimer ProfilingTimer { get; }
 
         SessionState SessionState { get; }
 

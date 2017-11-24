@@ -13,7 +13,7 @@ namespace Chronos.Daemon
         }
 
         //TODO: assign correct value
-        public uint CurrentProfilingTime { get; private set; }
+        public IProfilingTimer ProfilingTimer { get; private set; }
 
         public SessionState SessionState
         {

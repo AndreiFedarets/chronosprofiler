@@ -6,12 +6,14 @@ namespace Chronos.Proxy.Daemon
     internal sealed class Application : ChronosApplication<Chronos.Daemon.IApplication>, Chronos.Daemon.IApplication
     {
         private readonly LazyValue<RequestClient> _agentClient;
+        private readonly LazyValue<IProfilingTimer> _profilingTimer;
         private readonly RemoteEventRouter<SessionStateEventArgs> _sessionStateChangedEventSink;
 
         public Application(Chronos.Daemon.IApplication application)
             : base(application)
         {
             _agentClient = new LazyValue<RequestClient>(() => new RequestClient(application.AgentClient));
+            _profilingTimer = new LazyValue<IProfilingTimer>(() => new ProfilingTimer(application.ProfilingTimer.BeginProfilingTime));
             _sessionStateChangedEventSink = new RemoteEventRouter<SessionStateEventArgs>(RemoteObject, "SessionStateChanged", this);
         }
 
@@ -21,9 +23,9 @@ namespace Chronos.Proxy.Daemon
             set { Execute(() => RemoteObject.SaveOnClose = value); }
         }
 
-        public uint CurrentProfilingTime
+        public IProfilingTimer ProfilingTimer
         {
-            get { return Execute(() => RemoteObject.CurrentProfilingTime); }
+            get { return _profilingTimer.Value; }
         }
 
         public SessionState SessionState

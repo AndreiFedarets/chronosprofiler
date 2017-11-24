@@ -27,9 +27,9 @@ namespace Chronos.Daemon
             SessionState = SessionState.Profiling;
         }
 
-        public uint CurrentProfilingTime 
+        public IProfilingTimer ProfilingTimer
         { 
-            get { return _profilingTimer.CurrentTime; } 
+            get { return _profilingTimer; }
         }
 
         public SessionState SessionState { get; private set; }
