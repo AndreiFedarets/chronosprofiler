@@ -14,9 +14,17 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
 
         private static readonly DependencyProperty EventsProperty;
         private static readonly DependencyProperty ProfilingTimerProperty;
+        private static readonly DependencyPropertyKey HoveredItemPropertyKey;
+        private static readonly DependencyPropertyKey SelectedItemPropertyKey;
+        private static readonly DependencyPropertyKey HoveredEventTreePropertyKey;
+        private static readonly DependencyPropertyKey SelectedEventTreePropertyKey;
+        private static readonly DependencyProperty HoveredItemProperty;
+        private static readonly DependencyProperty SelectedItemProperty;
+        private static readonly DependencyProperty HoveredEventTreeProperty;
+        private static readonly DependencyProperty SelectedEventTreeProperty;
         //private static readonly DependencyProperty ThreadsProperty;
 
-        private readonly ObservableCollection<ThreadTimeline> _board;
+        private readonly ObservableCollection<ThreadTimeline> _collection;
         private ItemsControl _itemsControl;
 
         static Timeline()
@@ -25,12 +33,23 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             // Events
             EventsProperty = DependencyProperty.Register("Events", typeof(IEventTreeCollection), typeof(Timeline), new PropertyMetadata(OnEventsPropertyChanged));
             ProfilingTimerProperty = DependencyProperty.Register("ProfilingTimer", typeof(IProfilingTimer), typeof(Timeline), new PropertyMetadata(OnProfilingTimerPropertyChanged));
-            //ThreadsProperty = DependencyProperty.Register("Threads", typeof(ISingleEventTree), typeof(Timeline), new PropertyMetadata(OnEventsPropertyChanged));
+            // HoveredItem
+            HoveredItemPropertyKey = DependencyProperty.RegisterReadOnly("HoveredItem", typeof(ThreadTimelineItem), typeof(Timeline), new PropertyMetadata(OnHoveredItemPropertyChanged));
+            HoveredItemProperty = HoveredItemPropertyKey.DependencyProperty;
+            // SelectedItem
+            SelectedItemPropertyKey = DependencyProperty.RegisterReadOnly("SelectedItem", typeof(ThreadTimelineItem), typeof(Timeline), new PropertyMetadata(OnSelectedItemPropertyChanged));
+            SelectedItemProperty = SelectedItemPropertyKey.DependencyProperty;
+            // HoveredEvent
+            HoveredEventTreePropertyKey = DependencyProperty.RegisterReadOnly("HoveredEventTree", typeof(ISingleEventTree), typeof(Timeline), new PropertyMetadata());
+            HoveredEventTreeProperty = HoveredEventTreePropertyKey.DependencyProperty;
+            // SelectedEvent
+            SelectedEventTreePropertyKey = DependencyProperty.RegisterReadOnly("SelectedEventTree", typeof(ISingleEventTree), typeof(Timeline), new PropertyMetadata());
+            SelectedEventTreeProperty = SelectedEventTreePropertyKey.DependencyProperty;
         }
 
         public Timeline()
         {
-            _board = new ObservableCollection<ThreadTimeline>();
+            _collection = new ObservableCollection<ThreadTimeline>();
         }
 
         public IEventTreeCollection Events
@@ -45,6 +64,31 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             set { SetValue(ProfilingTimerProperty, value); }
         }
 
+        public ThreadTimelineItem HoveredItem
+        {
+            get { return (ThreadTimelineItem)GetValue(HoveredItemProperty); }
+            internal set { SetValue(HoveredItemPropertyKey, value); }
+        }
+
+        public ThreadTimelineItem SelectedItem
+        {
+            get { return (ThreadTimelineItem)GetValue(SelectedItemProperty); }
+            internal set { SetValue(SelectedItemPropertyKey, value); }
+        }
+
+        public ISingleEventTree HoveredEventTree
+        {
+            get { return (ISingleEventTree)GetValue(HoveredEventTreeProperty); }
+            private set { SetValue(HoveredEventTreePropertyKey, value); }
+        }
+
+        public ISingleEventTree SelectedEventTree
+        {
+            get { return (ISingleEventTree)GetValue(SelectedEventTreeProperty); }
+            private set { SetValue(SelectedEventTreePropertyKey, value); }
+        }
+
+
         private bool AreChildrenInitialized { get; set; }
 
         public override void OnApplyTemplate()
@@ -54,23 +98,24 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             _itemsControl = GetTemplateChild(ItemsControlPartName) as ItemsControl;
             if (_itemsControl != null)
             {
-                _itemsControl.ItemsSource = _board;
+                _itemsControl.ItemsSource = _collection;
             }
             InitializeChildren();
         }
 
         private void InitializeChildren()
         {
-            _board.Clear();
+            _collection.Clear();
             if (Events == null || ProfilingTimer == null)
             {
                 return;
             }
             IEnumerable<IGrouping<uint, ISingleEventTree>> groups = Events.GroupBy(x => x.ThreadUid);
+            uint endTime = ProfilingTimer.CurrentTime;
             foreach (IGrouping<uint, ISingleEventTree> group in groups)
             {
-                ThreadTimeline item = new ThreadTimeline(group.Key, group.ToList(), ProfilingTimer);
-                _board.Add(item);
+                ThreadTimeline item = new ThreadTimeline(this, group.Key, group.ToList(), endTime);
+                _collection.Add(item);
             }
         }
 
@@ -85,5 +130,34 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             Timeline view = (Timeline)sender;
             view.InitializeChildren();
         }
+
+        private static void OnHoveredItemPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            Timeline view = (Timeline)sender;
+            if (view.HoveredItem != null)
+            {
+                view.HoveredEventTree = view.HoveredItem.EventTree;
+            }
+        }
+
+        private static void OnSelectedItemPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            Timeline view = (Timeline)sender;
+            ThreadTimelineItem oldSelectedItem = (ThreadTimelineItem)e.OldValue;
+            ThreadTimelineItem newSelectedItem = (ThreadTimelineItem)e.NewValue;
+            if (oldSelectedItem != null)
+            {
+                oldSelectedItem.IsSelected = false;
+            }
+            if (newSelectedItem != null)
+            {
+                newSelectedItem.IsSelected = true;
+            }
+            if (view.SelectedItem != null)
+            {
+                view.SelectedEventTree = view.SelectedItem.EventTree;
+            }
+        }
+
     }
 }

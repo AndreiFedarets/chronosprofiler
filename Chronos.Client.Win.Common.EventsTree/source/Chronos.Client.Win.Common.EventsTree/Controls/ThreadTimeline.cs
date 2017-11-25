@@ -11,23 +11,25 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
     {
         private const string ItemsControlPartName = "ItemsControl";
 
-        private readonly ObservableCollection<ThreadTimelineItem> _board;
+        private readonly ObservableCollection<ThreadTimelineItem> _collection;
+        private readonly uint _threadUid;
+        private readonly IEnumerable<ISingleEventTree> _eventTrees;
+        private readonly uint _endTime;
+        private readonly Timeline _timeline;
         private ItemsControl _itemsControl;
-        private uint _threadUid;
-        private IEnumerable<ISingleEventTree> _eventTrees;
-        private IProfilingTimer _profilingTimer;
 
         static ThreadTimeline()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ThreadTimeline), new FrameworkPropertyMetadata(typeof(ThreadTimeline)));
         }
 
-        public ThreadTimeline(uint threadUid, List<ISingleEventTree> eventTrees, IProfilingTimer profilingTimer)
+        public ThreadTimeline(Timeline timeline, uint threadUid, List<ISingleEventTree> eventTrees, uint endTime)
         {
+            _timeline = timeline;
             _threadUid = threadUid;
             _eventTrees = eventTrees;
-            _profilingTimer = profilingTimer;
-            _board = new ObservableCollection<ThreadTimelineItem>();
+            _endTime = endTime;
+            _collection = new ObservableCollection<ThreadTimelineItem>();
         }
 
         public override void OnApplyTemplate()
@@ -37,18 +39,33 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             _itemsControl = GetTemplateChild(ItemsControlPartName) as ItemsControl;
             if (_itemsControl != null)
             {
-                _itemsControl.ItemsSource = _board;
+                _itemsControl.ItemsSource = _collection;
             }
             InitializeChildren();
         }
 
+        private void UpdateLocationAndSize()
+        {
+            Size containerSize = new Size(ActualWidth, ActualHeight);
+            foreach (ThreadTimelineItem item in _collection)
+            {
+                item.UpdateLocationAndSize(containerSize);
+            }
+        }
+
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+        {
+            UpdateLocationAndSize();
+            base.OnRenderSizeChanged(sizeInfo);
+        }
+
         private void InitializeChildren()
         {
-            _board.Clear();
+            _collection.Clear();
             foreach (ISingleEventTree eventTree in _eventTrees)
             {
-                ThreadTimelineItem item = new ThreadTimelineItem(eventTree, _profilingTimer);
-                _board.Add(item);
+                ThreadTimelineItem item = new ThreadTimelineItem(_timeline, eventTree, _endTime);
+                _collection.Add(item);
             }
         }
 

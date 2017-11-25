@@ -6,7 +6,7 @@
             xmlns:theme="clr-namespace:Chronos.Client.Win.Themes;assembly=Chronos.Client.Win">
     <Grid>
         <Border BorderBrush="{x:Static theme:FontsAndColors.DarkNeutralBrush}" BorderThickness="1">
-            <controls:Timeline Events="{Binding Events}"/>
+            <controls:Timeline Events="{Binding Events}" ProfilingTimer="{Binding ProfilingTimer}" />
         </Border>
     </Grid>
 </views:View>

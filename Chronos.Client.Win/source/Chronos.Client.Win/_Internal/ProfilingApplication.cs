@@ -135,7 +135,7 @@ namespace Chronos.Client.Win
             {
                 session.StartDecoding(this);
             }
-            ProfilingTimer = new ProfilingTimer(session);
+            ProfilingTimer = session.ProfilingTimer;
             //hostApplications.TryDispose();
             return session;
         }

@@ -1,7 +1,8 @@
 ﻿using Chronos.Win32;
+
 namespace Chronos
 {
-    internal sealed class ProfilingTimer : IProfilingTimer
+    internal sealed class ProfilingTimer : RemoteBaseObject, IProfilingTimer
     {
         public ProfilingTimer(uint profilingBeginTime)
         {
