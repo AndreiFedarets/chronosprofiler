@@ -7,9 +7,11 @@ using System.Windows.Controls;
 namespace Chronos.Client.Win.Controls.Common.EventsTree
 {
     [TemplatePart(Name = ItemsControlPartName, Type = typeof(ItemsControl))]
+    [TemplatePart(Name = HeaderTextBlockPartName, Type = typeof(TextBlock))]
     public class ThreadTimeline : Control
     {
         private const string ItemsControlPartName = "ItemsControl";
+        private const string HeaderTextBlockPartName = "HeaderTextBlock";
 
         private readonly ObservableCollection<ThreadTimelineItem> _collection;
         private readonly uint _threadUid;
@@ -17,6 +19,7 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
         private readonly uint _endTime;
         private readonly Timeline _timeline;
         private ItemsControl _itemsControl;
+        private TextBlock _headerTextBlock;
 
         static ThreadTimeline()
         {
@@ -41,22 +44,21 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             {
                 _itemsControl.ItemsSource = _collection;
             }
+            //------------------
+            _headerTextBlock = GetTemplateChild(HeaderTextBlockPartName) as TextBlock;
+            if (_headerTextBlock != null)
+            {
+                _headerTextBlock.Text = string.Format("Thread {0}", _threadUid);
+            }
             InitializeChildren();
         }
 
-        private void UpdateLocationAndSize()
+        internal void UpdateLocationAndSize(Size containerSize)
         {
-            Size containerSize = new Size(ActualWidth, ActualHeight);
             foreach (ThreadTimelineItem item in _collection)
             {
                 item.UpdateLocationAndSize(containerSize);
             }
-        }
-
-        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
-        {
-            UpdateLocationAndSize();
-            base.OnRenderSizeChanged(sizeInfo);
         }
 
         private void InitializeChildren()

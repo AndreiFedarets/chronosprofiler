@@ -93,18 +93,23 @@
 
 <!-- Timeline ======================================================================================================================= -->
     <Style x:Key="{x:Type controls:Timeline}" TargetType="{x:Type controls:Timeline}">
+        <Setter Property="Background" Value="White" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:Timeline}">
-                    <Border BorderBrush="#F6F6F6" BorderThickness="1,1,1,1">
-                        <ItemsControl x:Name="ItemsControl">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Vertical" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </Border>
+                    <Grid x:Name="ContainerGrid">
+                        <ScrollViewer x:Name="ScrollViewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <Border x:Name="ContentBorder" BorderBrush="#F6F6F6" BorderThickness="1,1,1,1">
+                                <ItemsControl x:Name="ItemsControl">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Vertical" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </Border>
+                        </ScrollViewer>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -117,13 +122,22 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:ThreadTimeline}">
                     <Border BorderBrush="#F6F6F6" BorderThickness="0,0,0,1">
-                        <ItemsControl x:Name="ItemsControl">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <Canvas Height="{TemplateBinding Height}" HorizontalAlignment="Stretch" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" BorderBrush="#F6F6F6" BorderThickness="0,0,1,0" Width="100">
+                                <TextBlock x:Name="HeaderTextBlock" />
+                            </Border>
+                            <ItemsControl x:Name="ItemsControl" Grid.Column="1">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Canvas Height="{TemplateBinding Height}" HorizontalAlignment="Stretch" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

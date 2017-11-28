@@ -8,9 +8,16 @@ using System.Windows.Controls;
 namespace Chronos.Client.Win.Controls.Common.EventsTree
 {
     [TemplatePart(Name = ItemsControlPartName, Type = typeof(ItemsControl))]
+    [TemplatePart(Name = ContainerGridPartName, Type = typeof(Grid))]
+    [TemplatePart(Name = ScrollViewerPartName, Type = typeof(ScrollViewer))]
+    [TemplatePart(Name = ContentBorderPartName, Type = typeof(Border))]
     public class Timeline : Control
     {
         private const string ItemsControlPartName = "ItemsControl";
+        private const string ContainerGridPartName = "ContainerGrid";
+        private const string ScrollViewerPartName = "ScrollViewer";
+        private const string ContentBorderPartName = "ContentBorder";
+        private const int ZoomStep = 3;
 
         private static readonly DependencyProperty EventsProperty;
         private static readonly DependencyProperty ProfilingTimerProperty;
@@ -26,6 +33,9 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
 
         private readonly ObservableCollection<ThreadTimeline> _collection;
         private ItemsControl _itemsControl;
+        private Grid _containerGrid;
+        private ScrollViewer _scrollViewer;
+        private Border _contentBorder;
 
         static Timeline()
         {
@@ -50,6 +60,8 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
         public Timeline()
         {
             _collection = new ObservableCollection<ThreadTimeline>();
+            PreviewMouseWheel += OnMouseWheel;
+            SizeChanged += OnSizeChanged;
         }
 
         public IEventTreeCollection Events
@@ -88,8 +100,52 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             private set { SetValue(SelectedEventTreePropertyKey, value); }
         }
 
-
         private bool AreChildrenInitialized { get; set; }
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            UpdateContentBorder();
+        }
+
+        private void OnMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            if (_contentBorder == null)
+            {
+                return;
+            }
+            int change = e.Delta * ZoomStep;
+            double newWidth = _contentBorder.ActualWidth + change;
+            double horizontalOffset = _scrollViewer.HorizontalOffset + change / 2;
+            _scrollViewer.ScrollToHorizontalOffset(horizontalOffset);
+            ResizeContentBorder(newWidth);
+        }
+
+        private void UpdateContentBorder()
+        {
+            if (_contentBorder == null)
+            {
+                return;
+            }
+            ResizeContentBorder(_contentBorder.ActualWidth);
+        }
+
+        private void ResizeContentBorder(double newWidth)
+        {
+            if (_contentBorder == null || _containerGrid == null)
+            {
+                return;
+            }
+            if (newWidth < _containerGrid.ActualWidth)
+            {
+                newWidth = _containerGrid.ActualWidth;
+            }
+            _contentBorder.Width = newWidth;
+            Size containerSize = new Size(newWidth, _contentBorder.ActualHeight);
+            foreach (ThreadTimeline item in _collection)
+            {
+                item.UpdateLocationAndSize(containerSize);
+            }
+        }
 
         public override void OnApplyTemplate()
         {
@@ -100,6 +156,12 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             {
                 _itemsControl.ItemsSource = _collection;
             }
+            //------------------
+            _containerGrid = GetTemplateChild(ContainerGridPartName) as Grid;
+            //------------------
+            _scrollViewer = GetTemplateChild(ScrollViewerPartName) as ScrollViewer;
+            //------------------
+            _contentBorder = GetTemplateChild(ContentBorderPartName) as Border;
             InitializeChildren();
         }
 
@@ -117,6 +179,8 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
                 ThreadTimeline item = new ThreadTimeline(this, group.Key, group.ToList(), endTime);
                 _collection.Add(item);
             }
+            DispatcherExtensions.DoEvents();
+            UpdateContentBorder();
         }
 
         private static void OnEventsPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
