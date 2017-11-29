@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{6AA40C50-8DFD-4E1F-BA5B-A58277FBD431}">
+  
+  <Framework Uid="{3293A5D2-98AC-4D95-B703-3D4CEE27495B}" Version="0.1">
+    <Export Application="core" EntryPoint="Chronos.Java.FrameworkAdapter, Chronos.Java"/>
+    <Export Application="agent" EntryPoint32="Chronos.Java.Agent.dll" EntryPoint64="x64\Chronos.Java.Agent.dll" MethodName="CreateJavaFramework" />
+    <Localization Culture="en-US">
+      <Name>Java</Name>
+      <Description>Profiling applications based on Java</Description>
+    </Localization>
+  </Framework>
+
+  <Localization Culture="en-US">
+    <Name>Java</Name>
+    <Description>Profiling applications based on Java</Description>
+  </Localization>
+  
+</Extension>

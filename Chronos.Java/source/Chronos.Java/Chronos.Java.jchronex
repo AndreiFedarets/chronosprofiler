@@ -1,0 +1,33 @@
+﻿{
+    "uid": "{6AA40C50-8DFD-4E1F-BA5B-A58277FBD431}",
+    "localizations":[
+        {
+            "culture": "en-US",
+            "name": "Java",
+            "description": "Profiling applications based on Java"
+        }
+    ]
+    "framework": {
+        "uid": "{3293A5D2-98AC-4D95-B703-3D4CEE27495B}",
+        "version": "0.1",
+        "exports": [
+            {
+                "application": "core",
+                "entryPoint": "Chronos.Java.FrameworkAdapter, Chronos.Java"
+            },
+            {
+                "application": "agent",
+                "entryPoint32": "Chronos.Java.Agent.dll",
+                "entryPoint32": "x64\Chronos.Java.Agent.dll",
+                "methodName": "CreateJavaFramework"
+            }
+        ]
+        "localizations":[
+            {
+                "culture": "en-US",
+                "name": "Java",
+                "description": "Profiling applications based on Java"
+            }
+        ]
+    }
+}

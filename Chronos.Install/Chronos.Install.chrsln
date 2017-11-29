@@ -16,6 +16,9 @@
     <Solution Name="Chronos.Common.StandaloneApplication.chrsln">
       <File Name="Chronos.Common.StandaloneApplication.msm" />
     </Solution>
+    <Solution Name="Chronos.Java.chrsln">
+      <File Name="Chronos.Java.msm" />
+    </Solution>
     <Solution Name="Chronos.DotNet.chrsln">
       <File Name="Chronos.DotNet.msm" />
     </Solution>

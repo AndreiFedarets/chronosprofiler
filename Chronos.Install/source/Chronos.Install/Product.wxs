@@ -26,28 +26,31 @@
       <MergeRef Id="Chronos_Common" />
       <MergeRef Id="Chronos_Common_EventsTree" />
       <MergeRef Id="Chronos_Common_StandaloneApplication" />
+
+      <!-- DotNet -->
       <MergeRef Id="Chronos_DotNet" />
       <MergeRef Id="Chronos_DotNet_BasicProfiler" />
       <MergeRef Id="Chronos_DotNet_ExceptionMonitor" />
-      <!-- 
-      <MergeRef Id="Chronos_DotNet_IISApplication" />
-      <MergeRef Id="Chronos_DotNet_SqlProfiler" />
-      -->
       <MergeRef Id="Chronos_DotNet_TracingProfiler" />
+      <!-- <MergeRef Id="Chronos_DotNet_IISApplication" />
+      <MergeRef Id="Chronos_DotNet_SqlProfiler" /> -->
+
+      <!-- Java -->
+      <MergeRef Id="Chronos_Java" />
 
       <!-- Win.Client -->
       <MergeRef Id="Chronos_Client_Win" />
       <MergeRef Id="Chronos_Client_Win_Common" />
       <MergeRef Id="Chronos_Client_Win_Common_EventsTree" />
       <MergeRef Id="Chronos_Client_Win_Common_StandaloneApplication" />
+
+      <!-- Win.Client.DotNet -->
       <MergeRef Id="Chronos_Client_Win_DotNet" />
       <MergeRef Id="Chronos_Client_Win_DotNet_BasicProfiler" />
       <MergeRef Id="Chronos_Client_Win_DotNet_ExceptionMonitor" />
-      <!-- 
-      <MergeRef Id="Chronos_Client_Win_DotNet_FindReference" />
-      <MergeRef Id="Chronos_Client_Win_DotNet_SqlProfiler" />
-      -->
       <MergeRef Id="Chronos_Client_Win_DotNet_TracingProfiler" />
+      <!-- <MergeRef Id="Chronos_Client_Win_DotNet_FindReference" />
+      <MergeRef Id="Chronos_Client_Win_DotNet_SqlProfiler" /> -->
     </Feature>
   </Product>
 
@@ -60,6 +63,7 @@
           <Merge Id="Chronos_Common" Language="1033" SourceFile="$(var.SourceDir)\Chronos.Common.msm" DiskId="1" />
           <Merge Id="Chronos_Common_EventsTree" Language="1033" SourceFile="$(var.SourceDir)\Chronos.Common.EventsTree.msm" DiskId="1" />
           <Merge Id="Chronos_Common_StandaloneApplication" Language="1033" SourceFile="$(var.SourceDir)\Chronos.Common.StandaloneApplication.msm" DiskId="1" />
+          <Merge Id="Chronos_Java" Language="1033" SourceFile="$(var.SourceDir)\Chronos.Java.msm" DiskId="1" />
           <Merge Id="Chronos_DotNet" Language="1033" SourceFile="$(var.SourceDir)\Chronos.DotNet.msm" DiskId="1" />
           <Merge Id="Chronos_DotNet_BasicProfiler" Language="1033" SourceFile="$(var.SourceDir)\Chronos.DotNet.BasicProfiler.msm" DiskId="1" />
           <Merge Id="Chronos_DotNet_ExceptionMonitor" Language="1033" SourceFile="$(var.SourceDir)\Chronos.DotNet.ExceptionMonitor.msm" DiskId="1" />

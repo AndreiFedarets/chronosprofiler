@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include "$(var.SolutionDir)\.scripts\ModuleConfig.wxi"?>
+  <Module Id="Chronos.Java" Language="1033" Version="$(var.Version)">
+    <Package Id="707477fb-3282-4bc9-b145-7df99ea2689b" Manufacturer="$(var.Manufacturer)" InstallerVersion="200" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MergeRedirectFolder">
+        <Directory Id="Chronos_Java_Directory" Name="$(var.TargetDir)">
+          <Component Id="Chronos_Java_Component" Guid="8557c191-3c96-4269-adb2-a400c2dbd036">
+            <File Id="Chronos_Java_dll" Name="Chronos.Java.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.Java.dll" />
+            <File Id="Chronos_Java_xchronex" Name="Chronos.Java.xchronex" DiskId="1" Source="$(var.SourceDir)\Chronos.Java.xchronex" />
+            <File Id="Chronos_Java_Agent_dll" Name="Chronos.Java.Agent.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.Java.Agent.dll" />
+          </Component>
+          <Directory Id="Chronos_Java_Directory_64" Name="$(var.Dir64)">
+            <Component Id="Chronos_Java_Component_64" Guid="3e0f3487-8927-4ba1-b62e-4644e1544ee7">
+              <File Id="Chronos_Java_Agent_dll_64" Name="Chronos.Java.Agent.dll" DiskId="1" Source="$(var.SourceDir)\$(var.Dir64)\Chronos.Java.Agent.dll" />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>
