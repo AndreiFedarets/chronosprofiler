@@ -1,5 +1,6 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
+#include "Chronos.Java.Agent.Internal.h"
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
@@ -15,4 +16,10 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 		break;
 	}
 	return TRUE;
+}
+
+
+EXTERN_C __declspec(dllexport) void CreateChronosFramework(Chronos::Agent::IFrameworkAdapter** adapter)
+{
+	*adapter = new Chronos::Agent::Java::FrameworkAdapter();
 }

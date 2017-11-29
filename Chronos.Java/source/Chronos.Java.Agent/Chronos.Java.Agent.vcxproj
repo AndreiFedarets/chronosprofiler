@@ -137,11 +137,12 @@
   <ItemGroup>
     <ClInclude Include="Chronos.Java.Agent.h" />
     <ClInclude Include="Chronos.Java.Agent.Internal.h" />
+    <ClInclude Include="ProfilerEntryPoint.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Callbacks.cpp" />
+    <ClCompile Include="ProfilerEntryPoint.cpp" />
     <ClCompile Include="Chronos.Java.Agent.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -151,6 +152,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="FrameworkAdapter.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

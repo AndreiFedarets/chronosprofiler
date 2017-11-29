@@ -30,6 +30,9 @@
     <ClInclude Include="Chronos.Java.Agent.Internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ProfilerEntryPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -41,7 +44,10 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Callbacks.cpp">
+    <ClCompile Include="FrameworkAdapter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProfilerEntryPoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

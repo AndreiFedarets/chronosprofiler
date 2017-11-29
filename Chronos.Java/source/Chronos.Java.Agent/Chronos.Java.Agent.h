@@ -15,6 +15,23 @@ namespace Chronos
 	{
 		namespace Java
 		{
+// ==================================================================================================================================================
+			class CHRONOS_JAVA_API FrameworkAdapter : public IFrameworkAdapter
+			{
+				public:
+					FrameworkAdapter();
+					~FrameworkAdapter();
+					HRESULT BeginInitialize(FrameworkSettings* frameworkSettings, ProfilingTargetSettings* profilingTargetSettings);
+					HRESULT ExportServices(ServiceContainer* container);
+					HRESULT ImportServices(ServiceContainer* container);
+					HRESULT EndInitialize();
+					const static __guid FrameworkUid;
+				private:
+					//Reflection::RuntimeMetadataProvider* _metadataProvider;
+					//RuntimeProfilingEvents* _profilingEvents;
+					FrameworkSettings* _frameworkSettings;
+			};
+
 //			namespace Reflection
 //			{
 //				class RuntimeMetadataProvider;
@@ -896,23 +913,7 @@ namespace Chronos
 //				protected:
 //					Reflection::RuntimeMetadataProvider* _metadataProvider;
 //			};
-//			
-//// ==================================================================================================================================================
-//			class CHRONOS_DOTNET_API FrameworkAdapter : public IFrameworkAdapter
-//			{
-//				public:
-//					FrameworkAdapter();
-//					~FrameworkAdapter();
-//					HRESULT BeginInitialize(FrameworkSettings* frameworkSettings, ProfilingTargetSettings* profilingTargetSettings);
-//					HRESULT ExportServices(ServiceContainer* container);
-//					HRESULT ImportServices(ServiceContainer* container);
-//					HRESULT EndInitialize();
-//					const static __guid FrameworkUid;
-//				private:
-//					Reflection::RuntimeMetadataProvider* _metadataProvider;
-//					RuntimeProfilingEvents* _profilingEvents;
-//					FrameworkSettings* _frameworkSettings;
-//			};
+		
 
 // ==================================================================================================================================================
 			/*class MethodInjector
