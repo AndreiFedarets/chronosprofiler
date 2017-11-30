@@ -15,27 +15,10 @@ namespace Chronos
 	{
 		namespace Java
 		{
-// ==================================================================================================================================================
-			class CHRONOS_JAVA_API FrameworkAdapter : public IFrameworkAdapter
+			namespace Reflection
 			{
-				public:
-					FrameworkAdapter();
-					~FrameworkAdapter();
-					HRESULT BeginInitialize(FrameworkSettings* frameworkSettings, ProfilingTargetSettings* profilingTargetSettings);
-					HRESULT ExportServices(ServiceContainer* container);
-					HRESULT ImportServices(ServiceContainer* container);
-					HRESULT EndInitialize();
-					const static __guid FrameworkUid;
-				private:
-					//Reflection::RuntimeMetadataProvider* _metadataProvider;
-					//RuntimeProfilingEvents* _profilingEvents;
-					FrameworkSettings* _frameworkSettings;
-			};
-
-//			namespace Reflection
-//			{
-//				class RuntimeMetadataProvider;
-//				
+				class RuntimeMetadataProvider;
+				
 //// ==================================================================================================================================================
 //				struct CHRONOS_DOTNET_API ThreadMetadata
 //				{
@@ -234,43 +217,43 @@ namespace Chronos
 //						std::map<UINT_PTR, T*>* _elements;
 //				};
 //
-//// ==================================================================================================================================================
-//				class CHRONOS_DOTNET_API RuntimeMetadataProvider
-//				{
-//					public:
-//						RuntimeMetadataProvider();
-//						~RuntimeMetadataProvider();
-//						static HRESULT Initialize(IUnknown* corProfilerInfoUnk);
-//						
-//						HRESULT GetAppDomain(AppDomainID appDomainId, AppDomainMetadata** metadata);
-//						HRESULT GetAssembly(AssemblyID assemblyId, AssemblyMetadata** metadata);
-//						HRESULT GetModule(ModuleID moduleId, ModuleMetadata** metadata);
-//						HRESULT GetType(ClassID classId, TypeMetadata** metadata);
-//						HRESULT GetMethod(FunctionID functionId, MethodMetadata** metadata);
-//						HRESULT GetThread(ThreadID threadId, ThreadMetadata** metadata);
-//						HRESULT GetClassFromObject(ObjectID objectId, ClassID* classId);
-//						//ObjectMetadata* GetObject(ObjectID objectId);
-//
-//						HRESULT GetCorProfilerInfo2(ICorProfilerInfo2** profilerInfo);
-//						HRESULT GetCorProfilerInfo3(ICorProfilerInfo3** profilerInfo);
-//						HRESULT SetEventMask(DWORD eventsMask);
-//						HRESULT GetCurrentThreadId(ThreadID* threadId);
-//						HRESULT GetHandleFromThread(ThreadID threadId, HANDLE* threadHandle);
-//
-//						const static __guid ServiceToken;
-//					private:
-//						MetadataCollection<AppDomainMetadata>* _appDomain;
-//						MetadataCollection<AssemblyMetadata>* _assemblies;
-//						MetadataCollection<ModuleMetadata>* _modules;
-//						MetadataCollection<TypeMetadata>* _types;
-//						MetadataCollection<MethodMetadata>* _methods;
-//						MetadataCollection<ThreadMetadata>* _threads;
-//						ICorProfilerInfo2* _corProfilerInfo2;
-//						ICorProfilerInfo3* _corProfilerInfo3;
-//						static IUnknown* ÑorProfilerInfoUnk;
-//				};
-//			}
-//
+
+// ==================================================================================================================================================
+				class CHRONOS_JAVA_API RuntimeMetadataProvider
+				{
+					public:
+						RuntimeMetadataProvider();
+						~RuntimeMetadataProvider();
+						static HRESULT Initialize(JavaVM* javaVM);
+						
+						//HRESULT GetAppDomain(AppDomainID appDomainId, AppDomainMetadata** metadata);
+						//HRESULT GetAssembly(AssemblyID assemblyId, AssemblyMetadata** metadata);
+						//HRESULT GetModule(ModuleID moduleId, ModuleMetadata** metadata);
+						//HRESULT GetType(ClassID classId, TypeMetadata** metadata);
+						//HRESULT GetMethod(FunctionID functionId, MethodMetadata** metadata);
+						//HRESULT GetThread(ThreadID threadId, ThreadMetadata** metadata);
+						//HRESULT GetClassFromObject(ObjectID objectId, ClassID* classId);
+						////ObjectMetadata* GetObject(ObjectID objectId);
+
+						//HRESULT GetCorProfilerInfo2(ICorProfilerInfo2** profilerInfo);
+						//HRESULT GetCorProfilerInfo3(ICorProfilerInfo3** profilerInfo);
+						//HRESULT SetEventMask(DWORD eventsMask);
+						//HRESULT GetCurrentThreadId(ThreadID* threadId);
+						//HRESULT GetHandleFromThread(ThreadID threadId, HANDLE* threadHandle);
+
+						const static __guid ServiceToken;
+					private:
+						//MetadataCollection<AppDomainMetadata>* _appDomain;
+						//MetadataCollection<AssemblyMetadata>* _assemblies;
+						//MetadataCollection<ModuleMetadata>* _modules;
+						//MetadataCollection<TypeMetadata>* _types;
+						//MetadataCollection<MethodMetadata>* _methods;
+						//MetadataCollection<ThreadMetadata>* _threads;
+						static JavaVM* VM;
+						//static IUnknown* ÑorProfilerInfoUnk;
+				};
+			}
+
 //// APPLICATION DOMAIN EVENTS ------------------------------------------------------------------------------------------------------------------------
 //// ==================================================================================================================================================
 //			struct AppDomainCreationStartedEventArgs
@@ -931,6 +914,24 @@ namespace Chronos
 					IMethodMalloc* _methodAlloc;
 					ModuleID _moduleId;
 			};*/
+
+
+// ==================================================================================================================================================
+			class CHRONOS_JAVA_API FrameworkAdapter : public IFrameworkAdapter
+			{
+				public:
+					FrameworkAdapter();
+					~FrameworkAdapter();
+					HRESULT BeginInitialize(FrameworkSettings* frameworkSettings, ProfilingTargetSettings* profilingTargetSettings);
+					HRESULT ExportServices(ServiceContainer* container);
+					HRESULT ImportServices(ServiceContainer* container);
+					HRESULT EndInitialize();
+					const static __guid FrameworkUid;
+				private:
+					Reflection::RuntimeMetadataProvider* _metadataProvider;
+					//RuntimeProfilingEvents* _profilingEvents;
+					FrameworkSettings* _frameworkSettings;
+			};
 // ==================================================================================================================================================
 // ==================================================================================================================================================
 		}

@@ -24,13 +24,10 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Chronos.Java.Agent.h">
+    <ClInclude Include="Chronos.Java.BasicProfiler.Agent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Chronos.Java.Agent.Internal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ProfilerEntryPoint.h">
+    <ClInclude Include="Chronos.Java.BasicProfiler.Agent.Internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,19 +35,13 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Chronos.Java.Agent.cpp">
+    <ClCompile Include="Chronos.Java.BasicProfiler.Agent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FrameworkAdapter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ProfilerEntryPoint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RuntimeMetaDataProvider.cpp">
+    <ClCompile Include="ProfilingTypeAdapter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{C503D4E8-2C96-4A35-B2C0-F7C3B6FFA109}">
+  <ProfilingType Uid="{D1A97284-215D-460A-8D21-330AC8671D12}" Version="0.1" FrameworkUid="{3293A5D2-98AC-4D95-B703-3D4CEE27495B}" FrameworkVersion="0.1">
+    <Export Application="core" EntryPoint="Chronos.Java.BasicProfiler.ProfilingTypeAdapter, Chronos.Java.BasicProfiler" />
+    <Export Application="agent" EntryPoint32="Chronos.Java.BasicProfiler.Agent.dll" EntryPoint64="x64\Chronos.Java.BasicProfiler.Agent.dll" />
+    <Localization Culture="en-US">
+      <Name>Java Basic</Name>
+      <Description>Profiling applications based on Java</Description>
+    </Localization>
+  </ProfilingType>
+  <Localization Culture="en-US">
+    <Name>Java Basic</Name>
+    <Description>Profiling applications based on Java</Description>
+  </Localization>
+</Extension>

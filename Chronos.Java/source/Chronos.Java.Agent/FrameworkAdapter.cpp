@@ -10,13 +10,13 @@ namespace Chronos
 			FrameworkAdapter::FrameworkAdapter()
 			{
 				//_profilingEvents = new RuntimeProfilingEvents();
-				//_metadataProvider = new Reflection::RuntimeMetadataProvider();
-				//_frameworkSettings = null;
+				_metadataProvider = new Reflection::RuntimeMetadataProvider();
+				_frameworkSettings = null;
 			}
 
 			FrameworkAdapter::~FrameworkAdapter()
 			{
-				//__FREEOBJ(_metadataProvider);
+				__FREEOBJ(_metadataProvider);
 				//__FREEOBJ(_profilingEvents);
 				//__FREEOBJ(_metadataProvider);
 			}
