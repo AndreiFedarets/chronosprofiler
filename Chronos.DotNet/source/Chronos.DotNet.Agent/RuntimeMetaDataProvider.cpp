@@ -11,8 +11,8 @@ namespace Chronos
 			{
 				RuntimeMetadataProvider::RuntimeMetadataProvider()
 				{
-					ÑorProfilerInfoUnk->QueryInterface(__uuidof(ICorProfilerInfo3), (void**)&_corProfilerInfo3);
-					ÑorProfilerInfoUnk->QueryInterface(__uuidof(ICorProfilerInfo2), (void**)&_corProfilerInfo2);
+					_corProfilerInfo3 = null;
+					_corProfilerInfo2 = null;
 					_appDomain = new MetadataCollection<AppDomainMetadata>();
 					_assemblies = new MetadataCollection<AssemblyMetadata>();
 					_modules = new MetadataCollection<ModuleMetadata>();
@@ -40,13 +40,31 @@ namespace Chronos
 					}
 					return E_FAIL;
 				}
+
+				ICorProfilerInfo2* RuntimeMetadataProvider::GetCorProfilerInfo2()
+				{
+					if (_corProfilerInfo2 == null)
+					{
+						ÑorProfilerInfoUnk->QueryInterface(__uuidof(ICorProfilerInfo3), (void**)&_corProfilerInfo2);
+					}
+					return _corProfilerInfo2;
+				}
+
+				ICorProfilerInfo3* RuntimeMetadataProvider::GetCorProfilerInfo3()
+				{
+					if (_corProfilerInfo3 == null)
+					{
+						ÑorProfilerInfoUnk->QueryInterface(__uuidof(ICorProfilerInfo3), (void**)&_corProfilerInfo3);
+					}
+					return _corProfilerInfo3;
+				}
 			
 				HRESULT RuntimeMetadataProvider::GetAppDomain(AppDomainID appDomainId, AppDomainMetadata** metadata)
 				{
 					*metadata = _appDomain->Find(appDomainId);
 					if (*metadata == null)
 					{
-						*metadata = new AppDomainMetadata(_corProfilerInfo2, this, appDomainId);
+						*metadata = new AppDomainMetadata(GetCorProfilerInfo2(), this, appDomainId);
 						_appDomain->Add(appDomainId, *metadata);
 					}
 					return S_OK;
@@ -57,7 +75,7 @@ namespace Chronos
 					*metadata = _assemblies->Find(assemblyId);
 					if (*metadata == null)
 					{
-						*metadata = new AssemblyMetadata(_corProfilerInfo2, this, assemblyId);
+						*metadata = new AssemblyMetadata(GetCorProfilerInfo2(), this, assemblyId);
 						_assemblies->Add(assemblyId, *metadata);
 					}
 					return S_OK;
@@ -68,7 +86,7 @@ namespace Chronos
 					*metadata = _modules->Find(moduleId);
 					if (*metadata == null)
 					{
-						*metadata = new ModuleMetadata(_corProfilerInfo2, this, moduleId);
+						*metadata = new ModuleMetadata(GetCorProfilerInfo2(), this, moduleId);
 						_modules->Add(moduleId, *metadata);
 					}
 					return S_OK;
@@ -79,7 +97,7 @@ namespace Chronos
 					*metadata = _types->Find(classId);
 					if (*metadata == null)
 					{
-						*metadata = new TypeMetadata(_corProfilerInfo2, this, classId);
+						*metadata = new TypeMetadata(GetCorProfilerInfo2(), this, classId);
 						_types->Add(classId, *metadata);
 					}
 					return S_OK;
@@ -90,7 +108,7 @@ namespace Chronos
 					*metadata = _methods->Find(functionId);
 					if (*metadata == null)
 					{
-						*metadata = new MethodMetadata(_corProfilerInfo2, this, functionId);
+						*metadata = new MethodMetadata(GetCorProfilerInfo2(), this, functionId);
 						_methods->Add(functionId, *metadata);
 					}
 					return S_OK;
@@ -101,7 +119,7 @@ namespace Chronos
 					*metadata = _threads->Find(threadId);
 					if (*metadata == null)
 					{
-						*metadata = new ThreadMetadata(_corProfilerInfo2, this, threadId);
+						*metadata = new ThreadMetadata(GetCorProfilerInfo2(), this, threadId);
 						_threads->Add(threadId, *metadata);
 					}
 					return S_OK;
@@ -109,21 +127,21 @@ namespace Chronos
 
 				HRESULT RuntimeMetadataProvider::GetClassFromObject(ObjectID objectId, ClassID* classId)
 				{
-					if (_corProfilerInfo2 == null)
+					if (GetCorProfilerInfo2() == null)
 					{
 						return E_NOINTERFACE;
 					}
-					return _corProfilerInfo2->GetClassFromObject(objectId, classId);
+					return GetCorProfilerInfo2()->GetClassFromObject(objectId, classId);
 				}
 
 				/*ObjectMetadata* RuntimeMetadataProvider::GetObject(ObjectID objectId)
 				{
-					return new ObjectMetadata(_corProfilerInfo2, this, objectId);
+					return new ObjectMetadata(GetCorProfilerInfo2(), this, objectId);
 				}*/
 
 				HRESULT RuntimeMetadataProvider::GetCorProfilerInfo2(ICorProfilerInfo2** profilerInfo)
 				{
-					*profilerInfo = _corProfilerInfo2;
+					*profilerInfo = GetCorProfilerInfo2();
 					if (*profilerInfo == null)
 					{
 						return E_NOINTERFACE;
@@ -133,7 +151,7 @@ namespace Chronos
 
 				HRESULT RuntimeMetadataProvider::GetCorProfilerInfo3(ICorProfilerInfo3** profilerInfo)
 				{
-					*profilerInfo = _corProfilerInfo3;
+					*profilerInfo = GetCorProfilerInfo3();
 					if (*profilerInfo == null)
 					{
 						return E_NOINTERFACE;
@@ -143,29 +161,29 @@ namespace Chronos
 
 				HRESULT RuntimeMetadataProvider::SetEventMask(DWORD eventsMask)
 				{
-					if (_corProfilerInfo2 == null)
+					if (GetCorProfilerInfo2() == null)
 					{
 						return E_NOT_VALID_STATE;
 					}
-					return _corProfilerInfo2->SetEventMask(eventsMask);
+					return GetCorProfilerInfo2()->SetEventMask(eventsMask);
 				}
 
 				HRESULT RuntimeMetadataProvider::GetCurrentThreadId(ThreadID* threadId)
 				{
-					if (_corProfilerInfo2 == null)
+					if (GetCorProfilerInfo2() == null)
 					{
 						return E_NOT_VALID_STATE;
 					}
-					return _corProfilerInfo2->GetCurrentThreadID(threadId);
+					return GetCorProfilerInfo2()->GetCurrentThreadID(threadId);
 				}
 
 				HRESULT RuntimeMetadataProvider::GetHandleFromThread(ThreadID threadId, HANDLE* threadHandle)
 				{
-					if (_corProfilerInfo2 == null)
+					if (GetCorProfilerInfo2() == null)
 					{
 						return E_NOT_VALID_STATE;
 					}
-					return _corProfilerInfo2->GetHandleFromThread(threadId, threadHandle);
+					return GetCorProfilerInfo2()->GetHandleFromThread(threadId, threadHandle);
 				}
 
 				const __guid RuntimeMetadataProvider::ServiceToken = Converter::ConvertStringToGuid(L"{3A1A67DA-8696-459C-AD51-BFD141571B5F}");

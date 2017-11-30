@@ -14,16 +14,21 @@
     <Extension IsEnabled="true" Path="..\..\Chronos.Common\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.Common.EventsTree\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.Common.StandaloneApplication\build\" />
+    
     <Extension IsEnabled="true" Path="..\..\Chronos.DotNet\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.DotNet.BasicProfiler\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.DotNet.ExceptionMonitor\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.DotNet.SqlProfiler\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.DotNet.TracingProfiler\build\" />
 
+    <Extension IsEnabled="true" Path="..\..\Chronos.Java\build\" />
+    <Extension IsEnabled="true" Path="..\..\Chronos.Java.BasicProfiler\build\" />
+
     <Extension IsEnabled="true" Path="..\..\Chronos.Client.Win\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.Client.Win.Common\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.Client.Win.Common.EventsTree\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.Client.Win.Common.StandaloneApplication\build\" />
+    
     <Extension IsEnabled="true" Path="..\..\Chronos.Client.Win.DotNet\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.Client.Win.DotNet.BasicProfiler\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.Client.Win.DotNet.ExceptionMonitor\build\" />
@@ -31,26 +36,37 @@
     <Extension IsEnabled="true" Path="..\..\Chronos.Client.Win.DotNet.TracingProfiler\build\" />
     <Extension IsEnabled="true" Path="..\..\Chronos.Client.Win.DotNet.FindReference\build\" />
 
+    <Extension IsEnabled="true" Path="..\..\Chronos.Client.Win.Java\build\" />
+    <Extension IsEnabled="true" Path="..\..\Chronos.Client.Win.Java.BasicProfiler\build\" />
+
     <!-- Production -->
     <Extension IsEnabled="true" Path="..\Chronos.Common\" />
     <Extension IsEnabled="true" Path="..\Chronos.Common.EventsTree\" />
     <Extension IsEnabled="true" Path="..\Chronos.Common.StandaloneApplication\" />
+    
     <Extension IsEnabled="true" Path="..\Chronos.DotNet\" />
     <Extension IsEnabled="true" Path="..\Chronos.DotNet.BasicProfiler\" />
     <Extension IsEnabled="true" Path="..\Chronos.DotNet.ExceptionMonitor\" />
     <Extension IsEnabled="true" Path="..\Chronos.DotNet.SqlProfiler\" />
     <Extension IsEnabled="true" Path="..\Chronos.DotNet.TracingProfiler\" />
 
+    <Extension IsEnabled="true" Path="..\Chronos.Java\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Java.BasicProfiler\" />
+
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win\" />
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win.Common\" />
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win.Common.EventsTree\" />
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win.Common.StandaloneApplication\" />
+    
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win.DotNet\" />
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win.DotNet.BasicProfiler\" />
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win.DotNet.ExceptionMonitor\" />
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win.DotNet.SqlProfiler\" />
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win.DotNet.TracingProfiler\" />
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win.DotNet.FindReference\" />
+
+    <Extension IsEnabled="true" Path="..\Chronos.Client.Win.Java\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Client.Win.Java.BasicProfiler\" />
   </Extensions>
   <ProfilingResults Path="%ProgramData%\ChronosProfiler\ProfilingResults\" />
   <HostConnections RunLocal="true">

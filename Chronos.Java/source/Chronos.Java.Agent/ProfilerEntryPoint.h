@@ -12,8 +12,8 @@ namespace Chronos
 			public:
 				ProfilerEntryPoint();
 				~ProfilerEntryPoint();
-				__int OnLoad(JavaVM* javaVM);
-				__int OnAttach(JavaVM* javaVM);
+				HRESULT OnLoad(JavaVM* javaVM);
+				HRESULT OnAttach(JavaVM* javaVM);
 
 			private:
 				HRESULT InitializeInternal(JavaVM* javaVM);

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{8AA54638-C455-42EE-B00F-2190F9B221C8}">
+  <Attachment TargetUid="{D1A97284-215D-460A-8D21-330AC8671D12}" TargetVersion="0.1">
+    <Export Application="client.win" EntryPoint="Chronos.Client.Win.Java.BasicProfiler.ProfilingTypeAdapter, Chronos.Client.Win.Java.BasicProfiler" />
+  </Attachment>
+  <Localization Culture="en-US">
+    <Name>Java Basic (UI for Desktop Client)</Name>
+    <Description>Profiling applications based on Java</Description>
+  </Localization>
+</Extension>

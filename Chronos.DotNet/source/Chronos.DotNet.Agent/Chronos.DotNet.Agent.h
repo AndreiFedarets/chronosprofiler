@@ -239,8 +239,13 @@ namespace Chronos
 						HRESULT SetEventMask(DWORD eventsMask);
 						HRESULT GetCurrentThreadId(ThreadID* threadId);
 						HRESULT GetHandleFromThread(ThreadID threadId, HANDLE* threadHandle);
-
+						
 						const static __guid ServiceToken;
+
+					private:
+						ICorProfilerInfo2* GetCorProfilerInfo2();
+						ICorProfilerInfo3* GetCorProfilerInfo3();
+
 					private:
 						MetadataCollection<AppDomainMetadata>* _appDomain;
 						MetadataCollection<AssemblyMetadata>* _assemblies;

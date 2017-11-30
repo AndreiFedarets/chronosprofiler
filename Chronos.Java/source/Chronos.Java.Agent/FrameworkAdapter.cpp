@@ -37,7 +37,7 @@ namespace Chronos
 			HRESULT FrameworkAdapter::ExportServices(ServiceContainer* container)
 			{
 				//__REGISTER_SERVICE(container, RuntimeProfilingEvents, _profilingEvents);
-				//__REGISTER_SERVICE(container, Reflection::RuntimeMetadataProvider, _metadataProvider);
+				__REGISTER_SERVICE(container, Reflection::RuntimeMetadataProvider, _metadataProvider);
 				return S_OK;
 			}
 

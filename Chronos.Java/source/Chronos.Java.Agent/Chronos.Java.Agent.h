@@ -3,6 +3,8 @@
 #include <corprof.h>
 #include <Chronos.Agent.h>
 
+#define __JRETURN_IF_FAILED(action) { { jint __resultValue__ = action; if (__resultValue__ != JNI_OK) { return __resultValue__; } } }
+
 #ifdef CHRONOS_JAVA_EXPORT_API
 #define CHRONOS_JAVA_API __declspec(dllexport) 
 #else

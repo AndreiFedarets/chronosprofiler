@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{1351EABA-22F3-42C1-8C96-4FE94A6EBC21}">
+
+  <Attachment TargetUid="{3293A5D2-98AC-4D95-B703-3D4CEE27495B}" TargetVersion="0.1">
+    <Export Application="client.win" EntryPoint="Chronos.Client.Win.Java.FrameworkAdapter, Chronos.Client.Win.Java" />
+    <Localization Culture="en-US">
+      <Name>Java (UI for Desktop Client)</Name>
+      <Description>Profiling applications based on Java and higher</Description>
+    </Localization>
+  </Attachment>
+
+  <Localization Culture="en-US">
+    <Name>Java (UI for Desktop Client)</Name>
+    <Description>Profiling applications based on Java and higher</Description>
+  </Localization>
+
+</Extension>

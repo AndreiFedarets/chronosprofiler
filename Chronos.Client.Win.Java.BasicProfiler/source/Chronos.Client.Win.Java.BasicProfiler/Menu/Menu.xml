@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Menu>
+  <Control Id="Chronos.Client.Win.Menu.Java.JavaMenuItem">
+    <Control Type="Chronos.Client.Win.Menu.Java.BasicProfiler.AppDomainsMenuItem, Chronos.Client.Win.Java.BasicProfiler" />
+    <Control Type="Chronos.Client.Win.Menu.Java.BasicProfiler.AssembliesMenuItem, Chronos.Client.Win.Java.BasicProfiler" />
+    <Control Type="Chronos.Client.Win.Menu.Java.BasicProfiler.ModulesMenuItem, Chronos.Client.Win.Java.BasicProfiler" />
+    <Control Type="Chronos.Client.Win.Menu.Java.BasicProfiler.ClassesMenuItem, Chronos.Client.Win.Java.BasicProfiler" />
+    <Control Type="Chronos.Client.Win.Menu.Java.BasicProfiler.FunctionsMenuItem, Chronos.Client.Win.Java.BasicProfiler" />
+    <Control Type="Chronos.Client.Win.Menu.Java.BasicProfiler.ThreadsMenuItem, Chronos.Client.Win.Java.BasicProfiler" />
+  </Control>
+</Menu>

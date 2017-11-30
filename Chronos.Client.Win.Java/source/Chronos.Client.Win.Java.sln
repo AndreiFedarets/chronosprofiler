@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Client.Win.Java", "Chronos.Client.Win.Java\Chronos.Client.Win.Java.csproj", "{AA82FA62-B32B-4B96-8E73-4D4A1D042E69}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Client.Win.Java.Module", "Chronos.Client.Win.Java.Module\Chronos.Client.Win.Java.Module.wixproj", "{B134F3F4-9948-4844-939A-C96F29909DDB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AA82FA62-B32B-4B96-8E73-4D4A1D042E69} = {AA82FA62-B32B-4B96-8E73-4D4A1D042E69}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{D738E555-B561-485D-91E0-E2C223A89C9E}"
+	ProjectSection(SolutionItems) = preProject
+		.scripts\CSharp.targets = .scripts\CSharp.targets
+		.scripts\ModuleConfig.wxi = .scripts\ModuleConfig.wxi
+		.scripts\SolutionInfo.cs = .scripts\SolutionInfo.cs
+		.scripts\StrongName.snk = .scripts\StrongName.snk
+		.scripts\Wix.targets = .scripts\Wix.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA82FA62-B32B-4B96-8E73-4D4A1D042E69}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AA82FA62-B32B-4B96-8E73-4D4A1D042E69}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AA82FA62-B32B-4B96-8E73-4D4A1D042E69}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AA82FA62-B32B-4B96-8E73-4D4A1D042E69}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B134F3F4-9948-4844-939A-C96F29909DDB}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{B134F3F4-9948-4844-939A-C96F29909DDB}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{B134F3F4-9948-4844-939A-C96F29909DDB}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{B134F3F4-9948-4844-939A-C96F29909DDB}.Release|Mixed Platforms.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.IO;
 using System.Reflection;
 
@@ -20,9 +21,9 @@ namespace Chronos.Java
 
         public void ConfigureForProfiling(ConfigurationSettings configurationSettings)
         {
-            string arguments = configurationSettings.ProfilingTargetSettings.Arguments;
-            arguments = string.Format("{0} -agentpath:\"{1}\"", arguments, GetAgentLibraryFullName());
-            configurationSettings.ProfilingTargetSettings.Arguments = arguments;
+            StringDictionary dictionary = configurationSettings.ProfilingTargetSettings.EnvironmentVariables;
+            dictionary[Constants.EnvironmentVariablesNames.ProfilerSettingName] = string.Format(Constants.EnvironmentVariablesValues.ProfilerAgent, GetAgentLibraryFullName());
+            configurationSettings.ProfilingTargetSettings.EnvironmentVariables = dictionary;
         }
 
         private string GetAgentLibraryFullName()

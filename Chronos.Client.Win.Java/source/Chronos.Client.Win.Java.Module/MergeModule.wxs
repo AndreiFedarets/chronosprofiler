@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include "$(var.SolutionDir)\.scripts\ModuleConfig.wxi"?>
+  <Module Id="Chronos.Client.Win.Java" Language="1033" Version="$(var.Version)">
+    <Package Id="f921e9f1-7a89-49a1-b5c2-8282eae37f29" Manufacturer="$(var.Manufacturer)" InstallerVersion="200" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MergeRedirectFolder">
+        <Directory Id="Chronos_Client_Win_Java_Directory" Name="$(var.TargetDir)">
+          <Component Id="Chronos_Client_Win_Java_Component" Guid="79c4102d-4f92-43cf-9432-6d9ec556daa9">
+            <File Id="Chronos_Client_Win_Java_dll" Name="Chronos.Client.Win.Java.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.Client.Win.Java.dll" />
+            <File Id="Chronos_Client_Win_Java_xchronex" Name="Chronos.Client.Win.Java.xchronex" DiskId="1" Source="$(var.SourceDir)\Chronos.Client.Win.Java.xchronex" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>

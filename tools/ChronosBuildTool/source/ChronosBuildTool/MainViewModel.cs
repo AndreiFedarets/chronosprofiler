@@ -48,7 +48,7 @@ namespace ChronosBuildTool
 
         public SolutionCollection Solutions
         {
-             get { return _solutions; }
+            get { return _solutions; }
         }
 
         public bool IsConsoleVisible
@@ -94,7 +94,7 @@ namespace ChronosBuildTool
         {
             try
             {
-                foreach (Solution solution in Solutions)
+                foreach (Solution solution in Solutions.GetDependencySortedSolutions())
                 {
                     if (_requestStopOperation)
                     {
@@ -154,7 +154,7 @@ namespace ChronosBuildTool
             try
             {
                 Invoke(ResetBuildResult);
-                foreach (Solution solution in Solutions)
+                foreach (Solution solution in Solutions.GetDependencySortedSolutions())
                 {
                     if (_requestStopOperation)
                     {
@@ -178,7 +178,7 @@ namespace ChronosBuildTool
 
         private void ResetBuildResult()
         {
-            foreach (Solution solution in Solutions)
+            foreach (Solution solution in Solutions.GetDependencySortedSolutions())
             {
                 if (solution.IsChecked)
                 {

@@ -51,21 +51,27 @@ namespace ChronosBuildTool.Model
 
         public void Sort()
         {
+            _solutions.Sort((x, y) => string.Compare(x.ChronosSolutionName, y.ChronosSolutionName));
+        }
+
+        public IList<Solution> GetDependencySortedSolutions()
+        {
             List<Solution> sortedSolutions = new List<Solution>();
-            while (_solutions.Count > 0)
+            List<Solution> originalSolutions = new List<Solution>(_solutions);
+            while (originalSolutions.Count > 0)
             {
-                foreach (Solution solution in _solutions)
+                foreach (Solution solution in originalSolutions)
                 {
                     List<SolutionDependency> dependencies = solution.Dependencies.ToList();
                     if (dependencies.All(x => sortedSolutions.Any(y => string.Equals(x.SolutionName, y.ChronosSolutionName))))
                     {
                         sortedSolutions.Add(solution);
-                        _solutions.Remove(solution);
+                        originalSolutions.Remove(solution);
                         break;
                     }
                 }
             }
-            _solutions.AddRange(sortedSolutions);
+            return sortedSolutions;
         }
 
         public IEnumerator<Solution> GetEnumerator()
