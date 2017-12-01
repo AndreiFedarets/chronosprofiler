@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
@@ -13,6 +14,7 @@ namespace ChronosBuildTool
         private readonly SolutionCollection _solutions;
         private readonly Dispatcher _dispatcher;
         private Configuration _currentConfiguration;
+        private string _currentPlatformToolset;
         private bool _isConsoleVisible;
         private volatile bool _requestStopOperation;
 
@@ -31,6 +33,12 @@ namespace ChronosBuildTool
             ShowHideConsoleCommand = new Command(ShowHideConsole);
             CurrentConfiguration = Configuration.Debug;
             Configurations = new[] {Configuration.Debug, Configuration.Release};
+            PlatformToolsets = new[] {"v110", "v120"};
+            CurrentPlatformToolset = Solution.GetCurrentPlatformToolset();
+            if (string.IsNullOrEmpty(CurrentPlatformToolset))
+            {
+                CurrentPlatformToolset = PlatformToolsets.First();
+            }
             _requestStopOperation = false;
         }
 
@@ -43,6 +51,18 @@ namespace ChronosBuildTool
             {
                 _currentConfiguration = value;
                 OnPropertyChanged(() => CurrentConfiguration);
+            }
+        }
+
+        public IEnumerable<string> PlatformToolsets { get; private set; }
+
+        public string CurrentPlatformToolset
+        {
+            get { return _currentPlatformToolset; }
+            set
+            {
+                _currentPlatformToolset = value;
+                OnPropertyChanged(() => CurrentPlatformToolset);
             }
         }
 
@@ -162,7 +182,7 @@ namespace ChronosBuildTool
                     }
                     if (solution.IsChecked)
                     {
-                        solution.BuildSolution(_output, CurrentConfiguration, rebuild);
+                        solution.BuildSolution(_output, CurrentConfiguration, CurrentPlatformToolset, rebuild);
                     }
                 }
             }
