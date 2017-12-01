@@ -13,6 +13,7 @@ namespace Chronos.Extensibility
         private readonly List<ProfilingTypeDefinition> _profilingTypes;
         private readonly List<ProfilingTargetDefinition> _profilingTargets;
         private readonly List<ProductivityDefinition> _productivities;
+        private readonly List<ApplicationExtensionDefinition> _applicationExtensions;
         private readonly List<AttachmentDefinition> _attachments;
         private readonly IExtensionReader _reader;
         private readonly IExtensionAssemblyResolver _assemblyResolver;
@@ -26,12 +27,13 @@ namespace Chronos.Extensibility
             _profilingTypes = new List<ProfilingTypeDefinition>();
             _profilingTargets = new List<ProfilingTargetDefinition>();
             _productivities = new List<ProductivityDefinition>();
+            _applicationExtensions = new List<ApplicationExtensionDefinition>();
             _attachments = new List<AttachmentDefinition>();
         }
 
         public Catalog GetCatalog()
         {
-            Catalog catalog = new Catalog(_extensions, _frameworks, _profilingTypes, _profilingTargets, _productivities);
+            Catalog catalog = new Catalog(_extensions, _frameworks, _profilingTypes, _profilingTargets, _productivities, _applicationExtensions);
             return catalog;
         }
 
@@ -44,6 +46,7 @@ namespace Chronos.Extensibility
             _profilingTypes.AddRange(extensionDefinition.ProfilingTypes);
             _profilingTargets.AddRange(extensionDefinition.ProfilingTargets);
             _productivities.AddRange(extensionDefinition.Productivities);
+            _applicationExtensions.AddRange(extensionDefinition.ApplicationExtensions);
             _attachments.AddRange(extensionDefinition.Attachments);
         }
 

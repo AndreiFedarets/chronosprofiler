@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{783B52A9-BCCB-447D-B7F9-8B9A498377A7}">
+
+  <ApplicationExtension TargetUid="{BFC4DBF4-72F4-4A41-B4E8-4E0A2CE884A7}" TargetVersion="0.1">
+    <Export Application="core" EntryPoint="Chronos.Client.Win.ApplicationExtensionAdapter, Chronos.Client.Win" />
+    <Localization Culture="en-US">
+      <Name>Desktop Client</Name>
+      <Description>Desktop Client for Chronos Profiler</Description>
+    </Localization>
+  </ApplicationExtension>
+
+  <Localization Culture="en-US">
+    <Name>Desktop Client</Name>
+    <Description>Desktop Client for Chronos Profiler</Description>
+  </Localization>
+
+</Extension>

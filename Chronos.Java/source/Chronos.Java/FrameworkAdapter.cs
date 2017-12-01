@@ -28,8 +28,7 @@ namespace Chronos.Java
 
         private string GetAgentLibraryFullName()
         {
-            string fullName = Assembly.GetCallingAssembly().Location;
-            fullName = Path.GetDirectoryName(fullName);
+            string fullName = Assembly.GetCallingAssembly().GetAssemblyPath();
             fullName = Path.Combine(fullName, Constants.AgentLibraryName);
             return fullName;
         }

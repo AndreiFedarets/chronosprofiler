@@ -36,6 +36,7 @@ namespace Chronos.Extensibility
         private const string NameElementName = "Name";
         private const string DescriptionElementName = "Description";
         private const string ProductivityElementName = "Productivity";
+        private const string ApplicationExtensionElementName = "ApplicationExtension";
 
         public ExtensionDefinition ReadExtension(string extensionPath)
         {
@@ -61,6 +62,7 @@ namespace Chronos.Extensibility
             List<ProfilingTargetDefinition> profilingTargets = new List<ProfilingTargetDefinition>();
             List<FrameworkDefinition> frameworks = new List<FrameworkDefinition>();
             List<ProductivityDefinition> productivities = new List<ProductivityDefinition>();
+            List<ApplicationExtensionDefinition> applicationExtensions = new List<ApplicationExtensionDefinition>();
             List<LocalizationDefinition> localizations = new List<LocalizationDefinition>();
             List<AttachmentDefinition> attachments = new List<AttachmentDefinition>();
 
@@ -108,6 +110,10 @@ namespace Chronos.Extensibility
                         ProductivityDefinition productivity = ReadProductivity(reader, baseDirectory);
                         productivities.Add(productivity);
                         break;
+                    case ApplicationExtensionElementName:
+                        ApplicationExtensionDefinition applicationExtension = ReadApplicationExtension(reader, baseDirectory);
+                        applicationExtensions.Add(applicationExtension);
+                        break;
                     case LocalizationElementName:
                         LocalizationDefinition localization = ReadLocalization(reader);
                         localizations.Add(localization);
@@ -118,7 +124,7 @@ namespace Chronos.Extensibility
                         break;
                 }
             }
-            ExtensionDefinition extensionDefinition = new ExtensionDefinition(uid, baseDirectory, profilingTypes, profilingTargets, frameworks, productivities, attachments, localizations);
+            ExtensionDefinition extensionDefinition = new ExtensionDefinition(uid, baseDirectory, profilingTypes, profilingTargets, frameworks, productivities, applicationExtensions, attachments, localizations);
             return extensionDefinition;
         }
 
@@ -452,6 +458,64 @@ namespace Chronos.Extensibility
             }
 
             ProductivityDefinition definition = new ProductivityDefinition(uid, exports, dependencies, localizations, attributes);
+            return definition;
+        }
+
+        private ApplicationExtensionDefinition ReadApplicationExtension(XmlReader reader, string baseDirectory)
+        {
+            //Move to <ApplicationExtension> element
+            MoveToElement(reader, ApplicationExtensionElementName);
+
+            //Prepare ApplicationExtension properties
+            Guid uid = Guid.Empty;
+            List<ExportDefinition> exports = new List<ExportDefinition>();
+            List<LocalizationDefinition> localizations = new List<LocalizationDefinition>();
+            List<AttributeDefinition> attributes = new List<AttributeDefinition>();
+
+            //Read ApplicationExtension attributes
+            while (reader.MoveToNextAttribute())
+            {
+                switch (reader.Name)
+                {
+                    case UidAttributeName:
+                        uid = reader.ReadContentAsGuid();
+                        break;
+                }
+            }
+
+            //Move back to <ApplicationExtension> element
+            reader.MoveToElement();
+
+            //Read <ApplicationExtension> element content
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.EndElement &&
+                    string.Equals(ApplicationExtensionElementName, reader.Name))
+                {
+                    break;
+                }
+                if (reader.NodeType != XmlNodeType.Element)
+                {
+                    continue;
+                }
+                switch (reader.Name)
+                {
+                    case ExportElementName:
+                        ExportDefinition export = ReadExport(reader, baseDirectory);
+                        exports.Add(export);
+                        break;
+                    case LocalizationElementName:
+                        LocalizationDefinition localization = ReadLocalization(reader);
+                        localizations.Add(localization);
+                        break;
+                    case AttributeElementName:
+                        AttributeDefinition attribute = ReadAttribute(reader);
+                        attributes.Add(attribute);
+                        break;
+                }
+            }
+
+            ApplicationExtensionDefinition definition = new ApplicationExtensionDefinition(uid, exports, localizations, attributes);
             return definition;
         }
 

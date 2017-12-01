@@ -130,7 +130,7 @@ namespace Chronos.Daemon
                 return null;
             }
         }
-
+        
         public Communication.Native.IRequestClient AgentClient
         {
             get

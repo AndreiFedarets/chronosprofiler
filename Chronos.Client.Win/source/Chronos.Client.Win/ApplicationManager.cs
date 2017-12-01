@@ -51,16 +51,29 @@ namespace Chronos.Client.Win
             return application;
         }
 
-        public static void RunApplication(Guid sessionUid)
+        public static Process RunApplication(Guid sessionUid)
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            string fullName = Path.Combine(path, Constants.WinClientApplicationExecutableName);
+            string path = Assembly.GetCallingAssembly().GetAssemblyPath();
+            string fullName = Path.Combine(path, Constants.CoreProcessName.Client);
             Process process = new Process();
             process.StartInfo = new ProcessStartInfo(fullName);
             //TODO: use command line argument instead of env variable
             process.StartInfo.EnvironmentVariables.Add(Chronos.Constants.SessionUidEnvironmentVariableName, sessionUid.ToString());
             process.StartInfo.UseShellExecute = false;
             process.Start();
+            return process;
+        }
+
+        public static Process RunApplication()
+        {
+            string path = Assembly.GetCallingAssembly().GetAssemblyPath();
+            string fullName = Path.Combine(path, Constants.CoreProcessName.Client);
+            Process process = new Process();
+            process.StartInfo = new ProcessStartInfo(fullName);
+            //TODO: use command line argument instead of env variable
+            process.StartInfo.UseShellExecute = false;
+            process.Start();
+            return process;
         }
 
         public static void Initialize()

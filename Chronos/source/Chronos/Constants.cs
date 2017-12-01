@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 
 namespace Chronos
@@ -30,8 +31,6 @@ namespace Chronos
         {
             public const string Core = "core";
             public const string Agent = "agent";
-            //public const string Host = "host";
-            //public const string Daemon = "daemon";
         }
 
         public static class Remoting
@@ -42,6 +41,12 @@ namespace Chronos
             //public static TimeSpan InitialLeaseTime = TimeSpan.FromSeconds(20);
             //public static TimeSpan RenewOnCallTime = TimeSpan.FromSeconds(30);
             public static TimeSpan SponsorshipTimeout = TimeSpan.FromSeconds(10);
+        }
+
+        public static class CoreProcessName
+        {
+            public const string Host = "Chronos.Host.Application.exe";
+            public const string Daemon = "Chronos.Daemon.Application.exe";
         }
     }
 }

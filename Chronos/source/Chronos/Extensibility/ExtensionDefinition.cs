@@ -7,7 +7,8 @@ namespace Chronos.Extensibility
     public sealed class ExtensionDefinition
     {
         internal ExtensionDefinition(Guid uid, string baseDirectory, List<ProfilingTypeDefinition> profilingTypes, List<ProfilingTargetDefinition> profilingTargets,
-            List<FrameworkDefinition> frameworks, List<ProductivityDefinition> productivities, List<AttachmentDefinition> attachments, List<LocalizationDefinition> localizations)
+            List<FrameworkDefinition> frameworks, List<ProductivityDefinition> productivities, List<ApplicationExtensionDefinition> applicationExtensions,
+            List<AttachmentDefinition> attachments, List<LocalizationDefinition> localizations)
         {
             Uid = uid;
             BaseDirectory = baseDirectory;
@@ -15,6 +16,7 @@ namespace Chronos.Extensibility
             ProfilingTargets = new ReadOnlyCollection<ProfilingTargetDefinition>(profilingTargets);
             Frameworks = new ReadOnlyCollection<FrameworkDefinition>(frameworks);
             Productivities = new ReadOnlyCollection<ProductivityDefinition>(productivities);
+            ApplicationExtensions = new ReadOnlyCollection<ApplicationExtensionDefinition>(applicationExtensions);
             Localization = new LocalizationDefinitionCollection(localizations);
             Attachments = new AttachmentDefinitionCollection(attachments);
         }
@@ -30,6 +32,8 @@ namespace Chronos.Extensibility
         public ReadOnlyCollection<FrameworkDefinition> Frameworks { get; private set; }
 
         public ReadOnlyCollection<ProductivityDefinition> Productivities { get; private set; }
+
+        public ReadOnlyCollection<ApplicationExtensionDefinition> ApplicationExtensions { get; private set; }
 
         public ReadOnlyCollection<AttachmentDefinition> Attachments { get; private set; }
 

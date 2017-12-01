@@ -17,6 +17,7 @@ namespace Chronos
         private readonly ExportLoader _exportLoader;
         private readonly ExtensionAssemblyResolver _assemblyResolver;
         private readonly EnvironmentInformation _environmentInformation;
+        private ApplicationExtensionCollection _applicationExtensions;
         private IServiceContainer _serviceContainer;
         private Catalog _catalog;
         private volatile ApplicationState _applicationState;
@@ -105,8 +106,11 @@ namespace Chronos
                         SetupCrashLogging();
                         Connector.Initialize(Uid);
                         _catalog = LoadCatalog();
+                        LoadApplicationExtensions();
+                        OnBeginInitialize();
                         RunInternal();
                         _shared = Connector.Managed.Share(this, Uid);
+                        OnEndInitialize();
                     }
                     catch(Exception exception)
                     {
@@ -121,6 +125,27 @@ namespace Chronos
                         LoggingProvider.Current.Log(TraceEventType.Information, message);
                     }
                 }
+            }
+        }
+
+        private void LoadApplicationExtensions()
+        {
+            _applicationExtensions = new ApplicationExtensionCollection(_catalog.ApplicationExtensions, _exportLoader);
+        }
+
+        private void OnBeginInitialize()
+        {
+            foreach (IApplicationExtension applicationExtension in _applicationExtensions)
+            {
+                applicationExtension.GetSafeAdapter().BeginInitialize(this);
+            }
+        }
+
+        private void OnEndInitialize()
+        {
+            foreach (IApplicationExtension applicationExtension in _applicationExtensions)
+            {
+                applicationExtension.GetSafeAdapter().EndInitialize();
             }
         }
 
@@ -156,12 +181,14 @@ namespace Chronos
                     ApplicationState = ApplicationState.Closing;
                     try
                     {
+                        OnBeginShutdown();
                         CloseInternal();
                         _assemblyResolver.Dispose();
                         _currentProcess.Dispose();
                         AppDomain.CurrentDomain.UnhandledException -= OnUnhandledException;
                         _shared = null;
                         ApplicationState = ApplicationState.Closed;
+                        OnEndShutdown();
                     }
                     catch (Exception exception)
                     {
@@ -183,6 +210,22 @@ namespace Chronos
                             });
                     }
                 }
+            }
+        }
+
+        private void OnBeginShutdown()
+        {
+            foreach (IApplicationExtension applicationExtension in _applicationExtensions)
+            {
+                applicationExtension.GetSafeAdapter().BeginShutdown();
+            }
+        }
+
+        private void OnEndShutdown()
+        {
+            foreach (IApplicationExtension applicationExtension in _applicationExtensions)
+            {
+                applicationExtension.GetSafeAdapter().EndShutdown();
             }
         }
 

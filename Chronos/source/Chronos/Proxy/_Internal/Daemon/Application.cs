@@ -42,7 +42,7 @@ namespace Chronos.Proxy.Daemon
         {
             get { return Execute(() => RemoteObject.ProfiledProcess); }
         }
-
+        
         public event EventHandler<SessionStateEventArgs> SessionStateChanged
         {
             add { _sessionStateChangedEventSink.Event += value; }

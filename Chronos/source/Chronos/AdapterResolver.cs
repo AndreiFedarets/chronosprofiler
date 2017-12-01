@@ -17,6 +17,11 @@
             return (IFrameworkAdapter)framework;
         }
 
+        public static IApplicationExtensionAdapter GetSafeAdapter(this IApplicationExtension applicationExtension)
+        {
+            return (IApplicationExtensionAdapter)applicationExtension;
+        }
+
         public static IProfilingTypeAdapter GetRealAdapter(this IProfilingType profilingType)
         {
             return (IProfilingTypeAdapter)((IWrapper)profilingType).UndrelyingObject;
@@ -30,6 +35,11 @@
         public static IFrameworkAdapter GetRealAdapter(this IFramework framework)
         {
             return (IFrameworkAdapter)((IWrapper)framework).UndrelyingObject;
+        }
+
+        public static IApplicationExtensionAdapter GetRealAdapter(this IApplicationExtension applicationExtension)
+        {
+            return (IApplicationExtensionAdapter)((IWrapper)applicationExtension).UndrelyingObject;
         }
     }
 }

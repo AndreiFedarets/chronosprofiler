@@ -44,7 +44,7 @@ namespace Chronos.Extensibility
             {
                 extensions.Add(extension);
             }
-            catalog = new Catalog(extensions, frameworks, profilingTypes, profilingTargets, productivities);
+            catalog = new Catalog(extensions, frameworks, profilingTypes, profilingTargets, productivities, new List<ApplicationExtensionDefinition>());
             return catalog;
         }
     }

@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alignment.cs" />
+    <Compile Include="ApplicationExtensionAdapter.cs" />
     <Compile Include="Container.cs" />
     <Compile Include="Contracts\ContractBase.cs" />
     <Compile Include="Contracts\ContractCollection.cs" />
@@ -211,6 +212,8 @@
     <Compile Include="_Extensions\AppDomainExtensions.cs" />
     <Compile Include="_Internal\Bootstrapper.cs" />
     <Compile Include="_Internal\ChronosCoreLocator.cs" />
+    <Compile Include="_Internal\HostApplicationExtensionAdapter.cs" />
+    <Compile Include="_Internal\DaemonApplicationExtensionAdapter.cs" />
     <Compile Include="_Internal\ViewsManager.cs" />
     <Compile Include="_Internal\ProfilingApplication.cs" />
     <Compile Include="_Internal\CustomWindowManager.cs" />
@@ -290,6 +293,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Chronos.Client.Win.xchronex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

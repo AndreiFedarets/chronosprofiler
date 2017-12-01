@@ -77,11 +77,16 @@
     <Compile Include="Client\_Internal\ProfilingTypeCollection.cs" />
     <Compile Include="Client\_Internal\PropertyChangedBase.cs" />
     <Compile Include="Client\_Internal\SessionCollection.cs" />
+    <Compile Include="Extensibility\ApplicationExtensionDefinition.cs" />
+    <Compile Include="Extensibility\ApplicationExtensionDefinitionCollection.cs" />
     <Compile Include="Host\ConnectionManager.cs" />
     <Compile Include="Host\IConnectionManager.cs" />
     <Compile Include="Client\IProductivity.cs" />
     <Compile Include="Client\IProductivityAdapter.cs" />
     <Compile Include="Client\IProductivityCollection.cs" />
+    <Compile Include="IApplicationExtension.cs" />
+    <Compile Include="IApplicationExtensionAdapter.cs" />
+    <Compile Include="IApplicationExtensionCollection.cs" />
     <Compile Include="ILifetimeBorrower.cs" />
     <Compile Include="ILifetimeSponsor.cs" />
     <Compile Include="IProfilingTimer.cs" />
@@ -171,6 +176,7 @@
     <Compile Include="Settings\_Internal\SettingsElement.cs" />
     <Compile Include="_Exceptions\AttachmentNotFoundException.cs" />
     <Compile Include="_Exceptions\AttributeNotFoundException.cs" />
+    <Compile Include="_Exceptions\ApplicationExtensionNotFoundException.cs" />
     <Compile Include="_Exceptions\ObjectDisposedException.cs" />
     <Compile Include="_Extensions\FileSystemInfoExtensions.cs" />
     <Compile Include="_Extensions\GuidExtensions.cs" />
@@ -224,7 +230,10 @@
     <Compile Include="_Extensions\XAttributeExtensions.cs" />
     <Compile Include="_Internal\AgentLibrary.cs" />
     <Compile Include="DisposableTracker.cs" />
+    <Compile Include="_Internal\ApplicationExtension.cs" />
+    <Compile Include="_Internal\ApplicationExtensionCollection.cs" />
     <Compile Include="_Internal\CrashLogger.cs" />
+    <Compile Include="EmptyApplicationExtensionAdapter.cs" />
     <Compile Include="_Internal\IAgentLibrary.cs" />
     <Compile Include="_Internal\IInplaceApplicationManager.cs" />
     <Compile Include="_Internal\InplaceApplicationManager.cs" />

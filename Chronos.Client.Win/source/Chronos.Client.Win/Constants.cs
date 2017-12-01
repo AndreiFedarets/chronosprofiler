@@ -2,8 +2,6 @@
 {
     public class Constants
     {
-        public const string WinClientApplicationExecutableName = "Chronos.Client.Win.Application.exe";
-
         public static class ApplicationCodeName
         {
             public const string WinClient = "client.win";
@@ -16,7 +14,11 @@
             public const string Profiling = "3CCC4391-3A85-40A6-936E-868A055B7662";
             public const string OpenFile = "80FCFEC6-51DA-4B99-99F0-825ED90545EF";
             public const string Units = "A0090269-7848-4CFD-B6C4-940B9EA2FFAB";
-            
+        }
+
+        public static class CoreProcessName
+        {
+            public const string Client = "Chronos.Client.Win.Application.exe";
         }
     }
 }
