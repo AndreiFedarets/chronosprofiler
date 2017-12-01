@@ -30,23 +30,12 @@ namespace Chronos.Client.Win
         protected override void RunInternal()
         {
             base.RunInternal();
-            Sessions.SessionStateChanged += OnSessionStateChanged;
             Host.ConnectionManager connectionManager = new Host.ConnectionManager();
             connectionManager.RestoreConnections(HostApplications, ApplicationSettings.HostConnections);
         }
 
-        private void OnSessionStateChanged(object sender, SessionEventArgs e)
-        {
-            ISession session = e.Session;
-            if (session.State == SessionState.Profiling)
-            {
-                ApplicationManager.RunApplication(session.Uid);
-            }
-        }
-
         public override void Dispose()
         {
-            Sessions.SessionStateChanged -= OnSessionStateChanged;
             base.Dispose();
             Host.ApplicationManager.Shutdown();
             Daemon.ApplicationManager.Shutdown();

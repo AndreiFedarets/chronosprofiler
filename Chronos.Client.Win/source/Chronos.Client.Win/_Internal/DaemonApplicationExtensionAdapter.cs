@@ -1,19 +1,24 @@
-﻿namespace Chronos.Client.Win
+﻿using System;
+using System.Diagnostics;
+
+namespace Chronos.Client.Win
 {
     internal sealed class DaemonApplicationExtensionAdapter : IApplicationExtensionAdapter
     {
         private Daemon.IApplication _application;
+        private Process _clientProcess;
 
         public void BeginInitialize(IChronosApplication application)
         {
             _application = (Daemon.IApplication)application;
-        }
-
-        public void BeginShutdown()
-        {
+            _clientProcess = ApplicationManager.RunApplication(_application.Uid);
         }
 
         public void EndInitialize()
+        {
+        }
+
+        public void BeginShutdown()
         {
         }
 

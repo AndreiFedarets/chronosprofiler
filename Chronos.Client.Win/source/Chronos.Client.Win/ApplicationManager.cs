@@ -58,7 +58,7 @@ namespace Chronos.Client.Win
             Process process = new Process();
             process.StartInfo = new ProcessStartInfo(fullName);
             //TODO: use command line argument instead of env variable
-            process.StartInfo.EnvironmentVariables.Add(Chronos.Constants.SessionUidEnvironmentVariableName, sessionUid.ToString());
+            process.StartInfo.EnvironmentVariables[Chronos.Constants.SessionUidEnvironmentVariableName] = sessionUid.ToString();
             process.StartInfo.UseShellExecute = false;
             process.Start();
             return process;

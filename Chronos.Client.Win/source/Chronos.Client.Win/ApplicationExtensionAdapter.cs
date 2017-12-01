@@ -6,7 +6,6 @@
 
         public void BeginInitialize(IChronosApplication application)
         {
-            System.Diagnostics.Debugger.Launch();
             if (application is Host.IApplication)
             {
                 _adapter = new HostApplicationExtensionAdapter();
@@ -22,14 +21,14 @@
             _adapter.BeginInitialize(application);
         }
 
-        public void BeginShutdown()
-        {
-            _adapter.BeginShutdown();
-        }
-
         public void EndInitialize()
         {
             _adapter.EndInitialize();
+        }
+
+        public void BeginShutdown()
+        {
+            _adapter.BeginShutdown();
         }
 
         public void EndShutdown()

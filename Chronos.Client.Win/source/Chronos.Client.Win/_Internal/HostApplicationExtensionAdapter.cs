@@ -15,11 +15,11 @@ namespace Chronos.Client.Win
             _clientProcess.Exited += OnClientProcessExited;
         }
 
-        public void BeginShutdown()
+        public void EndInitialize()
         {
         }
 
-        public void EndInitialize()
+        public void BeginShutdown()
         {
             _clientProcess.Close();
         }

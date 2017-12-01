@@ -80,7 +80,7 @@ namespace Chronos.Daemon
             Process process = new Process();
             process.StartInfo = new ProcessStartInfo(fullName);
             //TODO: use argument instead of env variable
-            process.StartInfo.EnvironmentVariables.Add(Constants.SessionUidEnvironmentVariableName, sessionUid.ToString());
+            process.StartInfo.EnvironmentVariables[Constants.SessionUidEnvironmentVariableName] = sessionUid.ToString();
             process.StartInfo.UseShellExecute = false;
             process.Start();
             WaitForStartup(connectionSettings);
