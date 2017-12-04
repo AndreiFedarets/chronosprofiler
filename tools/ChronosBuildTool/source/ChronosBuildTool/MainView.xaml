@@ -19,13 +19,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Configuration: "/>
             <ComboBox Grid.Column="1" ItemsSource="{Binding Configurations}" SelectedItem="{Binding CurrentConfiguration}" />
-            <TextBlock Grid.Column="2" Text="Platform Toolset: " Margin="10,0,0,0"/>
-            <ComboBox Grid.Column="3" ItemsSource="{Binding PlatformToolsets}" SelectedItem="{Binding CurrentPlatformToolset}" />
         </Grid>
         <ListView Grid.Row="1" ItemsSource="{Binding Solutions}" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <ListView.View>

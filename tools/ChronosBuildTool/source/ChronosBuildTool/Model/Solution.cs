@@ -88,19 +88,18 @@ namespace ChronosBuildTool.Model
             get { return _dependencies; }
         }
 
-        public bool BuildSolution(IOutput output, Configuration configuration, string platformToolset, bool rebuild)
+        public bool BuildSolution(IOutput output, Configuration configuration, bool rebuild)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
-            if (!UpdateExternals(output, configuration, platformToolset, false))
+            if (!UpdateExternals(output, configuration, false))
             {
                 return false;
             }
-            SetCurrentPlatformToolset(platformToolset);
             BuildResult buildResult = new BuildResult();
             Process process = new Process();
             process.StartInfo = new ProcessStartInfo(GetMsbuildPath());
             string targetAction = rebuild ? "Rebuild" : "Build";
-            process.StartInfo.Arguments = string.Format("{0} /t:{1} /p:Configuration={2} /p:PlatformToolset={3} /m", SolutionFullName, targetAction, configuration, platformToolset);
+            process.StartInfo.Arguments = string.Format("{0} /t:{1} /p:Configuration={2} /m", SolutionFullName, targetAction, configuration);
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             process.StartInfo.CreateNoWindow = true;
@@ -187,7 +186,7 @@ namespace ChronosBuildTool.Model
             }
         }
 
-        public bool UpdateExternals(IOutput output, Configuration configuration, string platformToolset, bool force)
+        public bool UpdateExternals(IOutput output, Configuration configuration, bool force)
         {
             foreach (SolutionDependency solutionDependency in _dependencies)
             {
@@ -198,11 +197,11 @@ namespace ChronosBuildTool.Model
                     FileInfo targetFile = GetExternalsFile(fileDependency.Name, configuration);
                     if ((!targetFile.Exists && !sourceFile.Exists) || force)
                     {
-                        if (!solution.BuildSolution(output, configuration, platformToolset, force))
+                        if (!solution.BuildSolution(output, configuration, force))
                         {
                             return false;
                         }
-                        return UpdateExternals(output, configuration, platformToolset, false);
+                        return UpdateExternals(output, configuration, false);
                     }
                     //if target file doesn't exist or it's last write less that source file write time
                     //then we should copy source to target
@@ -268,16 +267,6 @@ namespace ChronosBuildTool.Model
         public void ResetBuildResult()
         {
             BuildResult = null;
-        }
-
-        internal static string GetCurrentPlatformToolset()
-        {
-            return Environment.GetEnvironmentVariable("CurrentPlatformToolset");
-        }
-
-        internal static void SetCurrentPlatformToolset(string platformToolset)
-        {
-            Environment.SetEnvironmentVariable("CurrentPlatformToolset", platformToolset, EnvironmentVariableTarget.Process);
         }
     }
 }
