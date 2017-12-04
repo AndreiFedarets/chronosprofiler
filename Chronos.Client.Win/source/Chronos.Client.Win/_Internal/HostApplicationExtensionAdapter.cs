@@ -10,7 +10,7 @@ namespace Chronos.Client.Win
         public void BeginInitialize(IChronosApplication application)
         {
             _application = (Host.IApplication)application;
-            _clientProcess = ApplicationManager.RunApplication();
+            _clientProcess = ApplicationManager.Main.RunApplication();
             _clientProcess.EnableRaisingEvents = true;
             _clientProcess.Exited += OnClientProcessExited;
         }

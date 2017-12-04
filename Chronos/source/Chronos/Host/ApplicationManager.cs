@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Remoting;
 using System.ServiceProcess;
 using System.Threading;
@@ -13,6 +14,12 @@ namespace Chronos.Host
     public static class ApplicationManager
     {
         private static IInplaceApplicationManager InplaceApplication;
+
+        static ApplicationManager()
+        {
+            string path = Assembly.GetCallingAssembly().GetAssemblyPath();
+            EnvironmentExtensions.AddEnvironmentPath(path);
+        }
 
         private static string CurrentRuntype
         {
@@ -65,8 +72,7 @@ namespace Chronos.Host
         public static IApplication RunApplication()
         {
             ConnectionSettings connectionSettings = CreateLocalConnectionSettings();
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            string fullName = Path.Combine(path, Constants.HostApplicationExecutableName);
+            string fullName = GetApplicationFullName();
             Process process = new Process();
             process.StartInfo = new ProcessStartInfo(fullName);
             process.StartInfo.UseShellExecute = false;
@@ -185,6 +191,13 @@ namespace Chronos.Host
             {
                 InplaceApplication.Dispose();
             }
+        }
+
+        private static string GetApplicationFullName()
+        {
+            string fullName = Assembly.GetCallingAssembly().GetAssemblyPath();
+            fullName = Path.Combine(fullName, Constants.CoreProcessName.Host);
+            return fullName;
         }
     }
 }

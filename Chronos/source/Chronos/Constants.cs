@@ -6,7 +6,6 @@ namespace Chronos
 {
     public static class Constants
     {
-        public const string HostApplicationExecutableName = "Chronos.Host.Application.exe";
         public const string HostApplicationServiceName = "Chronos Host Service";
         public const string DaemonApplicationExecutableName = "Chronos.Daemon.Application.exe";
         public const string SessionUidEnvironmentVariableName = "CHRONOS_PROFILER_SESSION_UID";

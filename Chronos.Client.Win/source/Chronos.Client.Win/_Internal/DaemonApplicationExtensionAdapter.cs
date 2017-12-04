@@ -11,7 +11,7 @@ namespace Chronos.Client.Win
         public void BeginInitialize(IChronosApplication application)
         {
             _application = (Daemon.IApplication)application;
-            _clientProcess = ApplicationManager.RunApplication(_application.Uid);
+            _clientProcess = ApplicationManager.Profiling.RunApplication(_application.Uid);
         }
 
         public void EndInitialize()

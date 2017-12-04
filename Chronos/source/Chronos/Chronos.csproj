@@ -178,6 +178,7 @@
     <Compile Include="_Exceptions\AttributeNotFoundException.cs" />
     <Compile Include="_Exceptions\ApplicationExtensionNotFoundException.cs" />
     <Compile Include="_Exceptions\ObjectDisposedException.cs" />
+    <Compile Include="_Extensions\EnvironmentExtensions.cs" />
     <Compile Include="_Extensions\FileSystemInfoExtensions.cs" />
     <Compile Include="_Extensions\GuidExtensions.cs" />
     <Compile Include="_Extensions\NumberExtensions.cs" />

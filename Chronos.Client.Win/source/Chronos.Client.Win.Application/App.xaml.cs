@@ -23,12 +23,12 @@ namespace Chronos.Client.Win.Application
                     string sessionUidString = current.StartInfo.EnvironmentVariables[Chronos.Constants.SessionUidEnvironmentVariableName];
                     if (string.IsNullOrWhiteSpace(sessionUidString))
                     {
-                        _application = ApplicationManager.RunInplace(true);
+                        _application = ApplicationManager.Main.RunInplace(true);
                     }
                     else
                     {
                         Guid sessionUid = new Guid(sessionUidString);
-                        _application = ApplicationManager.RunInplace(sessionUid, true);
+                        _application = ApplicationManager.Profiling.RunInplace(sessionUid, true);
                     }
                 }
                 catch (Exception exception)

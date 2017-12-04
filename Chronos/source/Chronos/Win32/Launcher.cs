@@ -32,14 +32,7 @@ namespace Chronos.Win32
             {
                 string key = variable.Key.ToString();
                 string value = variable.Value.ToString();
-                if (processStartInfo.EnvironmentVariables.ContainsKey(key))
-                {
-                    processStartInfo.EnvironmentVariables[key] = value;
-                }
-                else
-                {
-                    processStartInfo.EnvironmentVariables.Add(key, value);
-                }
+                processStartInfo.EnvironmentVariables[key] = value;
             }
             processStartInfo.UseShellExecute = false;
             processStartInfo.Arguments = args;
