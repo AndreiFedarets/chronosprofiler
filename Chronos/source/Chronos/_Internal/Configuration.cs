@@ -84,6 +84,8 @@ namespace Chronos
                 IFrameworkAdapter frameworkAdapter = framework.GetSafeAdapter();
                 frameworkAdapter.ConfigureForProfiling(_configurationSettings);
             }
+            //Add correct path to Chronos.Agent.dll (native)
+            Agent.AgentResolver.SetupAgentPath(_configurationSettings);
             //Start profiling
             controller.Start();
             controller.TargetStopped += OnControllerTargetStopped;

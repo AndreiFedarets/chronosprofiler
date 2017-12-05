@@ -52,6 +52,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agent\_Internal\AgentResolver.cs" />
     <Compile Include="Client\AdapterResolver.cs" />
     <Compile Include="Client\ApplicationBase.cs" />
     <Compile Include="Client\DispatcherHolder.cs" />

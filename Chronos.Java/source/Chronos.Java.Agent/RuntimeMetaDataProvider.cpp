@@ -11,6 +11,7 @@ namespace Chronos
 			{
 				RuntimeMetadataProvider::RuntimeMetadataProvider()
 				{
+					_jvmtiEnv = null;
 					/*_appDomain = new MetadataCollection<AppDomainMetadata>();
 					_assemblies = new MetadataCollection<AssemblyMetadata>();
 					_modules = new MetadataCollection<ModuleMetadata>();
@@ -31,14 +32,23 @@ namespace Chronos
 
 				HRESULT RuntimeMetadataProvider::Initialize(JavaVM* javaVM)
 				{
-					if (VM == null)
+					if (JVM == null)
 					{
-						VM = javaVM;
+						JVM = javaVM;
 						return S_OK;
 					}
 					return E_FAIL;
 				}
-			
+				
+				jvmtiEnv* RuntimeMetadataProvider::GetJvmtiEnv()
+				{
+					if (_jvmtiEnv == null)
+					{
+						JVM->GetEnv((void**)&_jvmtiEnv, JVMTI_VERSION_1_0);
+					}
+					return _jvmtiEnv;
+				}
+
 				//HRESULT RuntimeMetadataProvider::GetAppDomain(AppDomainID appDomainId, AppDomainMetadata** metadata)
 				//{
 				//	*metadata = _appDomain->Find(appDomainId);
@@ -168,7 +178,7 @@ namespace Chronos
 
 				const __guid RuntimeMetadataProvider::ServiceToken = Converter::ConvertStringToGuid(L"{A461EFD4-E3B4-4EC4-9FA1-0636CB92989E}");
 
-				JavaVM* RuntimeMetadataProvider::VM = null;
+				JavaVM* RuntimeMetadataProvider::JVM = null;
 			}
 		}
 	}

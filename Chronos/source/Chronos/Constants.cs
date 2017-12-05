@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
 
 namespace Chronos
@@ -23,7 +22,8 @@ namespace Chronos
 
         public class EnvironmentVariablesNames
         {
-            public const string ConfigurationUidSettingName = "CHRONOS_PROFILER_CONFIGURATION_TOKEN";
+            public const string ConfigurationToken = "CHRONOS_PROFILER_CONFIGURATION_TOKEN";
+            public const string Path = "PATH";
         }
 
         public static class ApplicationCodeName

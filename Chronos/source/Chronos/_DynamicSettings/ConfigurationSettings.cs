@@ -50,7 +50,7 @@ namespace Chronos
             {
                 _configurationUid = value;
                 StringDictionary dictionary = ProfilingTargetSettings.EnvironmentVariables;
-                dictionary[Constants.EnvironmentVariablesNames.ConfigurationUidSettingName] = ConfigurationUid.ToString();
+                dictionary[Constants.EnvironmentVariablesNames.ConfigurationToken] = ConfigurationUid.ToString();
                 ProfilingTargetSettings.EnvironmentVariables = dictionary;
             }
         }

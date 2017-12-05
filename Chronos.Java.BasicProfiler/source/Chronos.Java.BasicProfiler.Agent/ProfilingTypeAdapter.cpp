@@ -154,22 +154,22 @@ namespace Chronos
 				//	_subscription->RaiseNextEvent(RuntimeProfilingEvents::FunctionUnloadStarted, eventArgs);
 				//}
 		
-				//// THREAD HOOKS ===============================================================================================
-				//void ProfilingTypeAdapter::OnThreadCreated(void* eventArgs)
-				//{
-				//	ThreadCreatedEventArgs* temp = static_cast<ThreadCreatedEventArgs*>(eventArgs);
-				//	ThreadInfo* threadInfo = _threads->CreateUnit(temp->ThreadId);
-				//	threadInfo->OnLoaded();
-				//	_subscription->RaiseNextEvent(RuntimeProfilingEvents::ThreadCreated, eventArgs);
-				//}
+				// THREAD HOOKS ===============================================================================================
+				void ProfilingTypeAdapter::OnThreadStart(void* eventArgs)
+				{
+					ThreadStartEventArgs* temp = static_cast<ThreadStartEventArgs*>(eventArgs);
+					/*ThreadInfo* threadInfo = _threads->CreateUnit(temp->ThreadId);
+					threadInfo->OnLoaded();*/
+					_subscription->RaiseNextEvent(RuntimeProfilingEvents::ThreadStart, eventArgs);
+				}
 
-				//void ProfilingTypeAdapter::OnThreadDestroyed(void* eventArgs)
-				//{
-				//	ThreadDestroyedEventArgs* temp = static_cast<ThreadDestroyedEventArgs*>(eventArgs);
-				//	_threads->PrepareCloseUnit(temp->ThreadId);
-				//	_threads->CloseUnit(temp->ThreadId);
-				//	_subscription->RaiseNextEvent(RuntimeProfilingEvents::ThreadDestroyed, eventArgs);
-				//}
+				void ProfilingTypeAdapter::OnThreadEnd(void* eventArgs)
+				{
+					ThreadEndEventArgs* temp = static_cast<ThreadEndEventArgs*>(eventArgs);
+					/*_threads->PrepareCloseUnit(temp->ThreadId);
+					_threads->CloseUnit(temp->ThreadId);*/
+					_subscription->RaiseNextEvent(RuntimeProfilingEvents::ThreadEnd, eventArgs);
+				}
 		
 				//void ProfilingTypeAdapter::OnThreadNameChanged(void* eventArgs)
 				//{
@@ -184,8 +184,8 @@ namespace Chronos
 					_modules = null;
 					_classes = null;
 					_functions = null;
-					_threads = null;
-					_subscription = null;*/
+					_threads = null;*/
+					_subscription = null;
 				}
 
 				ProfilingTypeAdapter::~ProfilingTypeAdapter(void)
@@ -195,8 +195,8 @@ namespace Chronos
 					__FREEOBJ(_modules);
 					__FREEOBJ(_classes);
 					__FREEOBJ(_functions);
-					__FREEOBJ(_threads);
-					__FREEOBJ(_subscription);*/
+					__FREEOBJ(_threads);*/
+					__FREEOBJ(_subscription);
 				}
 
 				HRESULT ProfilingTypeAdapter::BeginInitialize(ProfilingTypeSettings* settings)
@@ -226,12 +226,12 @@ namespace Chronos
 
 				HRESULT ProfilingTypeAdapter::ImportServices(ServiceContainer* container)
 				{
-					//RuntimeProfilingEvents* profilingEvents;
+					RuntimeProfilingEvents* profilingEvents;
 					__RESOLVE_SERVICE(container, GatewayClient, _gatewayClient);
-					//__RESOLVE_SERVICE(container, RuntimeProfilingEvents, profilingEvents);
-					//__RESOLVE_SERVICE(container, Reflection::RuntimeMetadataProvider, _metadataProvider);
+					__RESOLVE_SERVICE(container, RuntimeProfilingEvents, profilingEvents);
+					__RESOLVE_SERVICE(container, Reflection::RuntimeMetadataProvider, _metadataProvider);
 					__RESOLVE_SERVICE(container, ProfilingTimer, _profilingTimer);
-					//_subscription = new ProfilingEventsSubscription<ProfilingTypeAdapter>(this, profilingEvents);
+					_subscription = new ProfilingEventsSubscription<ProfilingTypeAdapter>(this, profilingEvents);
 					return S_OK;
 				}
 
@@ -249,33 +249,33 @@ namespace Chronos
 				HRESULT ProfilingTypeAdapter::SubscribeEvents()
 				{
 					//Subscribe function events
-					/*_subscription->SubscribeEvent(RuntimeProfilingEvents::AppDomainCreationStarted, &ProfilingTypeAdapter::OnAppDomainCreationStarted);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::AppDomainCreationFinished, &ProfilingTypeAdapter::OnAppDomainCreationFinished);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::AppDomainShutdownStarted, &ProfilingTypeAdapter::OnAppDomainShutdownStarted);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::AppDomainShutdownFinished, &ProfilingTypeAdapter::OnAppDomainShutdownFinished);
-					
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::AssemblyLoadStarted, &ProfilingTypeAdapter::OnAssemblyLoadStarted);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::AssemblyLoadFinished, &ProfilingTypeAdapter::OnAssemblyLoadFinished);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::AssemblyUnloadStarted, &ProfilingTypeAdapter::OnAssemblyUnloadStarted);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::AssemblyUnloadFinished, &ProfilingTypeAdapter::OnAssemblyUnloadFinished);
-					
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::ModuleLoadStarted, &ProfilingTypeAdapter::OnModuleLoadStarted);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::ModuleLoadFinished, &ProfilingTypeAdapter::OnModuleLoadFinished);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::ModuleUnloadStarted, &ProfilingTypeAdapter::OnModuleUnloadStarted);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::ModuleUnloadFinished, &ProfilingTypeAdapter::OnModuleUnloadFinished);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::ModuleAttachedToAssembly, &ProfilingTypeAdapter::OnModuleAttachedToAssembly);
-					
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::ClassLoadStarted, &ProfilingTypeAdapter::OnClassLoadStarted);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::ClassLoadFinished, &ProfilingTypeAdapter::OnClassLoadFinished);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::ClassUnloadStarted, &ProfilingTypeAdapter::OnClassUnloadStarted);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::ClassUnloadFinished, &ProfilingTypeAdapter::OnClassUnloadFinished);
-					
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::FunctionLoadStarted, &ProfilingTypeAdapter::OnFunctionLoadStarted);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::FunctionUnloadStarted, &ProfilingTypeAdapter::OnFunctionUnloadStarted);
-					
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::ThreadCreated, &ProfilingTypeAdapter::OnThreadCreated);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::ThreadDestroyed, &ProfilingTypeAdapter::OnThreadDestroyed);
-					_subscription->SubscribeEvent(RuntimeProfilingEvents::ThreadNameChanged, &ProfilingTypeAdapter::OnThreadNameChanged);*/
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::AppDomainCreationStarted, &ProfilingTypeAdapter::OnAppDomainCreationStarted);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::AppDomainCreationFinished, &ProfilingTypeAdapter::OnAppDomainCreationFinished);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::AppDomainShutdownStarted, &ProfilingTypeAdapter::OnAppDomainShutdownStarted);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::AppDomainShutdownFinished, &ProfilingTypeAdapter::OnAppDomainShutdownFinished);
+					//
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::AssemblyLoadStarted, &ProfilingTypeAdapter::OnAssemblyLoadStarted);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::AssemblyLoadFinished, &ProfilingTypeAdapter::OnAssemblyLoadFinished);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::AssemblyUnloadStarted, &ProfilingTypeAdapter::OnAssemblyUnloadStarted);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::AssemblyUnloadFinished, &ProfilingTypeAdapter::OnAssemblyUnloadFinished);
+					//
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::ModuleLoadStarted, &ProfilingTypeAdapter::OnModuleLoadStarted);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::ModuleLoadFinished, &ProfilingTypeAdapter::OnModuleLoadFinished);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::ModuleUnloadStarted, &ProfilingTypeAdapter::OnModuleUnloadStarted);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::ModuleUnloadFinished, &ProfilingTypeAdapter::OnModuleUnloadFinished);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::ModuleAttachedToAssembly, &ProfilingTypeAdapter::OnModuleAttachedToAssembly);
+					//
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::ClassLoadStarted, &ProfilingTypeAdapter::OnClassLoadStarted);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::ClassLoadFinished, &ProfilingTypeAdapter::OnClassLoadFinished);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::ClassUnloadStarted, &ProfilingTypeAdapter::OnClassUnloadStarted);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::ClassUnloadFinished, &ProfilingTypeAdapter::OnClassUnloadFinished);
+					//
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::FunctionLoadStarted, &ProfilingTypeAdapter::OnFunctionLoadStarted);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::FunctionUnloadStarted, &ProfilingTypeAdapter::OnFunctionUnloadStarted);
+					//
+					_subscription->SubscribeEvent(RuntimeProfilingEvents::ThreadStart, &ProfilingTypeAdapter::OnThreadStart);
+					_subscription->SubscribeEvent(RuntimeProfilingEvents::ThreadEnd, &ProfilingTypeAdapter::OnThreadEnd);
+					//_subscription->SubscribeEvent(RuntimeProfilingEvents::ThreadNameChanged, &ProfilingTypeAdapter::OnThreadNameChanged);
 
 					return S_OK;
 				}

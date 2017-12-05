@@ -22,25 +22,21 @@ namespace Chronos
 				class RuntimeMetadataProvider;
 				
 //// ==================================================================================================================================================
-//				struct CHRONOS_DOTNET_API ThreadMetadata
+//				struct CHRONOS_JAVA_API ThreadMetadata
 //				{
 //					public:
-//						ThreadMetadata(ICorProfilerInfo2* corProfilerInfo, RuntimeMetadataProvider* provider, ThreadID threadId);
+//						ThreadMetadata(jvmtiEnv* jvmtiEnv, jthread thread, __uint threadId);
 //						~ThreadMetadata();
-//						ThreadID GetId();
+//						__uint GetId();
 //						__string* GetName();
-//						HANDLE GetThreadHandle();
-//						__uint GetOsThreadId();
 //					private:
 //						void Initialize();
-//						ICorProfilerInfo2* _corProfilerInfo;
-//						RuntimeMetadataProvider* _provider;
-//						ThreadID _threadId;
-//						HANDLE _threadHandle;
-//						__uint _osThreadId;
+//						jvmtiEnv* _jvmtiEnv;
+//						jthread _thread;
+//						__uint _threadId;
 //						__string* _name;
 //				};
-//
+
 //// ==================================================================================================================================================
 //				struct CHRONOS_DOTNET_API AppDomainMetadata
 //				{
@@ -180,45 +176,45 @@ namespace Chronos
 //						mdFieldDef _fieldToken;
 //				};
 //
-//// ==================================================================================================================================================
-//				template<typename T>
-//				class MetadataCollection
-//				{
-//					public:
-//						MetadataCollection<T>()
-//						{
-//							_elements = new std::map<UINT_PTR, T*>();
-//						}
-//						~MetadataCollection<T>()
-//						{
-//							for (std::map<UINT_PTR, T*>::iterator i = _elements->begin(); i != _elements->end(); ++i)
-//							{
-//								T* item = i->second;
-//								__FREEOBJ(item);
-//							}
-//							_elements->clear();
-//							__FREEOBJ(_elements);
-//						}
-//						T* Find(UINT_PTR id)
-//						{
-//							Lock lock(&_criticalSection);
-//							std::map<UINT_PTR, T*>::iterator i = _elements->find(id);
-//							if (i == _elements->end())
-//							{
-//								return null;
-//							}
-//							return i->second;
-//						}
-//						__bool Add(UINT_PTR id, T* element)
-//						{
-//							Lock lock(&_criticalSection);
-//							return _elements->insert(std::pair<UINT_PTR, T*>(id, element)).second;
-//						}
-//					private:
-//						CriticalSection _criticalSection;
-//						std::map<UINT_PTR, T*>* _elements;
-//				};
-//
+// ==================================================================================================================================================
+				template<typename T>
+				class MetadataCollection
+				{
+					public:
+						MetadataCollection<T>()
+						{
+							_elements = new std::map<UINT_PTR, T*>();
+						}
+						~MetadataCollection<T>()
+						{
+							for (std::map<UINT_PTR, T*>::iterator i = _elements->begin(); i != _elements->end(); ++i)
+							{
+								T* item = i->second;
+								__FREEOBJ(item);
+							}
+							_elements->clear();
+							__FREEOBJ(_elements);
+						}
+						T* Find(UINT_PTR id)
+						{
+							Lock lock(&_criticalSection);
+							std::map<UINT_PTR, T*>::iterator i = _elements->find(id);
+							if (i == _elements->end())
+							{
+								return null;
+							}
+							return i->second;
+						}
+						__bool Add(UINT_PTR id, T* element)
+						{
+							Lock lock(&_criticalSection);
+							return _elements->insert(std::pair<UINT_PTR, T*>(id, element)).second;
+						}
+					private:
+						CriticalSection _criticalSection;
+						std::map<UINT_PTR, T*>* _elements;
+				};
+
 
 // ==================================================================================================================================================
 				class CHRONOS_JAVA_API RuntimeMetadataProvider
@@ -227,13 +223,13 @@ namespace Chronos
 						RuntimeMetadataProvider();
 						~RuntimeMetadataProvider();
 						static HRESULT Initialize(JavaVM* javaVM);
-						
+
 						//HRESULT GetAppDomain(AppDomainID appDomainId, AppDomainMetadata** metadata);
 						//HRESULT GetAssembly(AssemblyID assemblyId, AssemblyMetadata** metadata);
 						//HRESULT GetModule(ModuleID moduleId, ModuleMetadata** metadata);
 						//HRESULT GetType(ClassID classId, TypeMetadata** metadata);
 						//HRESULT GetMethod(FunctionID functionId, MethodMetadata** metadata);
-						//HRESULT GetThread(ThreadID threadId, ThreadMetadata** metadata);
+						//HRESULT GetThread(jthread thread, ThreadMetadata** metadata);
 						//HRESULT GetClassFromObject(ObjectID objectId, ClassID* classId);
 						////ObjectMetadata* GetObject(ObjectID objectId);
 
@@ -242,8 +238,11 @@ namespace Chronos
 						//HRESULT SetEventMask(DWORD eventsMask);
 						//HRESULT GetCurrentThreadId(ThreadID* threadId);
 						//HRESULT GetHandleFromThread(ThreadID threadId, HANDLE* threadHandle);
-
 						const static __guid ServiceToken;
+
+					private:
+						jvmtiEnv* GetJvmtiEnv();
+
 					private:
 						//MetadataCollection<AppDomainMetadata>* _appDomain;
 						//MetadataCollection<AssemblyMetadata>* _assemblies;
@@ -251,7 +250,8 @@ namespace Chronos
 						//MetadataCollection<TypeMetadata>* _types;
 						//MetadataCollection<MethodMetadata>* _methods;
 						//MetadataCollection<ThreadMetadata>* _threads;
-						static JavaVM* VM;
+						static JavaVM* JVM;
+						jvmtiEnv* _jvmtiEnv;
 						//static IUnknown* ÑorProfilerInfoUnk;
 				};
 			}
@@ -420,8 +420,8 @@ namespace Chronos
 //				BOOL ShouldInline;
 //			};
 //
-//// FUNCTION EVENTS  ---------------------------------------------------------------------------------------------------------------------------------
-//// ==================================================================================================================================================
+// FUNCTION EVENTS  ---------------------------------------------------------------------------------------------------------------------------------
+// ==================================================================================================================================================
 //			struct FunctionLoadStartedEventArgs
 //			{
 //				FunctionLoadStartedEventArgs(FunctionID functionId, bool hookFunction, void* clientData) 
@@ -437,64 +437,62 @@ namespace Chronos
 //				FunctionID FunctionId;
 //			};
 //			
-//			struct FunctionEnterEventArgs
-//			{
-//				FunctionEnterEventArgs(FunctionID functionId, UINT_PTR clientData) : FunctionId(functionId), ClientData(clientData) { }
-//				FunctionID FunctionId;
-//				UINT_PTR ClientData;
-//			};
-//			
-//			struct FunctionLeaveEventArgs
-//			{
-//				FunctionLeaveEventArgs(FunctionID functionId, UINT_PTR clientData) : FunctionId(functionId), ClientData(clientData) { }
-//				FunctionID FunctionId;
-//				UINT_PTR ClientData;
-//			};
-//			
+			struct MethodEnterEventArgs
+			{
+				MethodEnterEventArgs(jmethodID methodId, jthread thread) : MethodId(methodId), Thread(thread) { }
+				jmethodID MethodId;
+				jthread Thread;
+			};
+			
+			struct MethodExitEventArgs
+			{
+				MethodExitEventArgs(jmethodID methodId, jthread thread) : MethodId(methodId), Thread(thread) { }
+				jmethodID MethodId;
+				jthread Thread;
+			};
+	
+			struct MethodExceptionEventArgs
+			{
+				MethodExceptionEventArgs(jmethodID methodId, jthread thread) : MethodId(methodId), Thread(thread) { }
+				jmethodID MethodId;
+				jthread Thread;
+			};
+
 //			struct FunctionTailcallEventArgs
 //			{
 //				FunctionTailcallEventArgs(FunctionID functionId, UINT_PTR clientData) : FunctionId(functionId), ClientData(clientData) { }
 //				FunctionID FunctionId;
 //				UINT_PTR ClientData;
 //			};
-//			
-//			struct FunctionExceptionEventArgs
-//			{
-//				FunctionExceptionEventArgs(FunctionID functionId, UINT_PTR clientData, ObjectID exceptionId)
-//					: FunctionId(functionId), ClientData(clientData), ExceptionId(exceptionId) { }
-//				FunctionID FunctionId;
-//				UINT_PTR ClientData;
-//				ObjectID ExceptionId;
-//			};
 //
-//// THREAD EVENTS  -----------------------------------------------------------------------------------------------------------------------------------
-//// ==================================================================================================================================================
-//			struct ThreadCreatedEventArgs
-//			{
-//				ThreadCreatedEventArgs(ThreadID threadId) : ThreadId(threadId) { }
-//				ThreadID ThreadId;
-//			};
-//
-//			struct ThreadDestroyedEventArgs
-//			{
-//				ThreadDestroyedEventArgs(ThreadID threadId) : ThreadId(threadId) { }
-//				ThreadID ThreadId;
-//			};
-//
-//			struct ThreadAssignedToOSThreadEventArgs
-//			{
-//				ThreadAssignedToOSThreadEventArgs(ThreadID threadId, __uint osThreadId) : ThreadId(threadId), OsThreadId(osThreadId) { }
-//				ThreadID ThreadId;
-//				__uint OsThreadId;
-//			};
-//
-//			struct ThreadNameChangedEventArgs
-//			{
-//				ThreadNameChangedEventArgs(ThreadID threadId, std::wstring name) : ThreadId(threadId), Name(name) { }
-//				ThreadID ThreadId;
-//				std::wstring Name;
-//			};
-//			
+// THREAD EVENTS  -----------------------------------------------------------------------------------------------------------------------------------
+// ==================================================================================================================================================
+			struct ThreadStartEventArgs
+			{
+				ThreadStartEventArgs(jthread thread) : Thread(thread) { }
+				jthread Thread;
+			};
+
+			struct ThreadEndEventArgs
+			{
+				ThreadEndEventArgs(jthread thread) : Thread(thread) { }
+				jthread Thread;
+			};
+
+			/*struct ThreadAssignedToOSThreadEventArgs
+			{
+				ThreadAssignedToOSThreadEventArgs(ThreadID threadId, __uint osThreadId) : ThreadId(threadId), OsThreadId(osThreadId) { }
+				ThreadID ThreadId;
+				__uint OsThreadId;
+			};
+
+			struct ThreadNameChangedEventArgs
+			{
+				ThreadNameChangedEventArgs(ThreadID threadId, std::wstring name) : ThreadId(threadId), Name(name) { }
+				ThreadID ThreadId;
+				std::wstring Name;
+			};*/
+			
 //// EXCEPTION EVENTS (Exception creation) ------------------------------------------------------------------------------------------------------------
 //// ==================================================================================================================================================
 //			struct ExceptionThrownEventArgs
@@ -636,187 +634,162 @@ namespace Chronos
 //				ObjectID newObjectIDRangeStart[];
 //			};*/
 //
-//// ==================================================================================================================================================
-//			typedef void (*FunctionEventCallback)(void*);
-//
-//			class CHRONOS_DOTNET_API RuntimeProfilingEvents
-//			{
-//				public:
-//					RuntimeProfilingEvents(void);
-//					~RuntimeProfilingEvents(void);
-//
-//					void SetAdditionalEventsMask(__int eventsMask);
-//					__int GetProfilingEvents();
-//
-//					ICallback* SubscribeEvent(__uint eventId, ICallback* callback);
-//					FunctionEventCallback SubscribeFunctionEvent(__uint eventId, FunctionEventCallback callback);
-//
-//					void RaiseEvent(__uint eventId, void* eventArgs);
-//					void RaiseFunctionEvent(__uint eventId, void* eventArgs);
-//
-//					__bool HookEvent(__uint eventId);
-//					
-//					/*FunctionEventCallback SusbcribeFunctionEnterEvent(FunctionEventCallback callback);
-//					__bool HookFunctionEnterEvent();
-//					void RaiseFunctionEnterEvent(FunctionEnterEventArgs* eventArgs);
-//					
-//					FunctionEventCallback SusbcribeFunctionLeaveEvent(FunctionEventCallback callback);
-//					__bool HookFunctionLeaveEvent();
-//					void RaiseFunctionLeaveEvent(FunctionLeaveEventArgs* eventArgs);
-//					
-//					FunctionEventCallback SusbcribeFunctionTailcallEvent(FunctionEventCallback callback);
-//					__bool HookFunctionTailcallEvent();
-//					void RaiseFunctionTailcallEvent(FunctionTailcallEventArgs* eventArgs);
-//					
-//					FunctionEventCallback SusbcribeFunctionExceptionEvent(FunctionEventCallback callback);
-//					__bool HookFunctionExceptionEvent();
-//					void RaiseFunctionExceptionEvent(FunctionExceptionEventArgs* eventArgs);*/
-//
-//					const static __guid ServiceToken;
-//				private:
-//					__bool IsFunctionEvent(__uint eventId);
-//
-//				private:
-//					__int _additionalEvents;
-//					ICallback* _events[0xFF];
-//					FunctionEventCallback _functionEvents[0xFF];
-//					/*FunctionEventCallback _functionEnterCallback;
-//					FunctionEventCallback _functionLeaveCallback;
-//					FunctionEventCallback _functionTailcallCallback;
-//					FunctionEventCallback _functionExceptionCallback;*/
-//
-//				public:
-//					enum ProfilingEventId
-//					{
-//						// APPLICATION DOMAIN EVENTS
-//						AppDomainCreationStarted = 1,
-//						AppDomainCreationFinished = 2,
-//						AppDomainShutdownStarted = 3,
-//						AppDomainShutdownFinished = 4,
-//
-//						// ASSEMBLY EVENTS
-//						AssemblyLoadStarted = 20,
-//						AssemblyLoadFinished = 21,
-//						AssemblyUnloadStarted = 22,
-//						AssemblyUnloadFinished = 23,
-//
-//						// MODULE EVENTS
-//						ModuleLoadStarted = 40,
-//						ModuleLoadFinished = 41,
-//						ModuleUnloadStarted = 42,
-//						ModuleUnloadFinished = 43,
-//						ModuleAttachedToAssembly = 44,
-//
-//						// CLASS EVENTS
-//						ClassLoadStarted = 60,
-//						ClassLoadFinished = 61,
-//						ClassUnloadStarted = 62,
-//						ClassUnloadFinished = 63,
-//
-//						// JIT EVENTS
-//						JITCompilationStarted = 80,
-//						JITCompilationFinished = 81,
-//						JITCachedFunctionSearchStarted = 82,
-//						JITCachedFunctionSearchFinished = 83,
-//						JITFunctionPitched = 84,
-//						JITInlining = 85,
-//
-//
-//						// FUNCTION EVENTS
-//						FunctionLoadStarted = 100,
-//						FunctionUnloadStarted = 101,
-//						FunctionEnter = 102,
-//						FunctionLeave = 103,
-//						FunctionTailcall = 104,
-//						FunctionException = 105,
-//
-//						// THREAD EVENTS
-//						ThreadCreated = 120,
-//						ThreadDestroyed = 121,
-//						ThreadAssignedToOSThread = 122,
-//						ThreadNameChanged = 123,
-//
-//						// EXCEPTION EVENTS (Exception creation)
-//						ExceptionThrown = 140,
-//
-//						// EXCEPTION EVENTS (Search phase)
-//						ExceptionSearchFunctionEnter = 160,
-//						ExceptionSearchFunctionLeave = 161,
-//						ExceptionSearchFilterEnter = 162,
-//						ExceptionSearchFilterLeave = 163,
-//						ExceptionSearchCatcherFound = 164,
-//
-//						// EXCEPTION EVENTS (Unwind phase)
-//						ExceptionUnwindFunctionEnter = 180,
-//						ExceptionUnwindFunctionLeave = 181,
-//						ExceptionUnwindFinallyEnter = 182,
-//						ExceptionUnwindFinallyLeave = 183,
-//						ExceptionCatcherEnter = 184,
-//						ExceptionCatcherLeave = 185,
-//
-//						// CONTEXT EVENTS
-//						UnmanagedToManagedTransition = 200,
-//						ManagedToUnmanagedTransition = 201,
-//
-//						// SUSPENSION EVENTS
-//						RuntimeSuspendStarted = 220,
-//						RuntimeSuspendFinished = 221,
-//						RuntimeSuspendAborted = 222,
-//						RuntimeResumeStarted = 223,
-//						RuntimeResumeFinished = 224,
-//						RuntimeThreadSuspended = 225,
-//						RuntimeThreadResumed = 226,
-//
-//						// GC EVENTS
-//						MovedReferences = 240,
-//						ObjectAllocated = 241,
-//						ObjectsAllocatedByClass = 242,
-//						ObjectReferences = 243,
-//						RootReferences = 244,
-//						GarbageCollectionStarted = 245,
-//						SurvivingReferences = 246,
-//						GarbageCollectionFinished = 247,
-//						FinalizeableObjectQueued = 248,
-//						RootReferences2 = 249,
-//						HandleCreated = 250,
-//						HandleDestroyed = 251
-//
-//					};
-//			};
-//
-//// ==================================================================================================================================================
-//			template<typename T>
-//			class ProfilingEventsSubscription
-//			{
-//				public:
-//					ProfilingEventsSubscription<T>(T* thisObject, RuntimeProfilingEvents* profilingEvents)
-//					{
-//						_thisObject = thisObject;
-//						_profilingEvents = profilingEvents;
-//						memset(_subscriptions, 0, sizeof(_subscriptions));
-//					}
-//					~ProfilingEventsSubscription<T>()
-//					{
-//					}
-//					void SubscribeEvent(__uint eventId, void (T::*callbackFunction)(void*))
-//					{
-//						ICallback* callback = new ThisCallback<T>(_thisObject, callbackFunction);
-//						_subscriptions[eventId] = _profilingEvents->SubscribeEvent(eventId, callback);
-//					}
-//					void RaiseNextEvent(__uint eventId, void* eventArgs)
-//					{
-//						ICallback* callback = _subscriptions[eventId];
-//						if (callback != null)
-//						{
-//							callback->Call(eventArgs);
-//						}
-//					}
-//				private:
-//					ICallback* _subscriptions[0xFF];
-//					RuntimeProfilingEvents* _profilingEvents;
-//					T* _thisObject;
-//			};
-//
+// ==================================================================================================================================================
+			typedef void (*MethodEventCallback)(void*);
+
+			class CHRONOS_JAVA_API RuntimeProfilingEvents
+			{
+				public:
+					RuntimeProfilingEvents(void);
+					~RuntimeProfilingEvents(void);
+
+					ICallback* SubscribeEvent(__uint eventId, ICallback* callback);
+					MethodEventCallback SubscribeMethodEvent(__uint eventId, MethodEventCallback callback);
+
+					void RaiseEvent(__uint eventId, void* eventArgs);
+					void RaiseMethodEvent(__uint eventId, void* eventArgs);
+
+					__bool HookEvent(__uint eventId);
+
+					const static __guid ServiceToken;
+				private:
+					__bool IsMethodEvent(__uint eventId);
+
+				private:
+					ICallback* _events[0xFF];
+					MethodEventCallback _methodEvents[0xFF];
+
+				public:
+					enum ProfilingEventId
+					{
+						//// APPLICATION DOMAIN EVENTS
+						//AppDomainCreationStarted = 1,
+						//AppDomainCreationFinished = 2,
+						//AppDomainShutdownStarted = 3,
+						//AppDomainShutdownFinished = 4,
+
+						//// ASSEMBLY EVENTS
+						//AssemblyLoadStarted = 20,
+						//AssemblyLoadFinished = 21,
+						//AssemblyUnloadStarted = 22,
+						//AssemblyUnloadFinished = 23,
+
+						//// MODULE EVENTS
+						//ModuleLoadStarted = 40,
+						//ModuleLoadFinished = 41,
+						//ModuleUnloadStarted = 42,
+						//ModuleUnloadFinished = 43,
+						//ModuleAttachedToAssembly = 44,
+
+						//// CLASS EVENTS
+						//ClassLoadStarted = 60,
+						//ClassLoadFinished = 61,
+						//ClassUnloadStarted = 62,
+						//ClassUnloadFinished = 63,
+
+						//// JIT EVENTS
+						//JITCompilationStarted = 80,
+						//JITCompilationFinished = 81,
+						//JITCachedFunctionSearchStarted = 82,
+						//JITCachedFunctionSearchFinished = 83,
+						//JITFunctionPitched = 84,
+						//JITInlining = 85,
+
+
+						// FUNCTION EVENTS
+						//FunctionLoadStarted = 100,
+						//FunctionUnloadStarted = 101,
+						MethodEnter = 102,
+						MethodExit = 103,
+						MethodException = 104,
+
+						// THREAD EVENTS
+						ThreadStart = 120,
+						ThreadEnd = 121
+						//ThreadAssignedToOSThread = 122,
+						//ThreadNameChanged = 123,
+
+						//// EXCEPTION EVENTS (Exception creation)
+						//ExceptionThrown = 140,
+
+						//// EXCEPTION EVENTS (Search phase)
+						//ExceptionSearchFunctionEnter = 160,
+						//ExceptionSearchFunctionLeave = 161,
+						//ExceptionSearchFilterEnter = 162,
+						//ExceptionSearchFilterLeave = 163,
+						//ExceptionSearchCatcherFound = 164,
+
+						//// EXCEPTION EVENTS (Unwind phase)
+						//ExceptionUnwindFunctionEnter = 180,
+						//ExceptionUnwindFunctionLeave = 181,
+						//ExceptionUnwindFinallyEnter = 182,
+						//ExceptionUnwindFinallyLeave = 183,
+						//ExceptionCatcherEnter = 184,
+						//ExceptionCatcherLeave = 185,
+
+						//// CONTEXT EVENTS
+						//UnmanagedToManagedTransition = 200,
+						//ManagedToUnmanagedTransition = 201,
+
+						//// SUSPENSION EVENTS
+						//RuntimeSuspendStarted = 220,
+						//RuntimeSuspendFinished = 221,
+						//RuntimeSuspendAborted = 222,
+						//RuntimeResumeStarted = 223,
+						//RuntimeResumeFinished = 224,
+						//RuntimeThreadSuspended = 225,
+						//RuntimeThreadResumed = 226,
+
+						//// GC EVENTS
+						//MovedReferences = 240,
+						//ObjectAllocated = 241,
+						//ObjectsAllocatedByClass = 242,
+						//ObjectReferences = 243,
+						//RootReferences = 244,
+						//GarbageCollectionStarted = 245,
+						//SurvivingReferences = 246,
+						//GarbageCollectionFinished = 247,
+						//FinalizeableObjectQueued = 248,
+						//RootReferences2 = 249,
+						//HandleCreated = 250,
+						//HandleDestroyed = 251
+
+					};
+			};
+
+// ==================================================================================================================================================
+			template<typename T>
+			class ProfilingEventsSubscription
+			{
+				public:
+					ProfilingEventsSubscription<T>(T* thisObject, RuntimeProfilingEvents* profilingEvents)
+					{
+						_thisObject = thisObject;
+						_profilingEvents = profilingEvents;
+						memset(_subscriptions, 0, sizeof(_subscriptions));
+					}
+					~ProfilingEventsSubscription<T>()
+					{
+					}
+					void SubscribeEvent(__uint eventId, void (T::*callbackFunction)(void*))
+					{
+						ICallback* callback = new ThisCallback<T>(_thisObject, callbackFunction);
+						_subscriptions[eventId] = _profilingEvents->SubscribeEvent(eventId, callback);
+					}
+					void RaiseNextEvent(__uint eventId, void* eventArgs)
+					{
+						ICallback* callback = _subscriptions[eventId];
+						if (callback != null)
+						{
+							callback->Call(eventArgs);
+						}
+					}
+				private:
+					ICallback* _subscriptions[0xFF];
+					RuntimeProfilingEvents* _profilingEvents;
+					T* _thisObject;
+			};
+
 //// ==================================================================================================================================================
 //			class CHRONOS_DOTNET_API FunctionsJitEvents
 //			{
@@ -931,7 +904,7 @@ namespace Chronos
 					const static __guid FrameworkUid;
 				private:
 					Reflection::RuntimeMetadataProvider* _metadataProvider;
-					//RuntimeProfilingEvents* _profilingEvents;
+					RuntimeProfilingEvents* _profilingEvents;
 					FrameworkSettings* _frameworkSettings;
 			};
 // ==================================================================================================================================================

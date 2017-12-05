@@ -1,20 +1,18 @@
 ﻿using System;
+using System.IO;
 
 namespace Chronos
 {
     public static class EnvironmentExtensions
     {
-        private const string PathEnvironmentVariable = "path";
-
-        public static void AddEnvironmentPath(string path)
+        public static string AppendEnvironmentPath(string variableValue, string path)
         {
-            string variableValue = Environment.GetEnvironmentVariable(PathEnvironmentVariable, EnvironmentVariableTarget.Process);
             string[] values = variableValue.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string value in values)
             {
-                if (string.Equals(value, path, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(Path.GetFullPath(value), Path.GetFullPath(path), StringComparison.OrdinalIgnoreCase))
                 {
-                    return;
+                    return variableValue;
                 }
             }
             if (!variableValue.EndsWith(";"))
@@ -22,7 +20,7 @@ namespace Chronos
                 variableValue += ";";
             }
             variableValue += path;
-            Environment.SetEnvironmentVariable(PathEnvironmentVariable, variableValue, EnvironmentVariableTarget.Process);
+            return variableValue;
         }
     }
 }

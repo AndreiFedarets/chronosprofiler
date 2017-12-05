@@ -1,7 +1,6 @@
 ﻿using Chronos.Communication;
 using Chronos.Communication.Managed;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -14,12 +13,6 @@ namespace Chronos.Host
     public static class ApplicationManager
     {
         private static IInplaceApplicationManager InplaceApplication;
-
-        static ApplicationManager()
-        {
-            string path = Assembly.GetCallingAssembly().GetAssemblyPath();
-            EnvironmentExtensions.AddEnvironmentPath(path);
-        }
 
         private static string CurrentRuntype
         {

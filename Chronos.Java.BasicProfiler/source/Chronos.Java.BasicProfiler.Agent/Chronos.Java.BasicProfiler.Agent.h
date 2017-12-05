@@ -15,48 +15,48 @@ namespace Chronos
 		{
 			namespace BasicProfiler
 			{
-//// ==================================================================================================================================================
-//				template<typename T>
-//				struct BasicUnitBase : public Chronos::Agent::UnitBase
-//				{
-//					public:
-//						BasicUnitBase<T>() : _metadata(null)
-//						{
-//						}
-//						void InitializeMetadata(Reflection::RuntimeMetadataProvider* metadataProvider)
-//						{
-//							_metadataProvider = metadataProvider;
-//						}
-//						void PrepareClose()
-//						{
-//							if (_name == null)
-//							{
-//								_name = new __string(*(GetMetadata()->GetName()));
-//							}
-//						}
-//						T* GetMetadata()
-//						{
-//							if (_metadata == null)
-//							{
-//								_metadata = GetMetadataInternal();
-//							}
-//							return _metadata;
-//						}
-//						__string* GetName()
-//						{
-//							if (GetIsAlive() && _name == null)
-//							{
-//								_name = new __string(*(GetMetadata()->GetName()));
-//							}
-//							return _name;
-//						}
-//						virtual void OnLoaded() = 0;
-//					protected:
-//						virtual T* GetMetadataInternal() = 0;
-//						T* _metadata;
-//						Reflection::RuntimeMetadataProvider* _metadataProvider;
-//				};
-//
+// ==================================================================================================================================================
+				template<typename T>
+				struct BasicUnitBase : public Chronos::Agent::UnitBase
+				{
+					public:
+						BasicUnitBase<T>() : _metadata(null)
+						{
+						}
+						void InitializeMetadata(Reflection::RuntimeMetadataProvider* metadataProvider)
+						{
+							_metadataProvider = metadataProvider;
+						}
+						void PrepareClose()
+						{
+							if (_name == null)
+							{
+								_name = new __string(*(GetMetadata()->GetName()));
+							}
+						}
+						T* GetMetadata()
+						{
+							if (_metadata == null)
+							{
+								_metadata = GetMetadataInternal();
+							}
+							return _metadata;
+						}
+						__string* GetName()
+						{
+							if (GetIsAlive() && _name == null)
+							{
+								_name = new __string(*(GetMetadata()->GetName()));
+							}
+							return _name;
+						}
+						virtual void OnLoaded() = 0;
+					protected:
+						virtual T* GetMetadataInternal() = 0;
+						T* _metadata;
+						Reflection::RuntimeMetadataProvider* _metadataProvider;
+				};
+
 //// ==================================================================================================================================================
 //				struct CHRONOS_JAVA_BASICPROFILER_API AppDomainInfo : public BasicUnitBase<Reflection::AppDomainMetadata>
 //				{
@@ -300,8 +300,8 @@ namespace Chronos
 						//void OnFunctionLoadStarted(void* eventArgs);
 						//void OnFunctionUnloadStarted(void* eventArgs);
 						//
-						//void OnThreadCreated(void* eventArgs);
-						//void OnThreadDestroyed(void* eventArgs);
+						void OnThreadStart(void* eventArgs);
+						void OnThreadEnd(void* eventArgs);
 						//void OnThreadNameChanged(void* eventArgs);
 						
 					private:
@@ -312,8 +312,8 @@ namespace Chronos
 						//FunctionCollection* _functions;
 						//ThreadCollection* _threads;
 
-						//Reflection::RuntimeMetadataProvider* _metadataProvider;
-						//ProfilingEventsSubscription<ProfilingTypeAdapter>* _subscription;
+						Reflection::RuntimeMetadataProvider* _metadataProvider;
+						ProfilingEventsSubscription<ProfilingTypeAdapter>* _subscription;
 						ProfilingTimer* _profilingTimer;
 						GatewayClient* _gatewayClient;
 						__byte _dataMarker;

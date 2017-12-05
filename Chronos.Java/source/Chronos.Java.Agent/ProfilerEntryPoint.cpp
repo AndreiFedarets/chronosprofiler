@@ -2,6 +2,7 @@
 #include "ProfilerEntryPoint.h"
 
 Chronos::Agent::Java::ProfilerEntryPoint EntryPoint;
+Chronos::Agent::Java::RuntimeProfilingEvents* GlobalEvents = null;
 
 extern "C" JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM* vm, char* options, void* reserved) 
 {
@@ -18,6 +19,44 @@ extern "C" JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved)
 	EntryPoint.OnLoad(vm);
 	return JNI_VERSION_1_6;
 }
+
+// METHOD EVENTS =========================================================================================================
+void JNICALL MethodEntryGlobal(jvmtiEnv* jvmtiEnv, JNIEnv* jniEnv, jthread thread, jmethodID methodId)
+{
+	Chronos::Agent::Java::MethodEnterEventArgs eventArgs(methodId, thread);
+	GlobalEvents->RaiseMethodEvent(Chronos::Agent::Java::RuntimeProfilingEvents::MethodEnter, &eventArgs);
+}
+
+void JNICALL MethodExitGlobal(jvmtiEnv* jvmtiEnv, JNIEnv* jniEnv, jthread thread, jmethodID methodId, jboolean exception, jvalue returnValue)
+{
+	if (exception == JNI_TRUE)
+	{
+		Chronos::Agent::Java::MethodExceptionEventArgs eventArgs(methodId, thread);
+		GlobalEvents->RaiseMethodEvent(Chronos::Agent::Java::RuntimeProfilingEvents::MethodException, &eventArgs);
+	}
+	else
+	{
+		Chronos::Agent::Java::MethodExitEventArgs eventArgs(methodId, thread);
+		GlobalEvents->RaiseMethodEvent(Chronos::Agent::Java::RuntimeProfilingEvents::MethodExit, &eventArgs);
+	}
+}
+
+// THREAD EVENTS =========================================================================================================
+void JNICALL ThreadStartGlobal(jvmtiEnv* jvmtiEnv, JNIEnv* jniEnv, jthread thread)
+{
+	Chronos::Agent::Java::ThreadStartEventArgs eventArgs(thread);
+	GlobalEvents->RaiseMethodEvent(Chronos::Agent::Java::RuntimeProfilingEvents::ThreadStart, &eventArgs);
+}
+
+void JNICALL ThreadEndGlobal(jvmtiEnv* jvmtiEnv, JNIEnv* jniEnv, jthread thread)
+{
+	Chronos::Agent::Java::ThreadEndEventArgs eventArgs(thread);
+	GlobalEvents->RaiseMethodEvent(Chronos::Agent::Java::RuntimeProfilingEvents::ThreadEnd, &eventArgs);
+}
+
+//=======================================================================================================================
+
+
 
 namespace Chronos
 {
@@ -56,23 +95,23 @@ namespace Chronos
 				return JNI_OK;
 			}
 
-			HRESULT ProfilerEntryPoint::InitializeInternal(JavaVM* javaVM)
+			HRESULT ProfilerEntryPoint::InitializeInternal(JavaVM* jvm)
 			{
 				//__debugbreak();
 				MessageBox(null, L"Attach", L"", MB_OK);
-				__RETURN_IF_FAILED( Reflection::RuntimeMetadataProvider::Initialize(javaVM) );
+				__RETURN_IF_FAILED( Reflection::RuntimeMetadataProvider::Initialize(jvm) );
 
 				_application = new Chronos::Agent::Application();
 
 				__RETURN_IF_FAILED( _application->Run() );
 
-				//__RESOLVE_SERVICE(_application->Container, Chronos::Agent::DotNet::RuntimeProfilingEvents, GlobalEvents);
+				__RESOLVE_SERVICE(_application->Container, Chronos::Agent::Java::RuntimeProfilingEvents, GlobalEvents);
 				__RESOLVE_SERVICE( _application->Container, Reflection::RuntimeMetadataProvider, _metadataProvider);
 				
-				jvmtiEnv* javaEnv = null;
-				__RETURN_IF_FAILED( javaVM->GetEnv((void**)&javaEnv, JVMTI_VERSION_1_0) );
-
-				jvmtiEventCallbacks callbacks;
+				if (SetupEvents(jvm) != jvmtiError::JVMTI_ERROR_NONE)
+				{
+					return E_FAIL;
+				}
 
 
 				//__int eventsMask = GlobalEvents->GetProfilingEvents();
@@ -93,6 +132,53 @@ namespace Chronos
 
 				return S_OK;
 			}
+
+			jint ProfilerEntryPoint::SetupEvents(JavaVM* jvm)
+			{
+				jvmtiEnv* jvmtiEnv;
+				jvm->GetEnv((void**)&jvmtiEnv, JVMTI_VERSION_1_0);
+
+				jvmtiCapabilities capabilities;
+				__JRETURN_IF_FAILED( jvmtiEnv->GetCapabilities(&capabilities) );
+
+				jvmtiEventCallbacks callbacks;
+				memset(&callbacks, 0, sizeof(callbacks));
+
+				// METHOD EVENTS =========================================================================================================
+				if (GlobalEvents->HookEvent(RuntimeProfilingEvents::MethodEnter))
+				{
+					capabilities.can_generate_method_entry_events = 1;
+					callbacks.MethodEntry = MethodEntryGlobal;
+					__JRETURN_IF_FAILED( jvmtiEnv->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_METHOD_ENTRY, NULL) );
+				}
+				if (GlobalEvents->HookEvent(RuntimeProfilingEvents::MethodExit) || 
+					GlobalEvents->HookEvent(RuntimeProfilingEvents::MethodException))
+				{
+					capabilities.can_generate_method_exit_events = 1;
+					callbacks.MethodExit = MethodExitGlobal;
+					__JRETURN_IF_FAILED( jvmtiEnv->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_METHOD_EXIT, NULL) );
+				}
+
+				// THREAD EVENTS =========================================================================================================
+				if (GlobalEvents->HookEvent(RuntimeProfilingEvents::ThreadStart))
+				{
+					callbacks.ThreadStart = ThreadStartGlobal;
+					__JRETURN_IF_FAILED( jvmtiEnv->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_THREAD_START, NULL) );
+				}
+				if (GlobalEvents->HookEvent(RuntimeProfilingEvents::ThreadEnd))
+				{
+					callbacks.ThreadEnd = ThreadEndGlobal;
+					__JRETURN_IF_FAILED( jvmtiEnv->SetEventNotificationMode(JVMTI_ENABLE, JVMTI_EVENT_THREAD_END, NULL) );
+				}
+				//=======================================================================================================================
+
+				__JRETURN_IF_FAILED( jvmtiEnv->AddCapabilities(&capabilities) );
+				__JRETURN_IF_FAILED( jvmtiEnv->SetEventCallbacks(&callbacks, sizeof(jvmtiEventCallbacks)) );
+
+				return jvmtiError::JVMTI_ERROR_NONE;
+			}
+
+			
 		}
 	}
 }

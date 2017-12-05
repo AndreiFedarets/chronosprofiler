@@ -11,7 +11,6 @@ namespace Chronos.Client.Win
         private const string ChronosCoreProbingPathKey = "Chronos.Core.ProbingPath";
         private const string ChronosCoreDllName = "Chronos.dll";
         private const string ChronosCoreAssemblyName = "Chronos";
-        private const string PathEnvironmentVariable = "path";
         private Assembly _chronosCoreAssembly;
 
         private string FindCoreDirectory()
@@ -44,18 +43,6 @@ namespace Chronos.Client.Win
         {
             string chronosCorePath = FindCoreDirectory();
             SetupAssemblyResolver(chronosCorePath);
-            SetupPathEnvironment(chronosCorePath);
-        }
-
-        private void SetupPathEnvironment(string chronosCorePath)
-        {
-            string path = Environment.GetEnvironmentVariable(PathEnvironmentVariable);
-            if (!path.EndsWith(";"))
-            {
-                path += ";";
-            }
-            path += chronosCorePath;
-            Environment.SetEnvironmentVariable(PathEnvironmentVariable, path, EnvironmentVariableTarget.Process);
         }
 
         private void SetupAssemblyResolver(string chronosCorePath)

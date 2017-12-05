@@ -16,7 +16,8 @@ namespace Chronos
 				HRESULT OnAttach(JavaVM* javaVM);
 
 			private:
-				HRESULT InitializeInternal(JavaVM* javaVM);
+				HRESULT InitializeInternal(JavaVM* jvm);
+				jint SetupEvents(JavaVM* jvm);
 
 			private:
 				Chronos::Agent::Application* _application;
