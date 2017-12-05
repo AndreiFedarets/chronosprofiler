@@ -17,10 +17,10 @@ namespace Chronos
 
 				HRESULT ThreadCollection::GetCurrentThreadInfo(ThreadInfo** unit)
 				{
-					ThreadID threadId;
-					HRESULT result = _metadataProvider->GetCurrentThreadId(&threadId);
-					__RETURN_IF_FAILED(result);
-					*unit = GetUnit(threadId);
+					jthread thread;
+					jint result = _metadataProvider->GetCurrentThread(&thread);
+					__JRETURN_IF_FAILED(result);
+					*unit = GetUnit(__JOBJECT_TO_UID(thread));
 					if (*unit == null)
 					{
 						return E_FAIL;
@@ -32,7 +32,7 @@ namespace Chronos
 				const __string* ThreadCollection::FinalizationThreadName = new __string(L"Finalization Thread");
 				const __string* ThreadCollection::WorkerThreadName = new __string(L"Worker Thread");
 
-				const __guid ThreadCollection::ServiceToken = Converter::ConvertStringToGuid(L"{9CC19383-CFFF-4B6F-8E68-934EB3134E29}");
+				const __guid ThreadCollection::ServiceToken = Converter::ConvertStringToGuid(L"{A499080B-C6EF-4340-BF64-EC431B0D056F}");
 			}
 		}
 	}

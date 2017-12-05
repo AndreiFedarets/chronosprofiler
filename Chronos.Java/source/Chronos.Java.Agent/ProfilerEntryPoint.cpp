@@ -3,6 +3,7 @@
 
 Chronos::Agent::Java::ProfilerEntryPoint EntryPoint;
 Chronos::Agent::Java::RuntimeProfilingEvents* GlobalEvents = null;
+Chronos::Agent::Java::Reflection::RuntimeMetadataProvider* GlobalMetadataProvider = null;
 
 extern "C" JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM* vm, char* options, void* reserved) 
 {
@@ -44,12 +45,17 @@ void JNICALL MethodExitGlobal(jvmtiEnv* jvmtiEnv, JNIEnv* jniEnv, jthread thread
 // THREAD EVENTS =========================================================================================================
 void JNICALL ThreadStartGlobal(jvmtiEnv* jvmtiEnv, JNIEnv* jniEnv, jthread thread)
 {
+	//Force metadata initialization
+	Chronos::Agent::Java::Reflection::ThreadMetadata* metadata;
+	GlobalMetadataProvider->GetThread(thread, &metadata);
+	//Notify event
 	Chronos::Agent::Java::ThreadStartEventArgs eventArgs(thread);
 	GlobalEvents->RaiseMethodEvent(Chronos::Agent::Java::RuntimeProfilingEvents::ThreadStart, &eventArgs);
 }
 
 void JNICALL ThreadEndGlobal(jvmtiEnv* jvmtiEnv, JNIEnv* jniEnv, jthread thread)
 {
+	//Notify event
 	Chronos::Agent::Java::ThreadEndEventArgs eventArgs(thread);
 	GlobalEvents->RaiseMethodEvent(Chronos::Agent::Java::RuntimeProfilingEvents::ThreadEnd, &eventArgs);
 }
@@ -67,7 +73,6 @@ namespace Chronos
 			ProfilerEntryPoint::ProfilerEntryPoint()
 			{
 				_application = null;
-				_metadataProvider = null;
 			}
 
 			ProfilerEntryPoint::~ProfilerEntryPoint()
@@ -106,7 +111,7 @@ namespace Chronos
 				__RETURN_IF_FAILED( _application->Run() );
 
 				__RESOLVE_SERVICE(_application->Container, Chronos::Agent::Java::RuntimeProfilingEvents, GlobalEvents);
-				__RESOLVE_SERVICE( _application->Container, Reflection::RuntimeMetadataProvider, _metadataProvider);
+				__RESOLVE_SERVICE( _application->Container, Reflection::RuntimeMetadataProvider, GlobalMetadataProvider);
 				
 				if (SetupEvents(jvm) != jvmtiError::JVMTI_ERROR_NONE)
 				{

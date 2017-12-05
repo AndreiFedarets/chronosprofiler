@@ -4,6 +4,9 @@
 #include <Chronos.Agent.h>
 
 #define __JRETURN_IF_FAILED(action) { { jint __resultValue__ = action; if (__resultValue__ != JNI_OK) { return __resultValue__; } } }
+#define __JOBJECT_TO_UID(__obj__)  (__uptr)((void*)__obj__)
+#define __UID_TO_JOBJECT(__uid__)  (jobject)((void*)__uid__)
+#define __UID_TO_JTHREAD(__uid__)  (jthread)((void*)__uid__)
 
 #ifdef CHRONOS_JAVA_EXPORT_API
 #define CHRONOS_JAVA_API __declspec(dllexport) 
@@ -21,21 +24,23 @@ namespace Chronos
 			{
 				class RuntimeMetadataProvider;
 				
-//// ==================================================================================================================================================
-//				struct CHRONOS_JAVA_API ThreadMetadata
-//				{
-//					public:
-//						ThreadMetadata(jvmtiEnv* jvmtiEnv, jthread thread, __uint threadId);
-//						~ThreadMetadata();
-//						__uint GetId();
-//						__string* GetName();
-//					private:
-//						void Initialize();
-//						jvmtiEnv* _jvmtiEnv;
-//						jthread _thread;
-//						__uint _threadId;
-//						__string* _name;
-//				};
+// ==================================================================================================================================================
+				struct CHRONOS_JAVA_API ThreadMetadata
+				{
+					public:
+						ThreadMetadata(jvmtiEnv* jvmtiEnv, jthread thread, __uint osThreadId);
+						~ThreadMetadata();
+						__uptr GetId();
+						__uint GetOsThreadId();
+						__string* GetName();
+					private:
+						void Initialize();
+						jvmtiEnv* _jvmtiEnv;
+						jthread _thread;
+						__uptr _threadId;
+						__uint _osThreadId;
+						__string* _name;
+				};
 
 //// ==================================================================================================================================================
 //				struct CHRONOS_DOTNET_API AppDomainMetadata
@@ -229,14 +234,14 @@ namespace Chronos
 						//HRESULT GetModule(ModuleID moduleId, ModuleMetadata** metadata);
 						//HRESULT GetType(ClassID classId, TypeMetadata** metadata);
 						//HRESULT GetMethod(FunctionID functionId, MethodMetadata** metadata);
-						//HRESULT GetThread(jthread thread, ThreadMetadata** metadata);
+						jint GetThread(jthread thread, ThreadMetadata** metadata);
 						//HRESULT GetClassFromObject(ObjectID objectId, ClassID* classId);
 						////ObjectMetadata* GetObject(ObjectID objectId);
 
 						//HRESULT GetCorProfilerInfo2(ICorProfilerInfo2** profilerInfo);
 						//HRESULT GetCorProfilerInfo3(ICorProfilerInfo3** profilerInfo);
 						//HRESULT SetEventMask(DWORD eventsMask);
-						//HRESULT GetCurrentThreadId(ThreadID* threadId);
+						jint GetCurrentThread(jthread* thread);
 						//HRESULT GetHandleFromThread(ThreadID threadId, HANDLE* threadHandle);
 						const static __guid ServiceToken;
 
@@ -249,7 +254,7 @@ namespace Chronos
 						//MetadataCollection<ModuleMetadata>* _modules;
 						//MetadataCollection<TypeMetadata>* _types;
 						//MetadataCollection<MethodMetadata>* _methods;
-						//MetadataCollection<ThreadMetadata>* _threads;
+						MetadataCollection<ThreadMetadata>* _threads;
 						static JavaVM* JVM;
 						jvmtiEnv* _jvmtiEnv;
 						//static IUnknown* ÑorProfilerInfoUnk;
@@ -848,29 +853,29 @@ namespace Chronos
 //					Reflection::RuntimeMetadataProvider* _metadataProvider;
 //					ProfilingEventsSubscription<FunctionsJitEvents>* _subscription;
 //			};
-//
-//// ==================================================================================================================================================
-//			template<typename T>
-//			class DotNetUnitCollectionBase : public UnitCollectionBase<T>
-//			{
-//				public:
-//					DotNetUnitCollectionBase<T>()
-//					{
-//					}
-//
-//					~DotNetUnitCollectionBase<T>()
-//					{
-//					}
-//					
-//					void Initialize(ProfilingTimer* profilingTimer, Reflection::RuntimeMetadataProvider* metadataProvider)
-//					{
-//						_profilingTimer = profilingTimer;
-//						_metadataProvider = metadataProvider;
-//					}
-//
-//				protected:
-//					Reflection::RuntimeMetadataProvider* _metadataProvider;
-//			};
+
+// ==================================================================================================================================================
+			template<typename T>
+			class JavaUnitCollectionBase : public UnitCollectionBase<T>
+			{
+				public:
+					JavaUnitCollectionBase<T>()
+					{
+					}
+
+					~JavaUnitCollectionBase<T>()
+					{
+					}
+					
+					void Initialize(ProfilingTimer* profilingTimer, Reflection::RuntimeMetadataProvider* metadataProvider)
+					{
+						_profilingTimer = profilingTimer;
+						_metadataProvider = metadataProvider;
+					}
+
+				protected:
+					Reflection::RuntimeMetadataProvider* _metadataProvider;
+			};
 		
 
 // ==================================================================================================================================================

@@ -21,7 +21,7 @@ namespace Chronos
 
 			private:
 				Chronos::Agent::Application* _application;
-				Chronos::Agent::Java::Reflection::RuntimeMetadataProvider* _metadataProvider;
+				//Chronos::Agent::Java::Reflection::RuntimeMetadataProvider* _metadataProvider;
 			};
 		}
 	}

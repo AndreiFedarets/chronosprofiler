@@ -56,5 +56,8 @@
     <ClCompile Include="RuntimeProfilingEvents.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ThreadMetadata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

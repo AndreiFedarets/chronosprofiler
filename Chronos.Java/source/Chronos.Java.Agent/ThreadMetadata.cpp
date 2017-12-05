@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Chronos.Java.Agent.h"
-#include <string>
 
 namespace Chronos
 {
@@ -10,11 +9,12 @@ namespace Chronos
 		{
 			namespace Reflection
 			{
-				ThreadMetadata::ThreadMetadata(jvmtiEnv* jvmtiEnv, jthread thread, __uint threadId)
+				ThreadMetadata::ThreadMetadata(jvmtiEnv* jvmtiEnv, jthread thread, __uint osThreadId)
 				{
 					_jvmtiEnv = jvmtiEnv;
 					_thread = thread;
-					_threadId = threadId;
+					_threadId = __JOBJECT_TO_UID(thread);
+					_osThreadId = osThreadId;
 					_name = null;
 				}
 
@@ -23,9 +23,14 @@ namespace Chronos
 					__FREEOBJ(_name);
 				}
 
-				__uint ThreadMetadata::GetId()
+				__uptr ThreadMetadata::GetId()
 				{
 					return _threadId;
+				}
+
+				__uint ThreadMetadata::GetOsThreadId()
+				{
+					return _osThreadId;
 				}
 
 				__string* ThreadMetadata::GetName()
@@ -38,13 +43,9 @@ namespace Chronos
 				{
 					if (_name == null)
 					{
-						//const __uint NameMaxLength = 1000;
-						//__wchar nativeName[NameMaxLength];
-
 						jvmtiThreadInfo info;
 						_jvmtiEnv->GetThreadInfo(_thread, &info);
 						std::string name(info.name);
-
 						_name = new __string(name.begin(), name.end());
 					}
 				}

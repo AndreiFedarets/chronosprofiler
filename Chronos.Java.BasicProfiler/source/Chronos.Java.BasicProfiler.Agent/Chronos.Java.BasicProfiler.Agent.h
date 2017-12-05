@@ -130,60 +130,58 @@ namespace Chronos
 //						ModuleID _moduleId;
 //						ClassID _classId;
 //				};
-//
-//// ==================================================================================================================================================
-//				struct CHRONOS_JAVA_BASICPROFILER_API ThreadInfo : public BasicUnitBase<Reflection::ThreadMetadata>
-//				{
-//					public:
-//						ThreadInfo();
-//						void PrepareClose();
-//						HANDLE GetThreadHandle();
-//						__uint GetOsThreadId();
-//						void OnLoaded();
-//					protected:
-//						Reflection::ThreadMetadata* GetMetadataInternal();
-//					private:
-//						HANDLE _handle;
-//						__uint _osThreadId;
-//				};
-//
-//// ==================================================================================================================================================
-//				class UnitType
-//				{
-//					public:
-//						enum
-//						{
-//							Process = 1,
-//							AppDomain = 2,
-//							Assembly = 3,
-//							Module = 4,
-//							Class = 5,
-//							Function = 6,
-//							Thread = 7,
-//						};
-//				};
-//				
-//// ==================================================================================================================================================
-//				template<typename T>
-//				class BasicUnitCollectionBase : public JavaUnitCollectionBase<T>
-//				{
-//					public:
-//						BasicUnitCollectionBase<T>()
-//						{
-//						}
-//
-//						~BasicUnitCollectionBase<T>()
-//						{
-//						}
-//					
-//						void PrepareCloseUnit(__uptr id)
-//						{
-//							UnitContainer<T>* container = GetUnitContainer(id, true);
-//							T* unit = &(container->Unit);
-//							unit->PrepareClose();
-//						}
-//				};
-//		
+
+// ==================================================================================================================================================
+				struct CHRONOS_JAVA_BASICPROFILER_API ThreadInfo : public BasicUnitBase<Reflection::ThreadMetadata>
+				{
+					public:
+						ThreadInfo();
+						void PrepareClose();
+						void OnLoaded();
+						__uint GetOsThreadId();
+					protected:
+						Reflection::ThreadMetadata* GetMetadataInternal();
+					private:
+						__uint _osThreadId;
+				};
+
+// ==================================================================================================================================================
+				class UnitType
+				{
+					public:
+						enum
+						{
+							//Process = 1,
+							//AppDomain = 2,
+							//Assembly = 3,
+							//Module = 4,
+							//Class = 5,
+							//Function = 6,
+							Thread = 7,
+						};
+				};
+				
+// ==================================================================================================================================================
+				template<typename T>
+				class BasicUnitCollectionBase : public JavaUnitCollectionBase<T>
+				{
+					public:
+						BasicUnitCollectionBase<T>()
+						{
+						}
+
+						~BasicUnitCollectionBase<T>()
+						{
+						}
+					
+						void PrepareCloseUnit(__uptr id)
+						{
+							UnitContainer<T>* container = GetUnitContainer(id, true);
+							T* unit = &(container->Unit);
+							unit->PrepareClose();
+						}
+				};
+		
 //// ==================================================================================================================================================
 //				class CHRONOS_JAVA_BASICPROFILER_API AppDomainCollection : public BasicUnitCollectionBase<AppDomainInfo>
 //				{
@@ -229,20 +227,20 @@ namespace Chronos
 //						HRESULT InitializeUnitSpecial(FunctionInfo* unit);
 //				};
 //
-//// ==================================================================================================================================================
-//				class CHRONOS_JAVA_BASICPROFILER_API ThreadCollection : public BasicUnitCollectionBase<ThreadInfo>
-//				{
-//					public:
-//						HRESULT GetCurrentThreadInfo(ThreadInfo** unit);
-//						const static __guid ServiceToken;
-//					protected:
-//						HRESULT InitializeUnitSpecial(ThreadInfo* unit);
-//					private:
-//						const static __string* MainThreadName;
-//						const static __string* FinalizationThreadName;
-//						const static __string* WorkerThreadName;
-//				};
-//
+// ==================================================================================================================================================
+				class CHRONOS_JAVA_BASICPROFILER_API ThreadCollection : public BasicUnitCollectionBase<ThreadInfo>
+				{
+					public:
+						HRESULT GetCurrentThreadInfo(ThreadInfo** unit);
+						const static __guid ServiceToken;
+					protected:
+						HRESULT InitializeUnitSpecial(ThreadInfo* unit);
+					private:
+						const static __string* MainThreadName;
+						const static __string* FinalizationThreadName;
+						const static __string* WorkerThreadName;
+				};
+
 //// ==================================================================================================================================================
 //				class CHRONOS_JAVA_BASICPROFILER_API UnitMarshaler
 //				{

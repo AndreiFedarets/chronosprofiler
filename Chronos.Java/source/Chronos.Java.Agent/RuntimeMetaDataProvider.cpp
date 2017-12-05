@@ -12,22 +12,22 @@ namespace Chronos
 				RuntimeMetadataProvider::RuntimeMetadataProvider()
 				{
 					_jvmtiEnv = null;
-					/*_appDomain = new MetadataCollection<AppDomainMetadata>();
-					_assemblies = new MetadataCollection<AssemblyMetadata>();
-					_modules = new MetadataCollection<ModuleMetadata>();
-					_types = new MetadataCollection<TypeMetadata>();
-					_methods = new MetadataCollection<MethodMetadata>();
-					_threads = new MetadataCollection<ThreadMetadata>();*/
+					//_appDomain = new MetadataCollection<AppDomainMetadata>();
+					//_assemblies = new MetadataCollection<AssemblyMetadata>();
+					//_modules = new MetadataCollection<ModuleMetadata>();
+					//_types = new MetadataCollection<TypeMetadata>();
+					//_methods = new MetadataCollection<MethodMetadata>();
+					_threads = new MetadataCollection<ThreadMetadata>();
 				}
 
 				RuntimeMetadataProvider::~RuntimeMetadataProvider()
 				{
-					/*__FREEOBJ(_appDomain);
-					__FREEOBJ(_assemblies);
-					__FREEOBJ(_modules);
-					__FREEOBJ(_types);
-					__FREEOBJ(_methods);
-					__FREEOBJ(_threads);*/
+					//__FREEOBJ(_appDomain);
+					//__FREEOBJ(_assemblies);
+					//__FREEOBJ(_modules);
+					//__FREEOBJ(_types);
+					//__FREEOBJ(_methods);
+					__FREEOBJ(_threads);
 				}
 
 				HRESULT RuntimeMetadataProvider::Initialize(JavaVM* javaVM)
@@ -103,17 +103,19 @@ namespace Chronos
 				//	}
 				//	return S_OK;
 				//}
-				//
-				//HRESULT RuntimeMetadataProvider::GetThread(ThreadID threadId, ThreadMetadata** metadata)
-				//{
-				//	*metadata = _threads->Find(threadId);
-				//	if (*metadata == null)
-				//	{
-				//		*metadata = new ThreadMetadata(_corProfilerInfo2, this, threadId);
-				//		_threads->Add(threadId, *metadata);
-				//	}
-				//	return S_OK;
-				//}
+				
+				jint RuntimeMetadataProvider::GetThread(jthread thread, ThreadMetadata** metadata)
+				{
+					UINT_PTR threadId = __JOBJECT_TO_UID(thread);
+					*metadata = _threads->Find(threadId);
+					if (*metadata == null)
+					{
+						jvmtiEnv* jvmtiEnv = GetJvmtiEnv();
+						*metadata = new ThreadMetadata(jvmtiEnv, thread, GetCurrentThreadId());
+						_threads->Add(threadId, *metadata);
+					}
+					return jvmtiError::JVMTI_ERROR_NONE;
+				}
 
 				//HRESULT RuntimeMetadataProvider::GetClassFromObject(ObjectID objectId, ClassID* classId)
 				//{
@@ -158,14 +160,15 @@ namespace Chronos
 				//	return _corProfilerInfo2->SetEventMask(eventsMask);
 				//}
 
-				//HRESULT RuntimeMetadataProvider::GetCurrentThreadId(ThreadID* threadId)
-				//{
-				//	if (_corProfilerInfo2 == null)
-				//	{
-				//		return E_NOT_VALID_STATE;
-				//	}
-				//	return _corProfilerInfo2->GetCurrentThreadID(threadId);
-				//}
+				jint RuntimeMetadataProvider::GetCurrentThread(jthread* thread)
+				{
+					jvmtiEnv* jvmtiEnv = GetJvmtiEnv();
+					if (jvmtiEnv == null)
+					{
+						return jvmtiError::JVMTI_ERROR_NOT_AVAILABLE;
+					}
+					return jvmtiEnv->GetCurrentThread(thread);
+				}
 
 				//HRESULT RuntimeMetadataProvider::GetHandleFromThread(ThreadID threadId, HANDLE* threadHandle)
 				//{

@@ -10,23 +10,13 @@ namespace Chronos
 			namespace BasicProfiler
 			{
 				ThreadInfo::ThreadInfo()
-					: _handle(0), _osThreadId(0)
+					: _osThreadId(0)
 				{
 				}
 				
 				void ThreadInfo::PrepareClose()
 				{
-					_handle = GetMetadata()->GetThreadHandle();
 					_osThreadId = GetMetadata()->GetOsThreadId();
-				}
-
-				HANDLE ThreadInfo::GetThreadHandle()
-				{
-					if (GetIsAlive() && _handle == 0)
-					{
-						_handle = GetMetadata()->GetThreadHandle();
-					}
-					return _handle;
 				}
 
 				__uint ThreadInfo::GetOsThreadId()
@@ -41,7 +31,8 @@ namespace Chronos
 				Reflection::ThreadMetadata* ThreadInfo::GetMetadataInternal()
 				{
 					Reflection::ThreadMetadata* metadata;
-					_metadataProvider->GetThread(Id, &metadata);
+					jthread thread = __UID_TO_JTHREAD(Id);
+					_metadataProvider->GetThread(thread, &metadata);
 					return metadata;
 				}
 
