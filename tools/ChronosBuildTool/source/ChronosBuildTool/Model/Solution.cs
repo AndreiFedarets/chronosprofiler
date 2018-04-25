@@ -88,16 +88,16 @@ namespace ChronosBuildTool.Model
             get { return _dependencies; }
         }
 
-        public bool BuildSolution(IOutput output, Configuration configuration, bool rebuild)
+        public bool BuildSolution(IOutput output, Configuration configuration, bool rebuild, string msbuildPath = null)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
-            if (!UpdateExternals(output, configuration, false))
+            if (!UpdateExternals(output, configuration, false, msbuildPath))
             {
                 return false;
             }
             BuildResult buildResult = new BuildResult();
             Process process = new Process();
-            process.StartInfo = new ProcessStartInfo(GetMsbuildPath());
+            process.StartInfo = new ProcessStartInfo(GetMsbuildPath(msbuildPath));
             string targetAction = rebuild ? "Rebuild" : "Build";
             process.StartInfo.Arguments = string.Format("{0} /t:{1} /p:Configuration={2} /m", SolutionFullName, targetAction, configuration);
             process.StartInfo.UseShellExecute = false;
@@ -186,7 +186,7 @@ namespace ChronosBuildTool.Model
             }
         }
 
-        public bool UpdateExternals(IOutput output, Configuration configuration, bool force)
+        public bool UpdateExternals(IOutput output, Configuration configuration, bool force, string msbuildPath = null)
         {
             foreach (SolutionDependency solutionDependency in _dependencies)
             {
@@ -197,11 +197,11 @@ namespace ChronosBuildTool.Model
                     FileInfo targetFile = GetExternalsFile(fileDependency.Name, configuration);
                     if ((!targetFile.Exists && !sourceFile.Exists) || force)
                     {
-                        if (!solution.BuildSolution(output, configuration, force))
+                        if (!solution.BuildSolution(output, configuration, force, msbuildPath))
                         {
                             return false;
                         }
-                        return UpdateExternals(output, configuration, false);
+                        return UpdateExternals(output, configuration, false, msbuildPath);
                     }
                     //if target file doesn't exist or it's last write less that source file write time
                     //then we should copy source to target
@@ -240,27 +240,12 @@ namespace ChronosBuildTool.Model
             return new FileInfo(fullName);
         }
 
-        private string GetMsbuildPath()
+        private string GetMsbuildPath(string msbuildPath)
         {
-            //RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\MSBuild\ToolsVersions");
-            //string latestVersionString = ""; //default
-            //double latestVersion = 0;
-            //foreach (string subKeyName in key.GetSubKeyNames())
-            //{
-            //    double version;
-            //    if (double.TryParse(subKeyName, out version) && version > latestVersion)
-            //    {
-            //        RegistryKey tempkey = key.OpenSubKey(subKeyName);
-            //        if (tempkey.GetValue("MSBuildOverrideTasksPath") != null)
-            //        {
-            //            latestVersion = version;
-            //            latestVersionString = subKeyName;
-            //        }
-            //    }
-            //}
-           
-            //string msbuildPath = key.GetValue("MSBuildOverrideTasksPath") + @"\msbuild.exe";
-            string msbuildPath = Environment.ExpandEnvironmentVariables(@"%windir%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe");
+            if (string.IsNullOrEmpty(msbuildPath))
+            {
+                msbuildPath = BuilderLocator.GetLatestBuilder(); // Environment.ExpandEnvironmentVariables(@"%windir%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe");
+            }
             return msbuildPath;
         }
 

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
@@ -15,6 +17,8 @@ namespace ChronosBuildTool
         private Configuration _currentConfiguration;
         private bool _isConsoleVisible;
         private volatile bool _requestStopOperation;
+        private string _currentBuilder;
+        private IEnumerable<string> _avalableBuilders;
 
         public MainViewModel()
         {
@@ -32,6 +36,32 @@ namespace ChronosBuildTool
             CurrentConfiguration = Configuration.Debug;
             Configurations = new[] {Configuration.Debug, Configuration.Release};
             _requestStopOperation = false;
+            _avalableBuilders = new ObservableCollection<string>();
+            Task.Factory.StartNew(() =>
+            {
+                Builders = BuilderLocator.GetAvailableBuilders();
+                CurrentBuilder = Builders.FirstOrDefault();
+            });
+        }
+
+        public string CurrentBuilder
+        {
+            get { return _currentBuilder; }
+            set
+            {
+                _currentBuilder = value;
+                OnPropertyChanged(() => CurrentBuilder);
+            }
+        }
+
+        public IEnumerable<string> Builders
+        {
+            get { return _avalableBuilders; }
+            private set
+            {
+                _avalableBuilders = value;
+                OnPropertyChanged(() => Builders);
+            }
         }
 
         public IEnumerable<Configuration> Configurations { get; private set; }
@@ -162,7 +192,7 @@ namespace ChronosBuildTool
                     }
                     if (solution.IsChecked)
                     {
-                        solution.BuildSolution(_output, CurrentConfiguration, rebuild);
+                        solution.BuildSolution(_output, CurrentConfiguration, rebuild, CurrentBuilder);
                     }
                 }
             }

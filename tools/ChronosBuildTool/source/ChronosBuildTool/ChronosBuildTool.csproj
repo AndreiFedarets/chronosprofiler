@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BoolToVisibilityConverter.cs" />
+    <Compile Include="BuilderLocator.cs" />
     <Compile Include="BuildResultToColorConverter.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="ExceptionReporter.cs" />

@@ -35,10 +35,10 @@
       <!-- <MergeRef Id="Chronos_DotNet_IISApplication" />
       <MergeRef Id="Chronos_DotNet_SqlProfiler" /> -->
 
-      <!-- Java -->
+      <!-- Java 
       <MergeRef Id="Chronos_Java" />
       <MergeRef Id="Chronos_Java_BasicProfiler" />
-
+      -->
       <!-- Win.Client -->
       <MergeRef Id="Chronos_Client_Win" />
       <MergeRef Id="Chronos_Client_Win_Common" />
@@ -53,9 +53,10 @@
       <!-- <MergeRef Id="Chronos_Client_Win_DotNet_FindReference" />
       <MergeRef Id="Chronos_Client_Win_DotNet_SqlProfiler" /> -->
 
-      <!-- Win.Client.Java -->
+      <!-- Win.Client.Java 
       <MergeRef Id="Chronos_Client_Win_Java" />
       <MergeRef Id="Chronos_Client_Win_Java_BasicProfiler" />
+      -->
     </Feature>
   </Product>
 
@@ -79,10 +80,10 @@
           -->
           <Merge Id="Chronos_DotNet_TracingProfiler" Language="1033" SourceFile="$(var.SourceDir)\Chronos.DotNet.TracingProfiler.msm" DiskId="1" />
 
-          <!-- Java -->
+          <!-- Java 
           <Merge Id="Chronos_Java" Language="1033" SourceFile="$(var.SourceDir)\Chronos.Java.msm" DiskId="1" />
           <Merge Id="Chronos_Java_BasicProfiler" Language="1033" SourceFile="$(var.SourceDir)\Chronos.Java.BasicProfiler.msm" DiskId="1" />
-          
+          -->
           <!-- Win.Client -->
           <Merge Id="Chronos_Client_Win" Language="1033" SourceFile="$(var.SourceDir)\Chronos.Client.Win.msm" DiskId="1" />
           <Merge Id="Chronos_Client_Win_Common" Language="1033" SourceFile="$(var.SourceDir)\Chronos.Client.Win.Common.msm" DiskId="1" />
@@ -99,9 +100,10 @@
           -->
           <Merge Id="Chronos_Client_Win_DotNet_TracingProfiler" Language="1033" SourceFile="$(var.SourceDir)\Chronos.Client.Win.DotNet.TracingProfiler.msm" DiskId="1" />
 
-          <!-- Win.Client.Java -->
+          <!-- Win.Client.Java 
           <Merge Id="Chronos_Client_Win_Java" Language="1033" SourceFile="$(var.SourceDir)\Chronos.Client.Win.Java.msm" DiskId="1" />
           <Merge Id="Chronos_Client_Win_Java_BasicProfiler" Language="1033" SourceFile="$(var.SourceDir)\Chronos.Client.Win.Java.BasicProfiler.msm" DiskId="1" />
+          -->
         </Directory>
       </Directory>
     </Directory>

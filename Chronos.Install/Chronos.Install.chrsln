@@ -36,12 +36,14 @@
     <Solution Name="Chronos.DotNet.TracingProfiler.chrsln">
       <File Name="Chronos.DotNet.TracingProfiler.msm" />
     </Solution>
+<!--
     <Solution Name="Chronos.Java.chrsln">
       <File Name="Chronos.Java.msm" />
     </Solution>
     <Solution Name="Chronos.Java.BasicProfiler.chrsln">
       <File Name="Chronos.Java.BasicProfiler.msm" />
     </Solution>
+-->
     <Solution Name="Chronos.Client.Win.chrsln">
       <File Name="Chronos.Client.Win.msm" />
     </Solution>
@@ -74,12 +76,14 @@
     <Solution Name="Chronos.Client.Win.DotNet.TracingProfiler.chrsln">
       <File Name="Chronos.Client.Win.DotNet.TracingProfiler.msm" />
     </Solution>
+<!--
     <Solution Name="Chronos.Client.Win.Java.chrsln">
       <File Name="Chronos.Client.Win.Java.msm" />
     </Solution>
     <Solution Name="Chronos.Client.Win.Java.BasicProfiler.chrsln">
       <File Name="Chronos.Client.Win.Java.BasicProfiler.msm" />
     </Solution>
+-->
 	
   </Dependencies>
 </Solution>
