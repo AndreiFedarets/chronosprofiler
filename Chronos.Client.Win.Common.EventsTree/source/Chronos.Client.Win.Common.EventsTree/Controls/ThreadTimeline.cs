@@ -14,6 +14,7 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
         private const string HeaderTextBlockPartName = "HeaderTextBlock";
 
         private readonly ObservableCollection<ThreadTimelineItem> _collection;
+        private readonly IEventMessageBuilder _eventMessageBuilder;
         private readonly uint _threadUid;
         private readonly IEnumerable<ISingleEventTree> _eventTrees;
         private readonly uint _endTime;
@@ -26,9 +27,10 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ThreadTimeline), new FrameworkPropertyMetadata(typeof(ThreadTimeline)));
         }
 
-        public ThreadTimeline(Timeline timeline, uint threadUid, List<ISingleEventTree> eventTrees, uint endTime)
+        public ThreadTimeline(Timeline timeline, IEventMessageBuilder eventMessageBuilder, uint threadUid, List<ISingleEventTree> eventTrees, uint endTime)
         {
             _timeline = timeline;
+            _eventMessageBuilder = eventMessageBuilder;
             _threadUid = threadUid;
             _eventTrees = eventTrees;
             _endTime = endTime;
@@ -66,7 +68,7 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             _collection.Clear();
             foreach (ISingleEventTree eventTree in _eventTrees)
             {
-                ThreadTimelineItem item = new ThreadTimelineItem(_timeline, eventTree, _endTime);
+                ThreadTimelineItem item = new ThreadTimelineItem(_timeline, _eventMessageBuilder, eventTree, _endTime);
                 _collection.Add(item);
             }
         }

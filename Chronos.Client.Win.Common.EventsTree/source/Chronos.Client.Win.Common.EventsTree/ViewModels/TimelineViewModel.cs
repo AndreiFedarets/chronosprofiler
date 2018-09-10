@@ -6,10 +6,11 @@ namespace Chronos.Client.Win.ViewModels.Common.EventsTree
     {
         private IEventTreeCollection _eventTrees;
 
-        public TimelineViewModel(IEventTreeCollection eventTrees, IProfilingTimer profilingTimer)
+        public TimelineViewModel(IEventTreeCollection eventTrees, IProfilingTimer profilingTimer, IEventMessageBuilder eventMessageBuilder)
         {
             _eventTrees = eventTrees;
             ProfilingTimer = profilingTimer;
+            EventMessageBuilder = eventMessageBuilder;
             _eventTrees.CollectionUpdated += OnEventTreesCollectionUpdated;
         }
 
@@ -29,6 +30,8 @@ namespace Chronos.Client.Win.ViewModels.Common.EventsTree
                 }
             }
         }
+
+        public IEventMessageBuilder EventMessageBuilder { get; private set; }
 
         public override string DisplayName
         {

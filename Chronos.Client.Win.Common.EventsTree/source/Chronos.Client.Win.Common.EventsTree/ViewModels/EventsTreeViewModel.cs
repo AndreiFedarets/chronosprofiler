@@ -6,7 +6,6 @@ namespace Chronos.Client.Win.ViewModels.Common.EventsTree
 {
     public sealed class EventsTreeViewModel : ViewModel
     {
-        private readonly IEventMessageBuilder _eventMessageBuilder;
         private readonly EventTreeMerger _eventTreeMerger;
         private readonly IEventTreeCollection _eventTrees;
         private IEnumerable<IEventTree> _mergedEventTrees;
@@ -17,7 +16,7 @@ namespace Chronos.Client.Win.ViewModels.Common.EventsTree
         {
             _eventTrees = eventTrees;
             _eventTrees.CollectionUpdated += OnEventTreesCollectionUpdated;
-            _eventMessageBuilder = eventMessageBuilder;
+            EventMessageBuilder = eventMessageBuilder;
             _eventTreeMerger = new EventTreeMerger();
             AvailableMergeTypes = new List<EventTreeMergeType> { EventTreeMergeType.None, EventTreeMergeType.Root, EventTreeMergeType.Thread };
             SelectedMergeType = EventTreeMergeType.Root;
@@ -69,10 +68,7 @@ namespace Chronos.Client.Win.ViewModels.Common.EventsTree
             }
         }
 
-        public IEventMessageBuilder EventMessageBuilder
-        {
-            get { return _eventMessageBuilder; }
-        }
+        public IEventMessageBuilder EventMessageBuilder { get; private set; }
 
         public override string DisplayName
         {

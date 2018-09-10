@@ -29,6 +29,7 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
         private static readonly DependencyProperty SelectedItemProperty;
         private static readonly DependencyProperty HoveredEventTreeProperty;
         private static readonly DependencyProperty SelectedEventTreeProperty;
+        private static readonly DependencyProperty EventMessageBuilderProperty;
         //private static readonly DependencyProperty ThreadsProperty;
 
         private readonly ObservableCollection<ThreadTimeline> _collection;
@@ -43,6 +44,8 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             // Events
             EventsProperty = DependencyProperty.Register("Events", typeof(IEventTreeCollection), typeof(Timeline), new PropertyMetadata(OnEventsPropertyChanged));
             ProfilingTimerProperty = DependencyProperty.Register("ProfilingTimer", typeof(IProfilingTimer), typeof(Timeline), new PropertyMetadata(OnProfilingTimerPropertyChanged));
+            // EventMessageBuilder
+            EventMessageBuilderProperty = DependencyProperty.Register("EventMessageBuilder", typeof(IEventMessageBuilder), typeof(Timeline), new PropertyMetadata(OnEventFormatterPropertyChanged));
             // HoveredItem
             HoveredItemPropertyKey = DependencyProperty.RegisterReadOnly("HoveredItem", typeof(ThreadTimelineItem), typeof(Timeline), new PropertyMetadata(OnHoveredItemPropertyChanged));
             HoveredItemProperty = HoveredItemPropertyKey.DependencyProperty;
@@ -98,6 +101,12 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
         {
             get { return (ISingleEventTree)GetValue(SelectedEventTreeProperty); }
             private set { SetValue(SelectedEventTreePropertyKey, value); }
+        }
+
+        public IEventMessageBuilder EventMessageBuilder
+        {
+            get { return (IEventMessageBuilder)GetValue(EventMessageBuilderProperty); }
+            set { SetValue(EventMessageBuilderProperty, value); }
         }
 
         private bool AreChildrenInitialized { get; set; }
@@ -176,14 +185,20 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             uint endTime = ProfilingTimer.CurrentTime;
             foreach (IGrouping<uint, ISingleEventTree> group in groups)
             {
-                ThreadTimeline item = new ThreadTimeline(this, group.Key, group.ToList(), endTime);
+                ThreadTimeline item = new ThreadTimeline(this, EventMessageBuilder, group.Key, group.ToList(), endTime);
                 _collection.Add(item);
             }
-            DispatcherExtensions.DoEvents();
+            //DispatcherExtensions.DoEvents();
             UpdateContentBorder();
         }
 
         private static void OnEventsPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            Timeline view = (Timeline)sender;
+            view.InitializeChildren();
+        }
+
+        private static void OnEventFormatterPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             Timeline view = (Timeline)sender;
             view.InitializeChildren();

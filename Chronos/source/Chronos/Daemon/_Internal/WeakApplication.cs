@@ -264,7 +264,7 @@ namespace Chronos.Daemon
                         application = _application;
                         return true;
                     }
-                    catch (RemotingException remotingException)
+                    catch (RemoteApplicationUnavailableException remotingException)
                     {
                         _application = null;
                         LoggingProvider.Current.Log(TraceEventType.Information, remotingException);

@@ -28,7 +28,8 @@ namespace Chronos.Client.Win.Menu.Common.EventsTree
                 {
                     IProfilingApplication application = _profilingViewModel.Application;
                     IEventTreeCollection eventTrees = application.ServiceContainer.Resolve<IEventTreeCollection>();
-                    _viewModel = new TimelineViewModel(eventTrees, application.ProfilingTimer);
+                    IEventMessageBuilder messageBuilder = application.ServiceContainer.Resolve<IEventMessageBuilder>();
+                    _viewModel = new TimelineViewModel(eventTrees, application.ProfilingTimer, messageBuilder);
                     _profilingViewModel.Add(_viewModel);
                 }
                 return _viewModel;
