@@ -1,16 +1,28 @@
-﻿using Chronos.Client.Win.ViewModels;
+﻿using Chronos.Client.Win.DotNet.SqlProfiler.Properties;
+using Chronos.Client.Win.Menu;
+using Chronos.Client.Win.ViewModels;
+using Chronos.Client.Win.ViewModels.Profiling;
 
 namespace Chronos.Client.Win.DotNet.SqlProfiler
 {
-    public sealed class ProfilingTypeAdapter : IProfilingTypeAdapter
+    public sealed class ProfilingTypeAdapter : IProfilingTypeAdapter, IMenuSource
     {
-        public IProfilingTypeSession CreateDecodingSession(ProfilingTypeSettings profilingTypeSettings)
+        public object CreateSettingsPresentation(ProfilingTypeSettings profilingTypeSettings)
         {
-            return new ProfilingTypeSession();
+            return null;
         }
 
-        public IProfilingTypeSettingsViewModel CreateSettingsViewModel(ProfilingTypeSettings profilingTypeSettings)
+        public IMenu GetMenu(PageViewModel pageViewModel)
         {
+            ProfilingViewModel profilingViewModel = pageViewModel as ProfilingViewModel;
+            if (profilingViewModel != null)
+            {
+                IProfilingApplication application = profilingViewModel.Application;
+                ResolutionDependencies dependencies = new ResolutionDependencies();
+                dependencies.Register(application);
+                dependencies.Register(profilingViewModel);
+                return MenuReader.ReadMenu(Resources.Menu, dependencies);
+            }
             return null;
         }
     }

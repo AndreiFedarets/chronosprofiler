@@ -41,25 +41,14 @@
       <HintPath>..\..\externals\Chronos.Client.Win.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Chronos.DotNet">
-      <HintPath>..\..\externals\Chronos.DotNet.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Chronos.DotNet.BasicProfiler, Version=0.1.0.0, Culture=neutral, PublicKeyToken=c28f3cd3ba59a60f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Chronos.DotNet.BasicProfiler">
       <HintPath>..\..\externals\Chronos.DotNet.BasicProfiler.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Xaml" />
     <Reference Include="System.XML" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\AppDomainsModel.cs" />

@@ -1,13 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Extension Uid="{B075FF76-E576-45C3-88D8-3FA8EF11D335}">
-  
   <Attachment TargetUid="{07D2F6E8-D96F-4EE0-9E6E-6404D587F3F3}" TargetVersion="0.1">
-    <Export Application="client.win.main" EntryPoint="Chronos.Client.Win.DotNet.SqlProfiler.ProfilingTypeAdapter, Chronos.Client.Win.DotNet.SqlProfiler" />
+    <Export Application="client.win" EntryPoint="Chronos.Client.Win.DotNet.SqlProfiler.ProfilingTypeAdapter, Chronos.Client.Win.DotNet.SqlProfiler" />
   </Attachment>
-  
   <Localization Culture="en-US">
     <Name>Microsoft.NET SQL (UI for Desktop Client)</Name>
     <Description>Profiling Microsoft.NET SQL requests</Description>
   </Localization>
-  
 </Extension>

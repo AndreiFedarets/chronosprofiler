@@ -1,12 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using Chronos.Client.Win.Model;
+using Chronos.DotNet.SqlProfiler;
+using Chronos.Model;
 
-namespace Chronos.Client.Win.DotNet.SqlProfiler.Models
+namespace Chronos.Client.Win.Models.DotNet.SqlProfiler
 {
-    public sealed class MsSqlQueriesModel : IUnitsModel
+    public sealed class SqlQueriesModel : IUnitsModel
     {
-        public MsSqlQueriesModel(IMsSqlQueryCollection units)
+        public SqlQueriesModel(ISqlQueryCollection units)
         {
             Units = units;
             Columns = new List<GridViewDynamicColumn>
@@ -17,7 +19,12 @@ namespace Chronos.Client.Win.DotNet.SqlProfiler.Models
 
         public string DisplayName
         {
-            get { return "MS SQL Queries"; }
+            get { return "SQL Queries"; }
+        }
+
+        public Type UnitType
+        {
+            get { return typeof(SqlQueryInfo); }
         }
 
         public IEnumerable<GridViewDynamicColumn> Columns { get; private set; }

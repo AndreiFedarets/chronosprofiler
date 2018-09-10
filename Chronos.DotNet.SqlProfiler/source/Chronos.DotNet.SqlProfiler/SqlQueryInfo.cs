@@ -4,17 +4,17 @@ using Chronos.Model;
 namespace Chronos.DotNet.SqlProfiler
 {
     [Serializable]
-    public sealed class MsSqlQueryInfo : UnitBase
+    public sealed class SqlQueryInfo : UnitBase
     {
-        public MsSqlQueryInfo(MsSqlQueryNativeInfo queryInfo)
+        public SqlQueryInfo(SqlQueryNativeInfo queryInfo)
             : base(queryInfo)
         {
             SetDependencies();
         }
 
-        private MsSqlQueryNativeInfo QueryNativeInfo
+        private SqlQueryNativeInfo QueryNativeInfo
         {
-            get { return (MsSqlQueryNativeInfo)NativeUnit; }
+            get { return (SqlQueryNativeInfo)NativeUnit; }
         }
 
         internal void SetDependencies()

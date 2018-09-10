@@ -2,6 +2,6 @@
 {
     internal enum UnitType
     {
-        MsSqlQuery = 10,
+        SqlQuery = 10,
     }
 }

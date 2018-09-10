@@ -22,7 +22,7 @@
     <ProjectGuid>{8F777EF9-72C8-4911-83A3-B0105D70C7E9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ChronosDotNetExceptionMonitorAgent</RootNamespace>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

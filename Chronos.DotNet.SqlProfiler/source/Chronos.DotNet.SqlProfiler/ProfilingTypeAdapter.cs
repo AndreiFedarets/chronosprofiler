@@ -8,17 +8,17 @@ namespace Chronos.DotNet.SqlProfiler
 {
     public sealed class ProfilingTypeAdapter : IProfilingTypeAdapter, IManagedDataHandler
     {
-        private readonly MsSqlQueryCollection _sqlQueries;
+        private readonly SqlQueryCollection _sqlQueries;
         private IDataStorage _storage;
 
         static ProfilingTypeAdapter()
         {
-            MarshalingManager.RegisterMarshaler(new Marshaling.MsSqlQueryInfoMarshaler());
+            MarshalingManager.RegisterMarshaler(new Marshaling.SqlQueryInfoMarshaler());
         }
 
         public ProfilingTypeAdapter()
         {
-            _sqlQueries = new MsSqlQueryCollection();
+            _sqlQueries = new SqlQueryCollection();
         }
 
         public void AttachStorage(IDataStorage storage)
@@ -66,8 +66,8 @@ namespace Chronos.DotNet.SqlProfiler
                     UnitType unitType = (UnitType) Int32Marshaler.Demarshal(stream);
                     switch (unitType)
                     {
-                        case UnitType.MsSqlQuery:
-                            MsSqlQueryNativeInfo[] sqlQueries = MarshalingManager.Demarshal<MsSqlQueryNativeInfo[]>(stream);
+                        case UnitType.SqlQuery:
+                            SqlQueryNativeInfo[] sqlQueries = MarshalingManager.Demarshal<SqlQueryNativeInfo[]>(stream);
                             _sqlQueries.Update(sqlQueries);
                             break;
                         default:

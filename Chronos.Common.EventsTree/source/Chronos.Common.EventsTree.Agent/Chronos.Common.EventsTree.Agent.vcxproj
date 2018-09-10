@@ -22,7 +22,7 @@
     <ProjectGuid>{2E54B75A-153B-46A6-B85B-70CADF820627}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ChronosCommonEventsTreeAgent</RootNamespace>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

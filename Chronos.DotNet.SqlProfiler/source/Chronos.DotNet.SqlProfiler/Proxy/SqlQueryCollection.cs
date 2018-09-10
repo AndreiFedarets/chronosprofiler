@@ -4,10 +4,10 @@ using Chronos.Proxy.Model;
 
 namespace Chronos.DotNet.SqlProfiler.Proxy
 {
-    internal sealed class MsSqlQueryCollection : UnitCollectionProxyBase<MsSqlQueryInfo>, IMsSqlQueryCollection
+    internal sealed class SqlQueryCollection : UnitCollectionProxyBase<SqlQueryInfo>, ISqlQueryCollection
     {
-        public MsSqlQueryCollection(IUnitCollection<MsSqlQueryInfo> remoteObject, IApplicationSponsor sponsor)
-            : base(remoteObject, sponsor)
+        public SqlQueryCollection(IUnitCollection<SqlQueryInfo> remoteObject)
+            : base(remoteObject)
         {
         }
 
@@ -16,7 +16,7 @@ namespace Chronos.DotNet.SqlProfiler.Proxy
         {
         }
 
-        protected override MsSqlQueryInfo Convert(MsSqlQueryInfo unit)
+        protected override SqlQueryInfo Convert(SqlQueryInfo unit)
         {
             unit.SetDependencies();
             return unit;

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include "$(var.SolutionDir)\.scripts\ModuleConfig.wxi"?>
+  <Module Id="Chronos.DotNet.SqlProfiler" Language="1033" Version="$(var.Version)">
+    <Package Id="0f310cc3-89e7-4159-bf87-19af57d99ecb" Manufacturer="$(var.Manufacturer)" InstallerVersion="200" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MergeRedirectFolder">
+        <Directory Id="Chronos_DotNet_SqlProfiler_Directory" Name="$(var.TargetDir)">
+          <Component Id="Chronos_DotNet_SqlProfiler_Component" Guid="1f4c8dc6-15e9-4acc-adca-87add0fe2ac6">
+            <File Id="Chronos_DotNet_SqlProfiler_dll" Name="Chronos.DotNet.SqlProfiler.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.DotNet.SqlProfiler.dll" />
+            <File Id="Chronos_DotNet_SqlProfiler_xchronex" Name="Chronos.DotNet.SqlProfiler.xchronex" DiskId="1" Source="$(var.SourceDir)\Chronos.DotNet.SqlProfiler.xchronex" />
+            <File Id="Chronos_DotNet_SqlProfiler_Agent_dll" Name="Chronos.DotNet.SqlProfiler.Agent.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.DotNet.SqlProfiler.Agent.dll" />
+          </Component>
+          <Directory Id="Chronos_DotNet_SqlProfiler_Directory_64" Name="$(var.Dir64)">
+            <Component Id="Chronos_DotNet_SqlProfiler_Component_64" Guid="3150006a-8893-4cb0-be97-98c0e309e425">
+              <File Id="Chronos_DotNet_SqlProfiler_Agent_dll_64" Name="Chronos.DotNet.SqlProfiler.Agent.dll" DiskId="1" Source="$(var.SourceDir)\$(var.Dir64)\Chronos.DotNet.SqlProfiler.Agent.dll" />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>
