@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <?include "$(var.SolutionDir)\.scripts\ModuleConfig.wxi"?>
+  <?include "$(var.SolutionDir)\.scripts\ModuleInfo.wxi"?>
   <Module Id="Chronos.Client.Win" Language="1033" Version="$(var.Version)">
     <Package Id="d2907d60-fe36-4d19-aaf8-e5f17d7612b3" Manufacturer="$(var.Manufacturer)" InstallerVersion="200" />
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="MergeRedirectFolder">
-        <Directory Id="Chronos_Client_Win_Directory" Name="$(var.TargetDir)">
+        <Directory Id="Chronos_Client_Win_Directory" Name="$(var.ModuleTargetDir)">
           <Component Id="Chronos_Client_Win_Component" Guid="d62f5434-d073-4f58-a8dd-a527b87c0af4">
-            <File Id="Caliburn_Micro_dll" Name="Caliburn.Micro.dll" DiskId="1" Source="$(var.SourceDir)\Caliburn.Micro.dll" />
-            <File Id="Caliburn_Micro_Platform_dll" Name="Caliburn.Micro.Platform.dll" DiskId="1" Source="$(var.SourceDir)\Caliburn.Micro.Platform.dll" />
-            <File Id="Chronos_Client_Win_dll" Name="Chronos.Client.Win.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.Client.Win.dll" />
-            <File Id="Chronos_Client_Win_Application_exe" Name="Chronos.Client.Win.Application.exe" DiskId="1" Source="$(var.SourceDir)\Chronos.Client.Win.Application.exe" />
-            <File Id="Chronos_Client_Win_Application_exe_config" Name="Chronos.Client.Win.Application.exe.config" DiskId="1" Source="$(var.SourceDir)\Chronos.Client.Win.Application.exe.config" />
-            <File Id="Microsoft_Practices_Unity_dll" Name="Microsoft.Practices.Unity.dll" DiskId="1" Source="$(var.SourceDir)\Microsoft.Practices.Unity.dll" />
-            <File Id="Microsoft_Windows_Shell_dll" Name="Microsoft.Windows.Shell.dll" DiskId="1" Source="$(var.SourceDir)\Microsoft.Windows.Shell.dll" />
-            <File Id="System_Windows_Interactivity_dll" Name="System.Windows.Interactivity.dll" DiskId="1" Source="$(var.SourceDir)\System.Windows.Interactivity.dll" />
+            <File Id="Caliburn_Micro_dll" Name="Caliburn.Micro.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Caliburn.Micro.dll" />
+            <File Id="Caliburn_Micro_Platform_dll" Name="Caliburn.Micro.Platform.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Caliburn.Micro.Platform.dll" />
+            <File Id="Chronos_Client_Win_dll" Name="Chronos.Client.Win.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.dll" />
+            <File Id="Chronos_Client_Win_Application_exe" Name="Chronos.Client.Win.Application.exe" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.Application.exe" />
+            <File Id="Chronos_Client_Win_Application_exe_config" Name="Chronos.Client.Win.Application.exe.config" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.Application.exe.config" />
+            <File Id="Microsoft_Practices_Unity_dll" Name="Microsoft.Practices.Unity.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Microsoft.Practices.Unity.dll" />
+            <File Id="Microsoft_Windows_Shell_dll" Name="Microsoft.Windows.Shell.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Microsoft.Windows.Shell.dll" />
+            <File Id="System_Windows_Interactivity_dll" Name="System.Windows.Interactivity.dll" DiskId="1" Source="$(var.ModuleSourceDir)\System.Windows.Interactivity.dll" />
           </Component>
         </Directory>
       </Directory>

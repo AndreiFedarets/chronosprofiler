@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <?include "$(var.SolutionDir)\.scripts\ModuleConfig.wxi"?>
+  <?include "$(var.SolutionDir)\.scripts\ModuleInfo.wxi"?>
   <Module Id="Chronos.Client.Win.DotNet.BasicProfiler" Language="1033" Version="$(var.Version)">
     <Package Id="53b3ff21-6e50-4089-80e6-139ed5a7febc" Manufacturer="$(var.Manufacturer)" InstallerVersion="200" />
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="MergeRedirectFolder">
-        <Directory Id="Chronos_Client_Win_DotNet_BasicProfiler_Directory" Name="$(var.TargetDir)">
+        <Directory Id="Chronos_Client_Win_DotNet_BasicProfiler_Directory" Name="$(var.ModuleTargetDir)">
           <Component Id="Chronos_Client_Win_DotNet_BasicProfiler_Component" Guid="b24dd3a3-071c-4b2c-a28e-d5617b6ebd34">
-            <File Id="Chronos_Client_Win_DotNet_BasicProfiler_dll" Name="Chronos.Client.Win.DotNet.BasicProfiler.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.Client.Win.DotNet.BasicProfiler.dll" />
-            <File Id="Chronos_Client_Win_DotNet_BasicProfiler_xchronex" Name="Chronos.Client.Win.DotNet.BasicProfiler.xchronex" DiskId="1" Source="$(var.SourceDir)\Chronos.Client.Win.DotNet.BasicProfiler.xchronex" />
+            <File Id="Chronos_Client_Win_DotNet_BasicProfiler_dll" Name="Chronos.Client.Win.DotNet.BasicProfiler.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.BasicProfiler.dll" />
+            <File Id="Chronos_Client_Win_DotNet_BasicProfiler_xchronex" Name="Chronos.Client.Win.DotNet.BasicProfiler.xchronex" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.BasicProfiler.xchronex" />
           </Component>
         </Directory>
       </Directory>

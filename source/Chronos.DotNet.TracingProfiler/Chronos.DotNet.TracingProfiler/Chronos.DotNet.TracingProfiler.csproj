@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\.scripts\CSharp.targets" />
+  <PropertyGroup>
+    <ChronosModuleName>Chronos.DotNet.TracingProfiler</ChronosModuleName>
+  </PropertyGroup>
+  <Import Project="..\..\.scripts\CSharp.targets" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -32,22 +35,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Chronos">
-      <HintPath>..\..\externals\Chronos.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Chronos.Common.EventsTree">
-      <HintPath>..\..\externals\Chronos.Common.EventsTree.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Chronos.DotNet">
-      <HintPath>..\..\externals\Chronos.DotNet.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Chronos.DotNet.BasicProfiler">
-      <HintPath>..\..\externals\Chronos.DotNet.BasicProfiler.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -77,7 +64,28 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Chronos.Common.EventsTree\Chronos.Common.EventsTree\Chronos.Common.EventsTree.csproj">
+      <Project>{2f69c3fb-4dd5-440f-b96e-42bebfbe8011}</Project>
+      <Name>Chronos.Common.EventsTree</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Chronos.DotNet.BasicProfiler\Chronos.DotNet.BasicProfiler\Chronos.DotNet.BasicProfiler.csproj">
+      <Project>{e4a7a762-8703-4c4d-a609-3915b0a1dfe4}</Project>
+      <Name>Chronos.DotNet.BasicProfiler</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Chronos.DotNet\Chronos.DotNet\Chronos.DotNet.csproj">
+      <Project>{b339b248-659f-4780-9185-3d06450ebd6d}</Project>
+      <Name>Chronos.DotNet</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Chronos\Chronos\Chronos.csproj">
+      <Project>{75ba0099-4ad5-4a8e-8ca4-4ecb842e169c}</Project>
+      <Name>Chronos</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

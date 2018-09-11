@@ -1,7 +1,6 @@
 #pragma once
-#include <Chronos.Agent.h>
-#include <Chronos.Common.EventsTree.Agent.h>
-#include <Chronos.DotNet.BasicProfiler.Agent.h>
+#include <Chronos.Common.EventsTree/Chronos.Common.EventsTree.Agent.h>
+#include <Chronos.DotNet.BasicProfiler/Chronos.DotNet.BasicProfiler.Agent.h>
 
 #ifdef CHRONOS_DOTNET_TRACING_PROFILER_EXPORT_API
 #define CHRONOS_DOTNET_TRACING_PROFILER_API __declspec(dllexport) 

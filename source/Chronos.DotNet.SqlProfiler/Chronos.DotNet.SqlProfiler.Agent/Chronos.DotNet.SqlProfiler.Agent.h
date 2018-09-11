@@ -1,5 +1,5 @@
 #pragma once
-#include "Chronos.DotNet.Agent.h"
+#include "Chronos.DotNet/Chronos.DotNet.Agent.h"
 
 #ifdef CHRONOS_DOTNET_SQLPROFILER_EXPORT_API
 #define CHRONOS_DOTNET_SQLPROFILER_API __declspec(dllexport) 

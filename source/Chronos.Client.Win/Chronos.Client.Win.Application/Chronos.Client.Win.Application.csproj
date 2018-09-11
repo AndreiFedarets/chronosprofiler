@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\.scripts\CSharp.targets" />
+  <PropertyGroup>
+    <ChronosModuleName>Chronos.Client.Win</ChronosModuleName>
+  </PropertyGroup>
+  <Import Project="..\..\.scripts\CSharp.targets" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -36,10 +39,6 @@
     <ApplicationIcon>Main.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Chronos">
-      <HintPath>..\..\externals\Chronos.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.configuration" />
@@ -74,9 +73,15 @@
     <None Include="SplashScreen.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Chronos\Chronos\Chronos.csproj">
+      <Project>{75ba0099-4ad5-4a8e-8ca4-4ecb842e169c}</Project>
+      <Name>Chronos</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Chronos.Client.Win\Chronos.Client.Win.csproj">
       <Project>{6DB0686C-3F7A-4156-A4BB-3709BC048454}</Project>
       <Name>Chronos.Client.Win</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\.scripts\CSharp.targets" />
+  <PropertyGroup>
+    <ChronosModuleName>Chronos.Client.Win.DotNet.SqlProfiler</ChronosModuleName>
+  </PropertyGroup>
+  <Import Project="..\..\.scripts\CSharp.targets" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -30,19 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro">
-      <HintPath>..\..\externals\Caliburn.Micro.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Chronos">
-      <HintPath>..\..\externals\Chronos.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Chronos.Client.Win">
-      <HintPath>..\..\externals\Chronos.Client.Win.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Chronos.DotNet.SqlProfiler">
-      <HintPath>..\..\externals\Chronos.DotNet.SqlProfiler.dll</HintPath>
+      <HintPath>..\..\..\externals\Caliburn.Micro.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -67,7 +58,23 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Chronos.Client.Win\Chronos.Client.Win\Chronos.Client.Win.csproj">
+      <Project>{6db0686c-3f7a-4156-a4bb-3709bc048454}</Project>
+      <Name>Chronos.Client.Win</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Chronos.DotNet.SqlProfiler\Chronos.DotNet.SqlProfiler\Chronos.DotNet.SqlProfiler.csproj">
+      <Project>{09e516dd-c29c-4fea-8b13-db51681ca2c8}</Project>
+      <Name>Chronos.DotNet.SqlProfiler</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Chronos\Chronos\Chronos.csproj">
+      <Project>{75ba0099-4ad5-4a8e-8ca4-4ecb842e169c}</Project>
+      <Name>Chronos</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

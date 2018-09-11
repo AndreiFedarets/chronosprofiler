@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <?include "$(var.SolutionDir)\.scripts\ModuleConfig.wxi"?>
+  <?include "$(var.SolutionDir)\.scripts\ModuleInfo.wxi"?>
   <Module Id="Chronos.Client.Win.DotNet.SqlProfiler" Language="1033" Version="$(var.Version)">
     <Package Id="de815cd3-22c4-445d-9d32-bbe0c5ab6429" Manufacturer="$(var.Manufacturer)" InstallerVersion="200" />
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="MergeRedirectFolder">
-        <Directory Id="Chronos_Client_Win_DotNet_SqlProfiler_Directory" Name="$(var.TargetDir)">
+        <Directory Id="Chronos_Client_Win_DotNet_SqlProfiler_Directory" Name="$(var.ModuleTargetDir)">
           <Component Id="Chronos_Client_Win_DotNet_SqlProfiler_Component" Guid="6568cb63-9615-486e-b9d9-75ca77ee682e">
-            <File Id="Chronos_Client_Win_DotNet_SqlProfiler_dll" Name="Chronos.Client.Win.DotNet.SqlProfiler.dll" DiskId="1" Source="$(var.SourceDir)\Chronos.Client.Win.DotNet.SqlProfiler.dll" />
-            <File Id="Chronos_Client_Win_DotNet_SqlProfiler_xchronex" Name="Chronos.Client.Win.DotNet.SqlProfiler.xchronex" DiskId="1" Source="$(var.SourceDir)\Chronos.Client.Win.DotNet.SqlProfiler.xchronex" />
+            <File Id="Chronos_Client_Win_DotNet_SqlProfiler_dll" Name="Chronos.Client.Win.DotNet.SqlProfiler.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.SqlProfiler.dll" />
+            <File Id="Chronos_Client_Win_DotNet_SqlProfiler_xchronex" Name="Chronos.Client.Win.DotNet.SqlProfiler.xchronex" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.SqlProfiler.xchronex" />
           </Component>
         </Directory>
       </Directory>

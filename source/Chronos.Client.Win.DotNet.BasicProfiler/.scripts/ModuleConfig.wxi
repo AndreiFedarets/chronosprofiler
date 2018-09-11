@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-  <?define SourceDir="..\..\build" ?>
-  <?define TargetDir="Chronos.Client.Win.DotNet.BasicProfiler" ?>
-  <?define Version="0.4.1.0" ?>
-  <?define Manufacturer="Andrei Fedarets" ?>
-</Include>

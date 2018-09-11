@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\.scripts\CSharp.targets" />
+  <PropertyGroup>
+    <ChronosModuleName>Chronos.DotNet.SqlProfiler</ChronosModuleName>
+  </PropertyGroup>
+  <Import Project="..\..\.scripts\CSharp.targets" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -29,14 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Chronos">
-      <HintPath>..\..\externals\Chronos.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Chronos.DotNet">
-      <HintPath>..\..\externals\Chronos.DotNet.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,6 +51,18 @@
     <None Include="Chronos.DotNet.SqlProfiler.xchronex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Chronos.DotNet\Chronos.DotNet\Chronos.DotNet.csproj">
+      <Project>{b339b248-659f-4780-9185-3d06450ebd6d}</Project>
+      <Name>Chronos.DotNet</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Chronos\Chronos\Chronos.csproj">
+      <Project>{75ba0099-4ad5-4a8e-8ca4-4ecb842e169c}</Project>
+      <Name>Chronos</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

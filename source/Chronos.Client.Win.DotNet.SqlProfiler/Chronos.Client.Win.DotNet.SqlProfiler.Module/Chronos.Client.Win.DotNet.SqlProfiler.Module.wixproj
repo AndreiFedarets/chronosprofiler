@@ -1,13 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\.scripts\Wix.targets" />
+  <PropertyGroup>
+    <ChronosModuleName>Chronos.Client.Win.DotNet.SqlProfiler</ChronosModuleName>
+  </PropertyGroup>
+  <Import Project="..\..\.scripts\Wix.targets" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>3.10</ProductVersion>
-    <ProjectGuid>{eeb4d6db-c5a4-4400-b31a-2d4950fadf56}</ProjectGuid>
+    <ProjectGuid>{cb8e8b22-e76e-4a5b-98b9-6f132cb6abdc}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>Chronos.Client.Win.DotNet.BasicProfiler</OutputName>
+    <OutputName>Chronos.Client.Win.DotNet.SqlProfiler</OutputName>
     <OutputType>Module</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>

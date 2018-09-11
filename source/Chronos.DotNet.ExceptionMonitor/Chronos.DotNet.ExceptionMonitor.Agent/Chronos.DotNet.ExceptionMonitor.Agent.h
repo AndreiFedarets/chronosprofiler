@@ -1,6 +1,4 @@
 #pragma once
-#include <Chronos/Chronos.Agent.h>
-#include <Chronos.DotNet/Chronos.DotNet.Agent.h>
 #include <Chronos.DotNet.BasicProfiler/Chronos.DotNet.BasicProfiler.Agent.h>
 
 #ifdef CHRONOS_DOTNET_EXCEPTION_MONITOR_EXPORT_API
