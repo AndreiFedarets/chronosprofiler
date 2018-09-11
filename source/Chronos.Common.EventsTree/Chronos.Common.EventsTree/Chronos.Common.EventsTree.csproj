@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ChronosModuleName>Chronos.Common.EventsTree</ChronosModuleName>
+  </PropertyGroup>
+  <Import Project="..\..\.scripts\CSharp.targets" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2F69C3FB-4DD5-440F-B96E-42BEBFBE8011}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Chronos.Common.EventsTree</RootNamespace>
+    <AssemblyName>Chronos.Common.EventsTree</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="EventTreeEventArgs.cs" />
+    <Compile Include="EventTreeMerger.cs" />
+    <Compile Include="EventTreeMergeType.cs" />
+    <Compile Include="IEventTreeMerger.cs" />
+    <Compile Include="IMergedEventTree.cs" />
+    <Compile Include="ISingleEventTree.cs" />
+    <Compile Include="IThreadEventTree.cs" />
+    <Compile Include="IThreadEventTreeMessage.cs" />
+    <Compile Include="Proxy\EventMessageBuilder.cs" />
+    <Compile Include="Proxy\ThreadEventTreeMessage.cs" />
+    <Compile Include="_Internal\EventMessageBuilderInternal.cs" />
+    <Compile Include="_Internal\EventTreeHeader.cs" />
+    <Compile Include="IEvent.cs" />
+    <Compile Include="IEventMessage.cs" />
+    <Compile Include="IEventMessageBuilder.cs" />
+    <Compile Include="IEventTree.cs" />
+    <Compile Include="IEventTreeCollection.cs" />
+    <Compile Include="IReferenceAnalyzer.cs" />
+    <Compile Include="ProfilingTypeAdapter.cs" />
+    <Compile Include="Proxy\EventTreeCollection.cs" />
+    <Compile Include="Reference.cs" />
+    <Compile Include="_Internal\AgentLibrary.cs" />
+    <Compile Include="_Internal\EventTreeData.cs" />
+    <Compile Include="_Internal\Event.cs" />
+    <Compile Include="_Internal\EventMessageBuilder.cs" />
+    <Compile Include="_Internal\EventPageHeader.cs" />
+    <Compile Include="_Internal\EventPageState.cs" />
+    <Compile Include="_Internal\DataHandler.cs" />
+    <Compile Include="_Internal\SingleEventTree.cs" />
+    <Compile Include="_Internal\EventTreeBuilder.cs" />
+    <Compile Include="_Internal\EventTreeCollection.cs" />
+    <Compile Include="NativeEventHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_Internal\IEventTreeBuilder.cs" />
+    <Compile Include="_Internal\MergedEventTree.cs" />
+    <Compile Include="_Internal\ThreadEventTreeMessage.cs" />
+    <Compile Include="_Internal\ThreadEventTree.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Chronos.Common.EventsTree.xchronex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Chronos.Common\Chronos.Common\Chronos.Common.csproj">
+      <Project>{3ff82557-b745-4c8a-b691-d1323c08ea12}</Project>
+      <Name>Chronos.Common</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Chronos\Chronos\Chronos.csproj">
+      <Project>{75ba0099-4ad5-4a8e-8ca4-4ecb842e169c}</Project>
+      <Name>Chronos</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

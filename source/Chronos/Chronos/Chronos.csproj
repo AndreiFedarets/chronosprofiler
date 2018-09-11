@@ -1,0 +1,503 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ChronosModuleName>Chronos</ChronosModuleName>
+  </PropertyGroup>
+  <Import Project="..\..\.scripts\CSharp.targets" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{75BA0099-4AD5-4A8E-8CA4-4ECB842E169C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Chronos</RootNamespace>
+    <AssemblyName>Chronos</AssemblyName>
+    <SGenUseProxyTypes>false</SGenUseProxyTypes>
+    <SGenPlatformTarget>$(Platform)</SGenPlatformTarget>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!--<GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+	<SGenSerializationTypes>Chronos.Extensibility.Xml.Chronex</SGenSerializationTypes>-->
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\..\..\externals\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Agent\_Internal\AgentResolver.cs" />
+    <Compile Include="Client\AdapterResolver.cs" />
+    <Compile Include="Client\ApplicationBase.cs" />
+    <Compile Include="Client\DispatcherHolder.cs" />
+    <Compile Include="Client\IDispatcher.cs" />
+    <Compile Include="Client\IFramework.cs" />
+    <Compile Include="Client\IFrameworkAdapter.cs" />
+    <Compile Include="Client\IFrameworkCollection.cs" />
+    <Compile Include="Client\IProfilingTarget.cs" />
+    <Compile Include="Client\IProfilingTargetAdapter.cs" />
+    <Compile Include="Client\IProfilingTargetCollection.cs" />
+    <Compile Include="Client\IProfilingType.cs" />
+    <Compile Include="Client\IProfilingTypeAdapter.cs" />
+    <Compile Include="Client\IProfilingTypeCollection.cs" />
+    <Compile Include="Client\_Internal\CollectionChangedBase.cs" />
+    <Compile Include="Client\_Internal\ConfigurationCollection.cs" />
+    <Compile Include="Client\_Internal\DefaultDispatcher.cs" />
+    <Compile Include="Client\_Internal\DictionaryChangedBase.cs" />
+    <Compile Include="Client\_Internal\Framework.cs" />
+    <Compile Include="Client\_Internal\FrameworkCollection.cs" />
+    <Compile Include="Client\_Internal\ProfilingTarget.cs" />
+    <Compile Include="Client\_Internal\ProfilingTargetCollection.cs" />
+    <Compile Include="Client\_Internal\ProfilingType.cs" />
+    <Compile Include="Client\_Internal\ProfilingTypeCollection.cs" />
+    <Compile Include="Client\_Internal\PropertyChangedBase.cs" />
+    <Compile Include="Client\_Internal\SessionCollection.cs" />
+    <Compile Include="Extensibility\ApplicationExtensionDefinition.cs" />
+    <Compile Include="Extensibility\ApplicationExtensionDefinitionCollection.cs" />
+    <Compile Include="Host\ConnectionManager.cs" />
+    <Compile Include="Host\IConnectionManager.cs" />
+    <Compile Include="Client\IProductivity.cs" />
+    <Compile Include="Client\IProductivityAdapter.cs" />
+    <Compile Include="Client\IProductivityCollection.cs" />
+    <Compile Include="IApplicationExtension.cs" />
+    <Compile Include="IApplicationExtensionAdapter.cs" />
+    <Compile Include="IApplicationExtensionCollection.cs" />
+    <Compile Include="ILifetimeBorrower.cs" />
+    <Compile Include="ILifetimeSponsor.cs" />
+    <Compile Include="IProfilingTimer.cs" />
+    <Compile Include="Proxy\ProxyBaseObjectHelper.cs" />
+    <Compile Include="Proxy\_Internal\LifetimeSponsorCollection.cs" />
+    <Compile Include="Registry\VariableCollection.cs" />
+    <Compile Include="Settings\IChannelSettings.cs" />
+    <Compile Include="Settings\ICrashDumpSettings.cs" />
+    <Compile Include="Settings\IEventLoggerSettings.cs" />
+    <Compile Include="Settings\IExtensionSettingsCollection.cs" />
+    <Compile Include="Settings\IExtensionSettings.cs" />
+    <Compile Include="Settings\IFileLoggerSettings.cs" />
+    <Compile Include="Settings\IDirectorySettings.cs" />
+    <Compile Include="Settings\IDirectorySettingsCollection.cs" />
+    <Compile Include="Settings\IConnectionSettings.cs" />
+    <Compile Include="Settings\IConnectionSettingsCollection.cs" />
+    <Compile Include="Settings\IHttpChannelSettings.cs" />
+    <Compile Include="Settings\IIpcChannelSettings.cs" />
+    <Compile Include="Settings\ILoggerSettings.cs" />
+    <Compile Include="Settings\ILoggingSettings.cs" />
+    <Compile Include="Settings\IApplicationSettings.cs" />
+    <Compile Include="Extensibility\AttributeDefinition.cs" />
+    <Compile Include="Extensibility\AttributeDefinitionCollection.cs" />
+    <Compile Include="Extensibility\CatalogFilter.cs" />
+    <Compile Include="Proxy\IProxyObject.cs" />
+    <Compile Include="Proxy\_Internal\Remote\IO\FileSystemAccessor.cs" />
+    <Compile Include="Proxy\ServiceProxyInitializationMethodAttribute.cs" />
+    <Compile Include="Proxy\Model\UnitCollectionBase.cs" />
+    <Compile Include="Model\UnitBase.cs" />
+    <Compile Include="Host\IApplicationCollection.cs" />
+    <Compile Include="Host\ApplicationCollection.cs" />
+    <Compile Include="Communication\Native\_Internal\ManagedDataHandlerRouter.cs" />
+    <Compile Include="Communication\Native\NativeGatewayServer.cs" />
+    <Compile Include="Communication\Native\IDataHandler.cs" />
+    <Compile Include="Communication\Native\IGatewayServer.cs" />
+    <Compile Include="Communication\Native\INativeDataHandler.cs" />
+    <Compile Include="Communication\Native\IRequestServerHandler.cs" />
+    <Compile Include="Communication\Native\_Internal\NativeDataHandlerRouter.cs" />
+    <Compile Include="Proxy\_Internal\Daemon\Application.cs" />
+    <Compile Include="Extensibility\AttachmentDefinition.cs" />
+    <Compile Include="Extensibility\AttachmentDefinitionCollection.cs" />
+    <Compile Include="Extensibility\LoadBehavior.cs" />
+    <Compile Include="Host\ApplicationEventArgs.cs" />
+    <Compile Include="EnvironmentInformation.cs" />
+    <Compile Include="Model\IUnifiedDataStorage.cs" />
+    <Compile Include="Model\IUnitCollection.cs" />
+    <Compile Include="Model\IUnitCollectionStorage.cs" />
+    <Compile Include="Model\NativeUnitBase.cs" />
+    <Compile Include="Model\UnitCollectionBase.cs" />
+    <Compile Include="Model\UnitCollectionEventArgs.cs" />
+    <Compile Include="Model\NativeUnitMarshaler.cs" />
+    <Compile Include="Registry\RegistryRoot.cs" />
+    <Compile Include="Registry\RegistryKey.cs" />
+    <Compile Include="Registry\RegistryKeyCollection.cs" />
+    <Compile Include="Registry\RegistryValue.cs" />
+    <Compile Include="Registry\RegistryValueCollection.cs" />
+    <Compile Include="Registry\RemoveType.cs" />
+    <Compile Include="PublicServiceAttribute.cs" />
+    <Compile Include="Remote\IO\DirectoryInfo.cs" />
+    <Compile Include="Remote\IO\FileInfo.cs" />
+    <Compile Include="Remote\IO\FileSystemAccessor.cs" />
+    <Compile Include="Remote\IO\FileSystemFilter.cs" />
+    <Compile Include="Remote\IO\FileSystemFilterEntry.cs" />
+    <Compile Include="Remote\IO\FilteredFileSystemAccessor.cs" />
+    <Compile Include="Remote\IO\FileSystemInfo.cs" />
+    <Compile Include="Remote\IO\IFileSystemAccessor.cs" />
+    <Compile Include="Settings\IProfilingResultsSettings.cs" />
+    <Compile Include="Settings\ITcpChannelSettings.cs" />
+    <Compile Include="Settings\_Internal\ApplicationSettings.cs" />
+    <Compile Include="Settings\_Internal\CrashDumpSettings.cs" />
+    <Compile Include="Settings\_Internal\HttpChannelSettings.cs" />
+    <Compile Include="Settings\_Internal\TcpChannelSettings.cs" />
+    <Compile Include="Settings\_Internal\IpcChannelSettings.cs" />
+    <Compile Include="Settings\_Internal\ConnectionSettings.cs" />
+    <Compile Include="Settings\_Internal\HostConnectionSettingsCollection.cs" />
+    <Compile Include="Settings\_Internal\ProfilingResultsSettings.cs" />
+    <Compile Include="Settings\_Internal\SettingsCollectionElement.cs" />
+    <Compile Include="Settings\_Internal\DirectorySettings.cs" />
+    <Compile Include="Settings\_Internal\DirectorySettingsCollection.cs" />
+    <Compile Include="Settings\_Internal\EventLoggerSettings.cs" />
+    <Compile Include="Settings\_Internal\ExtensionSettingsCollection.cs" />
+    <Compile Include="Settings\_Internal\ExtensionSettings.cs" />
+    <Compile Include="Settings\_Internal\FileLoggerSettings.cs" />
+    <Compile Include="Settings\_Internal\LoggerSettings.cs" />
+    <Compile Include="Settings\_Internal\LoggingSettings.cs" />
+    <Compile Include="Settings\_Internal\SettingsLoader.cs" />
+    <Compile Include="Settings\_Internal\SettingsElement.cs" />
+    <Compile Include="_Exceptions\AttachmentNotFoundException.cs" />
+    <Compile Include="_Exceptions\AttributeNotFoundException.cs" />
+    <Compile Include="_Exceptions\ApplicationExtensionNotFoundException.cs" />
+    <Compile Include="_Exceptions\ObjectDisposedException.cs" />
+    <Compile Include="_Extensions\EnvironmentExtensions.cs" />
+    <Compile Include="_Extensions\FileSystemInfoExtensions.cs" />
+    <Compile Include="_Extensions\GuidExtensions.cs" />
+    <Compile Include="_Extensions\NumberExtensions.cs" />
+    <Compile Include="_Extensions\ValueParser.cs" />
+    <Compile Include="_Extensions\DirectoryInfoExtensions.cs" />
+    <Compile Include="ChronosApplicationLauncher.cs" />
+    <Compile Include="Proxy\_Internal\RequestClient.cs" />
+    <Compile Include="Daemon\_Internal\ProfilingTypeFacade.cs" />
+    <Compile Include="Proxy\_Internal\Host\Application.cs" />
+    <Compile Include="Proxy\_Internal\Configuration.cs" />
+    <Compile Include="Proxy\_Internal\ConfigurationCollection.cs" />
+    <Compile Include="Proxy\_Internal\Framework.cs" />
+    <Compile Include="Proxy\_Internal\FrameworkCollection.cs" />
+    <Compile Include="Proxy\_Internal\ProfilingTarget.cs" />
+    <Compile Include="Proxy\_Internal\ProfilingTargetCollection.cs" />
+    <Compile Include="Proxy\_Internal\ProfilingType.cs" />
+    <Compile Include="Proxy\_Internal\ProfilingTypeCollection.cs" />
+    <Compile Include="Proxy\_Internal\Session.cs" />
+    <Compile Include="Proxy\_Internal\SessionCollection.cs" />
+    <Compile Include="Marshaling\Special\UniqueSettingsCollectionMarhaler.cs" />
+    <Compile Include="Marshaling\Special\UniqueSettingsCollectionMarhalerFactory.cs" />
+    <Compile Include="Proxy\_Internal\ChronosApplication.cs" />
+    <Compile Include="Proxy\_Internal\LazyValue.cs" />
+    <Compile Include="Proxy\_Internal\ServiceContainer.cs" />
+    <Compile Include="Storage\DataTableAttribute.cs" />
+    <Compile Include="Storage\_Internal\DataTableColumn.cs" />
+    <Compile Include="Storage\DataTableColumnAttribute.cs" />
+    <Compile Include="Storage\IDataStorage.cs" />
+    <Compile Include="Storage\DataStorage.cs" />
+    <Compile Include="Storage\QueryBuilder.cs" />
+    <Compile Include="Storage\_Internal\DataTable.cs" />
+    <Compile Include="Win32\Kernel32.cs" />
+    <Compile Include="Win32\ManagedCallbackHolder.cs" />
+    <Compile Include="Win32\SafeLibraryHandle.cs" />
+    <Compile Include="Win32\UnmangedLibrary.cs" />
+    <Compile Include="_DynamicSettings\GatewaySettings.cs" />
+    <Compile Include="_DynamicSettings\UniqueSettingsCollection.cs" />
+    <Compile Include="Extensibility\DependencyType.cs" />
+    <Compile Include="Host\_Internal\StartProfilingSessionRequestHandler.cs" />
+    <Compile Include="Marshaling\Collections\ArrayMarshalerFactory.cs" />
+    <Compile Include="Marshaling\Collections\ListMarshalerFactory.cs" />
+    <Compile Include="Marshaling\Generic\EnumMarshalerFactory.cs" />
+    <Compile Include="Marshaling\Special\DynamicSettingsMarhalerFactory.cs" />
+    <Compile Include="Marshaling\Special\DynamicSettingsMarhaler.cs" />
+    <Compile Include="Marshaling\ITypeMarshaler.cs" />
+    <Compile Include="Marshaling\ITypeMarshalerFactory.cs" />
+    <Compile Include="_DynamicSettings\UniqueSettings.cs" />
+    <Compile Include="Proxy\ProxyBaseObject.cs" />
+    <Compile Include="_Exceptions\RemoteApplicationUnavailableException.cs" />
+    <Compile Include="_Extensions\XAttributeExtensions.cs" />
+    <Compile Include="_Internal\AgentLibrary.cs" />
+    <Compile Include="DisposableTracker.cs" />
+    <Compile Include="_Internal\ApplicationExtension.cs" />
+    <Compile Include="_Internal\ApplicationExtensionCollection.cs" />
+    <Compile Include="_Internal\CrashLogger.cs" />
+    <Compile Include="EmptyApplicationExtensionAdapter.cs" />
+    <Compile Include="_Internal\IAgentLibrary.cs" />
+    <Compile Include="_Internal\IInplaceApplicationManager.cs" />
+    <Compile Include="_Internal\InplaceApplicationManager.cs" />
+    <Compile Include="_Internal\IWrapper.cs" />
+    <Compile Include="RemoteActivator.cs" />
+    <Compile Include="_Internal\AddinCollectionBase.cs" />
+    <Compile Include="_Exceptions\ApplicationStartupException.cs" />
+    <Compile Include="ChronosApplication.cs" />
+    <Compile Include="ApplicationState.cs" />
+    <Compile Include="_Events\ApplicationStateEventArgs.cs" />
+    <Compile Include="Communication\Connector.cs" />
+    <Compile Include="Communication\Managed\ChannelControllerBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Communication\Managed\ManagedConnector.cs" />
+    <Compile Include="Communication\Managed\InvalidConnectionSettingsException.cs" />
+    <Compile Include="Communication\Managed\Tcp\TcpChannelSettings.cs" />
+    <Compile Include="Communication\Managed\Tcp\TcpChannelController.cs" />
+    <Compile Include="Communication\Managed\ChannelRegistrationException.cs" />
+    <Compile Include="Communication\Managed\ChannelSettings.cs" />
+    <Compile Include="Communication\Managed\ConnectionSettings.cs" />
+    <Compile Include="Communication\Managed\IChannelController.cs" />
+    <Compile Include="Communication\Managed\InvalidChannelSettingsException.cs" />
+    <Compile Include="Communication\Managed\Ipc\IpcChannelController.cs" />
+    <Compile Include="Communication\Managed\Ipc\IpcChannelSettings.cs" />
+    <Compile Include="Communication\Managed\CommunicationException.cs" />
+    <Compile Include="Communication\Native\ManagedGatewayServer.cs" />
+    <Compile Include="Communication\Native\_Internal\GatewayStream.cs" />
+    <Compile Include="Communication\Native\IClientStream.cs" />
+    <Compile Include="Communication\Native\IRequestClient.cs" />
+    <Compile Include="Communication\Native\IRequestServer.cs" />
+    <Compile Include="Communication\Native\NamedPipe\ClientStream.cs" />
+    <Compile Include="Communication\Native\_Internal\RequestClient.cs" />
+    <Compile Include="Communication\Native\_Internal\RequestHandler.cs" />
+    <Compile Include="Communication\Native\_Internal\Invoker.cs" />
+    <Compile Include="Communication\Native\IServerStream.cs" />
+    <Compile Include="Communication\Native\IStreamFactory.cs" />
+    <Compile Include="Communication\Native\NamedPipe\ServerStream.cs" />
+    <Compile Include="Communication\Native\NamedPipe\StreamFactory.cs" />
+    <Compile Include="Communication\Native\NativeConnector.cs" />
+    <Compile Include="Communication\Native\_Internal\RequestServer.cs" />
+    <Compile Include="_Exceptions\ConfigurationAlreadyExistsException.cs" />
+    <Compile Include="_Exceptions\ConfigurationNotFoundException.cs" />
+    <Compile Include="_DynamicSettings\ConfigurationSettings.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="BaseObject.cs" />
+    <Compile Include="_Exceptions\ProductivityNotFoundException.cs" />
+    <Compile Include="Extensibility\ProductivityDefinitionCollection.cs" />
+    <Compile Include="Extensibility\ProfilingTargetDefinitionCollection.cs" />
+    <Compile Include="_Exceptions\ExtensionNotFoundException.cs" />
+    <Compile Include="Extensibility\ExtensionDefinitionCollection.cs" />
+    <Compile Include="Extensibility\FrameworkDefinitionCollection.cs" />
+    <Compile Include="AdapterResolver.cs" />
+    <Compile Include="Daemon\_Internal\ProfiledProcessManager.cs" />
+    <Compile Include="Daemon\_Internal\ProfilingTypeManager.cs" />
+    <Compile Include="Extensibility\ProductivityDefinition.cs" />
+    <Compile Include="Extensibility\LocalizationDefinitionCollection.cs" />
+    <Compile Include="Extensibility\LocalizationDefinition.cs" />
+    <Compile Include="Extensibility\DependencyDefinitionCollection.cs" />
+    <Compile Include="Extensibility\ExportDefinitionCollection.cs" />
+    <Compile Include="Extensibility\InvalidExtensionDefinitionException.cs" />
+    <Compile Include="Extensibility\Catalog.cs" />
+    <Compile Include="Extensibility\ProfilingTypeDefinitionCollection.cs" />
+    <Compile Include="Extensibility\_Internal\CatalogAggregator.cs" />
+    <Compile Include="Extensibility\DependencyDefinition.cs" />
+    <Compile Include="Extensibility\ExportDefinition.cs" />
+    <Compile Include="Extensibility\FrameworkDefinition.cs" />
+    <Compile Include="Extensibility\_Internal\ExportLoader.cs" />
+    <Compile Include="Extensibility\_Internal\GenericExtensionReader.cs" />
+    <Compile Include="Extensibility\IExportLoader.cs" />
+    <Compile Include="Extensibility\IExtensionAssemblyResolver.cs" />
+    <Compile Include="Extensibility\_Internal\IExtensionReader.cs" />
+    <Compile Include="Extensibility\_Internal\JsonExtensionReader.cs" />
+    <Compile Include="Extensibility\ProfilingTargetDefinition.cs" />
+    <Compile Include="Extensibility\ProfilingTypeDefinition.cs" />
+    <Compile Include="Extensibility\ExtensionDefinition.cs" />
+    <Compile Include="Extensibility\_Internal\XmlExtensionReader.cs" />
+    <Compile Include="_DynamicSettings\ExportSettings.cs" />
+    <Compile Include="_DynamicSettings\FrameworkSettings.cs" />
+    <Compile Include="_DynamicSettings\FrameworkSettingsCollection.cs" />
+    <Compile Include="IServiceConsumer.cs" />
+    <Compile Include="Marshaling\Collections\StringDictionaryMarshaler.cs" />
+    <Compile Include="_Exceptions\ProfilingTypeInitializationException.cs" />
+    <Compile Include="_Exceptions\ProfilingTargetInitializationException.cs" />
+    <Compile Include="_Exceptions\FrameworkInitializationException.cs" />
+    <Compile Include="IProfilingTypeAdapter.cs" />
+    <Compile Include="Daemon\_Internal\DaemonClosedStrategy.cs" />
+    <Compile Include="Daemon\_Internal\DaemonDecodingStrategy.cs" />
+    <Compile Include="Daemon\_Internal\DaemonProfilingStrategy.cs" />
+    <Compile Include="Daemon\_Internal\IDaemonStrategy.cs" />
+    <Compile Include="IInitializable.cs" />
+    <Compile Include="_Events\SafeEventHandlerCollection.cs" />
+    <Compile Include="_Events\RemoteEventSubscription.cs" />
+    <Compile Include="_Events\SessionStateEventArgs.cs" />
+    <Compile Include="Extensibility\ExportConsumerAlreadyRegisteredException.cs" />
+    <Compile Include="Extensibility\UnknownExportTypeException.cs" />
+    <Compile Include="_Exceptions\ExtensionAlreadyLoadedException.cs" />
+    <Compile Include="_Exceptions\ExtensionLoadingException.cs" />
+    <Compile Include="_Events\ConfigurationEventArgs.cs" />
+    <Compile Include="IFrameworkAdapter.cs" />
+    <Compile Include="IProfilingTargetAdapter.cs" />
+    <Compile Include="IConfiguration.cs" />
+    <Compile Include="IConfigurationCollection.cs" />
+    <Compile Include="Host\_Internal\Application.cs" />
+    <Compile Include="_Internal\Configuration.cs" />
+    <Compile Include="_Internal\ConfigurationCollection.cs" />
+    <Compile Include="Daemon\_Internal\WeakApplication.cs" />
+    <Compile Include="_Internal\Framework.cs" />
+    <Compile Include="Client\_Internal\Productivity.cs" />
+    <Compile Include="Client\_Internal\ProductivityCollection.cs" />
+    <Compile Include="_Internal\ProfilingTarget.cs" />
+    <Compile Include="_Internal\ProfilingTimer.cs" />
+    <Compile Include="_Internal\ProfilingType.cs" />
+    <Compile Include="_Internal\Session.cs" />
+    <Compile Include="_Internal\SessionCollection.cs" />
+    <Compile Include="ISession.cs" />
+    <Compile Include="ISessionCollection.cs" />
+    <Compile Include="_Events\SessionEventArgs.cs" />
+    <Compile Include="Host\Settings.cs" />
+    <Compile Include="_Exceptions\TempException.cs" />
+    <Compile Include="_Internal\ConcurentList.cs" />
+    <Compile Include="_Internal\ErrorMessageFormatter.cs" />
+    <Compile Include="_Logging\BaseLogger.cs" />
+    <Compile Include="_Logging\EventLogger.cs" />
+    <Compile Include="Storage\IDataTable.cs" />
+    <Compile Include="_Extensions\AppDomainExtensions.cs" />
+    <Compile Include="_Extensions\AssemblyExtensions.cs" />
+    <Compile Include="_Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensibility\_Internal\AssemblyCache.cs" />
+    <Compile Include="Extensibility\_Internal\ExtensionAssemblyResolver.cs" />
+    <Compile Include="_Events\RemoteEventRouter.cs" />
+    <Compile Include="Marshaling\Collections\ArrayMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\BoolMarshaler.cs" />
+    <Compile Include="Marshaling\Collections\ByteArrayMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\ByteMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\DateTimeMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\DoubleMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\EnumMarshaler.cs" />
+    <Compile Include="Marshaling\GenericMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\GuidMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\Int32Marshaler.cs" />
+    <Compile Include="Marshaling\Generic\Int64Marshaler.cs" />
+    <Compile Include="Marshaling\Generic\IntPtrMarshaler.cs" />
+    <Compile Include="Marshaling\Collections\ListMarshaler.cs" />
+    <Compile Include="Marshaling\MarshalerExtensions.cs" />
+    <Compile Include="Marshaling\MarshalingIgnoreAttribute.cs" />
+    <Compile Include="Marshaling\MarshalingManager.cs" />
+    <Compile Include="Marshaling\Generic\StringMarshaler.cs" />
+    <Compile Include="Marshaling\Generic\UInt32Marshaler.cs" />
+    <Compile Include="Marshaling\Generic\UInt64Marshaler.cs" />
+    <Compile Include="Marshaling\Generic\VoidMarshaler.cs" />
+    <Compile Include="_Exceptions\ProfilingTypeAlreadyExistsException.cs" />
+    <Compile Include="_Exceptions\ProfilingTargetAlreadyExistsException.cs" />
+    <Compile Include="_Exceptions\FrameworkAlreadyExistsException.cs" />
+    <Compile Include="_Exceptions\FrameworkNotFoundException.cs" />
+    <Compile Include="Daemon\ApplicationManager.cs" />
+    <Compile Include="Daemon\IAgentInvokeClient.cs" />
+    <Compile Include="Daemon\_Internal\Application.cs" />
+    <Compile Include="_Internal\ProfilingTypeCollection.cs" />
+    <Compile Include="Daemon\ISettings.cs" />
+    <Compile Include="_Internal\FrameworkCollection.cs" />
+    <Compile Include="_Internal\ProfilingTargetCollection.cs" />
+    <Compile Include="_Exceptions\ProfilingTargetNotFoundException.cs" />
+    <Compile Include="_Exceptions\ProfilingTypeNotFoundException.cs" />
+    <Compile Include="Daemon\Runtype.cs" />
+    <Compile Include="Host\IHostRequestServer.cs" />
+    <Compile Include="IProfilingTarget.cs" />
+    <Compile Include="IProfilingTargetCollection.cs" />
+    <Compile Include="IProfilingTargetController.cs" />
+    <Compile Include="IProfilingType.cs" />
+    <Compile Include="_DynamicSettings\DynamicSettings.cs" />
+    <Compile Include="_DynamicSettings\DynamicSettingsValue.cs" />
+    <Compile Include="Host\ApplicationManager.cs" />
+    <Compile Include="_Events\ProfilingTargetControllerEventArgs.cs" />
+    <Compile Include="Host\Runtype.cs" />
+    <Compile Include="ApplicationType.cs" />
+    <Compile Include="_Events\RemoteEventHandler.cs" />
+    <Compile Include="RemoteBaseObject.cs" />
+    <Compile Include="IChronosApplication.cs" />
+    <Compile Include="Daemon\IApplication.cs" />
+    <Compile Include="Communication\Native\IManagedDataHandler.cs" />
+    <Compile Include="Host\IApplication.cs" />
+    <Compile Include="IFramework.cs" />
+    <Compile Include="IFrameworkCollection.cs" />
+    <Compile Include="Host\ISettings.cs" />
+    <Compile Include="IProfilingTypeCollection.cs" />
+    <Compile Include="IServiceContainer.cs" />
+    <Compile Include="_Logging\DefaultLogger.cs" />
+    <Compile Include="_Logging\FileLogger.cs" />
+    <Compile Include="_Logging\ILogger.cs" />
+    <Compile Include="_Logging\LoggingProvider.cs" />
+    <Compile Include="Communication\Native\NativeArray.cs" />
+    <Compile Include="ProcessInformation.cs" />
+    <Compile Include="ProcessPlatform.cs" />
+    <Compile Include="ProcessPlatformDetector.cs" />
+    <Compile Include="_Extensions\EventExtensions.cs" />
+    <Compile Include="_Extensions\ExpandoObjectExtensions.cs" />
+    <Compile Include="_Extensions\MethodBaseExtensions.cs" />
+    <Compile Include="_Extensions\ReflectionExtensions.cs" />
+    <Compile Include="_Extensions\RegistryExtensions.cs" />
+    <Compile Include="_Extensions\StructureExtensions.cs" />
+    <Compile Include="_Extensions\TypeExtensions.cs" />
+    <Compile Include="_Exceptions\ProfilerException.cs" />
+    <Compile Include="_DynamicSettings\ProfilingTargetSettings.cs" />
+    <Compile Include="_DynamicSettings\ProfilingTypeSettings.cs" />
+    <Compile Include="_DynamicSettings\ProfilingTypeSettingsCollection.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Result.cs" />
+    <Compile Include="ServiceContainer.cs" />
+    <Compile Include="_Internal\ServiceRegistration.cs" />
+    <Compile Include="_Exceptions\SessionNotFoundException.cs" />
+    <Compile Include="_DynamicSettings\SessionSettings.cs" />
+    <Compile Include="SessionState.cs" />
+    <Compile Include="Win32\Launcher.cs" />
+    <Compile Include="Win32\NativeMethods.cs" />
+    <Compile Include="_Extensions\XmlReaderExtension.cs" />
+    <Compile Include="_Logging\_Internal\CompositeLogger.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Extensibility\Extension.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Communication\Managed\Http\" />
+    <Folder Include="Registry\_Internal\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Extensibility\catalog.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Extensibility\extension.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="settings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="TODO.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include "$(var.SolutionDir)\.scripts\ModuleInfo.wxi"?>
+  <Module Id="Chronos.DotNet.BasicProfiler" Language="1033" Version="$(var.Version)">
+    <Package Id="be2adc14-b8d1-4e2d-8d98-6aeb451a8e27" Manufacturer="$(var.Manufacturer)" InstallerVersion="200" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MergeRedirectFolder">
+        <Directory Id="Chronos_DotNet_BasicProfiler_Directory" Name="$(var.ModuleTargetDir)">
+          <Component Id="Chronos_DotNet_BasicProfiler_Component" Guid="25d1e9d4-2f03-40fa-8623-3c8e6116cb4b">
+            <File Id="Chronos_DotNet_BasicProfiler_dll" Name="Chronos.DotNet.BasicProfiler.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.DotNet.BasicProfiler.dll" />
+            <File Id="Chronos_DotNet_BasicProfiler_xchronex" Name="Chronos.DotNet.BasicProfiler.xchronex" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.DotNet.BasicProfiler.xchronex" />
+            <File Id="Chronos_DotNet_BasicProfiler_Agent_dll" Name="Chronos.DotNet.BasicProfiler.Agent.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.DotNet.BasicProfiler.Agent.dll" />
+          </Component>
+          <Directory Id="Chronos_DotNet_BasicProfiler_Directory_64" Name="$(var.ModuleDir64)">
+            <Component Id="Chronos_DotNet_BasicProfiler_Component_64" Guid="d692a2df-7b1a-4ea9-a61b-60ec443c4656">
+              <File Id="Chronos_DotNet_BasicProfiler_Agent_dll_64" Name="Chronos.DotNet.BasicProfiler.Agent.dll" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.ModuleDir64)\Chronos.DotNet.BasicProfiler.Agent.dll" />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>
