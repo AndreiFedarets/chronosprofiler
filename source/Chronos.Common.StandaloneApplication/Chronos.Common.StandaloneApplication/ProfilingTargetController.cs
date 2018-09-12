@@ -28,7 +28,7 @@ namespace Chronos.Common.StandaloneApplication
 
         public void Start()
         {
-            _process = Launcher.Launch(_settings.ConsoleSession, _settings.FileFullName, _settings.Arguments, _settings.EnvironmentVariables);
+            _process = Launcher.Launch(_settings.ConsoleSession, _settings.FileFullName, _settings.Arguments, _settings.WorkingDirectory, _settings.EnvironmentVariables);
             _process.Exited += OnProcessExited;
             _process.EnableRaisingEvents = true;
         }

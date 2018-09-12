@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO;
 
 namespace Chronos
 {
@@ -50,7 +51,14 @@ namespace Chronos
         public string FileFullName
         {
             get { return Get<string>(FileFullNameIndex); }
-            set { Set(FileFullNameIndex, value); }
+            set
+            {
+                Set(FileFullNameIndex, value);
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    WorkingDirectory = Path.GetDirectoryName(value);
+                }
+            }
         }
 
         public StringDictionary EnvironmentVariables

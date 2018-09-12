@@ -10,21 +10,20 @@ namespace Chronos.Win32
 {
     public static class Launcher
     {
-        public static Process Launch(int requiredSessionId, string fileName, string args,
-                                     StringDictionary environmentVariables)
+        public static Process Launch(int requiredSessionId, string fileName, string args, string workingDirectory, StringDictionary environmentVariables)
         {
             if (requiredSessionId > 0)
             {
                 int currentSessionId = NativeMethods.WTSGetActiveConsoleSessionId();
                 if (currentSessionId != requiredSessionId)
                 {
-                    return LaunchInSpecialSession(requiredSessionId, fileName, args, environmentVariables);
+                    return LaunchInSpecialSession(requiredSessionId, fileName, args, workingDirectory, environmentVariables);
                 }
             }
-            return LaunchInCurrentSession(fileName, args, environmentVariables);
+            return LaunchInCurrentSession(fileName, args, workingDirectory, environmentVariables);
         }
 
-        public static Process LaunchInCurrentSession(string fileName, string args, StringDictionary environmentVariables)
+        public static Process LaunchInCurrentSession(string fileName, string args, string workingDirectory, StringDictionary environmentVariables)
         {
             Process process = new Process();
             ProcessStartInfo processStartInfo = new ProcessStartInfo(fileName);
@@ -36,13 +35,13 @@ namespace Chronos.Win32
             }
             processStartInfo.UseShellExecute = false;
             processStartInfo.Arguments = args;
+            processStartInfo.WorkingDirectory = workingDirectory;
             process.StartInfo = processStartInfo;
             process.Start();
             return process;
         }
 
-        public static Process LaunchInSpecialSession(int sessionId, string fileName, string args,
-                                                     StringDictionary environmentVariables)
+        public static Process LaunchInSpecialSession(int sessionId, string fileName, string args, string workingDirectory, StringDictionary environmentVariables)
         {
             Process process;
             IntPtr userToken = IntPtr.Zero;
@@ -65,9 +64,7 @@ namespace Chronos.Win32
                 {
                     creationFlags |= 0x400;
                 }
-                StringDictionary originalEnvironmentVariables =
-                    NativeMethods.ReadEnvironmentVariables(originalEnvironment);
-
+                StringDictionary originalEnvironmentVariables = NativeMethods.ReadEnvironmentVariables(originalEnvironment);
                 // Append custom environment variables to list.
                 foreach (DictionaryEntry variable in environmentVariables)
                 {
@@ -87,9 +84,8 @@ namespace Chronos.Win32
 
 
                 NativeMethods.ProcessInformation processInformation;
-                if (NativeMethods.CreateProcessAsUser(userToken, fileName, args, IntPtr.Zero, IntPtr.Zero, false,
-                                                      creationFlags, customEnvironment, null, ref startupInfo,
-                                                      out processInformation))
+                if (NativeMethods.CreateProcessAsUser(userToken, fileName, args, IntPtr.Zero, IntPtr.Zero, false, creationFlags, 
+                    customEnvironment, workingDirectory, ref startupInfo, out processInformation))
                 {
                     process = Process.GetProcessById((int) processInformation.ProcessId);
                     NativeMethods.CloseHandle(processInformation.Process);

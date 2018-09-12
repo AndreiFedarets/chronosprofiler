@@ -25,6 +25,7 @@ namespace Chronos.Client.Win.ViewModels.Common.StandaloneApplication
             {
                 _profilingTargetSettings.FileFullName = value;
                 NotifyOfPropertyChange(() => FileFullName);
+                NotifyOfPropertyChange(() => WorkingDirectory);
                 NotifyContractSourceChanged();
             }
         }
