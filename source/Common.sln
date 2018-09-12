@@ -245,6 +245,16 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Install", "Chronos.
 		{9FBE1CF4-D567-4D69-B5F9-83FB90296E01} = {9FBE1CF4-D567-4D69-B5F9-83FB90296E01}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".scripts", ".scripts", "{F8801842-5B23-4953-8FC9-F1110328AC89}"
+	ProjectSection(SolutionItems) = preProject
+		.scripts\Cpp.props = .scripts\Cpp.props
+		.scripts\CSharp.targets = .scripts\CSharp.targets
+		.scripts\ModuleInfo.wxi = .scripts\ModuleInfo.wxi
+		.scripts\SolutionInfo.cs = .scripts\SolutionInfo.cs
+		.scripts\StrongName.snk = .scripts\StrongName.snk
+		.scripts\Wix.targets = .scripts\Wix.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms

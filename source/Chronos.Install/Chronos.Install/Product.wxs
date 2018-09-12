@@ -32,8 +32,8 @@
       <MergeRef Id="Chronos_DotNet_BasicProfiler" />
       <MergeRef Id="Chronos_DotNet_ExceptionMonitor" />
       <MergeRef Id="Chronos_DotNet_TracingProfiler" />
-      <!-- <MergeRef Id="Chronos_DotNet_IISApplication" />
-      <MergeRef Id="Chronos_DotNet_SqlProfiler" /> -->
+      <!-- <MergeRef Id="Chronos_DotNet_IISApplication" /> -->
+      <MergeRef Id="Chronos_DotNet_SqlProfiler" />
 
       <!-- Java 
       <MergeRef Id="Chronos_Java" />
@@ -50,8 +50,8 @@
       <MergeRef Id="Chronos_Client_Win_DotNet_BasicProfiler" />
       <MergeRef Id="Chronos_Client_Win_DotNet_ExceptionMonitor" />
       <MergeRef Id="Chronos_Client_Win_DotNet_TracingProfiler" />
-      <!-- <MergeRef Id="Chronos_Client_Win_DotNet_FindReference" />
-      <MergeRef Id="Chronos_Client_Win_DotNet_SqlProfiler" /> -->
+      <!-- <MergeRef Id="Chronos_Client_Win_DotNet_FindReference" /> -->
+      <MergeRef Id="Chronos_Client_Win_DotNet_SqlProfiler" />
 
       <!-- Win.Client.Java 
       <MergeRef Id="Chronos_Client_Win_Java" />
@@ -76,8 +76,8 @@
           <Merge Id="Chronos_DotNet_ExceptionMonitor" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.DotNet.ExceptionMonitor.msm" DiskId="1" />
           <!--
           <Merge Id="Chronos_DotNet_IISApplication" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.DotNet.IISApplication.msm" DiskId="1" />
-          <Merge Id="Chronos_DotNet_SqlProfiler" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.DotNet.SqlProfiler.msm" DiskId="1" />
           -->
+          <Merge Id="Chronos_DotNet_SqlProfiler" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.DotNet.SqlProfiler.msm" DiskId="1" />
           <Merge Id="Chronos_DotNet_TracingProfiler" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.DotNet.TracingProfiler.msm" DiskId="1" />
 
           <!-- Java 
@@ -96,8 +96,8 @@
           <Merge Id="Chronos_Client_Win_DotNet_ExceptionMonitor" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.DotNet.ExceptionMonitor.msm" DiskId="1" />
           <!--
           <Merge Id="Chronos_Client_Win_DotNet_FindReference" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.DotNet.FindReference\package\module\Chronos.Client.Win.DotNet.FindReference.msm" DiskId="1" />
-          <Merge Id="Chronos_Client_Win_DotNet_SqlProfiler" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.DotNet.SqlProfiler\package\module\Chronos.Client.Win.DotNet.SqlProfiler.msm" DiskId="1" />
           -->
+          <Merge Id="Chronos_Client_Win_DotNet_SqlProfiler" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.DotNet.SqlProfiler.msm" DiskId="1" />
           <Merge Id="Chronos_Client_Win_DotNet_TracingProfiler" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.DotNet.TracingProfiler.msm" DiskId="1" />
 
           <!-- Win.Client.Java 

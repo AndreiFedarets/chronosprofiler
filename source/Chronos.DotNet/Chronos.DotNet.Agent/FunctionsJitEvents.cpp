@@ -98,7 +98,7 @@ namespace Chronos
 							mdToken params[paramsMaxCount];
 							result = metaDataImport->EnumParams(&phEnum, functionToken, params, paramsMaxCount, &paramsCount);
 							
-							for (__uint k = 0; k < methodsCount; j++)
+							for (__uint k = 0; k < paramsCount; k++)
 							{
 								//metaDataImport->GetParamProps(
 							}
