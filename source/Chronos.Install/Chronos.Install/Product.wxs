@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include "$(var.SolutionDir)\.scripts\ModuleInfo.wxi"?>
+  <Product Id="E4DE5ED7-54A0-4042-996B-C7B041B675A6" Name="$(var.ProductName)" Language="1033" Version="$(var.Version)" Manufacturer="$(var.Manufacturer)" UpgradeCode="557816df-bf2f-493c-aa18-47f0dfceacbd">
+    <Package InstallerVersion="200" Compressed="yes" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <Media Id="1" Cabinet="CabFileName.cab" EmbedCab="yes" />
+
+    <Feature Id="ProductFeature" Title="$(var.ProductName)" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+    
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    
+    <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="License.rtf"/>
+
+    <!--<UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />-->
+    <UIRef Id="WixUI_InstallDir"/>
+
+
+    <Feature Id="Merge_Modules" Title="Merge_Modules" Level="1">
+      <!-- Core -->
+      <MergeRef Id="Chronos" />
+      <MergeRef Id="Chronos_Common" />
+      <MergeRef Id="Chronos_Common_EventsTree" />
+      <MergeRef Id="Chronos_Common_StandaloneApplication" />
+
+      <!-- DotNet -->
+      <MergeRef Id="Chronos_DotNet" />
+      <MergeRef Id="Chronos_DotNet_BasicProfiler" />
+      <MergeRef Id="Chronos_DotNet_ExceptionMonitor" />
+      <MergeRef Id="Chronos_DotNet_TracingProfiler" />
+      <!-- <MergeRef Id="Chronos_DotNet_IISApplication" /> -->
+      <MergeRef Id="Chronos_DotNet_SqlProfiler" />
+
+      <!-- Java 
+      <MergeRef Id="Chronos_Java" />
+      <MergeRef Id="Chronos_Java_BasicProfiler" />
+      -->
+      <!-- Win.Client -->
+      <MergeRef Id="Chronos_Client_Win" />
+      <MergeRef Id="Chronos_Client_Win_Common" />
+      <MergeRef Id="Chronos_Client_Win_Common_EventsTree" />
+      <MergeRef Id="Chronos_Client_Win_Common_StandaloneApplication" />
+
+      <!-- Win.Client.DotNet -->
+      <MergeRef Id="Chronos_Client_Win_DotNet" />
+      <MergeRef Id="Chronos_Client_Win_DotNet_BasicProfiler" />
+      <MergeRef Id="Chronos_Client_Win_DotNet_ExceptionMonitor" />
+      <MergeRef Id="Chronos_Client_Win_DotNet_TracingProfiler" />
+      <!-- <MergeRef Id="Chronos_Client_Win_DotNet_FindReference" /> -->
+      <MergeRef Id="Chronos_Client_Win_DotNet_SqlProfiler" />
+
+      <!-- Win.Client.Java 
+      <MergeRef Id="Chronos_Client_Win_Java" />
+      <MergeRef Id="Chronos_Client_Win_Java_BasicProfiler" />
+      -->
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="$(var.ProductName)">
+          <!-- Core -->
+          <Merge Id="Chronos" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.msm" DiskId="1" />
+          <Merge Id="Chronos_Common" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Common.msm" DiskId="1" />
+          <Merge Id="Chronos_Common_EventsTree" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Common.EventsTree.msm" DiskId="1" />
+          <Merge Id="Chronos_Common_StandaloneApplication" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Common.StandaloneApplication.msm" DiskId="1" />
+
+          <!-- DotNet -->
+          <Merge Id="Chronos_DotNet" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.DotNet.msm" DiskId="1" />
+          <Merge Id="Chronos_DotNet_BasicProfiler" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.DotNet.BasicProfiler.msm" DiskId="1" />
+          <Merge Id="Chronos_DotNet_ExceptionMonitor" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.DotNet.ExceptionMonitor.msm" DiskId="1" />
+          <!--
+          <Merge Id="Chronos_DotNet_IISApplication" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.DotNet.IISApplication.msm" DiskId="1" />
+          -->
+          <Merge Id="Chronos_DotNet_SqlProfiler" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.DotNet.SqlProfiler.msm" DiskId="1" />
+          <Merge Id="Chronos_DotNet_TracingProfiler" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.DotNet.TracingProfiler.msm" DiskId="1" />
+
+          <!-- Java 
+          <Merge Id="Chronos_Java" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Java.msm" DiskId="1" />
+          <Merge Id="Chronos_Java_BasicProfiler" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Java.BasicProfiler.msm" DiskId="1" />
+          -->
+          <!-- Win.Client -->
+          <Merge Id="Chronos_Client_Win" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.msm" DiskId="1" />
+          <Merge Id="Chronos_Client_Win_Common" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.Common.msm" DiskId="1" />
+          <Merge Id="Chronos_Client_Win_Common_EventsTree" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.Common.EventsTree.msm" DiskId="1" />
+          <Merge Id="Chronos_Client_Win_Common_StandaloneApplication" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.Common.StandaloneApplication.msm" DiskId="1" />
+
+          <!-- Win.Client.DotNet -->
+          <Merge Id="Chronos_Client_Win_DotNet" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.DotNet.msm" DiskId="1" />
+          <Merge Id="Chronos_Client_Win_DotNet_BasicProfiler" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.DotNet.BasicProfiler.msm" DiskId="1" />
+          <Merge Id="Chronos_Client_Win_DotNet_ExceptionMonitor" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.DotNet.ExceptionMonitor.msm" DiskId="1" />
+          <!--
+          <Merge Id="Chronos_Client_Win_DotNet_FindReference" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.DotNet.FindReference\package\module\Chronos.Client.Win.DotNet.FindReference.msm" DiskId="1" />
+          -->
+          <Merge Id="Chronos_Client_Win_DotNet_SqlProfiler" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.DotNet.SqlProfiler.msm" DiskId="1" />
+          <Merge Id="Chronos_Client_Win_DotNet_TracingProfiler" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.DotNet.TracingProfiler.msm" DiskId="1" />
+
+          <!-- Win.Client.Java 
+          <Merge Id="Chronos_Client_Win_Java" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.Java.msm" DiskId="1" />
+          <Merge Id="Chronos_Client_Win_Java_BasicProfiler" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.Java.BasicProfiler.msm" DiskId="1" />
+          -->
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+      <!-- <Component Id="ProductComponent"> -->
+      <!-- TODO: Insert files, registry keys, and other resources here. -->
+      <!-- </Component> -->
+    </ComponentGroup>
+  </Fragment>
+
+</Wix>

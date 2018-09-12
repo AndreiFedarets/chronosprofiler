@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include "$(var.SolutionDir)\.scripts\ModuleInfo.wxi"?>
+  <Module Id="Chronos.Client.Win.DotNet.ExceptionMonitor" Language="1033" Version="$(var.Version)">
+    <Package Id="c5d528f5-3afd-48c7-9e1a-fb8ab95febb9" Manufacturer="$(var.Manufacturer)" InstallerVersion="200" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MergeRedirectFolder">
+        <Directory Id="Chronos_Client_Win_DotNet_ExceptionMonitor_Directory" Name="$(var.ModuleTargetDir)">
+          <Component Id="Chronos_Client_Win_DotNet_ExceptionMonitor_Component" Guid="e5ed26e8-5848-46b3-9fbc-0c7d60e42a40">
+            <File Id="Chronos_Client_Win_DotNet_ExceptionMonitor_dll" Name="Chronos.Client.Win.DotNet.ExceptionMonitor.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.ExceptionMonitor.dll" />
+            <File Id="Chronos_Client_Win_DotNet_ExceptionMonitor_xchronex" Name="Chronos.Client.Win.DotNet.ExceptionMonitor.xchronex" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.ExceptionMonitor.xchronex" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>

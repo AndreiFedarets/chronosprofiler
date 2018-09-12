@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-  <?define ProductName="Chronos Profiler" ?>
-  <?define ProductVersion="0.4.1.0" ?>
-  <?define Manufacturer="Andrei Fedarets" ?>
-  <?define SourceDir="..\..\externals\" ?>
-  <?define TargetDir="Chronos" ?>
-  <?define Dir64="x64" ?>
-</Include>

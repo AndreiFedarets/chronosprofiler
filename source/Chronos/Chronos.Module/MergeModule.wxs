@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include "$(var.SolutionDir)\.scripts\ModuleInfo.wxi"?>
+  <Module Id="Chronos" Language="1033" Version="$(var.Version)">
+    <Package Id="80b7cbb6-b87e-4c6f-b2a2-e4aaa62f8f27" Manufacturer="$(var.Manufacturer)" InstallerVersion="200" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MergeRedirectFolder">
+        <Directory Id="Chronos_Directory" Name="$(var.ModuleTargetDir)">
+          <Component Id="Chronos_Component" Guid="687efbb2-afec-4aa4-a51a-83a57499d627">
+            <File Id="Chronos_dll" Name="Chronos.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.dll" />
+            <File Id="Chronos_Agent_dll" Name="Chronos.Agent.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Agent.dll" />
+            <File Id="Chronos_Daemon_Application_exe" Name="Chronos.Daemon.Application.exe" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Daemon.Application.exe" />
+            <File Id="Chronos_dll_config" Name="Chronos.dll.config" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.dll.config" />
+            <File Id="Chronos_Host_Application_exe" Name="Chronos.Host.Application.exe" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Host.Application.exe" />
+            <File Id="Settings_xml" Name="Settings.xml" DiskId="1" Source="$(var.ModuleSourceDir)\Settings.xml" />
+            <File Id="System_Data_SQLite_dll" Name="System.Data.SQLite.dll" DiskId="1" Source="$(var.ModuleSourceDir)\System.Data.SQLite.dll" />
+          </Component>
+          <Directory Id="Chronos_Directory_64" Name="$(var.ModuleDir64)">
+            <Component Id="Chronos_Component_64" Guid="7b09493b-887e-49db-acc8-248c3170752c">
+              <File Id="Chronos_Agent_dll_64" Name="Chronos.Agent.dll" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.ModuleDir64)\Chronos.Agent.dll" />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+	  <!--
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)">
+          <Component Id="ApplicationShortcut" Guid="">
+            <Shortcut Id="ApplicationStartMenuShortcut" Name="Chronos Profiler Server" Description="Chronos Profiler Server" Target="[#Chronos_Host_Application_exe]" WorkingDirectory="Chronos_Directory"/>
+            <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall"/>
+          </Component>
+        </Directory>
+      </Directory>
+	  -->
+    </Directory>
+  </Module>
+</Wix>

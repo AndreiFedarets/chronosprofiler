@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include "$(var.SolutionDir)\.scripts\ModuleInfo.wxi"?>
+  <Module Id="Chronos.Client.Win.Common" Language="1033" Version="$(var.Version)">
+    <Package Id="44602cef-b9ff-4e93-b2c9-1053334916db" Manufacturer="$(var.Manufacturer)" InstallerVersion="200" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MergeRedirectFolder">
+        <Directory Id="Chronos_Client_Win_Common_Directory" Name="$(var.ModuleTargetDir)">
+          <Component Id="Chronos_Client_Win_Common_Component" Guid="4a286103-0380-4630-a587-0b2e75120c6a">
+            <File Id="Chronos_Client_Win_Common_dll" Name="Chronos.Client.Win.Common.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.Common.dll" />
+            <File Id="Chronos_Client_Win_Common_xchronex" Name="Chronos.Client.Win.Common.xchronex" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.Common.xchronex" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>

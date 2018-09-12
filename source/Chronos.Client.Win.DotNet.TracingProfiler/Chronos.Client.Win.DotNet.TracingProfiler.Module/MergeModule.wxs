@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include "$(var.SolutionDir)\.scripts\ModuleInfo.wxi"?>
+  <Module Id="Chronos.Client.Win.DotNet.TracingProfiler" Language="1033" Version="$(var.Version)">
+    <Package Id="5113b3b1-c8d7-4ea2-9370-ac4c829b906e" Manufacturer="$(var.Manufacturer)" InstallerVersion="200" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MergeRedirectFolder">
+        <Directory Id="Chronos_Client_Win_DotNet_TracingProfiler_Directory" Name="$(var.ModuleTargetDir)">
+          <Component Id="Chronos_Client_Win_DotNet_TracingProfiler_Component" Guid="a19d09b7-7fb1-42f2-9103-87204a01dd5d">
+            <File Id="Chronos_Client_Win_DotNet_TracingProfiler_dll" Name="Chronos.Client.Win.DotNet.TracingProfiler.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.TracingProfiler.dll" />
+            <File Id="Chronos_Client_Win_DotNet_TracingProfiler_xchronex" Name="Chronos.Client.Win.DotNet.TracingProfiler.xchronex" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.TracingProfiler.xchronex" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>
