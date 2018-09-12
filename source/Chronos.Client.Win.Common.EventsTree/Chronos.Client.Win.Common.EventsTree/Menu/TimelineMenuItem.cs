@@ -1,18 +1,16 @@
 ﻿using Chronos.Client.Win.Common.EventsTree.Properties;
+using Chronos.Client.Win.Menu.Specialized;
 using Chronos.Client.Win.ViewModels.Common.EventsTree;
 using Chronos.Client.Win.ViewModels.Profiling;
 using Chronos.Common.EventsTree;
 
 namespace Chronos.Client.Win.Menu.Common.EventsTree
 {
-    internal sealed class TimelineMenuItem : MenuItem
+    internal sealed class TimelineMenuItem : ProfilingMenuItemBase
     {
-        private readonly ProfilingViewModel _profilingViewModel;
-        private TimelineViewModel _viewModel;
-
         public TimelineMenuItem(ProfilingViewModel profilingViewModel)
+            : base(profilingViewModel)
         {
-            _profilingViewModel = profilingViewModel;
         }
 
         public override string Text
@@ -20,25 +18,12 @@ namespace Chronos.Client.Win.Menu.Common.EventsTree
             get { return Resources.TimelineMenuItem_Text; }
         }
 
-        private TimelineViewModel ViewModel
+        protected override ViewModels.ViewModel GetViewModel()
         {
-            get
-            {
-                if (_viewModel == null)
-                {
-                    IProfilingApplication application = _profilingViewModel.Application;
-                    IEventTreeCollection eventTrees = application.ServiceContainer.Resolve<IEventTreeCollection>();
-                    IEventMessageBuilder messageBuilder = application.ServiceContainer.Resolve<IEventMessageBuilder>();
-                    _viewModel = new TimelineViewModel(eventTrees, application.ProfilingTimer, messageBuilder);
-                    _profilingViewModel.Add(_viewModel);
-                }
-                return _viewModel;
-            }
-        }
-
-        public override void OnAction()
-        {
-            _profilingViewModel.Activate(ViewModel);
+            IProfilingApplication application = ProfilingViewModel.Application;
+            IEventTreeCollection eventTrees = application.ServiceContainer.Resolve<IEventTreeCollection>();
+            IEventMessageBuilder messageBuilder = application.ServiceContainer.Resolve<IEventMessageBuilder>();
+            return new TimelineViewModel(eventTrees, application.ProfilingTimer, messageBuilder, ProfilingViewModel);
         }
     }
 }

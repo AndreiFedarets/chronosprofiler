@@ -73,6 +73,7 @@
     <Compile Include="Contracts\IContractConsumer.cs" />
     <Compile Include="Contracts\IContractSource.cs" />
     <Compile Include="Controls\_Generic\ImageButton.cs" />
+    <Compile Include="Menu\Specialized\ProfilingMenuItemBase.cs" />
     <Compile Include="Menu\Specialized\UnitsMenuItemBase.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

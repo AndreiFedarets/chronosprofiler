@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Chronos.Client.Win.Controls.Common.EventsTree
 {
@@ -30,6 +31,7 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
         private static readonly DependencyProperty HoveredEventTreeProperty;
         private static readonly DependencyProperty SelectedEventTreeProperty;
         private static readonly DependencyProperty EventMessageBuilderProperty;
+        private static readonly DependencyProperty OpenCommandProperty;
         //private static readonly DependencyProperty ThreadsProperty;
 
         private readonly ObservableCollection<ThreadTimeline> _collection;
@@ -43,7 +45,10 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata(typeof(Timeline)));
             // Events
             EventsProperty = DependencyProperty.Register("Events", typeof(IEventTreeCollection), typeof(Timeline), new PropertyMetadata(OnEventsPropertyChanged));
+            // ProfilingTimer
             ProfilingTimerProperty = DependencyProperty.Register("ProfilingTimer", typeof(IProfilingTimer), typeof(Timeline), new PropertyMetadata(OnProfilingTimerPropertyChanged));
+            // OpenCommand
+            OpenCommandProperty = DependencyProperty.Register("OpenCommand", typeof(ICommand), typeof(Timeline), new PropertyMetadata());
             // EventMessageBuilder
             EventMessageBuilderProperty = DependencyProperty.Register("EventMessageBuilder", typeof(IEventMessageBuilder), typeof(Timeline), new PropertyMetadata(OnEventFormatterPropertyChanged));
             // HoveredItem
@@ -65,6 +70,12 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             _collection = new ObservableCollection<ThreadTimeline>();
             PreviewMouseWheel += OnMouseWheel;
             SizeChanged += OnSizeChanged;
+        }
+
+        public ICommand OpenCommand
+        {
+            get { return (ICommand)GetValue(OpenCommandProperty); }
+            set { SetValue(OpenCommandProperty, value); }
         }
 
         public IEventTreeCollection Events
@@ -109,14 +120,12 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             set { SetValue(EventMessageBuilderProperty, value); }
         }
 
-        private bool AreChildrenInitialized { get; set; }
-
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             UpdateContentBorder();
         }
 
-        private void OnMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        private void OnMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (_contentBorder == null)
             {
@@ -185,11 +194,12 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             uint endTime = ProfilingTimer.CurrentTime;
             foreach (IGrouping<uint, ISingleEventTree> group in groups)
             {
-                ThreadTimeline item = new ThreadTimeline(this, EventMessageBuilder, group.Key, group.ToList(), endTime);
+                ThreadTimeline item = new ThreadTimeline(this, EventMessageBuilder, group.Key, group.ToList(), endTime, Events.MinTime, Events.MaxTime);
                 _collection.Add(item);
             }
             //DispatcherExtensions.DoEvents();
             UpdateContentBorder();
+            InvalidateVisual();
         }
 
         private static void OnEventsPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -238,5 +248,13 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             }
         }
 
+        internal void OnOpenRequest(ISingleEventTree eventTree)
+        {
+            ICommand command = OpenCommand;
+            if (command != null)
+            {
+                command.Execute(eventTree);
+            }
+        }
     }
 }

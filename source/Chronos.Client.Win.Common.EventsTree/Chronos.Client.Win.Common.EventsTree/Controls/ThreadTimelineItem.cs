@@ -1,30 +1,29 @@
-﻿using Chronos.Common.EventsTree;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Shapes;
+using Chronos.Client.Win.Converters;
+using Chronos.Common.EventsTree;
 
 namespace Chronos.Client.Win.Controls.Common.EventsTree
 {
-    [TemplatePart(Name = EventNameTextBlockPartName, Type = typeof(TextBlock))]
-    [TemplatePart(Name = EventTimeTextBlockPartName, Type = typeof(TextBlock))]
+    //[TemplatePart(Name = ItemRectanglePartName, Type = typeof(Rectangle))]
     public sealed class ThreadTimelineItem : Control
     {
-        private const string EventNameTextBlockPartName = "EventNameTextBlock";
-        private const string EventTimeTextBlockPartName = "EventTimeTextBlock";
+        //private const string ItemRectanglePartName = "ItemRectangle";
 
         private static readonly DependencyPropertyKey IsHoveredPropertyKey;
         public static readonly DependencyProperty IsHoveredProperty;
         private static readonly DependencyPropertyKey IsSelectedPropertyKey;
         public static readonly DependencyProperty IsSelectedProperty;
-        private static readonly DependencyPropertyKey EventNamePropertyKey;
-        public static readonly DependencyProperty EventNameProperty;
-        private static readonly DependencyPropertyKey EventTimePropertyKey;
-        public static readonly DependencyProperty EventTimeProperty;
 
         private readonly IEventMessageBuilder _eventMessageBuilder;
         private readonly Timeline _timeline;
         private readonly uint _endTime;
+        private readonly uint _minTime;
+        private readonly uint _maxTime;
 
         static ThreadTimelineItem()
         {
@@ -33,33 +32,25 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             IsHoveredProperty = IsHoveredPropertyKey.DependencyProperty;
             IsSelectedPropertyKey = DependencyProperty.RegisterReadOnly("IsSelected", typeof(bool), typeof(ThreadTimelineItem), new PropertyMetadata(OnIsSelectedPropertyChanged));
             IsSelectedProperty = IsSelectedPropertyKey.DependencyProperty;
-            EventNamePropertyKey = DependencyProperty.RegisterReadOnly("EventName", typeof(string), typeof(ThreadTimelineItem), new PropertyMetadata());
-            EventNameProperty = IsSelectedPropertyKey.DependencyProperty;
-            EventTimePropertyKey = DependencyProperty.RegisterReadOnly("EventTime", typeof(uint), typeof(ThreadTimelineItem), new PropertyMetadata());
-            EventTimeProperty = IsSelectedPropertyKey.DependencyProperty;
         }
 
-        public ThreadTimelineItem(Timeline timeline, IEventMessageBuilder eventMessageBuilder, ISingleEventTree eventTree, uint endTime)
+        public ThreadTimelineItem(Timeline timeline, IEventMessageBuilder eventMessageBuilder, ISingleEventTree eventTree, uint endTime, uint minTime, uint maxTime)
         {
             _timeline = timeline;
             _eventMessageBuilder = eventMessageBuilder;
             EventTree = eventTree;
             _endTime = endTime;
+            _minTime = minTime;
+            _maxTime = maxTime;
+        }
+
+        protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
+        {
+            base.OnMouseDoubleClick(e);
+            _timeline.OnOpenRequest(EventTree);
         }
 
         public ISingleEventTree EventTree { get; private set; }
-
-        public string EventName
-        {
-            get { return (string)GetValue(EventNameProperty); }
-            private set { SetValue(EventNamePropertyKey, value); }
-        }
-
-        public uint EventTime
-        {
-            get { return (uint)GetValue(EventTimeProperty); }
-            private set { SetValue(EventTimePropertyKey, value); }
-        }
 
         public bool IsHovered
         {
@@ -80,6 +71,9 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             string eventName = _eventMessageBuilder.BuildMessage(EventTree);
             uint eventTime = EventTree.Time;
             ToolTip = string.Concat(eventName, Environment.NewLine, eventTime, "ms");
+            //------------------
+            double eventPercent = NativeEventHelper.GetEventPercent(eventTime, _minTime, _maxTime);
+            Background = new SolidColorBrush(PercentsToColorConverter.Convert(eventPercent));
         }
 
         internal void UpdateLocationAndSize(Size containerSize)

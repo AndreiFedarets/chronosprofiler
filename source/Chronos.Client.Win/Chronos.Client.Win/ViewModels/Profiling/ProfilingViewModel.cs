@@ -1,14 +1,28 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Chronos.Client.Win.Menu;
 
 namespace Chronos.Client.Win.ViewModels.Profiling
 {
     public class ProfilingViewModel : TabViewModel
     {
+        private bool _isEnabled;
+
         public ProfilingViewModel(IProfilingApplication application)
         {
             Application = application;
             Application.ApplicationStateChanged += OnApplicationStateChanged;
+            _isEnabled = true;
+        }
+
+        public bool IsEnabled
+        {
+            get { return _isEnabled; }
+            private set
+            {
+                _isEnabled = value;
+                NotifyOfPropertyChange(() => IsEnabled);
+            }
         }
 
         public IProfilingApplication Application { get; private set; }
@@ -48,7 +62,8 @@ namespace Chronos.Client.Win.ViewModels.Profiling
 
         public void ReloadSnapshot()
         {
-            Application.FlushData();
+            IsEnabled = false;
+            Task.Factory.StartNew(() => Application.FlushData()).ContinueWith(t => IsEnabled = true);
         }
 
         public override void Dispose()

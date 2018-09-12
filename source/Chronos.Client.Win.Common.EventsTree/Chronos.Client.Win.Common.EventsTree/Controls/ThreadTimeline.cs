@@ -1,8 +1,10 @@
 ﻿using Chronos.Common.EventsTree;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System;
 
 namespace Chronos.Client.Win.Controls.Common.EventsTree
 {
@@ -18,6 +20,8 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
         private readonly uint _threadUid;
         private readonly IEnumerable<ISingleEventTree> _eventTrees;
         private readonly uint _endTime;
+        private readonly uint _minTime;
+        private readonly uint _maxTime;
         private readonly Timeline _timeline;
         private ItemsControl _itemsControl;
         private TextBlock _headerTextBlock;
@@ -27,13 +31,15 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ThreadTimeline), new FrameworkPropertyMetadata(typeof(ThreadTimeline)));
         }
 
-        public ThreadTimeline(Timeline timeline, IEventMessageBuilder eventMessageBuilder, uint threadUid, List<ISingleEventTree> eventTrees, uint endTime)
+        public ThreadTimeline(Timeline timeline, IEventMessageBuilder eventMessageBuilder, uint threadUid, List<ISingleEventTree> eventTrees, uint endTime, uint minTime, uint maxTime)
         {
             _timeline = timeline;
             _eventMessageBuilder = eventMessageBuilder;
             _threadUid = threadUid;
             _eventTrees = eventTrees;
             _endTime = endTime;
+            _minTime = minTime;
+            _maxTime = maxTime;
             _collection = new ObservableCollection<ThreadTimelineItem>();
         }
 
@@ -68,7 +74,7 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             _collection.Clear();
             foreach (ISingleEventTree eventTree in _eventTrees)
             {
-                ThreadTimelineItem item = new ThreadTimelineItem(_timeline, _eventMessageBuilder, eventTree, _endTime);
+                ThreadTimelineItem item = new ThreadTimelineItem(_timeline, _eventMessageBuilder, eventTree, _endTime, _minTime, _maxTime);
                 _collection.Add(item);
             }
         }

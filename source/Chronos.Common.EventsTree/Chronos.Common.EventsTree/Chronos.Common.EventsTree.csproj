@@ -50,6 +50,7 @@
     <Compile Include="IThreadEventTreeMessage.cs" />
     <Compile Include="Proxy\EventMessageBuilder.cs" />
     <Compile Include="Proxy\ThreadEventTreeMessage.cs" />
+    <Compile Include="StaticEventTreeCollection.cs" />
     <Compile Include="_Internal\EventMessageBuilderInternal.cs" />
     <Compile Include="_Internal\EventTreeHeader.cs" />
     <Compile Include="IEvent.cs" />

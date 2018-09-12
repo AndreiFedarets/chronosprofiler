@@ -17,16 +17,16 @@ namespace Chronos.Client.Win.Converters
         {
             byte green;
             byte red;
-            const byte blue = 0;
+            const byte blue = 20;
             if (percents < 50)
             {
-                red = (byte) (percents*255*2/100);
+                red = (byte)(percents * 255 * 2 / 100);
                 green = 255;
             }
             else
             {
                 red = 255;
-                green = (byte) ((100 - percents*2)*255/100);
+                green = (byte)((100 - percents * 2) * 255 / 100);
             }
             return Color.FromRgb(red, green, blue);
         }

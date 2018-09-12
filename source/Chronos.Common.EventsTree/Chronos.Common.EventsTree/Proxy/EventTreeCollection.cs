@@ -27,6 +27,10 @@ namespace Chronos.Common.EventsTree.Proxy
             InitializeCollection();
         }
 
+        public uint MinTime { get; private set; }
+
+        public uint MaxTime { get; private set; }
+
         public event EventHandler<EventTreeEventArgs> CollectionUpdated
         {
             add { _collectionUpdatedEvent.Add(value); }
@@ -71,6 +75,7 @@ namespace Chronos.Common.EventsTree.Proxy
             {
                 _dictionaryByUid.Add(eventTree.EventTreeUid, eventTree);
                 _collection.Add(eventTree);
+                UpdateMinMaxTime(eventTree);
             }
         }
 
@@ -87,5 +92,26 @@ namespace Chronos.Common.EventsTree.Proxy
         {
             CollectionChanged.SafeInvoke(this, e);
         }
+
+        private void UpdateMinMaxTime(ISingleEventTree eventTree)
+        {
+            uint time = eventTree.Time;
+            //First event tree
+            if (_dictionaryByUid.Count == 1)
+            {
+                MinTime = time;
+                MaxTime = time;
+                return;
+            }
+            if (time < MinTime)
+            {
+                MinTime = time;
+            }
+            if (time > MaxTime)
+            {
+                MaxTime = time;
+            }
+        }
+
     }
 }

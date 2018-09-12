@@ -150,14 +150,22 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:ThreadTimelineItem}">
-                    <Rectangle x:Name="Rectangle" Fill="Red" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" Margin="{TemplateBinding Margin}"
+                    <!--<ControlTemplate.Triggers>
+                        <Trigger Property="IsHovered" Value="true">
+                            <Setter Property="Background" Value="#E6E6E6" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Background" Value="#D6D6D6" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>-->
+                    <Rectangle x:Name="ItemRectangle" Fill="{TemplateBinding Background}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" Margin="{TemplateBinding Margin}"
                                ToolTip="{TemplateBinding ToolTip}"/>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsHovered" Value="true">
-                            <Setter TargetName="Rectangle" Property="Fill" Value="#E6E6E6" />
+                            <Setter TargetName="ItemRectangle" Property="Fill" Value="#E6E6E6" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
-                            <Setter TargetName="Rectangle" Property="Fill" Value="#D6D6D6" />
+                            <Setter TargetName="ItemRectangle" Property="Fill" Value="#D6D6D6" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

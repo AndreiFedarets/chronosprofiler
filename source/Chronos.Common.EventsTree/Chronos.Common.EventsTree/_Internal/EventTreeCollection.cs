@@ -1,7 +1,7 @@
-﻿using Chronos.Storage;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Chronos.Storage;
 
 namespace Chronos.Common.EventsTree
 {
@@ -15,6 +15,10 @@ namespace Chronos.Common.EventsTree
             _collector = new List<ISingleEventTree>();
             _dictionaryByUid = new Dictionary<ulong, ISingleEventTree>();
         }
+
+        public uint MinTime { get; private set; }
+
+        public uint MaxTime { get; private set; }
 
         public event EventHandler<EventTreeEventArgs> CollectionUpdated;
 
@@ -63,12 +67,33 @@ namespace Chronos.Common.EventsTree
                 foreach (ISingleEventTree eventTree in collector)
                 {
                     _dictionaryByUid.Add(eventTree.EventTreeUid, eventTree);
+                    UpdateMinMaxTime(eventTree);
                 }
             }
             EventHandler<EventTreeEventArgs> handler = CollectionUpdated;
             if (handler != null)
             {
                 handler(this, new EventTreeEventArgs(collector));
+            }
+        }
+
+        private void UpdateMinMaxTime(ISingleEventTree eventTree)
+        {
+            uint time = eventTree.Time;
+            //First event tree
+            if (_dictionaryByUid.Count == 1)
+            {
+                MinTime = time;
+                MaxTime = time;
+                return;
+            }
+            if (time < MinTime)
+            {
+                MinTime = time;
+            }
+            if (time > MaxTime)
+            {
+                MaxTime = time;
             }
         }
 

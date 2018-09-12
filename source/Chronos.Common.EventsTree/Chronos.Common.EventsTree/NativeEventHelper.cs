@@ -186,6 +186,17 @@ namespace Chronos.Common.EventsTree
             return Math.Round((((double)@event.Time) / ((double)parent.Time)) * 100, 1);
         }
 
+        //Percent
+        public static double GetEventPercent(uint time, uint minTime, uint maxTime)
+        {
+            uint lenght = maxTime - minTime;
+            if (lenght == 0)
+            {
+                return 100;
+            }
+            return Math.Round((((double)(time - minTime)) / ((double)lenght)) * 100, 1);
+        }
+
         //Fake Event
         public static unsafe byte[] CreateEvent(byte eventType, short depth, uint unit, uint time, uint hits)
         {

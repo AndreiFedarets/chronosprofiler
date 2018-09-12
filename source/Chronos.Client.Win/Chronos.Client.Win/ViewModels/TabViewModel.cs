@@ -27,9 +27,13 @@ namespace Chronos.Client.Win.ViewModels
 
         public bool Activate(ViewModel viewModel)
         {
-            if (viewModel == null || !Items.Contains(viewModel))
+            if (viewModel == null)
             {
                 return false;
+            }
+            if (!Items.Contains(viewModel))
+            {
+                Add(viewModel);
             }
             ActiveViewModel = viewModel;
             return true;

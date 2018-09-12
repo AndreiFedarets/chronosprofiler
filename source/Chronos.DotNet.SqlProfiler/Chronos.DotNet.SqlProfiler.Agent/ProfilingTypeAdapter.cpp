@@ -12,7 +12,7 @@ namespace Chronos
 				// ProfilingTypeAdapter =======================================================================================
 				ProfilingTypeAdapter::ProfilingTypeAdapter(void)
 				{
-					__debugbreak();
+					//__debugbreak();
 					_jitEvents = null;
 					_msSqlQueries = null;
 				}
