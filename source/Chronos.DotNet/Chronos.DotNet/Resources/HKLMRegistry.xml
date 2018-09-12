@@ -3,7 +3,7 @@
   <key name="HKEY_LOCAL_MACHINE">
     <key name="SOFTWARE">
       <key name="Classes">
-        <key name="Chronos.DotNet.ProfilerEntryPoint" remove="Force">
+        <key name="Chronos.DotNet.Agent.EntryPoint.ProfilerCallback" remove="Force">
           <key name="CLSID" remove="Force">
             <value value="{925B21BB-DED1-4210-B27C-E9F859AA6E75}" type="String" />
           </key>
@@ -11,26 +11,26 @@
         <key name="CLSID">
           <key name="{925B21BB-DED1-4210-B27C-E9F859AA6E75}" remove="Force" view="Registry64">
             <key name="InprocServer32" remove="Force">
-              <value value="%ASSEMBLY_PATH%\x64\Chronos.DotNet.Agent.dll" type="String" />
+              <value value="%ASSEMBLY_PATH%\x64\Chronos.DotNet.Agent.EntryPoint.dll" type="String" />
               <value name="ThreadingModel" value="Free" type="String" />
             </key>
             <key name="ProgID" remove="Force">
-              <value value="Chronos.DotNet.ProfilerEntryPoint" type="String" />
+              <value value="Chronos.DotNet.Agent.EntryPoint.ProfilerCallback" type="String" />
             </key>
             <key name="VersionIndependentProgID" remove="Force">
-              <value value="Chronos.DotNet.ProfilerEntryPoint" type="String" />
+              <value value="Chronos.DotNet.Agent.EntryPoint.ProfilerCallback" type="String" />
             </key>
           </key>
           <key name="{925B21BB-DED1-4210-B27C-E9F859AA6E75}" remove="Force" view="Registry32">
             <key name="InprocServer32" remove="Force">
-              <value value="%ASSEMBLY_PATH%\Chronos.DotNet.Agent.dll" type="String" />
+              <value value="%ASSEMBLY_PATH%\Chronos.DotNet.Agent.EntryPoint.dll" type="String" />
               <value name="ThreadingModel" value="Free" type="String" />
             </key>
             <key name="ProgID" remove="Force">
-              <value value="Chronos.DotNet.ProfilerEntryPoint" type="String" />
+              <value value="Chronos.DotNet.Agent.EntryPoint.ProfilerCallback" type="String" />
             </key>
             <key name="VersionIndependentProgID" remove="Force">
-              <value value="Chronos.DotNet.ProfilerEntryPoint" type="String" />
+              <value value="Chronos.DotNet.Agent.EntryPoint.ProfilerCallback" type="String" />
             </key>
           </key>
         </key>

@@ -1,4 +1,4 @@
-; Chronos.DotNet.Agent.def : Declares the module parameters.
+; Chronos.DotNet.Agent.EntryPoint.def : Declares the module parameters.
 
 LIBRARY
 

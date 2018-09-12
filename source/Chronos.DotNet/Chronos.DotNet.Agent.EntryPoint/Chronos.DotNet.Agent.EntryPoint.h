@@ -1,5 +1,5 @@
 #pragma once
-#include "Chronos.DotNet.Agent.h"
+#include <Chronos.DotNet\Chronos.DotNet.Agent.h>
 
 namespace Chronos
 {
@@ -7,10 +7,12 @@ namespace Chronos
 	{
 		namespace DotNet
 		{
-// ==================================================================================================================================================
-			template<typename T>
-			class ThreadScopeDictionary
+			namespace EntryPoint
 			{
+// ==================================================================================================================================================
+				template<typename T>
+				class ThreadScopeDictionary
+				{
 				public:
 					ThreadScopeDictionary<T>(void)
 						: _metadataProvider(null)
@@ -72,68 +74,68 @@ namespace Chronos
 					std::map<UINT_PTR, T> _items;
 					Reflection::RuntimeMetadataProvider* _metadataProvider;
 					CriticalSection _criticalSection;
-			};
-				
-			template<typename T>
-			T ThreadScopeDictionary<T>::CurrentItem = null;
-			
+				};
+
+				template<typename T>
+				T ThreadScopeDictionary<T>::CurrentItem = null;
+
 // ==================================================================================================================================================
-			struct FunctionInfo
-			{
-				FunctionInfo()
+				struct FunctionInfo
 				{
-					FunctionId = 0;
-					ClientData = null;
-					HookFunction = false;
-				}
-				FunctionID FunctionId;
-				UINT_PTR ClientData;
-				__bool HookFunction;
-			};
+					FunctionInfo()
+					{
+						FunctionId = 0;
+						ClientData = null;
+						HookFunction = false;
+					}
+					FunctionID FunctionId;
+					UINT_PTR ClientData;
+					__bool HookFunction;
+				};
 
 // ==================================================================================================================================================
-			class FunctionInfoCollection
-			{
-				public:
-					FunctionInfoCollection();
-					~FunctionInfoCollection();
-					FunctionInfo* FindFunction(FunctionID functionId);
-					void RemoveFunction(FunctionID functionId);
-					FunctionInfo* CreateFunction(FunctionID functionId, UINT_PTR clientData, __bool hookFunction);
-				private:
-					DynamicBlockFactory<FunctionInfo>* _functions;
-			};
+				class FunctionInfoCollection
+				{
+					public:
+						FunctionInfoCollection();
+						~FunctionInfoCollection();
+						FunctionInfo* FindFunction(FunctionID functionId);
+						void RemoveFunction(FunctionID functionId);
+						FunctionInfo* CreateFunction(FunctionID functionId, UINT_PTR clientData, __bool hookFunction);
+					private:
+						DynamicBlockFactory<FunctionInfo>* _functions;
+				};
 			
 // ==================================================================================================================================================
-			class FunctionExceptionTracer
-			{
-				public:
-					FunctionExceptionTracer(RuntimeProfilingEvents* profilingEvents, FunctionInfoCollection* functions);
-					~FunctionExceptionTracer(void);
+				class FunctionExceptionTracer
+				{
+					public:
+						FunctionExceptionTracer(RuntimeProfilingEvents* profilingEvents, FunctionInfoCollection* functions);
+						~FunctionExceptionTracer(void);
 
-					void ExceptionThrown(ObjectID objectId);
+						void ExceptionThrown(ObjectID objectId);
 
-					void ExceptionSearchFunctionEnter(FunctionID functionId);
-					void ExceptionSearchFunctionLeave();
+						void ExceptionSearchFunctionEnter(FunctionID functionId);
+						void ExceptionSearchFunctionLeave();
 
-					void ExceptionSearchCatcherFound(FunctionID functionId);
+						void ExceptionSearchCatcherFound(FunctionID functionId);
 
-					void ExceptionUnwindFunctionEnter(FunctionID functionId);
-					void ExceptionUnwindFunctionLeave();
+						void ExceptionUnwindFunctionEnter(FunctionID functionId);
+						void ExceptionUnwindFunctionLeave();
 
-					void ExceptionCatcherEnter(FunctionID functionId, ObjectID exceptionId);
-					void ExceptionCatcherLeave();
-				private:
-					void RaiseFunctionExceptionHook(FunctionInfo* function);
-				private:
-					RuntimeProfilingEvents* _profilingEvents;
-					FunctionInfoCollection* _functions;
-					ObjectID _currentException;
-					FunctionInfo* _currentFunction;
-					FunctionInfo* _catcherFunction;
-					std::queue<FunctionInfo*>* _exceptionStack;
-			};
-
+						void ExceptionCatcherEnter(FunctionID functionId, ObjectID exceptionId);
+						void ExceptionCatcherLeave();
+					private:
+						void RaiseFunctionExceptionHook(FunctionInfo* function);
+					private:
+						RuntimeProfilingEvents* _profilingEvents;
+						FunctionInfoCollection* _functions;
+						ObjectID _currentException;
+						FunctionInfo* _currentFunction;
+						FunctionInfo* _catcherFunction;
+						std::queue<FunctionInfo*>* _exceptionStack;
+				};
+			}
 // ==================================================================================================================================================
 		}
 	}

@@ -84,7 +84,7 @@ namespace Chronos.DotNet.Properties {
         ///  &lt;key name=&quot;HKEY_CURRENT_USER&quot;&gt;
         ///    &lt;key name=&quot;SOFTWARE&quot;&gt;
         ///      &lt;key name=&quot;Classes&quot;&gt;
-        ///        &lt;key name=&quot;Chronos.DotNet.ProfilerEntryPoint&quot; remove=&quot;Force&quot;&gt;
+        ///        &lt;key name=&quot;Chronos.DotNet.Agent.EntryPoint.ProfilerCallback&quot; remove=&quot;Force&quot;&gt;
         ///          &lt;key name=&quot;CLSID&quot; remove=&quot;true&quot;&gt;
         ///            &lt;value value=&quot;{925B21BB-DED1-4210-B27C-E9F859AA6E75}&quot; type=&quot;String&quot; /&gt;
         ///          &lt;/key&gt;
@@ -105,7 +105,7 @@ namespace Chronos.DotNet.Properties {
         ///  &lt;key name=&quot;HKEY_LOCAL_MACHINE&quot;&gt;
         ///    &lt;key name=&quot;SOFTWARE&quot;&gt;
         ///      &lt;key name=&quot;Classes&quot;&gt;
-        ///        &lt;key name=&quot;Chronos.DotNet.ProfilerEntryPoint&quot; remove=&quot;Force&quot;&gt;
+        ///        &lt;key name=&quot;Chronos.DotNet.Agent.EntryPoint.ProfilerCallback&quot; remove=&quot;Force&quot;&gt;
         ///          &lt;key name=&quot;CLSID&quot; remove=&quot;true&quot;&gt;
         ///            &lt;value value=&quot;{925B21BB-DED1-4210-B27C-E9F859AA6E75}&quot; type=&quot;String&quot; /&gt;
         ///          &lt;/key&gt;

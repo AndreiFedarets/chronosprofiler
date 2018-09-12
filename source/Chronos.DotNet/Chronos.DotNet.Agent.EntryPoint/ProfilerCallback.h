@@ -1,23 +1,23 @@
-// ProfilerEntryPoint.h : Declaration of the ProfilerEntryPoint
+// ProfilerCallback.h : Declaration of the ProfilerCallback
 
 #pragma once
 #include "resource.h"       // main symbols
-#include "ChronosDotNetAgent_i.h"
-#include "Chronos.DotNet.Agent.Internal.h"
+#include "ChronosDotNetAgentEntryPoint_i.h"
+#include "Chronos.DotNet.Agent.EntryPoint.h"
 
 using namespace ATL;
 
 
-// ProfilerEntryPoint
+// ProfilerCallback
 
-class ATL_NO_VTABLE ProfilerEntryPoint :
+class ATL_NO_VTABLE ProfilerCallback :
 	public CComObjectRootEx<CComMultiThreadModel>,
-	public CComCoClass<ProfilerEntryPoint, &CLSID_ProfilerEntryPoint>,
+	public CComCoClass<ProfilerCallback, &CLSID_ProfilerCallback>,
 	public ICorProfilerCallback3
 {
 public:
-		DECLARE_REGISTRY_RESOURCEID(IDR_PROFILERENTRYPOINT)
-		BEGIN_COM_MAP(ProfilerEntryPoint)
+		DECLARE_REGISTRY_RESOURCEID(IDR_PROFILERCALLBACK)
+		BEGIN_COM_MAP(ProfilerCallback)
 			COM_INTERFACE_ENTRY(IUnknown)
 			COM_INTERFACE_ENTRY(ICorProfilerCallback)
 			COM_INTERFACE_ENTRY(ICorProfilerCallback2)
@@ -28,8 +28,8 @@ public:
 		HRESULT FinalConstruct() { return S_OK; }
 		void FinalRelease() { }
 	
-		ProfilerEntryPoint(void);
-		~ProfilerEntryPoint(void);
+		ProfilerCallback(void);
+		~ProfilerCallback(void);
 
 		HRESULT SetupFunctionCallbacks();
 		HRESULT InitializeInternal(IUnknown* corProfilerInfoUnk);
@@ -136,7 +136,7 @@ public:
 		ICorProfilerInfo2* _corProfilerInfo;
 		Chronos::Agent::Application* _application;
 		Chronos::Agent::DotNet::Reflection::RuntimeMetadataProvider* _metadataProvider;
-		Chronos::Agent::DotNet::ThreadScopeDictionary<Chronos::Agent::DotNet::FunctionExceptionTracer*>* _exceptionTracers;
+		Chronos::Agent::DotNet::EntryPoint::ThreadScopeDictionary<Chronos::Agent::DotNet::EntryPoint::FunctionExceptionTracer*>* _exceptionTracers;
 };
 
-OBJECT_ENTRY_AUTO(__uuidof(ProfilerEntryPoint), ProfilerEntryPoint)
+OBJECT_ENTRY_AUTO(__uuidof(ProfilerCallback), ProfilerCallback)

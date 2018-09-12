@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "ProfilerEntryPoint.h"
+#include "ProfilerCallback.h"
 
 //=================================================================================================
 //msbuild $(ProjectPath) /property:configuration=$(Configuration) /property:platform=x64
@@ -26,7 +26,7 @@
 //=================================================================================================
 
 Chronos::Agent::DotNet::RuntimeProfilingEvents* GlobalEvents = null;
-Chronos::Agent::DotNet::FunctionInfoCollection* GlobalFunctions = null;
+Chronos::Agent::DotNet::EntryPoint::FunctionInfoCollection* GlobalFunctions = null;
 
 //=================================================================================================
 UINT_PTR _stdcall FunctionMapperGlobal(FunctionID functionId, BOOL *hookFunction)
@@ -44,18 +44,18 @@ UINT_PTR _stdcall FunctionMapperGlobal(FunctionID functionId, BOOL *hookFunction
 }
 //=================================================================================================
 
-ProfilerEntryPoint::ProfilerEntryPoint(void)
+ProfilerCallback::ProfilerCallback(void)
 	: _metadataProvider(null), _application(null), _exceptionTracers(null)
 {
 }
 
-ProfilerEntryPoint::~ProfilerEntryPoint(void)
+ProfilerCallback::~ProfilerCallback(void)
 {
 	__FREEOBJ(_application);
 	__FREEOBJ(_exceptionTracers);
 }
 
-HRESULT ProfilerEntryPoint::InitializeInternal(IUnknown* corProfilerInfoUnk)
+HRESULT ProfilerCallback::InitializeInternal(IUnknown* corProfilerInfoUnk)
 {
 	HRESULT result;
 	result = Chronos::Agent::DotNet::Reflection::RuntimeMetadataProvider::Initialize(corProfilerInfoUnk);
@@ -76,9 +76,9 @@ HRESULT ProfilerEntryPoint::InitializeInternal(IUnknown* corProfilerInfoUnk)
 		result = SetupFunctionCallbacks();
 		__RETURN_IF_FAILED(result);
 		
-		GlobalFunctions = new Chronos::Agent::DotNet::FunctionInfoCollection();
+		GlobalFunctions = new Chronos::Agent::DotNet::EntryPoint::FunctionInfoCollection();
 
-		_exceptionTracers = new Chronos::Agent::DotNet::ThreadScopeDictionary<Chronos::Agent::DotNet::FunctionExceptionTracer*>();
+		_exceptionTracers = new Chronos::Agent::DotNet::EntryPoint::ThreadScopeDictionary<Chronos::Agent::DotNet::EntryPoint::FunctionExceptionTracer*>();
 		_exceptionTracers->Initialize(_metadataProvider);
 
 	}
@@ -88,7 +88,7 @@ HRESULT ProfilerEntryPoint::InitializeInternal(IUnknown* corProfilerInfoUnk)
 	return S_OK;
 }
 
-HRESULT ProfilerEntryPoint::SetupFunctionCallbacks()
+HRESULT ProfilerCallback::SetupFunctionCallbacks()
 {
 	ICorProfilerInfo3* _corProfilerInfo3 = null;
 	__RETURN_IF_FAILED( _metadataProvider->GetCorProfilerInfo3(&_corProfilerInfo3) );
@@ -106,7 +106,7 @@ HRESULT ProfilerEntryPoint::SetupFunctionCallbacks()
 }
 
 // STARTUP EVENTS
-STDMETHODIMP ProfilerEntryPoint::Initialize(IUnknown* corProfilerInfoUnk)
+STDMETHODIMP ProfilerCallback::Initialize(IUnknown* corProfilerInfoUnk)
 {
 	//MessageBox(NULL, L"ATTACHED", L"", MB_OK);
 	HRESULT result = InitializeInternal(corProfilerInfoUnk);
@@ -117,7 +117,7 @@ STDMETHODIMP ProfilerEntryPoint::Initialize(IUnknown* corProfilerInfoUnk)
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::Shutdown()
+STDMETHODIMP ProfilerCallback::Shutdown()
 {
 	HRESULT result = _application->Shutdown();
 	__FREEOBJ(_exceptionTracers);
@@ -129,28 +129,28 @@ STDMETHODIMP ProfilerEntryPoint::Shutdown()
 }
 
 // APPLICATION DOMAIN EVENTS
-STDMETHODIMP ProfilerEntryPoint::AppDomainCreationStarted(AppDomainID appDomainID)
+STDMETHODIMP ProfilerCallback::AppDomainCreationStarted(AppDomainID appDomainID)
 {
 	Chronos::Agent::DotNet::AppDomainCreationStartedEventArgs eventArgs(appDomainID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::AppDomainCreationStarted, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::AppDomainCreationFinished(AppDomainID appDomainID, HRESULT status)
+STDMETHODIMP ProfilerCallback::AppDomainCreationFinished(AppDomainID appDomainID, HRESULT status)
 {
 	Chronos::Agent::DotNet::AppDomainCreationFinishedEventArgs eventArgs(appDomainID, status);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::AppDomainCreationFinished, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::AppDomainShutdownStarted(AppDomainID appDomainID)
+STDMETHODIMP ProfilerCallback::AppDomainShutdownStarted(AppDomainID appDomainID)
 {
 	Chronos::Agent::DotNet::AppDomainShutdownStartedEventArgs eventArgs(appDomainID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::AppDomainShutdownStarted, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::AppDomainShutdownFinished(AppDomainID appDomainID, HRESULT status)
+STDMETHODIMP ProfilerCallback::AppDomainShutdownFinished(AppDomainID appDomainID, HRESULT status)
 {
 	Chronos::Agent::DotNet::AppDomainShutdownFinishedEventArgs eventArgs(appDomainID, status);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::AppDomainShutdownFinished, &eventArgs);
@@ -158,28 +158,28 @@ STDMETHODIMP ProfilerEntryPoint::AppDomainShutdownFinished(AppDomainID appDomain
 }
 
 // ASSEMBLY EVENTS
-STDMETHODIMP ProfilerEntryPoint::AssemblyLoadStarted(AssemblyID assemblyID)
+STDMETHODIMP ProfilerCallback::AssemblyLoadStarted(AssemblyID assemblyID)
 {
 	Chronos::Agent::DotNet::AssemblyLoadStartedEventArgs eventArgs(assemblyID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::AssemblyLoadStarted, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::AssemblyLoadFinished(AssemblyID assemblyID, HRESULT status)
+STDMETHODIMP ProfilerCallback::AssemblyLoadFinished(AssemblyID assemblyID, HRESULT status)
 {
 	Chronos::Agent::DotNet::AssemblyLoadFinishedEventArgs eventArgs(assemblyID, status);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::AssemblyLoadFinished, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::AssemblyUnloadStarted(AssemblyID assemblyID)
+STDMETHODIMP ProfilerCallback::AssemblyUnloadStarted(AssemblyID assemblyID)
 {
 	Chronos::Agent::DotNet::AssemblyUnloadStartedEventArgs eventArgs(assemblyID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::AssemblyUnloadStarted, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::AssemblyUnloadFinished(AssemblyID assemblyID, HRESULT status)
+STDMETHODIMP ProfilerCallback::AssemblyUnloadFinished(AssemblyID assemblyID, HRESULT status)
 {
 	Chronos::Agent::DotNet::AssemblyUnloadFinishedEventArgs eventArgs(assemblyID, status);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::AssemblyUnloadFinished, &eventArgs);
@@ -187,35 +187,35 @@ STDMETHODIMP ProfilerEntryPoint::AssemblyUnloadFinished(AssemblyID assemblyID, H
 }
 
 // MODULE EVENTS
-STDMETHODIMP ProfilerEntryPoint::ModuleLoadStarted(ModuleID moduleID)
+STDMETHODIMP ProfilerCallback::ModuleLoadStarted(ModuleID moduleID)
 {
 	Chronos::Agent::DotNet::ModuleLoadStartedEventArgs eventArgs(moduleID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ModuleLoadStarted, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ModuleLoadFinished(ModuleID moduleID, HRESULT status)
+STDMETHODIMP ProfilerCallback::ModuleLoadFinished(ModuleID moduleID, HRESULT status)
 {
 	Chronos::Agent::DotNet::ModuleLoadFinishedEventArgs eventArgs(moduleID, status);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ModuleLoadFinished, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ModuleUnloadStarted(ModuleID moduleID)
+STDMETHODIMP ProfilerCallback::ModuleUnloadStarted(ModuleID moduleID)
 {
 	Chronos::Agent::DotNet::ModuleUnloadStartedEventArgs eventArgs(moduleID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ModuleUnloadStarted, &eventArgs);
 	return S_OK;
 }
 	  
-STDMETHODIMP ProfilerEntryPoint::ModuleUnloadFinished(ModuleID moduleID, HRESULT status)
+STDMETHODIMP ProfilerCallback::ModuleUnloadFinished(ModuleID moduleID, HRESULT status)
 {
 	Chronos::Agent::DotNet::ModuleUnloadFinishedEventArgs eventArgs(moduleID, status);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ModuleUnloadFinished, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ModuleAttachedToAssembly(ModuleID moduleID, AssemblyID assemblyID)
+STDMETHODIMP ProfilerCallback::ModuleAttachedToAssembly(ModuleID moduleID, AssemblyID assemblyID)
 {
 	Chronos::Agent::DotNet::ModuleAttachedToAssemblyEventArgs eventArgs(moduleID, assemblyID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ModuleAttachedToAssembly, &eventArgs);
@@ -223,35 +223,35 @@ STDMETHODIMP ProfilerEntryPoint::ModuleAttachedToAssembly(ModuleID moduleID, Ass
 }
 
 // CLASS EVENTS
-STDMETHODIMP ProfilerEntryPoint::ClassLoadStarted(ClassID classID)
+STDMETHODIMP ProfilerCallback::ClassLoadStarted(ClassID classID)
 {
 	Chronos::Agent::DotNet::ClassLoadStartedEventArgs eventArgs(classID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ClassLoadStarted, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ClassLoadFinished(ClassID classID, HRESULT status)
+STDMETHODIMP ProfilerCallback::ClassLoadFinished(ClassID classID, HRESULT status)
 {
 	Chronos::Agent::DotNet::ClassLoadFinishedEventArgs eventArgs(classID, status);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ClassLoadFinished, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ClassUnloadStarted(ClassID classID)
+STDMETHODIMP ProfilerCallback::ClassUnloadStarted(ClassID classID)
 {
 	Chronos::Agent::DotNet::ClassUnloadStartedEventArgs eventArgs(classID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ClassUnloadStarted, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ClassUnloadFinished(ClassID classID, HRESULT status)
+STDMETHODIMP ProfilerCallback::ClassUnloadFinished(ClassID classID, HRESULT status)
 {
 	Chronos::Agent::DotNet::ClassUnloadFinishedEventArgs eventArgs(classID, status);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ClassUnloadFinished, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::FunctionUnloadStarted(FunctionID functionID)
+STDMETHODIMP ProfilerCallback::FunctionUnloadStarted(FunctionID functionID)
 {
 	Chronos::Agent::DotNet::FunctionUnloadStartedEventArgs eventArgs(functionID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::FunctionUnloadStarted, &eventArgs);
@@ -259,21 +259,21 @@ STDMETHODIMP ProfilerEntryPoint::FunctionUnloadStarted(FunctionID functionID)
 }
 
 // JIT EVENTS
-STDMETHODIMP ProfilerEntryPoint::JITCompilationStarted(FunctionID functionID, BOOL fIsSafeToBlock)
+STDMETHODIMP ProfilerCallback::JITCompilationStarted(FunctionID functionID, BOOL fIsSafeToBlock)
 {
 	Chronos::Agent::DotNet::JITCompilationStartedEventArgs eventArgs(functionID, fIsSafeToBlock);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::JITCompilationStarted, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::JITCompilationFinished(FunctionID functionID, HRESULT status, BOOL fIsSafeToBlock)
+STDMETHODIMP ProfilerCallback::JITCompilationFinished(FunctionID functionID, HRESULT status, BOOL fIsSafeToBlock)
 {
 	Chronos::Agent::DotNet::JITCompilationFinishedEventArgs eventArgs(functionID, status, fIsSafeToBlock);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::JITCompilationFinished, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::JITCachedFunctionSearchStarted(FunctionID functionID, BOOL *pbUseCachedFunction)
+STDMETHODIMP ProfilerCallback::JITCachedFunctionSearchStarted(FunctionID functionID, BOOL *pbUseCachedFunction)
 {
 	Chronos::Agent::DotNet::JITCachedFunctionSearchStartedEventArgs eventArgs(functionID, *pbUseCachedFunction);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::JITCachedFunctionSearchStarted, &eventArgs);
@@ -281,21 +281,21 @@ STDMETHODIMP ProfilerEntryPoint::JITCachedFunctionSearchStarted(FunctionID funct
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::JITCachedFunctionSearchFinished(FunctionID functionID, COR_PRF_JIT_CACHE result)
+STDMETHODIMP ProfilerCallback::JITCachedFunctionSearchFinished(FunctionID functionID, COR_PRF_JIT_CACHE result)
 {
 	Chronos::Agent::DotNet::JITCachedFunctionSearchFinishedEventArgs eventArgs(functionID, result);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::JITCachedFunctionSearchFinished, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::JITFunctionPitched(FunctionID functionID)
+STDMETHODIMP ProfilerCallback::JITFunctionPitched(FunctionID functionID)
 {
 	Chronos::Agent::DotNet::JITFunctionPitchedEventArgs eventArgs(functionID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::JITFunctionPitched, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::JITInlining(FunctionID callerID, FunctionID calleeID, BOOL *pfShouldInline)
+STDMETHODIMP ProfilerCallback::JITInlining(FunctionID callerID, FunctionID calleeID, BOOL *pfShouldInline)
 {
 	Chronos::Agent::DotNet::JITInliningEventArgs eventArgs(callerID, calleeID, *pfShouldInline);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::JITInlining, &eventArgs);
@@ -306,11 +306,11 @@ STDMETHODIMP ProfilerEntryPoint::JITInlining(FunctionID callerID, FunctionID cal
 /// <summary>
 /// The Runtime calls ThreadCreated to notify the code profiler that a thread has been created. The threadId is valid immediately.
 /// </summary>
-STDMETHODIMP ProfilerEntryPoint::ThreadCreated(ThreadID threadID)
+STDMETHODIMP ProfilerCallback::ThreadCreated(ThreadID threadID)
 {
 	if (_exceptionTracers != null)
 	{
-		Chronos::Agent::DotNet::FunctionExceptionTracer* tracer = new Chronos::Agent::DotNet::FunctionExceptionTracer(GlobalEvents, GlobalFunctions);
+		Chronos::Agent::DotNet::EntryPoint::FunctionExceptionTracer* tracer = new Chronos::Agent::DotNet::EntryPoint::FunctionExceptionTracer(GlobalEvents, GlobalFunctions);
 		_exceptionTracers->AttachItem(tracer);
 	}
 	Chronos::Agent::DotNet::ThreadCreatedEventArgs eventArgs(threadID);
@@ -318,7 +318,7 @@ STDMETHODIMP ProfilerEntryPoint::ThreadCreated(ThreadID threadID)
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ThreadDestroyed(ThreadID threadID)
+STDMETHODIMP ProfilerCallback::ThreadDestroyed(ThreadID threadID)
 {
 	if (_exceptionTracers != null)
 	{
@@ -329,7 +329,7 @@ STDMETHODIMP ProfilerEntryPoint::ThreadDestroyed(ThreadID threadID)
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ThreadAssignedToOSThread(ThreadID managedThreadID, DWORD osThreadID) 
+STDMETHODIMP ProfilerCallback::ThreadAssignedToOSThread(ThreadID managedThreadID, DWORD osThreadID) 
 {
 	Chronos::Agent::DotNet::ThreadAssignedToOSThreadEventArgs eventArgs(managedThreadID, osThreadID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ThreadAssignedToOSThread, &eventArgs);
@@ -339,7 +339,7 @@ STDMETHODIMP ProfilerEntryPoint::ThreadAssignedToOSThread(ThreadID managedThread
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ThreadNameChanged(ThreadID threadID, ULONG cchName, WCHAR name[])
+STDMETHODIMP ProfilerCallback::ThreadNameChanged(ThreadID threadID, ULONG cchName, WCHAR name[])
 {
 	__string wrappedName(name);
 	Chronos::Agent::DotNet::ThreadNameChangedEventArgs eventArgs(threadID, wrappedName);
@@ -351,56 +351,56 @@ STDMETHODIMP ProfilerEntryPoint::ThreadNameChanged(ThreadID threadID, ULONG cchN
 }
 
 // REMOTING EVENTS (Client-side)
-STDMETHODIMP ProfilerEntryPoint::RemotingClientInvocationStarted()
+STDMETHODIMP ProfilerCallback::RemotingClientInvocationStarted()
 {
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::RemotingClientSendingMessage(GUID *pCookie, BOOL fIsAsync)
+STDMETHODIMP ProfilerCallback::RemotingClientSendingMessage(GUID *pCookie, BOOL fIsAsync)
 {
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::RemotingClientReceivingReply(GUID *pCookie, BOOL fIsAsync)
+STDMETHODIMP ProfilerCallback::RemotingClientReceivingReply(GUID *pCookie, BOOL fIsAsync)
 {
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::RemotingClientInvocationFinished()
+STDMETHODIMP ProfilerCallback::RemotingClientInvocationFinished()
 {
 	return S_OK;
 }
 
 // REMOTING EVENTS (Server-side)
-STDMETHODIMP ProfilerEntryPoint::RemotingServerReceivingMessage(GUID *pCookie, BOOL fIsAsync)
+STDMETHODIMP ProfilerCallback::RemotingServerReceivingMessage(GUID *pCookie, BOOL fIsAsync)
 {
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::RemotingServerInvocationStarted()
+STDMETHODIMP ProfilerCallback::RemotingServerInvocationStarted()
 {
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::RemotingServerInvocationReturned()
+STDMETHODIMP ProfilerCallback::RemotingServerInvocationReturned()
 {
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::RemotingServerSendingReply(GUID *pCookie, BOOL fIsAsync)
+STDMETHODIMP ProfilerCallback::RemotingServerSendingReply(GUID *pCookie, BOOL fIsAsync)
 {
 	return S_OK;
 }
 
 // CONTEXT EVENTS
-STDMETHODIMP ProfilerEntryPoint::UnmanagedToManagedTransition(FunctionID functionID, COR_PRF_TRANSITION_REASON reason)
+STDMETHODIMP ProfilerCallback::UnmanagedToManagedTransition(FunctionID functionID, COR_PRF_TRANSITION_REASON reason)
 {
 	Chronos::Agent::DotNet::UnmanagedToManagedTransitionEventArgs eventArgs(functionID, reason);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::UnmanagedToManagedTransition, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ManagedToUnmanagedTransition(FunctionID functionID, COR_PRF_TRANSITION_REASON reason)
+STDMETHODIMP ProfilerCallback::ManagedToUnmanagedTransition(FunctionID functionID, COR_PRF_TRANSITION_REASON reason)
 {
 	Chronos::Agent::DotNet::ManagedToUnmanagedTransitionEventArgs eventArgs(functionID, reason);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ManagedToUnmanagedTransition, &eventArgs);
@@ -408,49 +408,49 @@ STDMETHODIMP ProfilerEntryPoint::ManagedToUnmanagedTransition(FunctionID functio
 }
 
 // SUSPENSION EVENTS
-STDMETHODIMP ProfilerEntryPoint::RuntimeSuspendStarted(COR_PRF_SUSPEND_REASON suspendReason)
+STDMETHODIMP ProfilerCallback::RuntimeSuspendStarted(COR_PRF_SUSPEND_REASON suspendReason)
 {
 	Chronos::Agent::DotNet::RuntimeSuspendStartedEventArgs eventArgs(suspendReason);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::RuntimeSuspendStarted, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::RuntimeSuspendFinished()
+STDMETHODIMP ProfilerCallback::RuntimeSuspendFinished()
 {
 	Chronos::Agent::DotNet::RuntimeSuspendFinishedEventArgs eventArgs;
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::RuntimeSuspendFinished, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::RuntimeSuspendAborted()
+STDMETHODIMP ProfilerCallback::RuntimeSuspendAborted()
 {
 	Chronos::Agent::DotNet::RuntimeSuspendAbortedEventArgs eventArgs;
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::RuntimeSuspendAborted, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::RuntimeResumeStarted()
+STDMETHODIMP ProfilerCallback::RuntimeResumeStarted()
 {
 	Chronos::Agent::DotNet::RuntimeResumeStartedEventArgs eventArgs;
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::RuntimeResumeStarted, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::RuntimeResumeFinished()
+STDMETHODIMP ProfilerCallback::RuntimeResumeFinished()
 {
 	Chronos::Agent::DotNet::RuntimeResumeFinishedEventArgs eventArgs;
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::RuntimeResumeFinished, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::RuntimeThreadSuspended(ThreadID threadID)
+STDMETHODIMP ProfilerCallback::RuntimeThreadSuspended(ThreadID threadID)
 {
 	Chronos::Agent::DotNet::RuntimeThreadSuspendedEventArgs eventArgs(threadID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::RuntimeThreadSuspended, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::RuntimeThreadResumed(ThreadID threadID)
+STDMETHODIMP ProfilerCallback::RuntimeThreadResumed(ThreadID threadID)
 {
 	Chronos::Agent::DotNet::RuntimeThreadResumedEventArgs eventArgs(threadID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::RuntimeThreadResumed, &eventArgs);
@@ -458,84 +458,84 @@ STDMETHODIMP ProfilerEntryPoint::RuntimeThreadResumed(ThreadID threadID)
 }
 
 // GC EVENTS
-STDMETHODIMP ProfilerEntryPoint::MovedReferences(ULONG cmovedObjectIDRanges, ObjectID oldObjectIDRangeStart[], ObjectID newObjectIDRangeStart[], ULONG cObjectIDRangeLength[])
+STDMETHODIMP ProfilerCallback::MovedReferences(ULONG cmovedObjectIDRanges, ObjectID oldObjectIDRangeStart[], ObjectID newObjectIDRangeStart[], ULONG cObjectIDRangeLength[])
 {
 	/*Chronos::Agent::DotNet::MovedReferencesEventArgs eventArgs(cmovedObjectIDRanges, oldObjectIDRangeStart, newObjectIDRangeStart, cObjectIDRangeLength);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::MovedReferences, &eventArgs);*/
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ObjectAllocated(ObjectID objectID, ClassID classID)
+STDMETHODIMP ProfilerCallback::ObjectAllocated(ObjectID objectID, ClassID classID)
 {
 	/*Chronos::Agent::DotNet::ObjectAllocatedEventArgs eventArgs(objectID, classID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ObjectAllocated, &eventArgs);*/
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ObjectsAllocatedByClass(ULONG classCount, ClassID classIDs[], ULONG objects[])
+STDMETHODIMP ProfilerCallback::ObjectsAllocatedByClass(ULONG classCount, ClassID classIDs[], ULONG objects[])
 {
 	/*Chronos::Agent::DotNet::ObjectsAllocatedByClassEventArgs eventArgs(classCount, classIDs, objects);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ObjectsAllocatedByClass, &eventArgs);*/
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ObjectReferences(ObjectID objectID, ClassID classID, ULONG objectRefs, ObjectID objectRefIDs[])
+STDMETHODIMP ProfilerCallback::ObjectReferences(ObjectID objectID, ClassID classID, ULONG objectRefs, ObjectID objectRefIDs[])
 {
 	/*Chronos::Agent::DotNet::ObjectReferencesEventArgs eventArgs(objectID, classID, objectRefs, objectRefIDs);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ObjectReferences, &eventArgs);*/
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::RootReferences(ULONG rootRefs, ObjectID rootRefIDs[])
+STDMETHODIMP ProfilerCallback::RootReferences(ULONG rootRefs, ObjectID rootRefIDs[])
 {
 	/*Chronos::Agent::DotNet::RootReferencesEventArgs eventArgs(rootRefs, rootRefIDs);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::RootReferences, &eventArgs);*/
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::GarbageCollectionStarted(int cGenerations, BOOL generationCollected[], COR_PRF_GC_REASON reason)
+STDMETHODIMP ProfilerCallback::GarbageCollectionStarted(int cGenerations, BOOL generationCollected[], COR_PRF_GC_REASON reason)
 {
 	/*Chronos::Agent::DotNet::GarbageCollectionStartedEventArgs eventArgs(cGenerations, generationCollected, reason);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::GarbageCollectionStarted, &eventArgs);*/
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::SurvivingReferences(ULONG cSurvivingObjectIDRanges, ObjectID objectIDRangeStart[], ULONG cObjectIDRangeLength[])
+STDMETHODIMP ProfilerCallback::SurvivingReferences(ULONG cSurvivingObjectIDRanges, ObjectID objectIDRangeStart[], ULONG cObjectIDRangeLength[])
 {
 	/*Chronos::Agent::DotNet::SurvivingReferencesEventArgs eventArgs(cSurvivingObjectIDRanges, objectIDRangeStart, cObjectIDRangeLength);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::SurvivingReferences, &eventArgs);*/
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::GarbageCollectionFinished()
+STDMETHODIMP ProfilerCallback::GarbageCollectionFinished()
 {
 	/*Chronos::Agent::DotNet::GarbageCollectionFinishedEventArgs eventArgs;
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::GarbageCollectionFinished, &eventArgs);*/
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::FinalizeableObjectQueued(DWORD finalizerFlags, ObjectID objectID)
+STDMETHODIMP ProfilerCallback::FinalizeableObjectQueued(DWORD finalizerFlags, ObjectID objectID)
 {
 	/*Chronos::Agent::DotNet::FinalizeableObjectQueuedEventArgs eventArgs(finalizerFlags, objectID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::FinalizeableObjectQueued, &eventArgs);*/
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::RootReferences2(ULONG cRootRefs, ObjectID rootRefIDs[], COR_PRF_GC_ROOT_KIND rootKinds[], COR_PRF_GC_ROOT_FLAGS rootFlags[], UINT_PTR rootIDs[])
+STDMETHODIMP ProfilerCallback::RootReferences2(ULONG cRootRefs, ObjectID rootRefIDs[], COR_PRF_GC_ROOT_KIND rootKinds[], COR_PRF_GC_ROOT_FLAGS rootFlags[], UINT_PTR rootIDs[])
 {
 	/*Chronos::Agent::DotNet::RootReferences2EventArgs eventArgs(cRootRefs, rootRefIDs, rootKinds, rootFlags, rootIDs);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::RootReferences2, &eventArgs);*/
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::HandleCreated(GCHandleID handleID, ObjectID initialObjectID)
+STDMETHODIMP ProfilerCallback::HandleCreated(GCHandleID handleID, ObjectID initialObjectID)
 {
 	/*Chronos::Agent::DotNet::HandleCreatedEventArgs eventArgs(handleID, initialObjectID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::HandleCreated, &eventArgs);*/
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::HandleDestroyed(GCHandleID handleID)
+STDMETHODIMP ProfilerCallback::HandleDestroyed(GCHandleID handleID)
 {
 	/*Chronos::Agent::DotNet::HandleDestroyedEventArgs eventArgs(handleID);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::HandleDestroyed, &eventArgs);*/
@@ -543,11 +543,11 @@ STDMETHODIMP ProfilerEntryPoint::HandleDestroyed(GCHandleID handleID)
 }
 
 // EXCEPTION EVENTS (Exception creation)
-STDMETHODIMP ProfilerEntryPoint::ExceptionThrown(ObjectID objectId)
+STDMETHODIMP ProfilerCallback::ExceptionThrown(ObjectID objectId)
 {
 	if (_exceptionTracers != null)
 	{
-		Chronos::Agent::DotNet::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
+		Chronos::Agent::DotNet::EntryPoint::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
 		if (tracer != null)
 		{
 			tracer->ExceptionThrown(objectId);
@@ -559,11 +559,11 @@ STDMETHODIMP ProfilerEntryPoint::ExceptionThrown(ObjectID objectId)
 }
 
 // EXCEPTION EVENTS (Search phase)
-STDMETHODIMP ProfilerEntryPoint::ExceptionSearchFunctionEnter(FunctionID functionId)
+STDMETHODIMP ProfilerCallback::ExceptionSearchFunctionEnter(FunctionID functionId)
 {
 	if (_exceptionTracers != null)
 	{
-		Chronos::Agent::DotNet::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
+		Chronos::Agent::DotNet::EntryPoint::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
 		if (tracer != null)
 		{
 			tracer->ExceptionSearchFunctionEnter(functionId);
@@ -574,11 +574,11 @@ STDMETHODIMP ProfilerEntryPoint::ExceptionSearchFunctionEnter(FunctionID functio
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ExceptionSearchFunctionLeave()
+STDMETHODIMP ProfilerCallback::ExceptionSearchFunctionLeave()
 {
 	if (_exceptionTracers != null)
 	{
-		Chronos::Agent::DotNet::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
+		Chronos::Agent::DotNet::EntryPoint::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
 		if (tracer != null)
 		{
 			tracer->ExceptionSearchFunctionLeave();
@@ -589,25 +589,25 @@ STDMETHODIMP ProfilerEntryPoint::ExceptionSearchFunctionLeave()
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ExceptionSearchFilterEnter(FunctionID functionId)
+STDMETHODIMP ProfilerCallback::ExceptionSearchFilterEnter(FunctionID functionId)
 {
 	Chronos::Agent::DotNet::ExceptionSearchFilterEnterEventArgs eventArgs(functionId);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ExceptionSearchFilterEnter, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ExceptionSearchFilterLeave()
+STDMETHODIMP ProfilerCallback::ExceptionSearchFilterLeave()
 {
 	Chronos::Agent::DotNet::ExceptionSearchFilterLeaveEventArgs eventArgs;
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ExceptionSearchFilterLeave, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ExceptionSearchCatcherFound(FunctionID functionId)
+STDMETHODIMP ProfilerCallback::ExceptionSearchCatcherFound(FunctionID functionId)
 {
 	if (_exceptionTracers != null)
 	{
-		Chronos::Agent::DotNet::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
+		Chronos::Agent::DotNet::EntryPoint::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
 		if (tracer != null)
 		{
 			tracer->ExceptionSearchCatcherFound(functionId);
@@ -621,7 +621,7 @@ STDMETHODIMP ProfilerEntryPoint::ExceptionSearchCatcherFound(FunctionID function
 /// <summary>
 /// Called when a catch block for an exception is executed inside the common language runtime (CLR) itself. This method is obsolete in the .NET Framework version 2.0.
 /// </summary>
-STDMETHODIMP ProfilerEntryPoint::ExceptionCLRCatcherFound()
+STDMETHODIMP ProfilerCallback::ExceptionCLRCatcherFound()
 {
 	return S_OK;
 }
@@ -629,7 +629,7 @@ STDMETHODIMP ProfilerEntryPoint::ExceptionCLRCatcherFound()
 /// <summary>
 /// Called when a catch block for an exception is executed inside the common language runtime (CLR) itself. This method is obsolete in the .NET Framework version 2.0.
 /// </summary>
-STDMETHODIMP ProfilerEntryPoint::ExceptionCLRCatcherExecute()
+STDMETHODIMP ProfilerCallback::ExceptionCLRCatcherExecute()
 {
 	return S_OK;
 }
@@ -637,7 +637,7 @@ STDMETHODIMP ProfilerEntryPoint::ExceptionCLRCatcherExecute()
 /// <summary>
 /// Not implemented. A profiler that needs unmanaged exception information must obtain this information through other means.
 /// </summary>
-STDMETHODIMP ProfilerEntryPoint::ExceptionOSHandlerEnter(FunctionID functionId)
+STDMETHODIMP ProfilerCallback::ExceptionOSHandlerEnter(FunctionID functionId)
 {
 	return S_OK;
 }
@@ -645,17 +645,17 @@ STDMETHODIMP ProfilerEntryPoint::ExceptionOSHandlerEnter(FunctionID functionId)
 /// <summary>
 /// Not implemented. A profiler that needs unmanaged exception information must obtain this information through other means.
 /// </summary>
-STDMETHODIMP ProfilerEntryPoint::ExceptionOSHandlerLeave(FunctionID functionId)
+STDMETHODIMP ProfilerCallback::ExceptionOSHandlerLeave(FunctionID functionId)
 {
 	return S_OK;
 }
 
 // EXCEPTION EVENTS (Unwind phase)
-STDMETHODIMP ProfilerEntryPoint::ExceptionUnwindFunctionEnter(FunctionID functionId)
+STDMETHODIMP ProfilerCallback::ExceptionUnwindFunctionEnter(FunctionID functionId)
 {
 	if (_exceptionTracers != null)
 	{
-		Chronos::Agent::DotNet::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
+		Chronos::Agent::DotNet::EntryPoint::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
 		if (tracer != null)
 		{
 			tracer->ExceptionUnwindFunctionEnter(functionId);
@@ -666,11 +666,11 @@ STDMETHODIMP ProfilerEntryPoint::ExceptionUnwindFunctionEnter(FunctionID functio
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ExceptionUnwindFunctionLeave()
+STDMETHODIMP ProfilerCallback::ExceptionUnwindFunctionLeave()
 {
 	if (_exceptionTracers != null)
 	{
-		Chronos::Agent::DotNet::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
+		Chronos::Agent::DotNet::EntryPoint::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
 		if (tracer != null)
 		{
 			tracer->ExceptionUnwindFunctionLeave();
@@ -681,25 +681,25 @@ STDMETHODIMP ProfilerEntryPoint::ExceptionUnwindFunctionLeave()
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ExceptionUnwindFinallyEnter(FunctionID functionId)
+STDMETHODIMP ProfilerCallback::ExceptionUnwindFinallyEnter(FunctionID functionId)
 {
 	Chronos::Agent::DotNet::ExceptionUnwindFinallyEnterEventArgs eventArgs(functionId);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ExceptionUnwindFinallyEnter, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ExceptionUnwindFinallyLeave()
+STDMETHODIMP ProfilerCallback::ExceptionUnwindFinallyLeave()
 {
 	Chronos::Agent::DotNet::ExceptionUnwindFinallyLeaveEventArgs eventArgs;
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::ExceptionUnwindFinallyLeave, &eventArgs);
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ExceptionCatcherEnter(FunctionID functionId, ObjectID objectId)
+STDMETHODIMP ProfilerCallback::ExceptionCatcherEnter(FunctionID functionId, ObjectID objectId)
 {
 	if (_exceptionTracers != null)
 	{
-		Chronos::Agent::DotNet::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
+		Chronos::Agent::DotNet::EntryPoint::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
 		if (tracer != null)
 		{
 			tracer->ExceptionCatcherEnter(functionId, objectId);
@@ -710,11 +710,11 @@ STDMETHODIMP ProfilerEntryPoint::ExceptionCatcherEnter(FunctionID functionId, Ob
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::ExceptionCatcherLeave()
+STDMETHODIMP ProfilerCallback::ExceptionCatcherLeave()
 {
 	if (_exceptionTracers != null)
 	{
-		Chronos::Agent::DotNet::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
+		Chronos::Agent::DotNet::EntryPoint::FunctionExceptionTracer* tracer = _exceptionTracers->CurrentItem;
 		if (tracer != null)
 		{
 			tracer->ExceptionCatcherLeave();
@@ -726,30 +726,30 @@ STDMETHODIMP ProfilerEntryPoint::ExceptionCatcherLeave()
 }
 
 // COM CLASSIC VTable
-STDMETHODIMP ProfilerEntryPoint::COMClassicVTableCreated(ClassID wrappedClassID, REFGUID implementedIID, void *pVTable, ULONG cSlots)
+STDMETHODIMP ProfilerCallback::COMClassicVTableCreated(ClassID wrappedClassID, REFGUID implementedIID, void *pVTable, ULONG cSlots)
 {
 	return S_OK;
 }
 
-STDMETHODIMP ProfilerEntryPoint::COMClassicVTableDestroyed(ClassID wrappedClassID, REFGUID implementedIID, void *pVTable)
+STDMETHODIMP ProfilerCallback::COMClassicVTableDestroyed(ClassID wrappedClassID, REFGUID implementedIID, void *pVTable)
 {
 	return S_OK;
 }
 
 // ATTACH EVENTS
-STDMETHODIMP ProfilerEntryPoint::InitializeForAttach(IUnknown* pCorProfilerInfoUnk, void* pvClientData, UINT cbClientData)
+STDMETHODIMP ProfilerCallback::InitializeForAttach(IUnknown* pCorProfilerInfoUnk, void* pvClientData, UINT cbClientData)
 {
 	return S_OK;
 	//return _profilerController.Attach(pCorProfilerInfoUnk);
 }
 
-STDMETHODIMP ProfilerEntryPoint::ProfilerAttachComplete()
+STDMETHODIMP ProfilerCallback::ProfilerAttachComplete()
 {
 	return S_OK;
 	//return _profilerController.Attached();
 }
 
-STDMETHODIMP ProfilerEntryPoint::ProfilerDetachSucceeded()
+STDMETHODIMP ProfilerCallback::ProfilerDetachSucceeded()
 {
 	return S_OK;
 	//return _profilerController.Deattach();

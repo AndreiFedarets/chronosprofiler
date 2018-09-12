@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Chronos.DotNet.Agent.Internal.h"
+#include "Chronos.DotNet.Agent.h"
 
 namespace Chronos
 {

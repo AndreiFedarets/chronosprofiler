@@ -17,8 +17,8 @@
             },
             {
                 "application": "agent",
-                "entryPoint32": "Chronos.DotNet.Agent.dll",
-                "entryPoint32": "x64\Chronos.DotNet.Agent.dll",
+                "entryPoint32": "Chronos.DotNet.Agent.EntryPoint.dll",
+                "entryPoint32": "x64\Chronos.DotNet.Agent.EntryPoint.dll",
                 "methodName": "CreateDotNetFramework"
             }
         ]
