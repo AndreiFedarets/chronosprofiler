@@ -9,6 +9,7 @@
 #define __RETURN_IF_FAILED(action) { { HRESULT __resultValue__ = action; if (FAILED(__resultValue__)) { return __resultValue__; } } }
 //#define __ASSERT(expression, message) { }
 #define __RESOLVE_SERVICE(CONTAINER, TYPE, INSTANCE) { if (!CONTAINER->ResolveService(TYPE::ServiceToken, (void**)&INSTANCE)) { return E_FAIL; } }
+#define __WEAK_RESOLVE_SERVICE(CONTAINER, TYPE, INSTANCE) { if (!CONTAINER->ResolveService(Chronos::Agent::Converter::ConvertStringToGuid(TYPE ## ServiceToken), (void**)&INSTANCE)) { return E_FAIL; } }
 #define __REGISTER_SERVICE(CONTAINER, TYPE, INSTANCE) { if (!CONTAINER->RegisterService(TYPE::ServiceToken, INSTANCE)) { return E_FAIL; } }
 
 #define __short __int16

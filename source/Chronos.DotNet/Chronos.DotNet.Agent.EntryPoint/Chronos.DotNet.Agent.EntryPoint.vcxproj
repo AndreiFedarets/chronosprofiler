@@ -113,13 +113,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <RegisterOutput>false</RegisterOutput>
       <AdditionalDependencies>Chronos\Chronos.Agent.lib;Chronos.DotNet\Chronos.DotNet.Agent.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>Chronos.Agent.dll;Chronos.DotNet.Agent.dll</DelayLoadDLLs>
     </Link>
-    <PreBuildEvent>
-      <Command>xcopy "$(ChronosBuildDir)\Chronos\Chronos.Agent.dll" "$(TargetDir)" /Y</Command>
-    </PreBuildEvent>
-    <PostBuildEvent>
-      <Command>del "$(TargetDir)\Chronos.Agent.dll"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -151,13 +146,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <RegisterOutput>false</RegisterOutput>
       <AdditionalDependencies>Chronos\x64\Chronos.Agent.lib;Chronos.DotNet\x64\Chronos.DotNet.Agent.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>Chronos.Agent.dll;Chronos.DotNet.Agent.dll</DelayLoadDLLs>
     </Link>
-    <PreBuildEvent>
-      <Command>xcopy "$(ChronosBuildDir)\Chronos\Chronos.Agent.dll" "$(TargetDir)" /Y</Command>
-    </PreBuildEvent>
-    <PostBuildEvent>
-      <Command>del "$(TargetDir)\Chronos.Agent.dll"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -192,13 +182,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <RegisterOutput>false</RegisterOutput>
       <AdditionalDependencies>Chronos\Chronos.Agent.lib;Chronos.DotNet\Chronos.DotNet.Agent.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>Chronos.Agent.dll;Chronos.DotNet.Agent.dll</DelayLoadDLLs>
     </Link>
-    <PreBuildEvent>
-      <Command>xcopy "$(ChronosBuildDir)\Chronos\Chronos.Agent.dll" "$(TargetDir)" /Y</Command>
-    </PreBuildEvent>
-    <PostBuildEvent>
-      <Command>del "$(TargetDir)\Chronos.Agent.dll"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -232,15 +217,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <RegisterOutput>false</RegisterOutput>
       <AdditionalDependencies>Chronos\x64\Chronos.Agent.lib;Chronos.DotNet\x64\Chronos.DotNet.Agent.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>Chronos.Agent.dll;Chronos.DotNet.Agent.dll</DelayLoadDLLs>
     </Link>
-    <PreBuildEvent>
-      <Command>xcopy "$(ChronosBuildDir)\Chronos\Chronos.Agent.dll" "$(TargetDir)" /Y</Command>
-    </PreBuildEvent>
-    <PostBuildEvent>
-      <Command>del "$(TargetDir)\Chronos.Agent.dll"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AgentResolver.cpp" />
     <ClCompile Include="Chronos.DotNet.Agent.EntryPoint.cpp" />
     <ClCompile Include="ChronosDotNetAgentEntryPoint_i.c">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -270,7 +251,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="FunctionCallbacks.cpp" />
+    <ClCompile Include="FunctionCallbacksGlobal.cpp" />
     <ClCompile Include="FunctionExceptionTracer.cpp" />
     <ClCompile Include="FunctionInfoCollection.cpp" />
     <ClCompile Include="ProfilerCallback.cpp" />
@@ -285,9 +266,14 @@
     <ClInclude Include="Chronos.DotNet.Agent.EntryPoint.h" />
     <ClInclude Include="ChronosDotNetAgentEntryPoint_i.h" />
     <ClInclude Include="dllmain.h" />
-    <ClInclude Include="FunctionCallbacks.h" />
     <ClInclude Include="ProfilerCallback.h" />
-    <ClInclude Include="FunctionCallbacks32Naked.h" />
+    <ClInclude Include="FunctionCallbacksGlobal.h" />
+    <ClInclude Include="FunctionCallbacks32Naked.h">
+      <ExcludedFromBuild Condition="'$(Platform)'=='x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="FunctionCallbacks64Naked.h">
+      <ExcludedFromBuild Condition="'$(Platform)'=='Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -304,15 +290,15 @@
     <None Include="ProfilerCallback.rgs" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FunctionCallbacks32Naked.cpp">
+      <ExcludedFromBuild Condition="'$(Platform)'=='x64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
     <MASM Include="FunctionCallbacks64Naked.asm">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Platform)'=='Win32'">true</ExcludedFromBuild>
     </MASM>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="FunctionCallbacks32Naked.cpp">
-      <ExcludedFromBuild Condition="'$(Platform)'=='x64'">true</ExcludedFromBuild>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="ChronosDotNetAgentEntryPoint.idl" />

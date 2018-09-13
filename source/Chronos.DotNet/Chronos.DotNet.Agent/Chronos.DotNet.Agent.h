@@ -218,6 +218,7 @@ namespace Chronos
 				};
 
 // ==================================================================================================================================================
+				static const wchar_t RuntimeMetadataProviderServiceToken[] = L"{3A1A67DA-8696-459C-AD51-BFD141571B5F}";
 				class CHRONOS_DOTNET_API RuntimeMetadataProvider
 				{
 					public:
@@ -642,6 +643,7 @@ namespace Chronos
 // ==================================================================================================================================================
 			typedef void (*FunctionEventCallback)(void*);
 
+			static const wchar_t RuntimeProfilingEventsServiceToken[] = L"{95EBE89E-9ACE-4EEA-9FC9-FD8E9965995E}";
 			class CHRONOS_DOTNET_API RuntimeProfilingEvents
 			{
 				public:

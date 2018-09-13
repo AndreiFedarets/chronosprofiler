@@ -2,7 +2,6 @@
 #include <cor.h>
 #include <corprof.h>
 
-#ifdef _M_IX86
 //=================================================================================================
 void FunctionEnterNaked(FunctionID functionId);
 void FunctionLeaveNaked(FunctionID functionId);
@@ -20,4 +19,3 @@ void FunctionEnter3WithInfoNaked(FunctionIDOrClientID functionIDOrClientID, COR_
 void FunctionLeave3WithInfoNaked(FunctionIDOrClientID functionIDOrClientID, COR_PRF_ELT_INFO eltInfo);
 void FunctionTailcall3WithInfoNaked(FunctionIDOrClientID functionIDOrClientID, COR_PRF_ELT_INFO eltInfo);
 //=================================================================================================
-#endif

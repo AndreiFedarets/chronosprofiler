@@ -25,9 +25,6 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FunctionCallbacks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FunctionCallbacks32Naked.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -46,6 +43,12 @@
     <ClCompile Include="ProfilerCallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FunctionCallbacksGlobal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AgentResolver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -60,9 +63,6 @@
     <ClInclude Include="dllmain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FunctionCallbacks.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="FunctionCallbacks32Naked.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -73,6 +73,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProfilerCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionCallbacks64Naked.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionCallbacksGlobal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

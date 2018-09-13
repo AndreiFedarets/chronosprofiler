@@ -186,7 +186,7 @@ namespace Chronos
 					return GetCorProfilerInfo2()->GetHandleFromThread(threadId, threadHandle);
 				}
 
-				const __guid RuntimeMetadataProvider::ServiceToken = Converter::ConvertStringToGuid(L"{3A1A67DA-8696-459C-AD51-BFD141571B5F}");
+				const __guid RuntimeMetadataProvider::ServiceToken = Converter::ConvertStringToGuid(RuntimeMetadataProviderServiceToken);
 
 				IUnknown* RuntimeMetadataProvider::ÑorProfilerInfoUnk = null;
 			}

@@ -24,6 +24,8 @@ namespace Chronos
         {
             public const string ConfigurationToken = "CHRONOS_PROFILER_CONFIGURATION_TOKEN";
             public const string Path = "PATH";
+            public const string AgentPath32 = "CHRONOS_PROFILER_AGENT_PATH_32";
+            public const string AgentPath64 = "CHRONOS_PROFILER_AGENT_PATH_64";
         }
 
         public static class ApplicationCodeName

@@ -10,6 +10,20 @@ namespace Chronos
 			namespace EntryPoint
 			{
 // ==================================================================================================================================================
+
+				class AgentResolver
+				{
+					public:
+						AgentResolver();
+						~AgentResolver();
+					private:
+						__string GetVariable(__string variableName);
+						void SetVariable(__string variableName, __string variableValue);
+						void SetupAgentPath();
+				};
+
+// ==================================================================================================================================================
+
 				template<typename T>
 				class ThreadScopeDictionary
 				{

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 
 namespace Chronos.Agent
@@ -7,10 +8,11 @@ namespace Chronos.Agent
     {
         public static void SetupAgentPath(ConfigurationSettings settings)
         {
-            string variableValue = Environment.GetEnvironmentVariable(Constants.EnvironmentVariablesNames.Path);
-            string chronosPath = Assembly.GetExecutingAssembly().GetAssemblyPath();
-            variableValue = EnvironmentExtensions.AppendEnvironmentPath(variableValue, chronosPath);
-            settings.ProfilingTargetSettings.EnvironmentVariables[Constants.EnvironmentVariablesNames.Path] = variableValue;
+            string agentPath32 = Assembly.GetExecutingAssembly().GetAssemblyPath();
+            string agentPath64 = Path.Combine(agentPath32, "x64");
+            settings.ProfilingTargetSettings.EnvironmentVariables[Constants.EnvironmentVariablesNames.AgentPath32] = agentPath32;
+            settings.ProfilingTargetSettings.EnvironmentVariables[Constants.EnvironmentVariablesNames.AgentPath64] = agentPath64;
+
         }
     }
 }

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include <Chronos.DotNet\Chronos.DotNet.Agent.h>
-#include "FunctionCallbacks.h"
+#include "FunctionCallbacksGlobal.h"
 
 extern Chronos::Agent::DotNet::RuntimeProfilingEvents* GlobalEvents;
 

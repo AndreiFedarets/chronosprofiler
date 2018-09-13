@@ -212,7 +212,7 @@ namespace Chronos
 			void RaiseFunctionExceptionEvent(FunctionExceptionEventArgs* eventArgs);*/
 
 			// ==========================================================================================================================
-			const __guid RuntimeProfilingEvents::ServiceToken = Converter::ConvertStringToGuid(L"{95EBE89E-9ACE-4EEA-9FC9-FD8E9965995E}");
+			const __guid RuntimeProfilingEvents::ServiceToken = Converter::ConvertStringToGuid(RuntimeProfilingEventsServiceToken);
 		}
 	}
 }

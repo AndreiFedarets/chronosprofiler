@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "FunctionCallbacks32Naked.h"
-#include "FunctionCallbacks.h"
+#include "FunctionCallbacksGlobal.h"
 
 #define FAST_HOOKS
 
