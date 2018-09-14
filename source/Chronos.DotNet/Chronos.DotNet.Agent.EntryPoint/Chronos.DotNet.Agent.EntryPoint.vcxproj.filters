@@ -46,7 +46,7 @@
     <ClCompile Include="FunctionCallbacksGlobal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AgentResolver.cpp">
+    <ClCompile Include="DependenciesResolver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

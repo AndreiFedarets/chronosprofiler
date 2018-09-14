@@ -96,6 +96,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.DotNet.BasicProfile
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.DotNet.BasicProfiler.Agent", "Chronos.DotNet.BasicProfiler\Chronos.DotNet.BasicProfiler.Agent\Chronos.DotNet.BasicProfiler.Agent.vcxproj", "{623A4BDD-BC7A-468F-A159-5E4B4E87CEDA}"
 	ProjectSection(ProjectDependencies) = postProject
+		{68BAA918-48B3-489F-BECC-1342D4217F1E} = {68BAA918-48B3-489F-BECC-1342D4217F1E}
 		{77D938DF-D463-407F-8CDE-3A69EFF4D8AF} = {77D938DF-D463-407F-8CDE-3A69EFF4D8AF}
 	EndProjectSection
 EndProject

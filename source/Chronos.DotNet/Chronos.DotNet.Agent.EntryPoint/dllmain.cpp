@@ -7,7 +7,7 @@
 #include "Chronos.DotNet.Agent.EntryPoint.h"
 
 CChronosDotNetAgentModule _AtlModule;
-Chronos::Agent::DotNet::EntryPoint::AgentResolver _agentResolver;
+Chronos::Agent::DotNet::EntryPoint::DependenciesResolver _agentResolver;
 
 // DLL Entry Point
 extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)

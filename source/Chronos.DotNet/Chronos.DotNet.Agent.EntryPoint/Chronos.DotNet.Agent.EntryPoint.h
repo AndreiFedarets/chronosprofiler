@@ -11,15 +11,15 @@ namespace Chronos
 			{
 // ==================================================================================================================================================
 
-				class AgentResolver
+				class DependenciesResolver
 				{
 					public:
-						AgentResolver();
-						~AgentResolver();
+						DependenciesResolver();
+						~DependenciesResolver();
 					private:
-						__string GetVariable(__string variableName);
-						void SetVariable(__string variableName, __string variableValue);
-						void SetupAgentPath();
+						void LoadDependencies();
+						__string GetAgentPath();
+						__string GetDotNetAgentPath();
 				};
 
 // ==================================================================================================================================================
