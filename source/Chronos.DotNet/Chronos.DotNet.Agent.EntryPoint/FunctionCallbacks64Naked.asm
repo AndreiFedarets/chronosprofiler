@@ -1,28 +1,25 @@
-; extern FunctionEnter2Global:proc
-; extern FunctionLeave2Global:proc
-; extern FunctionTailcall2Global:proc
+extern FunctionEnterGlobal:proc
+extern FunctionLeaveGlobal:proc
+extern FunctionTailcallGlobal:proc
 
-
-;typedef void FunctionEnter2(
-;         rcx = FunctionID funcId, 
-;         rdx = UINT_PTR clientData, 
-;         r8  = COR_PRF_FRAME_INFO func, 
-;         r9  = COR_PRF_FUNCTION_ARGUMENT_INFO *argumentInfo);
 _TEXT segment para 'CODE'
+
+;========================================================================================================
+
+;typedef void FunctionEnter3Naked(
+;         rcx = FunctionIDOrClientID functionIDOrClientID);
 
         align   16
 
-        public  FunctionEnter2Naked
+        public  FunctionEnter3Naked
 
-FunctionEnter2Naked    proc    frame
+FunctionEnter3Naked     proc    frame
 
         ; save registers
         push    rax
         .allocstack 8
-
         push    r10
         .allocstack 8
-
         push    r11
         .allocstack 8
 
@@ -31,7 +28,7 @@ FunctionEnter2Naked    proc    frame
 
         .endprolog
 
-        ; call    FunctionEnter2Global
+        call    FunctionEnterGlobal
 
         add     rsp, 20h
 
@@ -43,20 +40,18 @@ FunctionEnter2Naked    proc    frame
         ; return
         ret
 
-FunctionEnter2Naked    endp
+FunctionEnter3Naked     endp
 
-;typedef void FunctionLeave2(
-;         rcx =  FunctionID funcId, 
-;         rdx =  UINT_PTR clientData, 
-;         r8  =  COR_PRF_FRAME_INFO func, 
-;         r9  =  COR_PRF_FUNCTION_ARGUMENT_RANGE *retvalRange);
-_TEXT segment para 'CODE'
+;========================================================================================================
+
+;typedef void FunctionLeave3Naked(
+;         rcx = FunctionIDOrClientID functionIDOrClientID);
 
         align   16
 
-        public  FunctionLeave2Naked
+        public  FunctionLeave3Naked
 
-FunctionLeave2Naked    proc    frame
+FunctionLeave3Naked     proc    frame
 
         ; save integer return register
         push    rax
@@ -67,28 +62,28 @@ FunctionLeave2Naked    proc    frame
 
         .endprolog
 
-        ; call    FunctionLeave2Global
+        call    FunctionLeaveGlobal
 
         add     rsp, 20h
 
         ; restore integer return register
-        pop                     rax
+        pop     rax
 
         ; return
         ret
 
-FunctionLeave2Naked    endp
+FunctionLeave3Naked     endp
 
-;typedef void FunctionTailcall2(
-;         rcx =  FunctionID funcId, 
-;         rdx =  UINT_PTR clientData, 
-;         t8  =  COR_PRF_FRAME_INFO,
+;========================================================================================================
+
+;typedef void FunctionTailcall3Naked(
+;         rcx = FunctionIDOrClientID functionIDOrClientID);
 
         align   16
 
-        public  FunctionTailcall2Naked
+        public  FunctionTailcall3Naked
 
-FunctionTailcall2Naked   proc    frame
+FunctionTailcall3Naked  proc    frame
 
         ; save rax
         push    rax
@@ -99,7 +94,7 @@ FunctionTailcall2Naked   proc    frame
 
         .endprolog
 
-        ; call    FunctionTailcall2Global
+        call    FunctionTailcallGlobal
 
         add     rsp, 20h
 
@@ -109,7 +104,7 @@ FunctionTailcall2Naked   proc    frame
         ; return
         ret
 
-FunctionTailcall2Naked   endp
+FunctionTailcall3Naked  endp
 
 _TEXT ends
 

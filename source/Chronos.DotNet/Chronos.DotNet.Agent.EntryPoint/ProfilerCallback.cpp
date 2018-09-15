@@ -84,7 +84,7 @@ HRESULT ProfilerCallback::SetupFunctionCallbacks()
 	//__RETURN_IF_FAILED( _corProfilerInfo3->SetEnterLeaveFunctionHooks2(FunctionEnter2Naked, FunctionLeave2Naked, FunctionTailcall2Naked) );
 	__RETURN_IF_FAILED( _corProfilerInfo3->SetEnterLeaveFunctionHooks3((FunctionEnter3*)FunctionEnter3Naked, (FunctionLeave3*)FunctionLeave3Naked, (FunctionTailcall3*)FunctionTailcall3Naked) );
 #elif defined(_WIN64)
-	__RETURN_IF_FAILED(_corProfilerInfo3->SetEnterLeaveFunctionHooks2((FunctionEnter2*)FunctionEnter2Naked, (FunctionLeave2*)FunctionLeave2Naked, (FunctionTailcall2*)FunctionTailcall2Naked));
+	__RETURN_IF_FAILED(_corProfilerInfo3->SetEnterLeaveFunctionHooks3((FunctionEnter3*)FunctionEnter3Naked, (FunctionLeave3*)FunctionLeave3Naked, (FunctionTailcall3*)FunctionTailcall3Naked));
 #endif
 
 	__RETURN_IF_FAILED( _corProfilerInfo3->SetFunctionIDMapper(FunctionMapperGlobal) );

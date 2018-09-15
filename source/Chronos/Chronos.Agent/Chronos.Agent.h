@@ -18,7 +18,7 @@
 #define __byte unsigned __int8
 #define __ushort unsigned __int16
 #define __uint unsigned __int32
-#define __size size_t
+#define __size __int32
 #define __ulong unsigned __int64
 #define __wchar wchar_t
 #define __bool bool
