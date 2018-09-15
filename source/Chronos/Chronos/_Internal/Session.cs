@@ -98,6 +98,12 @@ namespace Chronos
             }
         }
 
+        public event EventHandler<SessionStateEventArgs> SessionStateChanged
+        {
+            add { _daemonApplication.SessionStateChanged += value; }
+            remove { _daemonApplication.SessionStateChanged -= value; }
+        }
+
         public ConfigurationSettings GetConfigurationSettings()
         {
             VerifyDisposed();

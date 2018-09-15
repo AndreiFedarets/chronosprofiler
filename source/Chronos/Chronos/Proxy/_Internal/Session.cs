@@ -7,6 +7,7 @@ namespace Chronos.Proxy
         private readonly Chronos.Host.IApplication _application;
         private readonly LazyValue<ServiceContainer> _serviceContainer;
         private readonly LazyValue<ProfilingTimer> _profilingTimer;
+        private readonly RemoteEventRouter<SessionStateEventArgs> _sessionStateChangedEventSink;
 
         public Session(ISession session, Chronos.Host.IApplication application)
             : base(session)
@@ -14,6 +15,7 @@ namespace Chronos.Proxy
             _application = application;
             _serviceContainer = new LazyValue<ServiceContainer>(() => new ServiceContainer(RemoteObject.ServiceContainer));
             _profilingTimer = new LazyValue<ProfilingTimer>(() => new ProfilingTimer(RemoteObject.ProfilingTimer.BeginProfilingTime));
+            _sessionStateChangedEventSink = new RemoteEventRouter<SessionStateEventArgs>(RemoteObject, "SessionStateChanged", this);
             Uid = Execute(() => RemoteObject.Uid);
         }
 
@@ -53,6 +55,12 @@ namespace Chronos.Proxy
         public Chronos.Host.IApplication Application
         {
             get { return _application; }
+        }
+
+        public event EventHandler<SessionStateEventArgs> SessionStateChanged
+        {
+            add { _sessionStateChangedEventSink.Event += value; }
+            remove { _sessionStateChangedEventSink.Event -= value; }
         }
 
         public ProcessInformation GetProfiledProcessInformation()

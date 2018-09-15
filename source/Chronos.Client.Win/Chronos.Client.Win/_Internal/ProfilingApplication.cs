@@ -24,7 +24,22 @@ namespace Chronos.Client.Win
             _sessionUid = sessionUid;
         }
 
+        public SessionState SessionState
+        {
+            get
+            {
+                SessionState state = SessionState.Closed;
+                if (_session != null)
+                {
+                    state = _session.State;
+                }
+                return state;
+            }
+        }
+
         public IProfilingTimer ProfilingTimer { get; private set; }
+
+        public event EventHandler<SessionStateEventArgs> SessionStateChanged;
 
         protected override PageViewModel BuildMainViewModel()
         {
@@ -112,6 +127,7 @@ namespace Chronos.Client.Win
             {
                 throw new TempException();
             }
+            _session.SessionStateChanged += OnSessionStateChanged;
             _configurationSettings = _session.GetConfigurationSettings();
             catalog = CatalogFilter.Filter(catalog, _configurationSettings);
             return catalog;
@@ -134,10 +150,19 @@ namespace Chronos.Client.Win
             if (session != null)
             {
                 session.StartDecoding(this);
+                ProfilingTimer = session.ProfilingTimer;
             }
-            ProfilingTimer = session.ProfilingTimer;
             //hostApplications.TryDispose();
             return session;
+        }
+
+        private void OnSessionStateChanged(object sender, SessionStateEventArgs eventArgs)
+        {
+            EventHandler<SessionStateEventArgs> eventHandler = SessionStateChanged;
+            if (eventHandler != null)
+            {
+                eventHandler(this, eventArgs);
+            }
         }
 
         public void FlushData()

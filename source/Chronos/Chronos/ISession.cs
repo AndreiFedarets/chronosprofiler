@@ -40,6 +40,11 @@ namespace Chronos
         Host.IApplication Application { get; }
 
         /// <summary>
+        /// Occurs when state of associated session was changed.
+        /// </summary>
+        event EventHandler<SessionStateEventArgs> SessionStateChanged;
+
+        /// <summary>
         /// Get container with shared services that provides profiling data.
         /// If session is not active returns null.
         /// </summary>

@@ -138,7 +138,7 @@ namespace Chronos.Daemon
                 currentState = _currentStrategy.SessionState;
             }
             //Profiling
-            if (currentState == Chronos.SessionState.Profiling)
+            if (currentState == SessionState.Profiling)
             {
                 _lifetimeSponsors.Stop();
             }

@@ -105,6 +105,7 @@ namespace Chronos.Daemon
                 _agentLibrary.TryDispose();
                 _profiledProcess.Exited -= OnProfiledProcessExited;
                 _application.RaiseSessionStateChanged();
+                ReloadData();
             }
         }
 

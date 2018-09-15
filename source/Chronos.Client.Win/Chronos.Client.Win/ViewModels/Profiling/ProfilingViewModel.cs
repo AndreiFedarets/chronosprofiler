@@ -12,6 +12,7 @@ namespace Chronos.Client.Win.ViewModels.Profiling
         {
             Application = application;
             Application.ApplicationStateChanged += OnApplicationStateChanged;
+            Application.SessionStateChanged += OnSessionStateChanged;
             _isEnabled = true;
         }
 
@@ -23,6 +24,11 @@ namespace Chronos.Client.Win.ViewModels.Profiling
                 _isEnabled = value;
                 NotifyOfPropertyChange(() => IsEnabled);
             }
+        }
+
+        public bool IsProfilingActive
+        {
+            get { return Application.SessionState == SessionState.Profiling; }
         }
 
         public IProfilingApplication Application { get; private set; }
@@ -40,26 +46,6 @@ namespace Chronos.Client.Win.ViewModels.Profiling
             set { }
         }
 
-        private void OnApplicationStateChanged(object sender, ApplicationStateEventArgs e)
-        {
-            if (e.CurrentState == ApplicationState.Started)
-            {
-                NotifyOfPropertyChange(() => StartupTime);
-            }
-        }
-
-        protected override void BuildLayout()
-        {
-            BuildMenu();
-            base.BuildLayout();
-        }
-
-        private void BuildMenu()
-        {
-            MenuBuilder builder = new MenuBuilder();
-            Menu = builder.BuildMenuForApplication(Application, this);
-        }
-
         public void ReloadSnapshot()
         {
             IsEnabled = false;
@@ -70,6 +56,31 @@ namespace Chronos.Client.Win.ViewModels.Profiling
         {
             Menu.TryDispose();
             base.Dispose();
+        }
+
+        protected override void BuildLayout()
+        {
+            BuildMenu();
+            base.BuildLayout();
+        }
+
+        private void OnApplicationStateChanged(object sender, ApplicationStateEventArgs e)
+        {
+            if (e.CurrentState == ApplicationState.Started)
+            {
+                NotifyOfPropertyChange(() => StartupTime);
+            }
+        }
+
+        private void OnSessionStateChanged(object sender, SessionStateEventArgs e)
+        {
+            //NotifyOfPropertyChange(() => IsProfilingActive);
+        }
+
+        private void BuildMenu()
+        {
+            MenuBuilder builder = new MenuBuilder();
+            Menu = builder.BuildMenuForApplication(Application, this);
         }
     }
 }
