@@ -47,13 +47,22 @@
     <Reference Include="System.Data.SQLite">
       <HintPath>..\..\..\externals\System.Data.SQLite.dll</HintPath>
     </Reference>
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accessibility\WS\IServiceController.cs" />
+    <Compile Include="Accessibility\WS\IServiceControllerCollection.cs" />
+    <Compile Include="Accessibility\WS\IWindowsServicesAccessor.cs" />
+    <Compile Include="Accessibility\WS\ServiceController.cs" />
+    <Compile Include="Accessibility\WS\ServiceControllerCollection.cs" />
+    <Compile Include="Accessibility\WS\WindowsServiceInfo.cs" />
+    <Compile Include="Accessibility\WS\WindowsServicesAccessor.cs" />
     <Compile Include="Agent\_Internal\AgentResolver.cs" />
     <Compile Include="Client\AdapterResolver.cs" />
     <Compile Include="Client\ApplicationBase.cs" />
@@ -94,8 +103,12 @@
     <Compile Include="ILifetimeSponsor.cs" />
     <Compile Include="IProfilingTimer.cs" />
     <Compile Include="Proxy\ProxyBaseObjectHelper.cs" />
+    <Compile Include="Proxy\_Internal\Accessibility\WS\WindowsServicesAccessor.cs" />
     <Compile Include="Proxy\_Internal\LifetimeSponsorCollection.cs" />
+    <Compile Include="Proxy\_Internal\Accessibility\IIS\InternetInformationService.cs" />
     <Compile Include="Registry\VariableCollection.cs" />
+    <Compile Include="Accessibility\IIS\IInternetInformationService.cs" />
+    <Compile Include="Accessibility\IIS\InternetInformationService.cs" />
     <Compile Include="Settings\IChannelSettings.cs" />
     <Compile Include="Settings\ICrashDumpSettings.cs" />
     <Compile Include="Settings\IEventLoggerSettings.cs" />
@@ -115,7 +128,7 @@
     <Compile Include="Extensibility\AttributeDefinitionCollection.cs" />
     <Compile Include="Extensibility\CatalogFilter.cs" />
     <Compile Include="Proxy\IProxyObject.cs" />
-    <Compile Include="Proxy\_Internal\Remote\IO\FileSystemAccessor.cs" />
+    <Compile Include="Proxy\_Internal\Accessibility\IO\FileSystemAccessor.cs" />
     <Compile Include="Proxy\ServiceProxyInitializationMethodAttribute.cs" />
     <Compile Include="Proxy\Model\UnitCollectionBase.cs" />
     <Compile Include="Model\UnitBase.cs" />
@@ -148,14 +161,14 @@
     <Compile Include="Registry\RegistryValueCollection.cs" />
     <Compile Include="Registry\RemoveType.cs" />
     <Compile Include="PublicServiceAttribute.cs" />
-    <Compile Include="Remote\IO\DirectoryInfo.cs" />
-    <Compile Include="Remote\IO\FileInfo.cs" />
-    <Compile Include="Remote\IO\FileSystemAccessor.cs" />
-    <Compile Include="Remote\IO\FileSystemFilter.cs" />
-    <Compile Include="Remote\IO\FileSystemFilterEntry.cs" />
-    <Compile Include="Remote\IO\FilteredFileSystemAccessor.cs" />
-    <Compile Include="Remote\IO\FileSystemInfo.cs" />
-    <Compile Include="Remote\IO\IFileSystemAccessor.cs" />
+    <Compile Include="Accessibility\IO\DirectoryInfo.cs" />
+    <Compile Include="Accessibility\IO\FileInfo.cs" />
+    <Compile Include="Accessibility\IO\FileSystemAccessor.cs" />
+    <Compile Include="Accessibility\IO\FileSystemFilter.cs" />
+    <Compile Include="Accessibility\IO\FileSystemFilterEntry.cs" />
+    <Compile Include="Accessibility\IO\FilteredFileSystemAccessor.cs" />
+    <Compile Include="Accessibility\IO\FileSystemInfo.cs" />
+    <Compile Include="Accessibility\IO\IFileSystemAccessor.cs" />
     <Compile Include="Settings\IProfilingResultsSettings.cs" />
     <Compile Include="Settings\ITcpChannelSettings.cs" />
     <Compile Include="Settings\_Internal\ApplicationSettings.cs" />
@@ -177,6 +190,8 @@
     <Compile Include="Settings\_Internal\LoggingSettings.cs" />
     <Compile Include="Settings\_Internal\SettingsLoader.cs" />
     <Compile Include="Settings\_Internal\SettingsElement.cs" />
+    <Compile Include="Win32\Advapi32.cs" />
+    <Compile Include="Win32\SystemManagement.cs" />
     <Compile Include="_Exceptions\AttachmentNotFoundException.cs" />
     <Compile Include="_Exceptions\AttributeNotFoundException.cs" />
     <Compile Include="_Exceptions\ApplicationExtensionNotFoundException.cs" />

@@ -76,7 +76,9 @@ namespace Chronos.Host
             IServerStream serverStream = Connector.Native.StreamFactory.CreateInvokeStream();
             _requestServer.Run(serverStream);
 
-            ServiceContainer.Register(new Remote.IO.FileSystemAccessor(true));
+            ServiceContainer.Register(new Accessibility.IO.FileSystemAccessor(true));
+            ServiceContainer.Register(new Accessibility.WS.WindowsServicesAccessor());
+            ServiceContainer.Register(new Accessibility.IIS.InternetInformationService());
         }
 
         public override void Dispose()

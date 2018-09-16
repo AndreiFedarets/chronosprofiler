@@ -77,21 +77,37 @@ namespace Chronos
             VerifyDisposed();
             IProfilingTargetAdapter adapter = _profilingTarget.GetSafeAdapter();
             IProfilingTargetController controller = adapter.CreateController(_configurationSettings);
-            //Select all Frameworks that involved into profiling and notify them
-            foreach (FrameworkSettings frameworkSettings in _configurationSettings.FrameworksSettings)
+            lock (controller)
             {
-                IFramework framework = _frameworks[frameworkSettings.Uid];
-                IFrameworkAdapter frameworkAdapter = framework.GetSafeAdapter();
-                frameworkAdapter.ConfigureForProfiling(_configurationSettings);
-            }
-            //Add correct path to Chronos.Agent.dll (native)
-            Agent.AgentResolver.SetupAgentPath(_configurationSettings);
-            //Start profiling
-            controller.Start();
-            controller.TargetStopped += OnControllerTargetStopped;
-            lock (_controllers)
-            {
-                _controllers.Add(controller);
+                bool controllerExists;
+                lock (_controllers)
+                {
+                    controllerExists = _controllers.Contains(controller);
+                    //We are already profiling this application
+                    if (controllerExists && controller.IsActive)
+                    {
+                        return;
+                    }
+                }
+                //Select all Frameworks that involved into profiling and notify them
+                foreach (FrameworkSettings frameworkSettings in _configurationSettings.FrameworksSettings)
+                {
+                    IFramework framework = _frameworks[frameworkSettings.Uid];
+                    IFrameworkAdapter frameworkAdapter = framework.GetSafeAdapter();
+                    frameworkAdapter.ConfigureForProfiling(_configurationSettings);
+                }
+                //Add correct path to Chronos.Agent.dll (native)
+                Agent.AgentResolver.SetupAgentPath(_configurationSettings);
+                lock (_controllers)
+                {
+                    if (!controllerExists)
+                    {
+                        controller.TargetStopped += OnControllerTargetStopped;
+                        _controllers.Add(controller);
+                    }
+                }
+                //Start profiling
+                controller.Start();
             }
         }
 

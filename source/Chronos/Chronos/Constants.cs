@@ -49,5 +49,12 @@ namespace Chronos
             public const string Host = "Chronos.Host.Application.exe";
             public const string Daemon = "Chronos.Daemon.Application.exe";
         }
+
+        internal static class WindowsService
+        {
+            public const string ServicesRegisteryPath = "SYSTEM\\CurrentControlSet\\Services\\";
+            public const string ServiceEnvironmentKeyName = "Environment";
+            public const string ServicesProcessName = "services";
+        }
     }
 }

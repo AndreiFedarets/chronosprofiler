@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{88AE439F-E416-42F8-AE43-82C14E25F7BB}">
+  <ProfilingTarget Uid="{4A6B921F-A221-45BF-83F5-1DA3856492E9}" Version="0.1">
+    <Export Application="core" EntryPoint="Chronos.Common.IISApplication.ProfilingTargetAdapter, Chronos.Common.IISApplication" />
+    <Localization Culture="en-US" IconUri="pack://application:,,,/Chronos.Client.Win.Common.IISApplication;component/Resources/Icon.png">
+      <Name>IIS Application</Name>
+      <Description>Profiling of web applications running on IIS 6.0+</Description>
+    </Localization>
+  </ProfilingTarget>
+  <Localization Culture="en-US">
+    <Name>IIS Application</Name>
+    <Description>Profiling of web applications running on IIS 6.0+</Description>
+  </Localization>
+</Extension>

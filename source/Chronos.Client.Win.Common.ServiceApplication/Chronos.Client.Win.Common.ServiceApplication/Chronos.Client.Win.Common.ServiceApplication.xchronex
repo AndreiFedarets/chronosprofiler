@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{F4F66570-D411-4DBE-8AEA-AE60CEE020B7}">
+  <Attachment TargetUid="{ED08B8BC-1ACA-4EC4-BE40-5A82F077DE91}" TargetVersion="0.1">
+    <Export Application="client.win" EntryPoint="Chronos.Client.Win.Common.ServiceApplication.ProfilingTargetAdapter, Chronos.Client.Win.Common.ServiceApplication" />
+  </Attachment>
+  <Localization Culture="en-US" IconUri="pack://application:,,,/Chronos.Client.Win.Common.ServiceApplication;component/Resources/Icon.png">
+    <Name>Windows Service (UI for Desktop Client)</Name>
+    <Description>Profiling of Windows Services</Description>
+  </Localization>
+</Extension>

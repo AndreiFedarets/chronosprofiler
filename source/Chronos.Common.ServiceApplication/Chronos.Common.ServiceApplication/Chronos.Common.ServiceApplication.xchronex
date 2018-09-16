@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{074D20A2-2ACD-42A9-9CA7-B140259C3B26}">
+  <ProfilingTarget Uid="{ED08B8BC-1ACA-4EC4-BE40-5A82F077DE91}" Version="0.1">
+    <Export Application="core" EntryPoint="Chronos.Common.ServiceApplication.ProfilingTargetAdapter, Chronos.Common.ServiceApplication" />
+    <Localization Culture="en-US" IconUri="pack://application:,,,/Chronos.Client.Win.Common.ServiceApplication;component/Resources/Icon.png">
+      <Name>Windows Service</Name>
+      <Description>Profiling of Windows Services</Description>
+    </Localization>
+  </ProfilingTarget>
+  <Localization Culture="en-US">
+    <Name>Windows Service</Name>
+    <Description>Profiling of Windows Services</Description>
+  </Localization>
+</Extension>

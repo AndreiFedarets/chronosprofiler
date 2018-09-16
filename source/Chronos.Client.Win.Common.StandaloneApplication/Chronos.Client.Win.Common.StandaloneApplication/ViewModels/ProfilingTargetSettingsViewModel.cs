@@ -1,4 +1,4 @@
-﻿using Chronos.Remote.IO;
+﻿using Chronos.Accessibility.IO;
 using System;
 
 namespace Chronos.Client.Win.ViewModels.Common.StandaloneApplication

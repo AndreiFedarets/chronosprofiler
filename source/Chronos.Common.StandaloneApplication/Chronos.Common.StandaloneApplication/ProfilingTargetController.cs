@@ -6,8 +6,8 @@ namespace Chronos.Common.StandaloneApplication
 {
     internal class ProfilingTargetController : IProfilingTargetController
     {
+        private const int ProcessWindowClosingTimeout = 10000;
         private readonly ProfilingTargetSettings _settings;
-        private const int ProcessWindowClosingTimeout = 5000;
         private Process _process;
 
         public ProfilingTargetController(ProfilingTargetSettings settings)

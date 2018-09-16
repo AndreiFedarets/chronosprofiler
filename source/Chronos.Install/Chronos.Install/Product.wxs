@@ -26,6 +26,8 @@
       <MergeRef Id="Chronos_Common" />
       <MergeRef Id="Chronos_Common_EventsTree" />
       <MergeRef Id="Chronos_Common_StandaloneApplication" />
+      <MergeRef Id="Chronos_Common_ServiceApplication" />
+      <MergeRef Id="Chronos_Common_IISApplication" />
 
       <!-- DotNet -->
       <MergeRef Id="Chronos_DotNet" />
@@ -44,6 +46,8 @@
       <MergeRef Id="Chronos_Client_Win_Common" />
       <MergeRef Id="Chronos_Client_Win_Common_EventsTree" />
       <MergeRef Id="Chronos_Client_Win_Common_StandaloneApplication" />
+      <MergeRef Id="Chronos_Client_Win_Common_ServiceApplication" />
+      <MergeRef Id="Chronos_Client_Win_Common_IISApplication" />
 
       <!-- Win.Client.DotNet -->
       <MergeRef Id="Chronos_Client_Win_DotNet" />
@@ -69,6 +73,8 @@
           <Merge Id="Chronos_Common" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Common.msm" DiskId="1" />
           <Merge Id="Chronos_Common_EventsTree" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Common.EventsTree.msm" DiskId="1" />
           <Merge Id="Chronos_Common_StandaloneApplication" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Common.StandaloneApplication.msm" DiskId="1" />
+          <Merge Id="Chronos_Common_ServiceApplication" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Common.ServiceApplication.msm" DiskId="1" />
+          <Merge Id="Chronos_Common_IISApplication" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Common.IISApplication.msm" DiskId="1" />
 
           <!-- DotNet -->
           <Merge Id="Chronos_DotNet" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.DotNet.msm" DiskId="1" />
@@ -89,6 +95,8 @@
           <Merge Id="Chronos_Client_Win_Common" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.Common.msm" DiskId="1" />
           <Merge Id="Chronos_Client_Win_Common_EventsTree" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.Common.EventsTree.msm" DiskId="1" />
           <Merge Id="Chronos_Client_Win_Common_StandaloneApplication" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.Common.StandaloneApplication.msm" DiskId="1" />
+          <Merge Id="Chronos_Client_Win_Common_ServiceApplication" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.Common.ServiceApplication.msm" DiskId="1" />
+          <Merge Id="Chronos_Client_Win_Common_IISApplication" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.Common.IISApplication.msm" DiskId="1" />
 
           <!-- Win.Client.DotNet -->
           <Merge Id="Chronos_Client_Win_DotNet" Language="1033" SourceFile="$(var.PackageSourceDir)\Chronos.Client.Win.DotNet.msm" DiskId="1" />
