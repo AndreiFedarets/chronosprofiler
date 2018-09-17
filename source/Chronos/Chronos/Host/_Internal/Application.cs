@@ -76,9 +76,11 @@ namespace Chronos.Host
             IServerStream serverStream = Connector.Native.StreamFactory.CreateInvokeStream();
             _requestServer.Run(serverStream);
 
+            IWindowsServiceCollection windowsServices = new WindowsServiceCollection();
+            IInternetInformationService internetServices = new InternetInformationService(windowsServices);
             ServiceContainer.Register(new Accessibility.IO.FileSystemAccessor(true));
-            ServiceContainer.Register(new Accessibility.WS.WindowsServicesAccessor());
-            ServiceContainer.Register(new Accessibility.IIS.InternetInformationService());
+            ServiceContainer.Register(new Accessibility.WS.WindowsServicesAccessor(windowsServices));
+            ServiceContainer.Register(new Accessibility.IIS.InternetInformationServiceAccessor(internetServices));
         }
 
         public override void Dispose()

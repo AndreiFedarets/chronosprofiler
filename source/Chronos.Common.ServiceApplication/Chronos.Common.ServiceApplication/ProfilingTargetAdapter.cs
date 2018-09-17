@@ -8,13 +8,13 @@ namespace Chronos.Common.ServiceApplication
 {
     public class ProfilingTargetAdapter : IProfilingTargetAdapter
     {
-        private readonly IServiceControllerCollection _services;
+        private readonly IWindowsServiceCollection _services;
         private readonly Dictionary<string, IProfilingTargetController> _controllers;
 
         public ProfilingTargetAdapter()
         {
             _controllers = new Dictionary<string, IProfilingTargetController>();
-            _services = new ServiceControllerCollection();
+            _services = new WindowsServiceCollection();
         }
 
         public IProfilingTargetController CreateController(ConfigurationSettings settings)
@@ -26,7 +26,7 @@ namespace Chronos.Common.ServiceApplication
                 string serviceName = profilingTargetSettings.ServiceName.ToUpperInvariant();
                 if (!_controllers.TryGetValue(serviceName, out controller))
                 {
-                    IServiceController service = _services[serviceName];
+                    IWindowsService service = _services[serviceName];
                     controller = new ProfilingTargetController(profilingTargetSettings, service);
                     _controllers.Add(serviceName, controller);
                 }

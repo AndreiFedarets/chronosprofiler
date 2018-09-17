@@ -56,11 +56,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Accessibility\WS\IServiceController.cs" />
-    <Compile Include="Accessibility\WS\IServiceControllerCollection.cs" />
+    <Compile Include="_Internal\_InternetInformationService\IInternetInformationService.cs" />
+    <Compile Include="_Internal\_InternetInformationService\InternetInformationService.cs" />
+    <Compile Include="_Internal\_WindowsServices\IWindowsService.cs" />
+    <Compile Include="_Internal\_WindowsServices\IWindowsServiceCollection.cs" />
     <Compile Include="Accessibility\WS\IWindowsServicesAccessor.cs" />
-    <Compile Include="Accessibility\WS\ServiceController.cs" />
-    <Compile Include="Accessibility\WS\ServiceControllerCollection.cs" />
+    <Compile Include="_Internal\_WindowsServices\WindowsService.cs" />
+    <Compile Include="_Internal\_WindowsServices\WindowsServiceCollection.cs" />
     <Compile Include="Accessibility\WS\WindowsServiceInfo.cs" />
     <Compile Include="Accessibility\WS\WindowsServicesAccessor.cs" />
     <Compile Include="Agent\_Internal\AgentResolver.cs" />
@@ -105,10 +107,10 @@
     <Compile Include="Proxy\ProxyBaseObjectHelper.cs" />
     <Compile Include="Proxy\_Internal\Accessibility\WS\WindowsServicesAccessor.cs" />
     <Compile Include="Proxy\_Internal\LifetimeSponsorCollection.cs" />
-    <Compile Include="Proxy\_Internal\Accessibility\IIS\InternetInformationService.cs" />
+    <Compile Include="Proxy\_Internal\Accessibility\IIS\InternetInformationServiceAccessor.cs" />
     <Compile Include="Registry\VariableCollection.cs" />
-    <Compile Include="Accessibility\IIS\IInternetInformationService.cs" />
-    <Compile Include="Accessibility\IIS\InternetInformationService.cs" />
+    <Compile Include="Accessibility\IIS\IInternetInformationServiceAccessor.cs" />
+    <Compile Include="Accessibility\IIS\InternetInformationServiceAccessor.cs" />
     <Compile Include="Settings\IChannelSettings.cs" />
     <Compile Include="Settings\ICrashDumpSettings.cs" />
     <Compile Include="Settings\IEventLoggerSettings.cs" />

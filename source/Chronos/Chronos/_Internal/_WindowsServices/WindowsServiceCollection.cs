@@ -4,20 +4,19 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
-using Chronos.Win32;
 
-namespace Chronos.Accessibility.WS
+namespace Chronos
 {
-    public sealed class ServiceControllerCollection : IServiceControllerCollection
+    public sealed class WindowsServiceCollection : IWindowsServiceCollection
     {
-        private readonly Lazy<List<IServiceController>> _controllers;
+        private readonly Lazy<List<IWindowsService>> _controllers;
 
-        public ServiceControllerCollection()
+        public WindowsServiceCollection()
         {
-            _controllers = new Lazy<List<IServiceController>>(GetServiceControllers);
+            _controllers = new Lazy<List<IWindowsService>>(GetServiceControllers);
         }
 
-        public IServiceController this[string serviceName]
+        public IWindowsService this[string serviceName]
         {
             get
             {
@@ -38,7 +37,7 @@ namespace Chronos.Accessibility.WS
 
         public bool IsServiceHostProcess(Process process, string serviceName)
         {
-            IServiceController service = this[serviceName];
+            IWindowsService service = this[serviceName];
             if (service == null)
             {
                 return false;
@@ -59,7 +58,7 @@ namespace Chronos.Accessibility.WS
             }
         }
 
-        public IEnumerator<IServiceController> GetEnumerator()
+        public IEnumerator<IWindowsService> GetEnumerator()
         {
             return _controllers.Value.GetEnumerator();
         }
@@ -69,10 +68,10 @@ namespace Chronos.Accessibility.WS
             return GetEnumerator();
         }
 
-        private List<IServiceController> GetServiceControllers()
+        private List<IWindowsService> GetServiceControllers()
         {
             System.ServiceProcess.ServiceController[] controllers = System.ServiceProcess.ServiceController.GetServices();
-            return controllers.Select(x => (IServiceController)new ServiceController(x, this)).ToList();
+            return controllers.Select(x => (IWindowsService)new WindowsService(x, this)).ToList();
         }
     }
 }

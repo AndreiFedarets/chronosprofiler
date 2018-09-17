@@ -4,10 +4,16 @@ namespace Chronos.Accessibility.WS
 {
     internal sealed class WindowsServicesAccessor : RemoteBaseObject, IWindowsServicesAccessor
     {
+        private readonly IWindowsServiceCollection _services;
+
+        public WindowsServicesAccessor(IWindowsServiceCollection services)
+        {
+            _services = services;
+        }
+
         public WindowsServiceInfo[] GetServices()
         {
-            ServiceControllerCollection controllers = new ServiceControllerCollection();
-            WindowsServiceInfo[] collection = controllers.Select(x => new WindowsServiceInfo(x.ServiceName, x.DisplayName)).ToArray();
+            WindowsServiceInfo[] collection = _services.Select(x => new WindowsServiceInfo(x.ServiceName, x.DisplayName)).ToArray();
             return collection;
         }
     }

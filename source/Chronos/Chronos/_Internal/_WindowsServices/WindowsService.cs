@@ -5,14 +5,14 @@ using System.ServiceProcess;
 using Chronos.Win32;
 using Microsoft.Win32;
 
-namespace Chronos.Accessibility.WS
+namespace Chronos
 {
-    internal sealed class ServiceController : IServiceController, IEquatable<ServiceController>
+    internal sealed class WindowsService : IWindowsService, IEquatable<WindowsService>
     {
-        private readonly ServiceControllerCollection _services;
+        private readonly WindowsServiceCollection _services;
         private readonly System.ServiceProcess.ServiceController _controller;
 
-        public ServiceController(System.ServiceProcess.ServiceController controller,  ServiceControllerCollection services)
+        public WindowsService(System.ServiceProcess.ServiceController controller,  WindowsServiceCollection services)
         {
             _controller = controller;
             _services = services;
@@ -26,6 +26,16 @@ namespace Chronos.Accessibility.WS
         public string DisplayName
         {
             get { return _controller.DisplayName; }
+        }
+
+        public bool IsRunning
+        {
+            get
+            {
+                ServiceControllerStatus status = _controller.Status;
+                bool isRunning = !(status == ServiceControllerStatus.StopPending || status == ServiceControllerStatus.Stopped);
+                return isRunning;
+            }
         }
 
         public Process GetServiceProcess()
@@ -53,7 +63,7 @@ namespace Chronos.Accessibility.WS
             _controller.WaitForStatus(ServiceControllerStatus.Running);
         }
 
-        private RegistryKey GetLocalMachineKey()
+        private RegistryKey GetServiceLocalMachineKey()
         {
             string serviceKeyPath = Constants.WindowsService.ServicesRegisteryPath + ServiceName;
             RegistryKey localMachine = Microsoft.Win32.Registry.LocalMachine;
@@ -63,7 +73,7 @@ namespace Chronos.Accessibility.WS
 
         public void SetEnvironmentVariables(StringDictionary variables)
         {
-            RegistryKey key = GetLocalMachineKey();
+            RegistryKey key = GetServiceLocalMachineKey();
             if (key == null)
             {
                 throw new TempException("Key was not found");
@@ -76,7 +86,7 @@ namespace Chronos.Accessibility.WS
 
         public void RemoveEnvironmentVariables()
         {
-            RegistryKey key = GetLocalMachineKey();
+            RegistryKey key = GetServiceLocalMachineKey();
             if (key == null)
             {
                 throw new TempException("Key was not found");
@@ -84,7 +94,7 @@ namespace Chronos.Accessibility.WS
             key.DeleteValue(Constants.WindowsService.ServiceEnvironmentKeyName, false);
         }
 
-        public bool Equals(ServiceController other)
+        public bool Equals(WindowsService other)
         {
             if (other == null)
             {
@@ -99,7 +109,7 @@ namespace Chronos.Accessibility.WS
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as ServiceController);
+            return Equals(obj as WindowsService);
         }
 
         public override int GetHashCode()

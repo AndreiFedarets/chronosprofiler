@@ -2,12 +2,10 @@
 
 namespace Chronos.Accessibility.IIS
 {
-    [PublicService(typeof(Proxy.Accessibility.IIS.InternetInformationService))]
-    public interface IInternetInformationService
+    [PublicService(typeof(Proxy.Accessibility.IIS.InternetInformationServiceAccessor))]
+    public interface IInternetInformationServiceAccessor
     {
         bool IsAvailable { get; }
-
-        bool IsRunning { get; }
 
         List<string> GetApplicationPools();
     }

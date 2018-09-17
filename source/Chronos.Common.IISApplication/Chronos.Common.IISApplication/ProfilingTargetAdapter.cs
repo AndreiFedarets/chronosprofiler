@@ -4,10 +4,10 @@ namespace Chronos.Common.IISApplication
 {
     public class ProfilingTargetAdapter : IProfilingTargetAdapter
     {
-        private readonly IInternetInformationService _internetInformationService;
+        private readonly IInternetInformationServiceAccessor _internetInformationService;
         private ProfilingTargetController _currentController;
 
-        public ProfilingTargetAdapter(IInternetInformationService internetInformationService)
+        public ProfilingTargetAdapter(IInternetInformationServiceAccessor internetInformationService)
         {
             _internetInformationService = internetInformationService;
         }

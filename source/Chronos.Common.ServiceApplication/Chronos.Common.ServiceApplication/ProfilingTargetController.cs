@@ -8,10 +8,11 @@ namespace Chronos.Common.ServiceApplication
     {
         private const int ServiceProcessClosingTimeout = 10000;
         private readonly ProfilingTargetSettings _settings;
-        private readonly IServiceController _service;
+        private readonly IWindowsService _service;
+        private bool _isServiceInitialyRunning;
         private Process _serviceProcess;
 
-        public ProfilingTargetController(ProfilingTargetSettings settings, IServiceController service)
+        public ProfilingTargetController(ProfilingTargetSettings settings, IWindowsService service)
         {
             _settings = settings;
             _service = service;
@@ -34,31 +35,49 @@ namespace Chronos.Common.ServiceApplication
 
         public void Start()
         {
+            _isServiceInitialyRunning = _service.IsRunning;
             _service.Stop();
             _service.SetEnvironmentVariables(_settings.EnvironmentVariables);
             _service.Start();
+            //remove Environment variables to prevent profiling after service started next time
+            _service.RemoveEnvironmentVariables();
             _serviceProcess = _service.GetServiceProcess();
+            if (_serviceProcess == null || _serviceProcess.HasExited)
+            {
+                //TODO: log
+                return;
+            }
             _serviceProcess.Exited += OnProcessExited;
-            _serviceProcess.EnableRaisingEvents = true;
+            _serviceProcess.EnableRaisingEvents = true;   
         }
 
         public void Stop()
         {
-            _serviceProcess.Refresh();
-            Action action = () => _service.Stop();
-            IAsyncResult asyncResult = action.BeginInvoke(null, null);
-            asyncResult.AsyncWaitHandle.WaitOne(ServiceProcessClosingTimeout);
-            if (IsActive)
+            if (_serviceProcess != null)
             {
-                _serviceProcess.Kill();
+                _serviceProcess.Refresh();
+                if (!_serviceProcess.HasExited)
+                {
+                    Action action = () => _service.Stop();
+                    IAsyncResult asyncResult = action.BeginInvoke(null, null);
+                    asyncResult.AsyncWaitHandle.WaitOne(ServiceProcessClosingTimeout);
+                    if (IsActive)
+                    {
+                        _serviceProcess.Kill();
+                    }   
+                }
+            }
+            if (_isServiceInitialyRunning)
+            {
+                _service.Start();
             }
         }
 
         private void OnProcessExited(object sender, EventArgs e)
         {
             _serviceProcess.Exited -= OnProcessExited;
-            _service.RemoveEnvironmentVariables();
             ProfilingTargetControllerEventArgs.RaiseEvent(TargetStopped, this);
+            _serviceProcess = null;
         }
     }
 }

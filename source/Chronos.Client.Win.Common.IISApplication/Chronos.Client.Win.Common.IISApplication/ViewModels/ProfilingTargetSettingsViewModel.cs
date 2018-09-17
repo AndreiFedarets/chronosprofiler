@@ -43,7 +43,7 @@ namespace Chronos.Client.Win.ViewModels.Common.IISApplication
             }
             else
             {
-                IInternetInformationService service = selectedApplication.ServiceContainer.Resolve<IInternetInformationService>();
+                IInternetInformationServiceAccessor service = selectedApplication.ServiceContainer.Resolve<IInternetInformationServiceAccessor>();
                 ApplicationPools = service.GetApplicationPools();
             }
             SelectedApplicationPool = string.Empty;

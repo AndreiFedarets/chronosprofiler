@@ -3,9 +3,9 @@ using Chronos.Accessibility.IIS;
 
 namespace Chronos.Proxy.Accessibility.IIS
 {
-    internal sealed class InternetInformationService : ProxyBaseObject<IInternetInformationService>, IInternetInformationService
+    internal sealed class InternetInformationServiceAccessor : ProxyBaseObject<IInternetInformationServiceAccessor>, IInternetInformationServiceAccessor
     {
-        public InternetInformationService(IInternetInformationService remoteObject)
+        public InternetInformationServiceAccessor(IInternetInformationServiceAccessor remoteObject)
             : base(remoteObject)
         {
         }
@@ -13,11 +13,6 @@ namespace Chronos.Proxy.Accessibility.IIS
         public bool IsAvailable
         {
             get { return Execute(() => RemoteObject.IsAvailable); }
-        }
-
-        public bool IsRunning
-        {
-            get { return Execute(() => RemoteObject.IsRunning); }
         }
 
         public List<string> GetApplicationPools()

@@ -9,10 +9,10 @@ namespace Chronos.Common.IISApplication
     internal class ProfilingTargetController : IProfilingTargetController
     {
         private readonly ProfilingTargetSettings _settings;
-        private readonly IInternetInformationService _internetInformationService;
+        private readonly IInternetInformationServiceAccessor _internetInformationService;
         private List<Process> _processes;
 
-        public ProfilingTargetController(ProfilingTargetSettings settings, IInternetInformationService internetInformationService)
+        public ProfilingTargetController(ProfilingTargetSettings settings, IInternetInformationServiceAccessor internetInformationService)
         {
             _settings = settings;
             _internetInformationService = internetInformationService;

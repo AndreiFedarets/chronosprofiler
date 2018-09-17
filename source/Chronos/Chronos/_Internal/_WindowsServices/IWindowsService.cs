@@ -1,10 +1,12 @@
 ﻿using System.Collections.Specialized;
 using System.Diagnostics;
 
-namespace Chronos.Accessibility.WS
+namespace Chronos
 {
-    public interface IServiceController
+    public interface IWindowsService
     {
+        bool IsRunning { get; }
+
         string ServiceName { get; }
 
         string DisplayName { get; }
