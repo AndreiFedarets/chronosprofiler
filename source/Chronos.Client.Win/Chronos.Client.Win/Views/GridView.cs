@@ -503,12 +503,12 @@ namespace Chronos.Client.Win.Views
 
             public bool IsFixedHeight
             {
-                get { return !View.Height.IsNaNOrZero() || !View.MinHeight.IsNaNOrZero(); }
+                get { return !View.Height.IsNaNOrZero() || !View.MinHeight.IsNaNOrZero() || !View.ContentHeight.IsNaNOrZero()  || !View.ContentMinHeight.IsNaNOrZero(); }
             }
 
             public bool IsFixedWidth
             {
-                get { return !View.Width.IsNaNOrZero() || !View.MinWidth.IsNaNOrZero(); }
+                get { return !View.Width.IsNaNOrZero() || !View.MinWidth.IsNaNOrZero() || !View.ContentWidth.IsNaNOrZero() || !View.ContentMinWidth.IsNaNOrZero(); }
             }
         }
     }

@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using Chronos.Extensibility;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
-    public sealed class ProfilingTypeViewModel : PropertyChangedBase
+    public sealed class ProfilingTypeViewModel : PropertyChangedBase, Contracts.Dialog.IContractSource
     {
         private readonly ProfilingTypeSettingsCollection _profilingTypesSettings;
         private readonly List<ProfilingTypeViewModel> _profilingTypes;
@@ -24,6 +25,11 @@ namespace Chronos.Client.Win.ViewModels.Start
             _framework = framework;
             _profilingTypes = profilingTypes;
             _profilingTypesSettings = profilingTypesSettings;
+        }
+
+        public bool Ready
+        {
+            get { return IsChecked; }
         }
 
         public IProfilingType ProfilingType
@@ -71,6 +77,7 @@ namespace Chronos.Client.Win.ViewModels.Start
                 {
                     RemoveReference(false);
                 }
+                NotifyContractSourceChanged();
             }
         }
 
@@ -84,6 +91,8 @@ namespace Chronos.Client.Win.ViewModels.Start
                 NotifyOfPropertyChange(() => IsChecked);
             }
         }
+
+        public event EventHandler ContractSourceChanged;
 
         internal void AddReference(bool automaticReference)
         {
@@ -153,6 +162,11 @@ namespace Chronos.Client.Win.ViewModels.Start
                     viewModel.RemoveReference(true);
                 }
             }
+        }
+
+        private void NotifyContractSourceChanged()
+        {
+            ContractSourceChanged.SafeInvoke(this, EventArgs.Empty);
         }
 
         //internal void SetSelection(SelectionType selectionType)

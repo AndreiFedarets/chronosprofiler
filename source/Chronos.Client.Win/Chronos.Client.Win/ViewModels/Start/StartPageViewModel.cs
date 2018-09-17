@@ -1,8 +1,11 @@
-﻿namespace Chronos.Client.Win.ViewModels.Start
+﻿
+namespace Chronos.Client.Win.ViewModels.Start
 {
+    [Contracts.EnableContract(typeof(Contracts.Dialog.Contract))]
     public class StartPageViewModel : GridViewModel, Contracts.Dialog.IContractConsumer
     {
         private bool _startProfilingImmediately;
+        private bool _isReady;
 
         public StartPageViewModel(IMainApplication application, IProfilingTarget profilingTarget)
         {
@@ -11,12 +14,23 @@
             ConfigurationSettings = new ConfigurationSettings(profilingTarget.Definition.Uid);
             HostApplicationSelector = new HostApplicationSelector(application.HostApplications);
             _startProfilingImmediately = true;
+            _isReady = false;
         }
 
         public override string DisplayName
         {
             get { return "Create Configuration"; }
             set { }
+        }
+
+        public bool CanCreateConfiguration
+        {
+            get { return _isReady; }
+            private set
+            {
+                _isReady = value;
+                NotifyOfPropertyChange(() => CanCreateConfiguration);
+            }
         }
 
         public IMainApplication Application { get; private set; }
@@ -27,11 +41,6 @@
 
         public IProfilingTarget ProfilingTarget { get; private set; }
         
-        //public IEnumerable<Host.IApplication> HostApplications
-        //{
-        //    get { return ProfilingTarget.SupportedApplications; }
-        //}
-
         public bool StartProfilingImmediately
         {
             get { return _startProfilingImmediately; }
@@ -65,6 +74,17 @@
         {
             HostApplicationSelector.TryDispose();
             base.Dispose();
+        }
+
+        void Contracts.Dialog.IContractConsumer.OnReadyChanged(bool ready)
+        {
+            CanCreateConfiguration = ready;
+        }
+
+        protected override void RegisterContracts()
+        {
+            base.RegisterContracts();
+            Contracts.RegisterContract(new Contracts.Dialog.Contract());
         }
     }
 }

@@ -69,10 +69,13 @@
     <Compile Include="Contracts\Dialog\Contract.cs" />
     <Compile Include="Contracts\Dialog\IContractConsumer.cs" />
     <Compile Include="Contracts\Dialog\IContractSource.cs" />
+    <Compile Include="Contracts\EnableContractAttribute.cs" />
     <Compile Include="Contracts\IContract.cs" />
     <Compile Include="Contracts\IContractConsumer.cs" />
+    <Compile Include="Contracts\IContractProxy.cs" />
     <Compile Include="Contracts\IContractSource.cs" />
     <Compile Include="Controls\_Generic\ImageButton.cs" />
+    <Compile Include="Converters\InvertBoolToVisibilityConverter.cs" />
     <Compile Include="Menu\Specialized\ProfilingMenuItemBase.cs" />
     <Compile Include="Menu\Specialized\UnitsMenuItemBase.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -80,6 +83,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Start\ProfilingTargetSettingsBaseViewModel.cs" />
     <Compile Include="Views\TabItemView.cs" />
     <Compile Include="Views\TabView.cs" />
     <Compile Include="IContainer.cs" />

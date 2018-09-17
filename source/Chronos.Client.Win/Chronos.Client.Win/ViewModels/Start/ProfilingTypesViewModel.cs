@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
@@ -17,7 +18,17 @@ namespace Chronos.Client.Win.ViewModels.Start
             foreach (IFramework framework in application.Frameworks)
             {
                 FrameworkViewModel viewModel = new FrameworkViewModel(framework, profilingTypes, configurationSettings);
+                viewModel.ContractSourceChanged += OnContractSourceChanged;
                 _frameworks.Add(viewModel);
+            }
+        }
+
+        public bool Ready
+        {
+            get
+            {
+                //Any of frameworks is selected
+                return _frameworks.Any(x => x.Ready);
             }
         }
 
@@ -69,9 +80,15 @@ namespace Chronos.Client.Win.ViewModels.Start
         {
             foreach (FrameworkViewModel framework in _frameworks)
             {
+                framework.ContractSourceChanged -= OnContractSourceChanged;
                 framework.Dispose();
             }
             base.Dispose();
+        }
+
+        private void OnContractSourceChanged(object sender, EventArgs e)
+        {
+            ContractSourceChanged.SafeInvoke(this, EventArgs.Empty);
         }
     }
 }

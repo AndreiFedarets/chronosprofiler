@@ -1,8 +1,9 @@
 ﻿using System;
+using Chronos.Client.Win.Contracts;
 
 namespace Chronos.Client.Win.ViewModels
 {
-    public class PlaceholderViewModel : ViewModel
+    public class PlaceholderViewModel : ViewModel, IContractProxy
     {
         private PageViewModel _page;
         private ViewModel _underlyingViewModel;
@@ -11,6 +12,11 @@ namespace Chronos.Client.Win.ViewModels
         public PlaceholderViewModel(PlaceholderContent content)
         {
             _content = content;
+        }
+
+        object IContractProxy.UnderlyingObject
+        {
+            get { return UnderlyingViewModel; }
         }
 
         internal ViewModel UnderlyingViewModel 

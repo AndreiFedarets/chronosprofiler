@@ -115,7 +115,19 @@ namespace Chronos.Client.Win.ViewModels
 
         protected virtual void RegisterContracts()
         {
+            RegisterDeclaredContracts();
+        }
 
+        protected void RegisterDeclaredContracts()
+        {
+            IEnumerable<EnableContractAttribute> attributes = EnableContractAttribute.GetContractAttributes(GetType());
+            foreach (EnableContractAttribute attribute in attributes)
+            {
+                Type contractType = attribute.ContractType;
+                object contractObject = Activator.CreateInstance(contractType);
+                IContract contract = (IContract) contractObject;
+                Contracts.RegisterContract(contract);
+            }
         }
 
         private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

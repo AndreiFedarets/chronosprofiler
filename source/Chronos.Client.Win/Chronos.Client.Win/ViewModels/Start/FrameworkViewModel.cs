@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
-    public sealed class FrameworkViewModel : PropertyChangedBaseEx
+    public sealed class FrameworkViewModel : PropertyChangedBaseEx, Contracts.Dialog.IContractSource
     {
         private readonly IFramework _framework;
         private readonly FrameworkSettingsCollection _frameworksSettings;
@@ -19,9 +21,15 @@ namespace Chronos.Client.Win.ViewModels.Start
             foreach (IProfilingType profilingType in _framework.ProfilingTypes)
             {
                 ProfilingTypeViewModel viewModel = new ProfilingTypeViewModel(profilingType, this, profilingTypes, configurationSettings.ProfilingTypesSettings);
+                viewModel.ContractSourceChanged += OnContractSourceChanged;
                 profilingTypes.Add(viewModel);
                 _profilingTypes.Add(viewModel);
             }
+        }
+
+        public bool Ready
+        {
+            get { return _profilingTypes.Any(x => x.Ready); }
         }
 
         public IFramework Framework
@@ -55,6 +63,17 @@ namespace Chronos.Client.Win.ViewModels.Start
             }
         }
 
+        public event EventHandler ContractSourceChanged;
+
+        public override void Dispose()
+        {
+            foreach (ProfilingTypeViewModel profilingType in _profilingTypes)
+            {
+                profilingType.ContractSourceChanged -= OnContractSourceChanged;
+            }
+            base.Dispose();
+        }
+
         internal void AddReference()
         {
             _references++;
@@ -78,6 +97,11 @@ namespace Chronos.Client.Win.ViewModels.Start
             {
                 _frameworksSettings.Remove(_framework.Definition.Uid);
             }
+        }
+
+        private void OnContractSourceChanged(object sender, EventArgs e)
+        {
+            ContractSourceChanged.SafeInvoke(this, EventArgs.Empty);
         }
     }
 }

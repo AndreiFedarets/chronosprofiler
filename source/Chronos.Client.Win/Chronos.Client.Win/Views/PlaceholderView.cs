@@ -22,20 +22,41 @@ namespace Chronos.Client.Win.Views
             if (view != null)
             {
                 view.DisplayPanel = false;
+                view.Margin = new Thickness();
+                view.Padding = new Thickness();
+                view.Style = null;
+                Content = view;
+                CloneViewProperties(view);
             }
-            Content = view;
-            CloneViewProperties(view);
         }
 
         private void CloneViewProperties(View view)
         {
-            MinHeight = view.MinHeight;
-            Height = view.Height;
-            MaxHeight = view.MaxHeight;
+            if (!view.ContentMinHeight.IsNaNOrZero())
+            {
+                ContentMinHeight = view.ContentMinHeight;   
+            }
+            if (!view.ContentHeight.IsNaNOrZero())
+            {
+                ContentHeight = view.ContentHeight;
+            }
+            if (!view.ContentMaxHeight.IsNaNOrZero())
+            {
+                ContentMaxHeight = view.ContentMaxHeight;
+            }
 
-            MinWidth = view.MinWidth;
-            Width = view.Width;
-            MaxWidth = view.MaxWidth;
+            if (!view.ContentMinWidth.IsNaNOrZero())
+            {
+                ContentMinWidth = view.ContentMinWidth;
+            }
+            if (!view.ContentWidth.IsNaNOrZero())
+            {
+                ContentWidth = view.ContentWidth;
+            }
+            if (!view.ContentMaxWidth.IsNaNOrZero())
+            {
+                ContentMaxWidth = view.ContentMaxWidth;
+            }
         }
     }
 }

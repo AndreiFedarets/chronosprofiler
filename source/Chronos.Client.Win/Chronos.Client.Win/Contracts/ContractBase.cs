@@ -10,7 +10,7 @@ namespace Chronos.Client.Win.Contracts
         protected readonly List<TSource> Sources;
         protected readonly List<TConsumer> Consumers;
 
-        public ContractBase()
+        protected ContractBase()
         {
             Sources = new List<TSource>();
             Consumers = new List<TConsumer>();
@@ -18,6 +18,12 @@ namespace Chronos.Client.Win.Contracts
 
         public void Register(object item)
         {
+            if (item is IContractProxy)
+            {
+                IContractProxy proxy = (IContractProxy) item;
+                object underlyingItem = proxy.UnderlyingObject;
+                Register(underlyingItem);
+            }
             if (item is TSource)
             {
                 RegisterSource((TSource)item);
@@ -80,7 +86,9 @@ namespace Chronos.Client.Win.Contracts
 
         private void OnContractSourceChanged(object sender, EventArgs e)
         {
-            
+            OnContractSourceChanged();
         }
+
+        protected abstract void OnContractSourceChanged();
     }
 }

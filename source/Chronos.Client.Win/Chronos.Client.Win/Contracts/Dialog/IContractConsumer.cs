@@ -2,5 +2,6 @@
 {
     public interface IContractConsumer : Contracts.IContractConsumer
     {
+        void OnReadyChanged(bool ready);
     }
 }

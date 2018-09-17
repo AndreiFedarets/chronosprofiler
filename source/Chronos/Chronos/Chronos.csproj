@@ -200,6 +200,7 @@
     <Compile Include="_Extensions\FileSystemInfoExtensions.cs" />
     <Compile Include="_Extensions\GuidExtensions.cs" />
     <Compile Include="_Extensions\NumberExtensions.cs" />
+    <Compile Include="_Extensions\SecurityExtensions.cs" />
     <Compile Include="_Extensions\ValueParser.cs" />
     <Compile Include="_Extensions\DirectoryInfoExtensions.cs" />
     <Compile Include="ChronosApplicationLauncher.cs" />

@@ -5,7 +5,7 @@
             xmlns:views="clr-namespace:Chronos.Client.Win.Views"
             xmlns:local="clr-namespace:Chronos.Client.Win.Views.Start"
             xmlns:viewModels="clr-namespace:Chronos.Client.Win.ViewModels.Start"
-            DisplayPanel="true">
+            DisplayPanel="True">
     <views:View.Resources>
         <local:ProfilingTypesDataTemplateSelector x:Key="ProfilingTypesDataTemplateSelector" />
         <HierarchicalDataTemplate x:Key="FrameworkDataTemplate" ItemsSource="{Binding ProfilingTypes}" 
@@ -28,6 +28,8 @@
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
                     <Setter Property="IsExpanded" Value="True"/>
+                    <Setter Property="IsSelected" Value="False" />
+                    <Setter Property="Focusable" Value="False" />
                 </Style>
             </TreeView.ItemContainerStyle>
             <interactivity:Interaction.Behaviors>

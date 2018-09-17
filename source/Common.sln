@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Client.Win.Common",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Client.Win.Common.EventsTree", "Chronos.Client.Win.Common.EventsTree", "{32CA7886-F6E7-46A6-B955-AEF65B5B1C33}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Client.Win.Common.StandaloneApplication", "Chronos.Client.Win.Common.StandaloneApplication", "{B97A6C91-BA9C-42B2-9515-884B5D596F0F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Client.Win.Common.DesktopApplication", "Chronos.Client.Win.Common.DesktopApplication", "{B97A6C91-BA9C-42B2-9515-884B5D596F0F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Client.Win.DotNet", "Chronos.Client.Win.DotNet", "{CDBECDED-886A-47AE-97E3-65BEFD34BB26}"
 EndProject
@@ -43,7 +43,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Common", "Chronos.C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Common.EventsTree", "Chronos.Common.EventsTree", "{1D13FA27-EBCC-401B-B593-8065FB864823}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Common.StandaloneApplication", "Chronos.Common.StandaloneApplication", "{F956153B-66C3-4727-B643-8C7A4B66D89F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Common.DesktopApplication", "Chronos.Common.DesktopApplication", "{F956153B-66C3-4727-B643-8C7A4B66D89F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.DotNet", "Chronos.DotNet", "{05AC2C17-45B2-4D35-AB65-5F5C8214ECDB}"
 EndProject
@@ -207,16 +207,16 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Client.Win.DotNet.T
 		{C936E8BE-E44D-4C8D-AC8A-A091C796D139} = {C936E8BE-E44D-4C8D-AC8A-A091C796D139}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Common.StandaloneApplication", "Chronos.Common.StandaloneApplication\Chronos.Common.StandaloneApplication\Chronos.Common.StandaloneApplication.csproj", "{C37CE387-E513-478D-837C-F104C6A785A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Common.DesktopApplication", "Chronos.Common.DesktopApplication\Chronos.Common.DesktopApplication\Chronos.Common.DesktopApplication.csproj", "{C37CE387-E513-478D-837C-F104C6A785A6}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Common.StandaloneApplication.Module", "Chronos.Common.StandaloneApplication\Chronos.Common.StandaloneApplication.Module\Chronos.Common.StandaloneApplication.Module.wixproj", "{81860C39-5D41-4339-A498-51B1C67102B1}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Common.DesktopApplication.Module", "Chronos.Common.DesktopApplication\Chronos.Common.DesktopApplication.Module\Chronos.Common.DesktopApplication.Module.wixproj", "{81860C39-5D41-4339-A498-51B1C67102B1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C37CE387-E513-478D-837C-F104C6A785A6} = {C37CE387-E513-478D-837C-F104C6A785A6}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Client.Win.Common.StandaloneApplication", "Chronos.Client.Win.Common.StandaloneApplication\Chronos.Client.Win.Common.StandaloneApplication\Chronos.Client.Win.Common.StandaloneApplication.csproj", "{D5482F9F-4C3C-49F2-AB94-6E9222D06106}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Client.Win.Common.DesktopApplication", "Chronos.Client.Win.Common.DesktopApplication\Chronos.Client.Win.Common.DesktopApplication\Chronos.Client.Win.Common.DesktopApplication.csproj", "{D5482F9F-4C3C-49F2-AB94-6E9222D06106}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Client.Win.Common.StandaloneApplication.Module", "Chronos.Client.Win.Common.StandaloneApplication\Chronos.Client.Win.Common.StandaloneApplication.Module\Chronos.Client.Win.Common.StandaloneApplication.Module.wixproj", "{FF745BC8-ED08-4375-9DAB-ED8C2E8CDAF5}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Client.Win.Common.DesktopApplication.Module", "Chronos.Client.Win.Common.DesktopApplication\Chronos.Client.Win.Common.DesktopApplication.Module\Chronos.Client.Win.Common.DesktopApplication.Module.wixproj", "{FF745BC8-ED08-4375-9DAB-ED8C2E8CDAF5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D5482F9F-4C3C-49F2-AB94-6E9222D06106} = {D5482F9F-4C3C-49F2-AB94-6E9222D06106}
 	EndProjectSection

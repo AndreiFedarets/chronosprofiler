@@ -2,5 +2,6 @@
 {
     public interface IContractSource : Contracts.IContractSource
     {
+        bool Ready { get; }
     }
 }

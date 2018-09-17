@@ -17,7 +17,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <CheckBox x:Name="StartProfilingImmediately" Grid.Row="0" Content="Start profiling immediately" HorizontalAlignment="Left" />
-                <Button x:Name="CreateConfiguration" Grid.Column="1" Content="Create" />
+                <Button x:Name="CreateConfiguration" Grid.Column="1" Content="Create" IsEnabled="{Binding CanCreateConfiguration, Mode=OneWay}" />
                 <Button Grid.Column="2" Content="Cancel" IsCancel="True" />
             </Grid>
         </ContentControl>
