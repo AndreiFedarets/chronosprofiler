@@ -1,4 +1,5 @@
 ﻿using Chronos.Extensibility;
+using Chronos.Prerequisites;
 
 namespace Chronos
 {
@@ -7,6 +8,8 @@ namespace Chronos
         FrameworkDefinition Definition { get; }
 
         bool HasAgent { get; }
+
+        IPrerequisiteCollection Prerequisites { get; }
 
         string GetAgentDll(ProcessPlatform processPlatform);
     }

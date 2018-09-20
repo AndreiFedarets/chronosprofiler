@@ -14,7 +14,7 @@
     <Extension IsEnabled="true" Path="..\Chronos.Common.EventsTree\" />
     <Extension IsEnabled="true" Path="..\Chronos.Common.DesktopApplication\" />
     <Extension IsEnabled="true" Path="..\Chronos.Common.ServiceApplication\" />
-    <Extension IsEnabled="true" Path="..\Chronos.Common.IISApplication\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Common.WebApplication\" />
     
     <Extension IsEnabled="true" Path="..\Chronos.DotNet\" />
     <Extension IsEnabled="true" Path="..\Chronos.DotNet.BasicProfiler\" />
@@ -30,7 +30,7 @@
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win.Common.EventsTree\" />
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win.Common.DesktopApplication\" />
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win.Common.ServiceApplication\" />
-    <Extension IsEnabled="true" Path="..\Chronos.Client.Win.Common.IISApplication\" />
+    <Extension IsEnabled="true" Path="..\Chronos.Client.Win.Common.WebApplication\" />
     
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win.DotNet\" />
     <Extension IsEnabled="true" Path="..\Chronos.Client.Win.DotNet.BasicProfiler\" />

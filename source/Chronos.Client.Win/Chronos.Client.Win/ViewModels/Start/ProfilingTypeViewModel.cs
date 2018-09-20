@@ -27,7 +27,7 @@ namespace Chronos.Client.Win.ViewModels.Start
             _profilingTypesSettings = profilingTypesSettings;
         }
 
-        public bool Ready
+        public bool DialogReady
         {
             get { return IsChecked; }
         }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.DirectoryServices;
-using System.ServiceProcess;
-using Chronos.Accessibility.WS;
-using Microsoft.Win32;
-using ServiceController = System.ServiceProcess.ServiceController;
+﻿using System.Collections.Generic;
 
 namespace Chronos.Accessibility.IIS
 {
@@ -21,6 +15,11 @@ namespace Chronos.Accessibility.IIS
         public bool IsAvailable
         {
             get { return _internetInformationService.IsAvailable; }
+        }
+
+        public bool HasPermissions
+        {
+            get { return _internetInformationService.HasPermissions; }
         }
 
         public List<string> GetApplicationPools()

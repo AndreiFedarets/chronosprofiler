@@ -24,8 +24,17 @@ namespace Chronos
             }
         }
 
+        public bool HasPermissions
+        {
+            get { return SecurityExtensions.HasAdministratorPermissions(); }
+        }
+
         public StringDictionary GetEnvironmentVariables()
         {
+            if (!HasPermissions)
+            {
+                throw new TempException();
+            }
             Process process = Process.GetProcessesByName(Constants.WindowsService.ServicesProcessName).FirstOrDefault();
             if (process == null)
             {
@@ -70,6 +79,10 @@ namespace Chronos
 
         private List<IWindowsService> GetServiceControllers()
         {
+            if (!HasPermissions)
+            {
+                return Enumerable.Empty<IWindowsService>().ToList();
+            }
             System.ServiceProcess.ServiceController[] controllers = System.ServiceProcess.ServiceController.GetServices();
             return controllers.Select(x => (IWindowsService)new WindowsService(x, this)).ToList();
         }

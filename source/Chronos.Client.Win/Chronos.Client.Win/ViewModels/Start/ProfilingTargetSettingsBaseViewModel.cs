@@ -1,4 +1,5 @@
 ﻿using System;
+using Chronos.Client.Win.Properties;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
@@ -14,7 +15,7 @@ namespace Chronos.Client.Win.ViewModels.Start
             _applicationSelector.SelectionChanged += ApplicationSelectorSelectionChanged;
         }
 
-        public abstract bool Ready { get; }
+        public abstract bool DialogReady { get; }
 
         public bool ProfileChildProcess
         {
@@ -31,6 +32,28 @@ namespace Chronos.Client.Win.ViewModels.Start
             get { return _applicationSelector.SelectedApplication; }
         }
 
+        public bool IsApplicationSelected
+        {
+            get { return SelectedApplication != null; }
+        }
+
+        public virtual bool ShowNotificationMessage
+        {
+            get { return !IsApplicationSelected; }
+        }
+
+        public virtual string NotificationMessage
+        {
+            get
+            {
+                if (!IsApplicationSelected)
+                {
+                    return Resources.TargetMachineIsNotSelectedErrorMessage;
+                }
+                return string.Empty;
+            }
+        }
+
         public event EventHandler ContractSourceChanged;
 
         public override void Dispose()
@@ -42,6 +65,11 @@ namespace Chronos.Client.Win.ViewModels.Start
         private void ApplicationSelectorSelectionChanged(object sender, System.EventArgs e)
         {
             NotifyOfPropertyChange(() => SelectedApplication);
+        }
+
+        protected virtual void OnSelectedApplicationChanged()
+        {
+            
         }
 
         protected void NotifyContractSourceChanged()

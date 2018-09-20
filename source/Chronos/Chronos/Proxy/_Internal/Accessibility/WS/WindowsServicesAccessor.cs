@@ -9,6 +9,11 @@ namespace Chronos.Proxy.Accessibility.WS
         {
         }
 
+        public bool HasPermissions
+        {
+            get { return Execute(() => RemoteObject.HasPermissions); }
+        }
+
         public WindowsServiceInfo[] GetServices()
         {
             return Execute(() => RemoteObject.GetServices());

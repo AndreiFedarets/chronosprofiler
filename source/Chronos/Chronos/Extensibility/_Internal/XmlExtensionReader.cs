@@ -26,6 +26,7 @@ namespace Chronos.Extensibility
 
         private const string AttributeElementName = "Attribute";
         private const string ExtensionElementName = "Extension";
+        private const string PrerequisiteElementName = "Prerequisite";
         private const string AttachmentElementName = "Attachment";
         private const string ProfilingTypeElementName = "ProfilingType";
         private const string ProfilingTargetElementName = "ProfilingTarget";
@@ -157,6 +158,32 @@ namespace Chronos.Extensibility
             return definition;
         }
 
+        private PrerequisiteDefinition ReadPrerequisite(XmlReader reader, string baseDirectory)
+        {
+            //Move to <Prerequisite> element
+            MoveToElement(reader, PrerequisiteElementName);
+
+            //Prepare Prerequisite properties
+            string entryPoint = string.Empty;
+
+            //Read Prerequisite attributes
+            while (reader.MoveToNextAttribute())
+            {
+                switch (reader.Name)
+                {
+                    case EntryPointAttributeName:
+                        entryPoint = reader.ReadContentAsString();
+                        break;
+                }
+            }
+
+            //Move back to <Export> element
+            reader.MoveToElement();
+
+            PrerequisiteDefinition definition = new PrerequisiteDefinition(baseDirectory, entryPoint);
+            return definition;
+        }
+
         private AttachmentDefinition ReadAttachment(XmlReader reader, string baseDirectory)
         {
             //Move to <ProfilingType> element
@@ -224,6 +251,7 @@ namespace Chronos.Extensibility
             List<DependencyDefinition> dependencies = new List<DependencyDefinition>();
             List<LocalizationDefinition> localizations = new List<LocalizationDefinition>();
             List<AttributeDefinition> attributes = new List<AttributeDefinition>();
+            List<PrerequisiteDefinition> prerequisites = new List<PrerequisiteDefinition>();
 
             //Read ProfilingType attributes
             while (reader.MoveToNextAttribute())
@@ -272,9 +300,13 @@ namespace Chronos.Extensibility
                         AttributeDefinition attribute = ReadAttribute(reader);
                         attributes.Add(attribute);
                         break;
+                    case PrerequisiteElementName:
+                        PrerequisiteDefinition prerequisite = ReadPrerequisite(reader, baseDirectory);
+                        prerequisites.Add(prerequisite);
+                        break;
                 }
             }
-            ProfilingTypeDefinition definition = new ProfilingTypeDefinition(uid, frameworkUid, exports, dependencies, localizations, attributes);
+            ProfilingTypeDefinition definition = new ProfilingTypeDefinition(uid, frameworkUid, exports, dependencies, localizations, attributes, prerequisites);
             return definition;
         }
 
@@ -288,6 +320,7 @@ namespace Chronos.Extensibility
             List<ExportDefinition> exports = new List<ExportDefinition>();
             List<LocalizationDefinition> localizations = new List<LocalizationDefinition>();
             List<AttributeDefinition> attributes = new List<AttributeDefinition>();
+            List<PrerequisiteDefinition> prerequisites = new List<PrerequisiteDefinition>();
 
             //Read ProfilingTarget attributes
             while (reader.MoveToNextAttribute())
@@ -329,10 +362,14 @@ namespace Chronos.Extensibility
                         AttributeDefinition attribute = ReadAttribute(reader);
                         attributes.Add(attribute);
                         break;
+                    case PrerequisiteElementName:
+                        PrerequisiteDefinition prerequisite = ReadPrerequisite(reader, baseDirectory);
+                        prerequisites.Add(prerequisite);
+                        break;
                 }
             }
 
-            ProfilingTargetDefinition definition = new ProfilingTargetDefinition(uid, exports, localizations, attributes);
+            ProfilingTargetDefinition definition = new ProfilingTargetDefinition(uid, exports, localizations, attributes, prerequisites);
             return definition;
         }
 
@@ -346,6 +383,7 @@ namespace Chronos.Extensibility
             List<ExportDefinition> exports = new List<ExportDefinition>();
             List<LocalizationDefinition> localizations = new List<LocalizationDefinition>();
             List<AttributeDefinition> attributes = new List<AttributeDefinition>();
+            List<PrerequisiteDefinition> prerequisites = new List<PrerequisiteDefinition>();
 
             //Read Framework attributes
             while (reader.MoveToNextAttribute())
@@ -387,10 +425,14 @@ namespace Chronos.Extensibility
                         AttributeDefinition attribute = ReadAttribute(reader);
                         attributes.Add(attribute);
                         break;
+                    case PrerequisiteElementName:
+                        PrerequisiteDefinition prerequisite = ReadPrerequisite(reader, baseDirectory);
+                        prerequisites.Add(prerequisite);
+                        break;
                 }
             }
 
-            FrameworkDefinition definition = new FrameworkDefinition(uid, exports, localizations, attributes);
+            FrameworkDefinition definition = new FrameworkDefinition(uid, exports, localizations, attributes, prerequisites);
             return definition;
         }
 
@@ -406,6 +448,7 @@ namespace Chronos.Extensibility
             List<LocalizationDefinition> localizations = new List<LocalizationDefinition>();
             List<AttributeDefinition> attributes = new List<AttributeDefinition>();
             List<DependencyDefinition> dependencies = new List<DependencyDefinition>();
+            List<PrerequisiteDefinition> prerequisites = new List<PrerequisiteDefinition>();
 
             //Read Productivity attributes
             while (reader.MoveToNextAttribute())
@@ -417,6 +460,10 @@ namespace Chronos.Extensibility
                         break;
                     case ProfilingTypeUidAttributeName:
                         profilingTypeUid = reader.ReadContentAsGuid();
+                        break;
+                    case PrerequisiteElementName:
+                        PrerequisiteDefinition prerequisite = ReadPrerequisite(reader, baseDirectory);
+                        prerequisites.Add(prerequisite);
                         break;
                 }
             }
@@ -457,7 +504,7 @@ namespace Chronos.Extensibility
                 }
             }
 
-            ProductivityDefinition definition = new ProductivityDefinition(uid, exports, dependencies, localizations, attributes);
+            ProductivityDefinition definition = new ProductivityDefinition(uid, exports, dependencies, localizations, attributes, prerequisites);
             return definition;
         }
 

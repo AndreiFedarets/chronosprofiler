@@ -6,7 +6,7 @@ namespace Chronos.Client.Win.Contracts.Dialog
     {
         protected override void OnContractSourceChanged()
         {
-            bool ready = Sources.All(x => x.Ready);
+            bool ready = Sources.All(x => x.DialogReady);
             Consumers.ForEach(x => x.OnReadyChanged(ready));
         }
     }

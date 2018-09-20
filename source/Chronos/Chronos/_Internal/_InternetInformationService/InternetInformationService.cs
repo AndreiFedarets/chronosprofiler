@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.DirectoryServices;
 using Microsoft.Win32;
@@ -13,7 +14,10 @@ namespace Chronos
 
         public InternetInformationService(IWindowsServiceCollection services)
         {
-            _serviceKey = GetServiceLocalMachineKey();
+            if (HasPermissions)
+            {
+                _serviceKey = GetServiceLocalMachineKey();   
+            }
             if (IsAvailable)
             {
                 _w3SvcService = services[Constants.InternetInformationService.W3svcServiceName];
@@ -26,14 +30,27 @@ namespace Chronos
             get { return _serviceKey != null; }
         }
 
+        public bool HasPermissions
+        {
+            get { return SecurityExtensions.HasAdministratorPermissions(); }
+        }
+
         public void Start()
         {
+            if (!HasPermissions)
+            {
+                throw new TempException();
+            }
             _wasService.Start();
             _w3SvcService.Start();
         }
 
         public void Stop()
         {
+            if (!HasPermissions)
+            {
+                throw new TempException();
+            }
             Process[] hosts = Process.GetProcessesByName(Constants.InternetInformationService.HostProcessName);
             foreach (Process host in hosts)
             {
@@ -46,7 +63,7 @@ namespace Chronos
         public List<string> GetApplicationPools()
         {
             List<string> collection = new List<string>();
-            if (!IsAvailable)
+            if (!HasPermissions || !IsAvailable)
             {
                 return collection;
             }
@@ -56,6 +73,26 @@ namespace Chronos
                 collection.Add(appPool.Name);
             }
             return collection;
+        }
+
+        public void SetEnvironmentVariables(StringDictionary variables)
+        {
+            if (!HasPermissions)
+            {
+                throw new TempException();
+            }
+            _wasService.AppendEnvironmentVariables(variables);
+            _wasService.AppendEnvironmentVariables(variables);
+        }
+
+        public void RemoveEnvironmentVariables()
+        {
+            if (!HasPermissions)
+            {
+                throw new TempException();
+            }
+            _w3SvcService.RemoveEnvironmentVariables();
+            _wasService.RemoveEnvironmentVariables();
         }
 
         private RegistryKey GetServiceLocalMachineKey()

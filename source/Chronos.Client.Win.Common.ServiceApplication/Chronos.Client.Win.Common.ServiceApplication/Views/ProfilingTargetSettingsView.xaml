@@ -3,14 +3,14 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:views="clr-namespace:Chronos.Client.Win.Views;assembly=Chronos.Client.Win"
             xmlns:converters="clr-namespace:Chronos.Client.Win.Converters;assembly=Chronos.Client.Win"
-            HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ContentHeight="50">
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ContentHeight="55">
+    <views:View.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converters:InvertBoolToVisibilityConverter x:Key="InvertBoolToVisibilityConverter" />
+    </views:View.Resources>
     <Grid>
-        <Grid.Resources>
-            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-            <converters:InvertBoolToVisibilityConverter x:Key="InvertBoolToVisibilityConverter" />
-        </Grid.Resources>
-        <TextBlock Visibility="{Binding HasPermissions, Converter={StaticResource InvertBoolToVisibilityConverter}}" Text="You do not have administrator permissions to start/stop Windows Services" />
-        <Grid Visibility="{Binding HasPermissions, Converter={StaticResource BoolToVisibilityConverter}}">
+        <TextBlock Visibility="{Binding ShowNotificationMessage, Converter={StaticResource BoolToVisibilityConverter}}" Text="{Binding NotificationMessage}" />
+        <Grid Visibility="{Binding ShowNotificationMessage, Converter={StaticResource InvertBoolToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />

@@ -23,12 +23,12 @@ namespace Chronos.Client.Win.ViewModels.Start
             }
         }
 
-        public bool Ready
+        public bool DialogReady
         {
             get
             {
                 //Any of frameworks is selected
-                return _frameworks.Any(x => x.Ready);
+                return _frameworks.Any(x => x.DialogReady);
             }
         }
 

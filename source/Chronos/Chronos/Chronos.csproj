@@ -56,6 +56,19 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensibility\PrerequisiteDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensibility\PrerequisiteDefinitionCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Prerequisites\AdministratorPermissionsPrerequisite.cs" />
+    <Compile Include="Prerequisites\IPrerequisite.cs" />
+    <Compile Include="Prerequisites\IPrerequisiteAdapter.cs" />
+    <Compile Include="Prerequisites\IPrerequisiteCollection.cs" />
+    <Compile Include="Prerequisites\PrerequisiteValidationResult.cs" />
+    <Compile Include="Prerequisites\_Internal\Prerequisite.cs" />
+    <Compile Include="Prerequisites\_Internal\PrerequisiteCollection.cs" />
     <Compile Include="_Internal\_InternetInformationService\IInternetInformationService.cs" />
     <Compile Include="_Internal\_InternetInformationService\InternetInformationService.cs" />
     <Compile Include="_Internal\_WindowsServices\IWindowsService.cs" />

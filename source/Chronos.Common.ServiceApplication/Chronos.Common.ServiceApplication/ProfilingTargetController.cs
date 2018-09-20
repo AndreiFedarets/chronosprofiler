@@ -37,7 +37,7 @@ namespace Chronos.Common.ServiceApplication
         {
             _isServiceInitialyRunning = _service.IsRunning;
             _service.Stop();
-            _service.SetEnvironmentVariables(_settings.EnvironmentVariables);
+            _service.AppendEnvironmentVariables(_settings.EnvironmentVariables);
             _service.Start();
             //remove Environment variables to prevent profiling after service started next time
             _service.RemoveEnvironmentVariables();

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Extension Uid="{90C3BD42-26D3-47B1-B887-715C8F2283AA}">
+  <Attachment TargetUid="{4A6B921F-A221-45BF-83F5-1DA3856492E9}" TargetVersion="0.1">
+    <Export Application="client.win" EntryPoint="Chronos.Client.Win.Common.WebApplication.ProfilingTargetAdapter, Chronos.Client.Win.Common.WebApplication" />
+  </Attachment>
+  <Localization Culture="en-US" IconUri="pack://application:,,,/Chronos.Client.Win.Common.WebApplication;component/Resources/Icon.png">
+    <Name>IIS Application (UI for Desktop Client)</Name>
+    <Description>Profiling of web applications running on IIS 6.0+</Description>
+  </Localization>
+</Extension>

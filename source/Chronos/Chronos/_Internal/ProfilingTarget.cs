@@ -1,4 +1,5 @@
 ﻿using Chronos.Extensibility;
+using Chronos.Prerequisites;
 
 namespace Chronos
 {
@@ -7,11 +8,13 @@ namespace Chronos
         private IProfilingTargetAdapter _adapter;
         private readonly IExportLoader _exportLoader;
         private readonly ProfilingTargetDefinition _definition;
+        private readonly IPrerequisiteCollection _prerequisites;
 
         public ProfilingTarget(ProfilingTargetDefinition definition, IExportLoader exportLoader)
         {
             _definition = definition;
             _exportLoader = exportLoader;
+            _prerequisites = new PrerequisiteCollection(definition.Prerequisites, exportLoader);
             Initialize();
         }
 
@@ -46,6 +49,15 @@ namespace Chronos
             }
         }
 
+        public IPrerequisiteCollection Prerequisites
+        {
+            get
+            {
+                VerifyDisposed();
+                return _prerequisites;
+            }
+        }
+
         object IWrapper.UndrelyingObject
         {
             get { return Adapter; }
@@ -76,7 +88,6 @@ namespace Chronos
                 return Adapter.CanStartProfiling(settings, processId);
             }
         }
-
 
         void IProfilingTargetAdapter.ProfilingStarted(ConfigurationSettings configurationSettings, SessionSettings sessionSettings, int processId)
         {

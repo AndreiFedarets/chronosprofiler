@@ -1,4 +1,5 @@
 ﻿using Chronos.Extensibility;
+using Chronos.Prerequisites;
 using Chronos.Storage;
 
 namespace Chronos
@@ -8,11 +9,14 @@ namespace Chronos
         private IProfilingTypeAdapter _adapter;
         private readonly IExportLoader _exportLoader;
         private readonly ProfilingTypeDefinition _definition;
+        private readonly IPrerequisiteCollection _prerequisites;
 
         public ProfilingType(ProfilingTypeDefinition definition, IExportLoader exportLoader)
         {
             _definition = definition;
             _exportLoader = exportLoader;
+            _prerequisites = new PrerequisiteCollection(definition.Prerequisites, exportLoader);
+            Initialize();
         }
 
         public ProfilingTypeDefinition Definition
@@ -43,6 +47,15 @@ namespace Chronos
                     _adapter = _exportLoader.Load<IProfilingTypeAdapter>(exportDefinition);
                 }
                 return _adapter;
+            }
+        }
+
+        public IPrerequisiteCollection Prerequisites
+        {
+            get
+            {
+                VerifyDisposed();
+                return _prerequisites;
             }
         }
 
@@ -145,6 +158,15 @@ namespace Chronos
             {
                 VerifyDisposed();
                 Adapter.ImportServices(container);
+            }
+        }
+
+        private void Initialize()
+        {
+            ExportDefinition exportDefinition = Definition.Exports.FindByApplication(Constants.ApplicationCodeName.Core);
+            if (exportDefinition.LoadBehavior == LoadBehavior.OnStartup)
+            {
+                _adapter = _exportLoader.Load<IProfilingTypeAdapter>(exportDefinition);
             }
         }
     }

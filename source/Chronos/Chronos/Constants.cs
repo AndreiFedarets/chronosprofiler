@@ -59,7 +59,7 @@ namespace Chronos
 
         internal static class InternetInformationService
         {
-            public const string RegisteryPath = "SOFTWARE\\Microsoft\\InProcLogger";
+            public const string RegisteryPath = "SOFTWARE\\Microsoft\\InetStp";
             public const string W3svcServiceName = "W3SVC";
             public const string WasServiceName = "WAS";
             public const string HostProcessName = "w3wp";

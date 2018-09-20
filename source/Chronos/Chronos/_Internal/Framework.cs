@@ -1,4 +1,5 @@
 ﻿using Chronos.Extensibility;
+using Chronos.Prerequisites;
 
 namespace Chronos
 {
@@ -7,11 +8,13 @@ namespace Chronos
         private IFrameworkAdapter _adapter;
         private readonly IExportLoader _exportLoader;
         private readonly FrameworkDefinition _definition;
+        private readonly IPrerequisiteCollection _prerequisites;
 
         public Framework(FrameworkDefinition definition, IExportLoader exportLoader)
         {
             _definition = definition;
             _exportLoader = exportLoader;
+            _prerequisites = new PrerequisiteCollection(definition.Prerequisites, exportLoader);
             Initialize();
         }
 
@@ -43,6 +46,15 @@ namespace Chronos
             {
                 VerifyDisposed();
                 return Definition.Exports.ContainsApplication(Constants.ApplicationCodeName.Agent);
+            }
+        }
+
+        public IPrerequisiteCollection Prerequisites
+        {
+            get
+            {
+                VerifyDisposed();
+                return _prerequisites;
             }
         }
 

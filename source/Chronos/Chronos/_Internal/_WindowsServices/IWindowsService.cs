@@ -17,7 +17,7 @@ namespace Chronos
 
         void Start();
 
-        void SetEnvironmentVariables(StringDictionary variables);
+        void AppendEnvironmentVariables(StringDictionary variables);
 
         void RemoveEnvironmentVariables();
     }

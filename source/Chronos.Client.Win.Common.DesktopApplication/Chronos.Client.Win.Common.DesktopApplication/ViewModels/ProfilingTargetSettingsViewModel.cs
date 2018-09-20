@@ -15,7 +15,7 @@ namespace Chronos.Client.Win.ViewModels.Common.DesktopApplication
             _application = application;
         }
 
-        public override bool Ready
+        public override bool DialogReady
         {
             get { return !string.IsNullOrWhiteSpace(FileFullName); }
         }

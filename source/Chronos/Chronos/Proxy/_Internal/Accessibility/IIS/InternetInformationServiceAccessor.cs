@@ -15,6 +15,11 @@ namespace Chronos.Proxy.Accessibility.IIS
             get { return Execute(() => RemoteObject.IsAvailable); }
         }
 
+        public bool HasPermissions
+        {
+            get { return Execute(() => RemoteObject.HasPermissions); }
+        }
+
         public List<string> GetApplicationPools()
         {
             return Execute(() => RemoteObject.GetApplicationPools());

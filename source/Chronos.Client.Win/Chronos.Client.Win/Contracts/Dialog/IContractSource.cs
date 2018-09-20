@@ -2,6 +2,6 @@
 {
     public interface IContractSource : Contracts.IContractSource
     {
-        bool Ready { get; }
+        bool DialogReady { get; }
     }
 }

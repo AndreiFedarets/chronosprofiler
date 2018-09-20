@@ -2,7 +2,7 @@
 
 namespace Chronos.Extensibility
 {
-    public sealed class ExportDefinition
+    public class ExportDefinition
     {
         private readonly string _entryPoint;
         private readonly string _entryPoint32;

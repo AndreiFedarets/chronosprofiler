@@ -6,6 +6,7 @@
       <Name>Windows Service</Name>
       <Description>Profiling of Windows Services</Description>
     </Localization>
+    <Prerequisite EntryPoint="Chronos.Prerequisites.AdministratorPermissionsPrerequisite, Chronos" />
   </ProfilingTarget>
   <Localization Culture="en-US">
     <Name>Windows Service</Name>

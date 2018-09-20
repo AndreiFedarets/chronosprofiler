@@ -267,20 +267,20 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chronos.DotNet.Agent.EntryP
 		{68BAA918-48B3-489F-BECC-1342D4217F1E} = {68BAA918-48B3-489F-BECC-1342D4217F1E}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Common.IISApplication", "Chronos.Common.IISApplication", "{B0246FFC-0922-4D2C-845D-55BC2DDD9784}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Common.WebApplication", "Chronos.Common.WebApplication", "{B0246FFC-0922-4D2C-845D-55BC2DDD9784}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Common.IISApplication", "Chronos.Common.IISApplication\Chronos.Common.IISApplication\Chronos.Common.IISApplication.csproj", "{B17CCE05-B8C7-4307-8599-37918F01B9FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Common.WebApplication", "Chronos.Common.WebApplication\Chronos.Common.WebApplication\Chronos.Common.WebApplication.csproj", "{B17CCE05-B8C7-4307-8599-37918F01B9FE}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Common.IISApplication.Module", "Chronos.Common.IISApplication\Chronos.Common.IISApplication.Module\Chronos.Common.IISApplication.Module.wixproj", "{8DB4DDF5-3567-4EE9-A0E1-DA8A8E371A07}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Common.WebApplication.Module", "Chronos.Common.WebApplication\Chronos.Common.WebApplication.Module\Chronos.Common.WebApplication.Module.wixproj", "{8DB4DDF5-3567-4EE9-A0E1-DA8A8E371A07}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B17CCE05-B8C7-4307-8599-37918F01B9FE} = {B17CCE05-B8C7-4307-8599-37918F01B9FE}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Client.Win.Common.IISApplication", "Chronos.Client.Win.Common.IISApplication", "{86AE8EC2-1E9F-415D-A555-3E62C232C509}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Client.Win.Common.WebApplication", "Chronos.Client.Win.Common.WebApplication", "{86AE8EC2-1E9F-415D-A555-3E62C232C509}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Client.Win.Common.IISApplication", "Chronos.Client.Win.Common.IISApplication\Chronos.Client.Win.Common.IISApplication\Chronos.Client.Win.Common.IISApplication.csproj", "{0BF9A6BF-6B38-45F6-AA52-DAD69A0162D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Client.Win.Common.WebApplication", "Chronos.Client.Win.Common.WebApplication\Chronos.Client.Win.Common.WebApplication\Chronos.Client.Win.Common.WebApplication.csproj", "{0BF9A6BF-6B38-45F6-AA52-DAD69A0162D1}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Client.Win.Common.IISApplication.Module", "Chronos.Client.Win.Common.IISApplication\Chronos.Client.Win.Common.IISApplication.Module\Chronos.Client.Win.Common.IISApplication.Module.wixproj", "{CCD4900C-5EB1-45C2-B4E1-DE40F0FA6C96}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Client.Win.Common.WebApplication.Module", "Chronos.Client.Win.Common.WebApplication\Chronos.Client.Win.Common.WebApplication.Module\Chronos.Client.Win.Common.WebApplication.Module.wixproj", "{CCD4900C-5EB1-45C2-B4E1-DE40F0FA6C96}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0BF9A6BF-6B38-45F6-AA52-DAD69A0162D1} = {0BF9A6BF-6B38-45F6-AA52-DAD69A0162D1}
 	EndProjectSection

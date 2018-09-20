@@ -1,4 +1,5 @@
 ﻿using Chronos.Extensibility;
+using Chronos.Prerequisites;
 
 namespace Chronos.Proxy
 {
@@ -17,6 +18,11 @@ namespace Chronos.Proxy
         public bool HasAgent
         {
             get { return Execute(() => RemoteObject.HasAgent); }
+        }
+
+        public IPrerequisiteCollection Prerequisites
+        {
+            get { return Execute(() => RemoteObject.Prerequisites); }
         }
 
         public string GetAgentDll(ProcessPlatform processPlatform)

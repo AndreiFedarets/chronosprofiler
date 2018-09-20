@@ -11,6 +11,11 @@ namespace Chronos.Accessibility.WS
             _services = services;
         }
 
+        public bool HasPermissions
+        {
+            get { return _services.HasPermissions; }
+        }
+
         public WindowsServiceInfo[] GetServices()
         {
             WindowsServiceInfo[] collection = _services.Select(x => new WindowsServiceInfo(x.ServiceName, x.DisplayName)).ToArray();

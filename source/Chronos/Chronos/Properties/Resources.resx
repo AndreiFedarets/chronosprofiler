@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AdministratorPermissionsPrerequisiteErrorMessage" xml:space="preserve">
+    <value>Chronos Profiler has no requred administrator permissions to use feature.</value>
+  </data>
   <data name="ControllerActivatorNullRefenceExceptionMessage" xml:space="preserve">
     <value>Controller activator cannot be null.</value>
   </data>

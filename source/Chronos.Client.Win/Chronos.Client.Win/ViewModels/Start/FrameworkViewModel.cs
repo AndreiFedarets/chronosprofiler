@@ -27,9 +27,9 @@ namespace Chronos.Client.Win.ViewModels.Start
             }
         }
 
-        public bool Ready
+        public bool DialogReady
         {
-            get { return _profilingTypes.Any(x => x.Ready); }
+            get { return _profilingTypes.Any(x => x.DialogReady); }
         }
 
         public IFramework Framework

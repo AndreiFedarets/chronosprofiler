@@ -7,6 +7,8 @@ namespace Chronos.Accessibility.IIS
     {
         bool IsAvailable { get; }
 
+        bool HasPermissions { get; }
+
         List<string> GetApplicationPools();
     }
 }

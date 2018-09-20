@@ -71,7 +71,7 @@ namespace Chronos
             return key;
         }
 
-        public void SetEnvironmentVariables(StringDictionary variables)
+        public void AppendEnvironmentVariables(StringDictionary variables)
         {
             RegistryKey key = GetServiceLocalMachineKey();
             if (key == null)

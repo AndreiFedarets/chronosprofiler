@@ -3,12 +3,5 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:views="clr-namespace:Chronos.Client.Win.Views"
             DisplayPanel="True" Height="80">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0" Text="Machine:" HorizontalAlignment="Right" />
-        <ComboBox Grid.Column="1" ItemsSource="{Binding Applications}" SelectedItem="{Binding SelectedApplication}" DisplayMemberPath="EnvironmentInformation.MachineName" />
-    </Grid>
+    <ComboBox ItemsSource="{Binding Applications}" SelectedItem="{Binding SelectedApplication}" DisplayMemberPath="EnvironmentInformation.MachineName" />
 </views:View>
