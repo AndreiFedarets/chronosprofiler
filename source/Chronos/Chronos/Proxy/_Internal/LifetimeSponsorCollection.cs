@@ -74,9 +74,12 @@ namespace Chronos.Proxy
                     {
                         System.Threading.Thread.Sleep(attemptsDelay);
                     }
-                    diedSponsors = diedSponsors ?? new List<Guid>();
-                    diedSponsors.Add(cookie);
-                    return false;
+                    else
+                    {
+                        diedSponsors = diedSponsors ?? new List<Guid>();
+                        diedSponsors.Add(cookie);
+                        return false;
+                    }
                 }
             }
             return false;

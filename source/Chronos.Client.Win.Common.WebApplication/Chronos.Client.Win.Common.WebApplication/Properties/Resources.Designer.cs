@@ -78,24 +78,5 @@ namespace Chronos.Client.Win.Common.WebApplication.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Internet Information Service (IIS) is not installed on selected Target Machine.
-        /// </summary>
-        internal static string MissingInternetInformationServiceErrorMessage {
-            get {
-                return ResourceManager.GetString("MissingInternetInformationServiceErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You do not have administrator permissions to start/stop IIS on Target Machine. 
-        ///Please launch Profiler Host as administrator..
-        /// </summary>
-        internal static string PermissionsErrorMessage {
-            get {
-                return ResourceManager.GetString("PermissionsErrorMessage", resourceCulture);
-            }
-        }
     }
 }

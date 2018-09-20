@@ -1,4 +1,5 @@
-﻿using Chronos.Accessibility.WS;
+﻿using System.Collections.Generic;
+using Chronos.Accessibility.WS;
 
 namespace Chronos.Proxy.Accessibility.WS
 {
@@ -14,7 +15,7 @@ namespace Chronos.Proxy.Accessibility.WS
             get { return Execute(() => RemoteObject.HasPermissions); }
         }
 
-        public WindowsServiceInfo[] GetServices()
+        public List<WindowsServiceInfo> GetServices()
         {
             return Execute(() => RemoteObject.GetServices());
         }

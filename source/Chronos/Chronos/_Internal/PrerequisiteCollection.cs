@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Chronos.Extensibility;
 
-namespace Chronos.Prerequisites
+namespace Chronos
 {
     internal sealed class PrerequisiteCollection : RemoteBaseObject, IPrerequisiteCollection
     {
@@ -11,6 +12,16 @@ namespace Chronos.Prerequisites
         public PrerequisiteCollection(PrerequisiteDefinitionCollection definitions, IExportLoader exportLoader)
         {
             _collection = LoadCollection(definitions, exportLoader);
+        }
+
+        public List<PrerequisiteValidationResult> Validate(bool failedOnly)
+        {
+            IEnumerable<PrerequisiteValidationResult> results = _collection.Select(x => x.Validate());
+            if (failedOnly)
+            {
+                results = results.Where(x => !x.Result);
+            }
+            return results.ToList();
         }
 
         public IEnumerator<IPrerequisite> GetEnumerator()

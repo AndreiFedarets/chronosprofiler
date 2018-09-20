@@ -1,4 +1,4 @@
-﻿namespace Chronos.Prerequisites
+﻿namespace Chronos
 {
     public interface IPrerequisiteAdapter
     {

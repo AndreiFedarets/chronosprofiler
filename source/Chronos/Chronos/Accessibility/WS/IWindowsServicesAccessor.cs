@@ -1,10 +1,12 @@
-﻿namespace Chronos.Accessibility.WS
+﻿using System.Collections.Generic;
+
+namespace Chronos.Accessibility.WS
 {
     [PublicService(typeof(Proxy.Accessibility.WS.WindowsServicesAccessor))]
     public interface IWindowsServicesAccessor
     {
         bool HasPermissions { get; }
 
-        WindowsServiceInfo[] GetServices();
+        List<WindowsServiceInfo> GetServices();
     }
 }

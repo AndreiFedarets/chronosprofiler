@@ -5,18 +5,26 @@ namespace Chronos.Client.Win.ViewModels
 {
     public class PlaceholderViewModel : ViewModel, IContractProxy
     {
-        private PageViewModel _page;
+        private EventHandler<ContractProxyObjectChangedEventArgs> _underlyingObjectChanged;
+        private readonly PlaceholderContent _content;
         private ViewModel _underlyingViewModel;
-        private PlaceholderContent _content;
+        private PageViewModel _page;
 
         public PlaceholderViewModel(PlaceholderContent content)
         {
             _content = content;
+            _content.ViewModelChanged += OnContentViewModelChanged;
         }
 
         object IContractProxy.UnderlyingObject
         {
             get { return UnderlyingViewModel; }
+        }
+
+        event EventHandler<ContractProxyObjectChangedEventArgs> IContractProxy.UnderlyingObjectChanged 
+        {
+            add { _underlyingObjectChanged += value; }
+            remove { _underlyingObjectChanged -= value; }
         }
 
         internal ViewModel UnderlyingViewModel 
@@ -88,12 +96,32 @@ namespace Chronos.Client.Win.ViewModels
             }
         }
 
+        public event EventHandler UnderlyingViewModelChanged;
+
         protected internal override void OnAttached()
         {
             ViewModel viewModel = UnderlyingViewModel;
             if (viewModel != null)
             {
                 viewModel.OnAttached();
+            }
+        }
+
+        private void OnContentViewModelChanged(object sender, EventArgs e)
+        {
+            object oldViewModel = _underlyingViewModel;
+            _underlyingViewModel.Dispose();
+            _underlyingViewModel = null;
+            EventHandler eventHandler = UnderlyingViewModelChanged;
+            if (eventHandler != null)
+            {
+                eventHandler(this, e);
+            }
+            //Force viewModel creation
+            object newViewModel = UnderlyingViewModel;
+            if (_underlyingObjectChanged != null)
+            {
+                _underlyingObjectChanged(this, new ContractProxyObjectChangedEventArgs(oldViewModel, newViewModel));
             }
         }
     }

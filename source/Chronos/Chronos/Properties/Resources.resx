@@ -118,9 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AdministratorPermissionsPrerequisiteErrorMessage" xml:space="preserve">
-    <value>Chronos Profiler has no requred administrator permissions to use feature.</value>
+    <value>Chronos Profiler has no requred Administrator permissions to use feature. Please restart Profiler as Administrator.</value>
   </data>
   <data name="ControllerActivatorNullRefenceExceptionMessage" xml:space="preserve">
     <value>Controller activator cannot be null.</value>
+  </data>
+  <data name="MissingInternetInformationServiceErrorMessage" xml:space="preserve">
+    <value>Internet Information Service is not installed.</value>
+  </data>
+  <data name="UndefinedInternetInformationServiceErrorMessage" xml:space="preserve">
+    <value>Unable to get information about Internet Information Service because of permissions error.</value>
   </data>
 </root>

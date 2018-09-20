@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Chronos.Accessibility.WS
 {
@@ -16,9 +17,9 @@ namespace Chronos.Accessibility.WS
             get { return _services.HasPermissions; }
         }
 
-        public WindowsServiceInfo[] GetServices()
+        public List<WindowsServiceInfo> GetServices()
         {
-            WindowsServiceInfo[] collection = _services.Select(x => new WindowsServiceInfo(x.ServiceName, x.DisplayName)).ToArray();
+            List<WindowsServiceInfo> collection = _services.Select(x => new WindowsServiceInfo(x.ServiceName, x.DisplayName)).ToList();
             return collection;
         }
     }

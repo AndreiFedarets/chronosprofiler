@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using Chronos.Accessibility.IO;
-using System.Windows;
-using System.Linq;
-using System.Windows.Input;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Linq;
+using System.Windows;
+using Chronos.Accessibility.IO;
 
 namespace Chronos.Client.Win.ViewModels.Common
 {

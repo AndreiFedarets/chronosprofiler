@@ -6,8 +6,9 @@
       <Name>IIS Application</Name>
       <Description>Profiling of web applications running on IIS 6.0+</Description>
     </Localization>
+    <Prerequisite EntryPoint="Chronos.Prerequisites.AdministratorPermissionsPrerequisite, Chronos" />
+    <Prerequisite EntryPoint="Chronos.Prerequisites.InternetInformationServiceInstallationPrerequisite, Chronos" />
   </ProfilingTarget>
-  <Prerequisite Type="Chronos.Prerequisites.AdministratorPermissionsPrerequisite, Chronos" />
   <Localization Culture="en-US">
     <Name>IIS Application</Name>
     <Description>Profiling of web applications running on IIS 6.0+</Description>

@@ -21,8 +21,9 @@ namespace Chronos.Client.Win.Contracts
             if (item is IContractProxy)
             {
                 IContractProxy proxy = (IContractProxy) item;
-                object underlyingItem = proxy.UnderlyingObject;
-                Register(underlyingItem);
+                object underlyingObject = proxy.UnderlyingObject;
+                Register(underlyingObject);   
+                proxy.UnderlyingObjectChanged += OnProxyUnderlyingObjectChanged;
             }
             if (item is TSource)
             {
@@ -34,8 +35,29 @@ namespace Chronos.Client.Win.Contracts
             }
         }
 
+        private void OnProxyUnderlyingObjectChanged(object sender, ContractProxyObjectChangedEventArgs e)
+        {
+            object oldObject = e.OldObject;
+            if (oldObject != null)
+            {
+                Unregister(oldObject);
+            }
+            object newObject = e.NewObject;
+            if (newObject != null)
+            {
+                Register(newObject);
+            }
+        }
+
         public void Unregister(object item)
         {
+            if (item is IContractProxy)
+            {
+                IContractProxy proxy = (IContractProxy)item;
+                proxy.UnderlyingObjectChanged -= OnProxyUnderlyingObjectChanged;
+                object underlyingObject = proxy.UnderlyingObject; 
+                Unregister(underlyingObject);   
+            }
             if (item is TSource)
             {
                 UnregisterSource((TSource)item);

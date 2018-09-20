@@ -61,7 +61,7 @@ namespace Chronos.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chronos Profiler has no requred administrator permissions to use feature..
+        ///   Looks up a localized string similar to Chronos Profiler has no requred Administrator permissions to use feature. Please restart Profiler as Administrator..
         /// </summary>
         internal static string AdministratorPermissionsPrerequisiteErrorMessage {
             get {
@@ -75,6 +75,24 @@ namespace Chronos.Properties {
         internal static string ControllerActivatorNullRefenceExceptionMessage {
             get {
                 return ResourceManager.GetString("ControllerActivatorNullRefenceExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Internet Information Service is not installed..
+        /// </summary>
+        internal static string MissingInternetInformationServiceErrorMessage {
+            get {
+                return ResourceManager.GetString("MissingInternetInformationServiceErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to get information about Internet Information Service because of permissions error..
+        /// </summary>
+        internal static string UndefinedInternetInformationServiceErrorMessage {
+            get {
+                return ResourceManager.GetString("UndefinedInternetInformationServiceErrorMessage", resourceCulture);
             }
         }
     }

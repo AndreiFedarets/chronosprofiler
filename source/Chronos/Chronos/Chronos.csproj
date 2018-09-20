@@ -62,13 +62,16 @@
     <Compile Include="Extensibility\PrerequisiteDefinitionCollection.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Prerequisites\InternetInformationServiceInstallationPrerequisite.cs" />
     <Compile Include="Prerequisites\AdministratorPermissionsPrerequisite.cs" />
-    <Compile Include="Prerequisites\IPrerequisite.cs" />
-    <Compile Include="Prerequisites\IPrerequisiteAdapter.cs" />
-    <Compile Include="Prerequisites\IPrerequisiteCollection.cs" />
-    <Compile Include="Prerequisites\PrerequisiteValidationResult.cs" />
-    <Compile Include="Prerequisites\_Internal\Prerequisite.cs" />
-    <Compile Include="Prerequisites\_Internal\PrerequisiteCollection.cs" />
+    <Compile Include="IPrerequisite.cs" />
+    <Compile Include="IPrerequisiteAdapter.cs" />
+    <Compile Include="IPrerequisiteCollection.cs" />
+    <Compile Include="PrerequisiteValidationResult.cs" />
+    <Compile Include="_Internal\Prerequisite.cs" />
+    <Compile Include="_Internal\PrerequisiteCollection.cs" />
+    <Compile Include="Proxy\_Internal\PrerequisiteCollection.cs" />
+    <Compile Include="Proxy\_Internal\Prerequisite.cs" />
     <Compile Include="_Internal\_InternetInformationService\IInternetInformationService.cs" />
     <Compile Include="_Internal\_InternetInformationService\InternetInformationService.cs" />
     <Compile Include="_Internal\_WindowsServices\IWindowsService.cs" />
@@ -508,6 +511,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Communication\Managed\Http\" />
+    <Folder Include="Proxy\_Internal\Prerequisites\" />
     <Folder Include="Registry\_Internal\" />
   </ItemGroup>
   <ItemGroup>

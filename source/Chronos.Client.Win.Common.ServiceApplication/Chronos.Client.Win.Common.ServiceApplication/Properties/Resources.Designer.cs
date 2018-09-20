@@ -78,15 +78,5 @@ namespace Chronos.Client.Win.Common.ServiceApplication.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You do not have administrator permissions to start/stop Windows Services on Target Machine. 
-        ///Please launch Profiler Host as administrator..
-        /// </summary>
-        internal static string PermissionsErrorMessage {
-            get {
-                return ResourceManager.GetString("PermissionsErrorMessage", resourceCulture);
-            }
-        }
     }
 }

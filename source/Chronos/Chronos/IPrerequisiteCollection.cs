@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace Chronos.Prerequisites
+namespace Chronos
 {
     public interface IPrerequisiteCollection : IEnumerable<IPrerequisite>
     {
+        List<PrerequisiteValidationResult> Validate(bool failedOnly);
     }
 }

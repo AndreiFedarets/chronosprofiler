@@ -1,13 +1,15 @@
 ﻿using Chronos.Extensibility;
-using Chronos.Prerequisites;
 
 namespace Chronos.Proxy
 {
     internal sealed class Framework : ProxyBaseObject<IFramework>, IFramework
     {
+        private readonly LazyValue<PrerequisiteCollection> _prerequisites;
+
         public Framework(IFramework remoteObject)
             : base(remoteObject)
         {
+            _prerequisites = new LazyValue<PrerequisiteCollection>(() => new PrerequisiteCollection(remoteObject.Prerequisites));
         }
 
         public FrameworkDefinition Definition
@@ -22,7 +24,7 @@ namespace Chronos.Proxy
 
         public IPrerequisiteCollection Prerequisites
         {
-            get { return Execute(() => RemoteObject.Prerequisites); }
+            get { return _prerequisites.Value; }
         }
 
         public string GetAgentDll(ProcessPlatform processPlatform)

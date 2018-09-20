@@ -1,6 +1,6 @@
 ﻿using Chronos.Extensibility;
 
-namespace Chronos.Prerequisites
+namespace Chronos
 {
     internal class Prerequisite : RemoteBaseObject, IPrerequisite, IPrerequisiteAdapter, IWrapper
     {

@@ -13,12 +13,39 @@ namespace Chronos.Client.Win.Views
 
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            PlaceholderViewModel viewModel = e.NewValue as PlaceholderViewModel;
-            View view = null;
+            PlaceholderViewModel viewModel = ViewModel as PlaceholderViewModel;
             if (viewModel != null)
             {
-                view = ViewsManager.LocateViewForModel(viewModel.UnderlyingViewModel);
+                viewModel.UnderlyingViewModelChanged -= OnUnderlyingViewModelChanged;
+
             }
+            viewModel = e.NewValue as PlaceholderViewModel;
+            if (viewModel != null)
+            {
+                viewModel.UnderlyingViewModelChanged += OnUnderlyingViewModelChanged;
+            }
+            RenderUnderlyingViewModel();
+        }
+
+        private void OnUnderlyingViewModelChanged(object sender, System.EventArgs e)
+        {
+            RenderUnderlyingViewModel();
+        }
+
+        private void RenderUnderlyingViewModel()
+        {
+            Content = null;
+            PlaceholderViewModel viewModel = ViewModel as PlaceholderViewModel;
+            if (viewModel == null)
+            {
+                return;
+            }
+            ViewModel underlyingViewModel = viewModel.UnderlyingViewModel;
+            if (underlyingViewModel == null)
+            {
+                return;
+            }
+            View view = ViewsManager.LocateViewForModel(underlyingViewModel);
             if (view != null)
             {
                 view.DisplayPanel = false;

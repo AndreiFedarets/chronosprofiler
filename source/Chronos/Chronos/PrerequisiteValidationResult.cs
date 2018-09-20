@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chronos.Prerequisites
+namespace Chronos
 {
     [Serializable]
     public sealed class PrerequisiteValidationResult

@@ -39,7 +39,7 @@ namespace Chronos.Proxy
             _disposableTracker.Dispose();
         }
 
-        protected void VerifyDisposed()
+        private void VerifyDisposed()
         {
             _disposableTracker.VerifyDisposed();
         }

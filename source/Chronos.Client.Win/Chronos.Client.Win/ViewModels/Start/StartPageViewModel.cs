@@ -66,7 +66,7 @@ namespace Chronos.Client.Win.ViewModels.Start
         {
             base.BuildLayout();
             Add(new HostApplicationSelectViewModel(HostApplicationSelector));
-            Add(new PlaceholderViewModel(new ProfilingTargetContent(ProfilingTarget, this)));
+            Add(new PlaceholderViewModel(new ProfilingTargetContent(ProfilingTarget, this, HostApplicationSelector)));
             Add(new ProfilingTypesViewModel(Application, ConfigurationSettings));
         }
 
@@ -79,12 +79,6 @@ namespace Chronos.Client.Win.ViewModels.Start
         void Contracts.Dialog.IContractConsumer.OnReadyChanged(bool ready)
         {
             CanCreateConfiguration = ready;
-        }
-
-        protected override void RegisterContracts()
-        {
-            base.RegisterContracts();
-            Contracts.RegisterContract(new Contracts.Dialog.Contract());
         }
     }
 }

@@ -1,13 +1,15 @@
 ﻿using Chronos.Extensibility;
-using Chronos.Prerequisites;
 
 namespace Chronos.Proxy
 {
     internal sealed class ProfilingTarget : ProxyBaseObject<IProfilingTarget>, IProfilingTarget
     {
+        private readonly LazyValue<PrerequisiteCollection> _prerequisites;
+
         public ProfilingTarget(IProfilingTarget remoteObject)
             : base(remoteObject)
         {
+            _prerequisites = new LazyValue<PrerequisiteCollection>(() => new PrerequisiteCollection(remoteObject.Prerequisites));
         }
 
         public ProfilingTargetDefinition Definition
@@ -22,7 +24,7 @@ namespace Chronos.Proxy
 
         public IPrerequisiteCollection Prerequisites
         {
-            get { return Execute(() => RemoteObject.Prerequisites); }
+            get { return _prerequisites.Value; }
         }
 
         public string GetAgentDll(ProcessPlatform processPlatform)

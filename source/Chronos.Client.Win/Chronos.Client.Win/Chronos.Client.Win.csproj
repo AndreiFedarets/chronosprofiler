@@ -66,6 +66,7 @@
     <Compile Include="Container.cs" />
     <Compile Include="Contracts\ContractBase.cs" />
     <Compile Include="Contracts\ContractCollection.cs" />
+    <Compile Include="Contracts\ContractProxyObjectChangedEventArgs.cs" />
     <Compile Include="Contracts\Dialog\Contract.cs" />
     <Compile Include="Contracts\Dialog\IContractConsumer.cs" />
     <Compile Include="Contracts\Dialog\IContractSource.cs" />
@@ -88,7 +89,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Common\PrerequisitesValidationResultViewModel.cs" />
     <Compile Include="ViewModels\Start\ProfilingTargetSettingsBaseViewModel.cs" />
+    <Compile Include="Views\Common\PrerequisitesValidationResultView.xaml.cs">
+      <DependentUpon>PrerequisitesValidationResultView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TabItemView.cs" />
     <Compile Include="Views\TabView.cs" />
     <Compile Include="IContainer.cs" />
@@ -245,6 +250,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Common\PrerequisitesValidationResultView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

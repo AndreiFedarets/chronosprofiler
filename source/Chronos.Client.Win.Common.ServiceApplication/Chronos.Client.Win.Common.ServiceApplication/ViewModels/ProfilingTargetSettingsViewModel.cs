@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Chronos.Accessibility.WS;
-using Chronos.Client.Win.Common.ServiceApplication.Properties;
 using Chronos.Client.Win.ViewModels.Start;
 
 namespace Chronos.Client.Win.ViewModels.Common.ServiceApplication
@@ -10,9 +10,9 @@ namespace Chronos.Client.Win.ViewModels.Common.ServiceApplication
     {
         private readonly Chronos.Common.ServiceApplication.ProfilingTargetSettings _profilingTargetSettings;
         private WindowsServiceInfo _selectedWindowsService;
+        private List<WindowsServiceInfo> _windowsServices;
 
-        public ProfilingTargetSettingsViewModel(ConfigurationSettings configurationSettings,
-            IHostApplicationSelector applicationSelector)
+        public ProfilingTargetSettingsViewModel(ConfigurationSettings configurationSettings, IHostApplicationSelector applicationSelector)
             : base(configurationSettings, applicationSelector)
         {
             _profilingTargetSettings = new Chronos.Common.ServiceApplication.ProfilingTargetSettings(configurationSettings.ProfilingTargetSettings);
@@ -22,41 +22,6 @@ namespace Chronos.Client.Win.ViewModels.Common.ServiceApplication
         public override bool DialogReady
         {
             get { return SelectedWindowsService != null; }
-        }
-
-        public bool HasPermissions
-        {
-            get
-            {
-                if (!IsApplicationSelected)
-                {
-                    return false;
-                }
-                IWindowsServicesAccessor services = SelectedApplication.ServiceContainer.Resolve<IWindowsServicesAccessor>();
-                return services.HasPermissions;
-            }
-        }
-
-        public override bool ShowNotificationMessage
-        {
-            get { return base.ShowNotificationMessage || !HasPermissions; }
-        }
-
-        public override string NotificationMessage
-        {
-            get
-            {
-                string message = base.NotificationMessage;
-                if (!string.IsNullOrWhiteSpace(message))
-                {
-                    return message;
-                }
-                if (!HasPermissions)
-                {
-                    return Resources.PermissionsErrorMessage;
-                }
-                return string.Empty;
-            }
         }
 
         public WindowsServiceInfo SelectedWindowsService
@@ -73,12 +38,9 @@ namespace Chronos.Client.Win.ViewModels.Common.ServiceApplication
             }
         }
 
-        public IEnumerable<WindowsServiceInfo> WindowsServices { get; private set; }
-
-        protected override void OnSelectedApplicationChanged()
+        public IEnumerable<WindowsServiceInfo> WindowsServices
         {
-            base.OnSelectedApplicationChanged();
-            NotifyOfPropertyChange(() => ShowNotificationMessage);
+            get { return _windowsServices;}
         }
 
         private void InitializeWindowsServices()
@@ -86,14 +48,15 @@ namespace Chronos.Client.Win.ViewModels.Common.ServiceApplication
             Host.IApplication selectedApplication = SelectedApplication;
             if (selectedApplication == null)
             {
-                WindowsServices = Enumerable.Empty<WindowsServiceInfo>();
+                _windowsServices = new List<WindowsServiceInfo>();
             }
             else
             {
-                IWindowsServicesAccessor service =
-                    selectedApplication.ServiceContainer.Resolve<IWindowsServicesAccessor>();
-                WindowsServices = service.GetServices();
+                IWindowsServicesAccessor service = selectedApplication.ServiceContainer.Resolve<IWindowsServicesAccessor>();
+                _windowsServices = service.GetServices();
+                _windowsServices.Sort((x, y) => string.CompareOrdinal(x.DisplayName, y.DisplayName));
             }
+            NotifyOfPropertyChange(() => WindowsServices);
             SelectedWindowsService = null;
         }
     }
