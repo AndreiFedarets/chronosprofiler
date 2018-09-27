@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
-    public sealed class HostApplicationSelectViewModel : ViewModel
+    public sealed class HostApplicationSelectViewModel : ViewModel, Contracts.Dialog.IContractSource
     {
         private readonly IHostApplicationSelector _hostApplicationSelector;
 
@@ -23,15 +24,23 @@ namespace Chronos.Client.Win.ViewModels.Start
             set { }
         }
 
+        public bool DialogReady
+        {
+            get { return _hostApplicationSelector.SelectedApplication != null; }
+        }
+
         public Host.IApplication SelectedApplication
         {
             get { return _hostApplicationSelector.SelectedApplication; }
             set { _hostApplicationSelector.SelectedApplication = value; }
         }
 
-        private void OnApplicationSelectionChanged(object sender, System.EventArgs e)
+        public event EventHandler ContractSourceChanged;
+
+        private void OnApplicationSelectionChanged(object sender, EventArgs e)
         {
             NotifyOfPropertyChange(() => SelectedApplication);
+            ContractSourceChanged.SafeInvoke(this, EventArgs.Empty);
         }
 
         public override void Dispose()

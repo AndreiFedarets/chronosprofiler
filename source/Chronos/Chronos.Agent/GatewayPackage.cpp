@@ -171,7 +171,7 @@ namespace Chronos
 		void GatewayPackage::Initialize(__byte dataMarker, __uint bufferSize, __bool staticPackage)
 		{
 			_staticPackage = staticPackage;
-			_bufferPageSize = MemoryStream::PageDefaultSize;
+			_bufferPageSize = bufferSize;
 			//append package header size to whole buffer size
 			bufferSize += HeaderSize;
 			//allocate buffer

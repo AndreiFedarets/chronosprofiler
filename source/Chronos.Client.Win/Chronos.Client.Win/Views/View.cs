@@ -33,6 +33,14 @@ namespace Chronos.Client.Win.Views
             ContentMaxWidthProperty = DependencyProperty.Register("ContentMaxWidth", typeof(double), typeof(View), new FrameworkPropertyMetadata(double.NaN));
         }
 
+        public View()
+        {
+            HorizontalAlignment = HorizontalAlignment.Stretch;
+            HorizontalContentAlignment = HorizontalAlignment.Stretch;
+            VerticalAlignment = VerticalAlignment.Stretch;
+            VerticalContentAlignment = VerticalAlignment.Stretch;
+        }
+
         public ViewModel ViewModel
         {
             get { return (ViewModel)DataContext; }

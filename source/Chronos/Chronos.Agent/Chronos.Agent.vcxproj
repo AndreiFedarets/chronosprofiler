@@ -186,6 +186,7 @@
     <ClCompile Include="GatewayClient.cpp" />
     <ClCompile Include="GatewayClientSettings.cpp" />
     <ClCompile Include="GatewayPackage.cpp" />
+    <ClCompile Include="GatewayPackageWriter.cpp" />
     <ClCompile Include="GatewayServer.cpp" />
     <ClCompile Include="GatewayServerStream.cpp" />
     <ClCompile Include="GatewaySettings.cpp" />

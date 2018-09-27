@@ -5,7 +5,7 @@ namespace Chronos.Client.Win.Views
 {
     public abstract class PageView : View
     {
-        public PageView()
+        protected PageView()
         {
             DataContextChanged += OnDataContextChanged;
         }

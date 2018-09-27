@@ -149,8 +149,9 @@ namespace Chronos.Daemon
             }
             if (_previousSessionState != currentState)
             {
+                SessionState previousSessionState = _previousSessionState;
                 _previousSessionState = currentState;
-                SessionStateEventArgs.RaiseEvent(SessionStateChanged, this, _previousSessionState, currentState);
+                SessionStateEventArgs.RaiseEvent(SessionStateChanged, this, previousSessionState, currentState);
             }
         }
 
@@ -177,7 +178,9 @@ namespace Chronos.Daemon
                         SaveSession();
                     }
                 }
+                SwitchStrategy(SessionState.Closed);
             }
+            RaiseSessionStateChanged();
             base.CloseInternal();
         }
 

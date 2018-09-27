@@ -3,7 +3,7 @@ using Chronos.Extensibility;
 
 namespace Chronos.Client
 {
-    internal sealed class ProfilingTypeCollection : DictionaryChangedBase<Guid, IProfilingType>, IProfilingTypeCollection
+    internal sealed class ProfilingTypeCollection : ObservableDictionary<Guid, IProfilingType>, IProfilingTypeCollection
     {
         private IFrameworkCollection _frameworks;
         private readonly ProfilingTypeDefinitionCollection _definitions;

@@ -45,34 +45,16 @@ namespace Chronos.Client
         public static void Invoke(Action action)
         {
             CurrentDispatcher.Invoke(action);
-            //if (_dispatcher.CheckAccess())
-            //{
-            //    action();
-            //}
-            //else
-            //{
-            //    _dispatcher.Invoke(action);
-            //}
+        }
+
+        public static T Invoke<T>(Func<T> action)
+        {
+            return CurrentDispatcher.Invoke(action);
         }
 
         public static void BeginInvoke(Action action)
         {
             CurrentDispatcher.BeginInvoke(action);
-            //if (_dispatcher.CheckAccess())
-            //{
-            //    ThreadPool.QueueUserWorkItem(s => Invoke(action));
-            //}
-            //else
-            //{
-            //    if (Thread.CurrentThread.GetApartmentState() == ApartmentState.MTA)
-            //    {
-            //        ThreadPool.QueueUserWorkItem(s => Invoke(action));
-            //    }
-            //    else
-            //    {
-            //        _dispatcher.BeginInvoke(action);
-            //    }
-            //}
         }
 
         public static void Initialize(IDispatcher dispatcher)

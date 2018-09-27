@@ -282,101 +282,13 @@ namespace Chronos
 
 				HRESULT ProfilingTypeAdapter::FlushData()
 				{
-					//Gateway has limit on package size (3mb), so we split data in 2 packages to minimize its size:
-
-					//Package#1. AppDomains, Assemblies, Modules, Classes, Threads
-					GatewayPackage* package = GatewayPackage::CreateDynamic(_dataMarker);
-					FlushAppDomains(package);
-					FlushAssemblies(package);
-					FlushModules(package);
-					FlushClasses(package);
-					FlushThreads(package);
-					_gatewayClient->Send(package, false);
-
-					//Package#2. Functions
-					package = GatewayPackage::CreateDynamic(_dataMarker);
-					FlushFunctions(package);
-					_gatewayClient->Send(package, false);
-
+					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::Thread, _threads, UnitMarshaler::MarshalThread, _gatewayClient, _dataMarker);
+					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::AppDomain, _appDomains, UnitMarshaler::MarshalAppDomain, _gatewayClient, _dataMarker);
+					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::Assembly, _assemblies, UnitMarshaler::MarshalAssembly, _gatewayClient, _dataMarker);
+					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::Module, _modules, UnitMarshaler::MarshalModule, _gatewayClient, _dataMarker);
+					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::Class, _classes, UnitMarshaler::MarshalClass, _gatewayClient, _dataMarker);
+					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::Function, _functions, UnitMarshaler::MarshalFunction, _gatewayClient, _dataMarker);
 					return S_OK;
-				}
-
-				void ProfilingTypeAdapter::FlushAppDomains(IStreamWriter* stream)
-				{
-					std::list<AppDomainInfo*> updates;
-					_appDomains->GetUpdates(&updates);
-					Marshaler::MarshalInt(UnitType::AppDomain, stream);
-					Marshaler::MarshalSize(updates.size(), stream);
-					for (std::list<AppDomainInfo*>::iterator i = updates.begin(); i != updates.end(); ++i)
-					{
-						AppDomainInfo* unit = *i;
-						UnitMarshaler::MarshalAppDomain(unit, stream);
-					}
-				}
-
-				void ProfilingTypeAdapter::FlushAssemblies(IStreamWriter* stream)
-				{
-					std::list<AssemblyInfo*> updates;
-					_assemblies->GetUpdates(&updates);
-					Marshaler::MarshalInt(UnitType::Assembly, stream);
-					Marshaler::MarshalSize(updates.size(), stream);
-					for (std::list<AssemblyInfo*>::iterator i = updates.begin(); i != updates.end(); ++i)
-					{
-						AssemblyInfo* unit = *i;
-						UnitMarshaler::MarshalAssembly(unit, stream);
-					}
-				}
-
-				void ProfilingTypeAdapter::FlushModules(IStreamWriter* stream)
-				{
-					std::list<ModuleInfo*> updates;
-					_modules->GetUpdates(&updates);
-					Marshaler::MarshalInt(UnitType::Module, stream);
-					Marshaler::MarshalSize(updates.size(), stream);
-					for (std::list<ModuleInfo*>::iterator i = updates.begin(); i != updates.end(); ++i)
-					{
-						ModuleInfo* unit = *i;
-						UnitMarshaler::MarshalModule(unit, stream);
-					}
-				}
-
-				void ProfilingTypeAdapter::FlushClasses(IStreamWriter* stream)
-				{
-					std::list<ClassInfo*> updates;
-					_classes->GetUpdates(&updates);
-					Marshaler::MarshalInt(UnitType::Class, stream);
-					Marshaler::MarshalSize(updates.size(), stream);
-					for (std::list<ClassInfo*>::iterator i = updates.begin(); i != updates.end(); ++i)
-					{
-						ClassInfo* unit = *i;
-						UnitMarshaler::MarshalClass(unit, stream);
-					}
-				}
-
-				void ProfilingTypeAdapter::FlushFunctions(IStreamWriter* stream)
-				{
-					std::list<FunctionInfo*> updates;
-					_functions->GetUpdates(&updates);
-					Marshaler::MarshalInt(UnitType::Function, stream);
-					Marshaler::MarshalSize(updates.size(), stream);
-					for (std::list<FunctionInfo*>::iterator i = updates.begin(); i != updates.end(); ++i)
-					{
-						FunctionInfo* unit = *i;
-						UnitMarshaler::MarshalFunction(unit, stream);
-					}
-				}
-
-				void ProfilingTypeAdapter::FlushThreads(IStreamWriter* stream)
-				{
-					std::list<ThreadInfo*> updates;
-					_threads->GetUpdates(&updates);
-					Marshaler::MarshalInt(UnitType::Thread, stream);
-					Marshaler::MarshalSize(updates.size(), stream);
-					for (std::list<ThreadInfo*>::iterator i = updates.begin(); i != updates.end(); ++i)
-					{
-						ThreadInfo* unit = *i;
-						UnitMarshaler::MarshalThread(unit, stream);
-					}
 				}
 			}
 		}

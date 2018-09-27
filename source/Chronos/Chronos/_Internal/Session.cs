@@ -23,6 +23,7 @@ namespace Chronos
             _hostApplication = application;
             _daemonApplication = new Daemon.WeakApplication(sessionUid);
             _daemonApplication.SessionStateChanged += OnSessionStateChanged;
+            //_daemonApplication.ApplicationStateChanged += OnApplicationStateChanged;
         }
 
         public Guid Uid
@@ -173,7 +174,6 @@ namespace Chronos
 
         //private void OnApplicationStateChanged(object sender, ApplicationStateEventArgs e)
         //{
-        //    VerifyState();
         //    //Application is closed, so 
         //    if (e.CurrentState == ApplicationState.Closed)
         //    {

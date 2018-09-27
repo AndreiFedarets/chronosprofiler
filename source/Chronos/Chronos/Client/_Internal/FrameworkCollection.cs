@@ -3,7 +3,7 @@ using Chronos.Extensibility;
 
 namespace Chronos.Client
 {
-    internal sealed class FrameworkCollection : DictionaryChangedBase<Guid, IFramework>, IFrameworkCollection
+    internal sealed class FrameworkCollection : ObservableDictionary<Guid, IFramework>, IFrameworkCollection
     {
         private readonly FrameworkDefinitionCollection _definitions;
         private readonly IExportLoader _exportLoader;

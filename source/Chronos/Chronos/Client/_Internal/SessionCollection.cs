@@ -2,7 +2,7 @@
 
 namespace Chronos.Client
 {
-    internal sealed class SessionCollection : DictionaryChangedBase<Guid, ISession>, ISessionCollection
+    internal sealed class SessionCollection : ObservableDictionary<Guid, ISession>, ISessionCollection
     {
         private readonly Host.IApplicationCollection _hostApplications;
         private Delegate _sessionCreated;

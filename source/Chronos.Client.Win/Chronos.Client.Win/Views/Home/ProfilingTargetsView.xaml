@@ -6,16 +6,11 @@
             xmlns:controls="clr-namespace:Chronos.Client.Win.Controls"
             xmlns:core="clr-namespace:Chronos.Client;assembly=Chronos"
             xmlns:views="clr-namespace:Chronos.Client.Win.Views"
-            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-            
-            DisplayPanel="True" MinHeight="200">
+            MinHeight="200" DisplayPanel="True">
     <views:View.Resources>
         <converters:UriToBitmapSourceConverter x:Key="UriToBitmapSourceConverter" />
     </views:View.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
         <ItemsControl x:Name="ProfilingTargets" ItemsSource="{Binding ProfilingTargets}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type core:IProfilingTarget}">

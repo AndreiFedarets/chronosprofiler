@@ -90,6 +90,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Common\PrerequisitesValidationResultViewModel.cs" />
+    <Compile Include="ViewModels\Home\SessionInformation.cs" />
     <Compile Include="ViewModels\Start\ProfilingTargetSettingsBaseViewModel.cs" />
     <Compile Include="Views\Common\PrerequisitesValidationResultView.xaml.cs">
       <DependentUpon>PrerequisitesValidationResultView.xaml</DependentUpon>
@@ -241,8 +242,6 @@
     <Compile Include="_Internal\HostApplicationSelector.cs" />
     <Compile Include="_Internal\IApplicationStrategy.cs" />
     <Compile Include="_Internal\MainApplication.cs" />
-    <Compile Include="_Internal\ObservableCollectionBase.cs" />
-    <Compile Include="_Internal\ObservableDictionary.cs" />
     <Compile Include="_Internal\OpenFileDialog.cs" />
     <Compile Include="_Internal\PropertyChangedBase.cs" />
     <Compile Include="_Internal\ViewModelManager.cs" />

@@ -389,6 +389,7 @@ namespace Chronos
 				Buffer* ToArray();
 				__uint GetLength();
 				void Seek(__uint position);
+				void CopyTo(IStreamWriter* writer);
 
 				const static __uint PageDefaultSize;
 			private:
@@ -999,9 +1000,9 @@ namespace Chronos
 				AsyncGatewayClient* _asyncGateway;
 				SyncGatewayClient* _syncGateway;
 		};
-		
+
 // ==================================================================================================================================================
-		class GatewayServerStream
+		class CHRONOS_API GatewayServerStream
 		{
 			public:
 				GatewayServerStream(IServerStream* stream, IDataHandler** handlers);
@@ -1039,6 +1040,21 @@ namespace Chronos
 				__vector<GatewayServerStream*>* _streams;
 				IDataHandler** _handlers;
 				volatile __bool _isLocked;
+		};
+
+// ==================================================================================================================================================
+		class CHRONOS_API GatewayPackageWriter : public IStreamWriter
+		{
+			public:
+				GatewayPackageWriter(GatewayClient* gatewayClient, __byte dataMarker, __uint packageSize);
+				~GatewayPackageWriter(void);
+				__uint Write(void* data, __uint size);
+				__bool Initialized();
+			private:
+				GatewayClient* _gatewayClient;
+				__byte _dataMarker;
+				__uint _packageSize;
+				GatewayPackage* _currentPackage;
 		};
 
 // ==================================================================================================================================================
@@ -1883,9 +1899,43 @@ namespace Chronos
 		{
 			public:
 				static void MarshalUnit(IUnit* unit, IStreamWriter* stream);
+
+				template <class T>
+				static void SendUnits(__int unitType, UnitCollectionBase<T>* unitCollection, void (marshalUnit)(T* unit, IStreamWriter* stream), GatewayClient* gatewayClient, __byte dataMarker)
+				{
+					const __int packageSizeLimit = GatewayPackage::MaxDataSize * 0.75;
+					std::list<T*> units;
+					unitCollection->GetUpdates(&units);
+					MemoryStream* memoryStream = new MemoryStream();
+					__size packageUnitsCount = 0;
+					__size remainingUnitsCount = units.size();
+					for (std::list<T*>::iterator i = units.begin(); i != units.end(); ++i)
+					{
+						T* unit = *i;
+						marshalUnit(unit, memoryStream);
+						packageUnitsCount++;
+						remainingUnitsCount--;
+						if (memoryStream->GetLength() >= packageSizeLimit || remainingUnitsCount == 0)
+						{
+							GatewayPackage* package = GatewayPackage::CreateDynamic(dataMarker);
+							Marshaler::MarshalInt(unitType, package);
+							Marshaler::MarshalSize(packageUnitsCount, package);
+							memoryStream->CopyTo(package);
+							gatewayClient->Send(package, false);
+							__FREEOBJ(memoryStream);
+							if (remainingUnitsCount > 0)
+							{
+								memoryStream = new MemoryStream();
+								packageUnitsCount = 0;
+							}
+						}
+					}
+				}
 		};
 
 // ==================================================================================================================================================
+		
+
 // ==================================================================================================================================================
 	}
 }

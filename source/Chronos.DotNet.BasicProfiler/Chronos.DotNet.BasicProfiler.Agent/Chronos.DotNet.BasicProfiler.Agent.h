@@ -255,6 +255,7 @@ namespace Chronos
 						static void MarshalThread(ThreadInfo* threadInfo, IStreamWriter* stream);
 				};
 
+
 // ==================================================================================================================================================
 				class CHRONOS_DOTNET_BASICPROFILER_API ProfilingTypeAdapter : public IProfilingTypeAdapter
 				{
@@ -269,13 +270,6 @@ namespace Chronos
 						HRESULT FlushData();
 
 					private:
-						void FlushAppDomains(IStreamWriter* stream);
-						void FlushAssemblies(IStreamWriter* stream);
-						void FlushModules(IStreamWriter* stream);
-						void FlushClasses(IStreamWriter* stream);
-						void FlushFunctions(IStreamWriter* stream);
-						void FlushThreads(IStreamWriter* stream);
-
 						void OnAppDomainCreationStarted(void* eventArgs);
 						void OnAppDomainCreationFinished(void* eventArgs);
 						void OnAppDomainShutdownStarted(void* eventArgs);

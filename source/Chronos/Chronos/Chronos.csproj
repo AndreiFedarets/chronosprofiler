@@ -98,7 +98,7 @@
     <Compile Include="Client\_Internal\CollectionChangedBase.cs" />
     <Compile Include="Client\_Internal\ConfigurationCollection.cs" />
     <Compile Include="Client\_Internal\DefaultDispatcher.cs" />
-    <Compile Include="Client\_Internal\DictionaryChangedBase.cs" />
+    <Compile Include="Client\_Internal\ObservableDictionary.cs" />
     <Compile Include="Client\_Internal\Framework.cs" />
     <Compile Include="Client\_Internal\FrameworkCollection.cs" />
     <Compile Include="Client\_Internal\ProfilingTarget.cs" />

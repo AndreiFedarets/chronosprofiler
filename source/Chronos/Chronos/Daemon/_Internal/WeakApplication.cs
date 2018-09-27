@@ -161,8 +161,6 @@ namespace Chronos.Daemon
 
         public event EventHandler<SessionStateEventArgs> SessionStateChanged;
 
-        //public event EventHandler<ApplicationStateEventArgs> ApplicationStateChanged;
-
         public ProcessInformation GetProcessInformation()
         {
             IApplication application;
@@ -280,7 +278,7 @@ namespace Chronos.Daemon
                     _application = ApplicationManager.Connect(connectionSettings);
                     _application.SessionStateChanged += OnSessionStateChanged;
                     _application.SaveOnClose = _saveOnClose;
-                    //_application.ApplicationStateChanged += OnDaemonApplicationStateChanged;
+                    _application.ApplicationStateChanged += OnDaemonApplicationStateChanged;
                     application = _application;
                     return true;
                 }
@@ -294,25 +292,24 @@ namespace Chronos.Daemon
             SessionStateEventArgs.RaiseEvent(SessionStateChanged, _application, e.PreviousState, e.CurrentState);
         }
 
-        //public void OnDaemonApplicationStateChanged(object sender, ApplicationStateEventArgs e)
-        //{
-        //    try
-        //    {
-        //        ApplicationStateEventArgs.RaiseEvent(ApplicationStateChanged, _application, e.PreviousState, e.CurrentState);
-        //    }
-        //    finally
-        //    {
-        //        if (e.CurrentState == ApplicationState.Closed)
-        //        {
-        //            _application.SessionStateChanged += OnSessionStateChanged;
-        //            _application.ApplicationStateChanged += OnDaemonApplicationStateChanged;
-        //        }
-        //    }
-        //}
+        public void OnDaemonApplicationStateChanged(object sender, ApplicationStateEventArgs e)
+        {
+            ApplicationStateEventArgs.RaiseEvent(ApplicationStateChanged, _application, e.PreviousState, e.CurrentState);
+            if (e.CurrentState == ApplicationState.Closed)
+            {
+                _application.SessionStateChanged -= OnSessionStateChanged;
+                _application.ApplicationStateChanged -= OnDaemonApplicationStateChanged;
+            }
+        }
 
         public override void Dispose()
         {
-            _application.TryDispose();
+            if (_application != null)
+            {
+                _application.SessionStateChanged -= OnSessionStateChanged;
+                _application.ApplicationStateChanged -= OnDaemonApplicationStateChanged;
+                _application.TryDispose();   
+            }
             base.Dispose();
         }
     }

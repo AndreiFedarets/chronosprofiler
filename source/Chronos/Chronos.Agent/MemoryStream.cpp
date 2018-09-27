@@ -85,6 +85,11 @@ namespace Chronos
 			return value;
 		}
 
+		void MemoryStream::CopyTo(IStreamWriter* writer)
+		{
+			writer->Write(_buffer, _dataSize);
+		}
+
 		__uint MemoryStream::GetLength()
 		{
 			return _dataSize;

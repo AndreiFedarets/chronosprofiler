@@ -6,6 +6,8 @@ namespace Chronos.Client
     {
         void Invoke(Action action);
 
+        T Invoke<T>(Func<T> action);
+
         void BeginInvoke(Action action);
     }
 }

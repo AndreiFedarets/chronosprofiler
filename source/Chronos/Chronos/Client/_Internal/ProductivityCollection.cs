@@ -3,7 +3,7 @@ using System;
 
 namespace Chronos.Client
 {
-    internal sealed class ProductivityCollection : DictionaryChangedBase<Guid, IProductivity>, IProductivityCollection
+    internal sealed class ProductivityCollection : ObservableDictionary<Guid, IProductivity>, IProductivityCollection
     {
         public ProductivityCollection(ProductivityDefinitionCollection definitions, IExportLoader exportLoader,
             string applicationCode)

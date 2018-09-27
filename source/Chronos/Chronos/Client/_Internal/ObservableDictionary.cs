@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
 namespace Chronos.Client
 {
-    internal class DictionaryChangedBase<TKey, TValue> : BaseObject, IEnumerable<TValue>, INotifyCollectionChanged
+    internal class ObservableDictionary<TKey, TValue> : BaseObject, IEnumerable<TValue>, INotifyCollectionChanged
     {
         private readonly ObservableCollection<TValue> _collection;
         private readonly Dictionary<TKey, TValue> _dictionary;
 
-        public DictionaryChangedBase()
+        public ObservableDictionary()
         {
-            _collection = new ObservableCollection<TValue>();
+            _collection = DispatcherHolder.Invoke(() => new ObservableCollection<TValue>());
             _collection.CollectionChanged += OnItemsCollectionChanged;
             _dictionary = new Dictionary<TKey, TValue>();
         }
@@ -46,7 +47,7 @@ namespace Chronos.Client
             return collection.GetEnumerator();
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
@@ -95,7 +96,7 @@ namespace Chronos.Client
             NotifyCollectionChangedEventHandler handler = CollectionChanged;
             if (handler != null)
             {
-                handler(this, e);
+                DispatcherHolder.BeginInvoke(() => handler(this, e));
             }
         }
 

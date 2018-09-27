@@ -59,13 +59,13 @@ namespace Chronos.Client.Win
             double extraWidth = margin.Left + margin.Right + padding.Left + padding.Right + SystemParameters.ResizeFrameVerticalBorderWidth * 2;
             if (!double.IsNaN(viewControl.MinHeight) && !double.IsInfinity(viewControl.MinHeight))
             {
-                window.Height = viewControl.MinHeight + extraHeight;
                 window.MinHeight = viewControl.MinHeight + extraHeight;
+                window.Height = window.MinHeight;
             }
             if (!double.IsNaN(viewControl.MinWidth) && !double.IsInfinity(viewControl.MinWidth))
             {
-                window.Width = viewControl.MinWidth + extraWidth;
                 window.MinWidth = viewControl.MinWidth + extraWidth;
+                window.Width = window.MinWidth;
             }
             if (!double.IsNaN(viewControl.MaxHeight) && !double.IsInfinity(viewControl.MaxHeight))
             {

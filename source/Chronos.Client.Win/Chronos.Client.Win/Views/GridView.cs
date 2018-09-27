@@ -28,33 +28,39 @@ namespace Chronos.Client.Win.Views
             System.Windows.Controls.Grid grid = new System.Windows.Controls.Grid();
             grid.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
             grid.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
-            for (int row = 0; row < layout.Rows; row++)
+            if (layout.Rows > 1)
             {
-                System.Windows.Controls.RowDefinition rowDefinition = new System.Windows.Controls.RowDefinition();
-                bool isFixedHeight = layout.GetIsFixedHeight(row);
-                if (isFixedHeight)
+                for (int row = 0; row < layout.Rows; row++)
                 {
-                    rowDefinition.Height = System.Windows.GridLength.Auto;
-                }
-                else
-                {
-                    rowDefinition.Height = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star);
-                }
-                grid.RowDefinitions.Add(rowDefinition);
+                    System.Windows.Controls.RowDefinition rowDefinition = new System.Windows.Controls.RowDefinition();
+                    bool isFixedHeight = layout.GetIsFixedHeight(row);
+                    if (isFixedHeight)
+                    {
+                        rowDefinition.Height = System.Windows.GridLength.Auto;
+                    }
+                    else
+                    {
+                        rowDefinition.Height = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star);
+                    }
+                    grid.RowDefinitions.Add(rowDefinition);
+                } 
             }
-            for (int column = 0; column < layout.Columns; column++)
+            if (layout.Columns > 1)
             {
-                System.Windows.Controls.ColumnDefinition columnDefinition = new System.Windows.Controls.ColumnDefinition();
-                bool isFixedHeight = layout.GetIsFixedWidth(column);
-                if (isFixedHeight)
+                for (int column = 0; column < layout.Columns; column++)
                 {
-                    columnDefinition.Width = System.Windows.GridLength.Auto;
-                }
-                else
-                {
-                    columnDefinition.Width = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star);
-                }
-                grid.ColumnDefinitions.Add(columnDefinition);
+                    System.Windows.Controls.ColumnDefinition columnDefinition = new System.Windows.Controls.ColumnDefinition();
+                    bool isFixedHeight = layout.GetIsFixedWidth(column);
+                    if (isFixedHeight)
+                    {
+                        columnDefinition.Width = System.Windows.GridLength.Auto;
+                    }
+                    else
+                    {
+                        columnDefinition.Width = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star);
+                    }
+                    grid.ColumnDefinitions.Add(columnDefinition);
+                } 
             }
             foreach (GridViewLayoutItem item in layout)
             {

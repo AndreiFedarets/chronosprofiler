@@ -3,7 +3,7 @@ using System;
 
 namespace Chronos.Client
 {
-    internal sealed class ProfilingTargetCollection : DictionaryChangedBase<Guid, IProfilingTarget>, IProfilingTargetCollection
+    internal sealed class ProfilingTargetCollection : ObservableDictionary<Guid, IProfilingTarget>, IProfilingTargetCollection
     {
         public ProfilingTargetCollection(ProfilingTargetDefinitionCollection definitions, IExportLoader exportLoader,
             string applicationCode, Host.ApplicationCollection hostApplications)

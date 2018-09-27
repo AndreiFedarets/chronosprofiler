@@ -25,7 +25,7 @@ namespace Chronos.Client.Win
 
         public void Invoke(Action action)
         {
-            if (_dispatcher.Thread == Thread.CurrentThread)
+            if (Equals(_dispatcher.Thread, Thread.CurrentThread))
             {
                 action();
             }
@@ -33,6 +33,15 @@ namespace Chronos.Client.Win
             {
                 _dispatcher.Invoke(action);
             }
+        }
+
+        public T Invoke<T>(Func<T> action)
+        {
+            if (Equals(_dispatcher.Thread, Thread.CurrentThread))
+            {
+                return action();
+            }
+            return (T)_dispatcher.Invoke(action);
         }
     }
 }

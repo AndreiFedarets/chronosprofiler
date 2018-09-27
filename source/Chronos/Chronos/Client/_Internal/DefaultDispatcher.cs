@@ -13,5 +13,10 @@ namespace Chronos.Client
         {
             action.BeginInvoke(null, null);
         }
+
+        public T Invoke<T>(Func<T> action)
+        {
+            return action();
+        }
     }
 }
