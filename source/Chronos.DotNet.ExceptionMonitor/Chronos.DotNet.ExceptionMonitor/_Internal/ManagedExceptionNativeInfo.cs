@@ -5,7 +5,7 @@ using Chronos.Storage;
 namespace Chronos.DotNet.ExceptionMonitor
 {
     [Serializable]
-    [DataTable(TableName = "ExceptionMonitor_ManagedExceptions")]
+    [DataTable(TableName = "DotNet_ExceptionMonitor_ManagedExceptions")]
     public sealed class ManagedExceptionNativeInfo : NativeUnitBase
     {
         public ManagedExceptionNativeInfo()

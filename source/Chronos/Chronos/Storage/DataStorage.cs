@@ -2,38 +2,20 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Diagnostics;
+using System.IO;
 
 namespace Chronos.Storage
 {
     public sealed class DataStorage : IDataStorage, IDisposable
     {
-        private readonly string _fileFullName;
-        private SQLiteConnection _connection;
+        private const string ConnectionStringTemplate = "Data Source='{0}';Version=3;New=False;Compress=True;";
+        private readonly SQLiteConnection _connection;
         private readonly Dictionary<Type, object> _tables;
 
-        public DataStorage(string fileFullName)
+        private DataStorage(string fileFullName)
         {
-            _fileFullName = fileFullName;
             _tables = new Dictionary<Type, object>();
-        }
-
-        private SQLiteConnection Connection
-        {
-            get
-            {
-                string connectionString = string.Format("Data Source='{0}';Version=3;New=False;Compress=True;", _fileFullName);
-                try
-                {
-                    _connection = new SQLiteConnection(connectionString);
-                    _connection.Open();
-                }
-                catch (Exception exception)
-                {
-                    LoggingProvider.Current.Log(TraceEventType.Critical, exception);
-                    throw;
-                }
-                return _connection;
-            }
+            _connection = CreateConnection(fileFullName);
         }
 
         public IDataTable<T> OpenTable<T>()
@@ -42,7 +24,7 @@ namespace Chronos.Storage
             object tableObject;
             if (!_tables.TryGetValue(key, out tableObject))
             {
-                tableObject = new DataTable<T>(Connection);
+                tableObject = new DataTable<T>(_connection);
                 _tables.Add(key, tableObject);
             }
             return (IDataTable<T>)tableObject;
@@ -52,6 +34,40 @@ namespace Chronos.Storage
         {
             _connection.Close();
             _connection.Dispose();
+        }
+
+        private static SQLiteConnection CreateConnection(string fileFullName)
+        {
+            try
+            {
+                string connectionString = string.Format(ConnectionStringTemplate, fileFullName);
+                SQLiteConnection connection = new SQLiteConnection(connectionString);
+                connection.Open();
+                return connection;
+            }
+            catch (Exception exception)
+            {
+                LoggingProvider.Current.Log(TraceEventType.Critical, exception);
+                throw;
+            }
+        }
+
+        internal static IDataStorage CreateNew(string directoryFullName, Guid sessionUid)
+        {
+            Debugger.Launch();
+            if (!Directory.Exists(directoryFullName))
+            {
+                Directory.CreateDirectory(directoryFullName);
+            }
+            string fileFullName = Path.Combine(directoryFullName, sessionUid.ToString("N"));
+            fileFullName = Path.ChangeExtension(fileFullName, ".sqlite");
+            if (File.Exists(fileFullName))
+            {
+                File.Delete(fileFullName);
+            }
+            SQLiteConnection.CreateFile(fileFullName);
+            IDataStorage dataStorage = new DataStorage(fileFullName);
+            return dataStorage;
         }
     }
 }

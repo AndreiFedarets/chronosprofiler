@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Chronos.Storage;
 
 namespace Chronos.Common.EventsTree
@@ -21,6 +22,25 @@ namespace Chronos.Common.EventsTree
         public uint MaxTime { get; private set; }
 
         public event EventHandler<EventTreeEventArgs> CollectionUpdated;
+
+        public void Save(IDataStorage storage)
+        {
+            //SingleEventTreeNative[] eventTrees;
+            //lock (_dictionaryByUid)
+            //{
+            //    eventTrees = _dictionaryByUid.Values.Select(x => )
+            //}
+            //byte[][] eventTrees = _dictionaryByUid.Values.Select(x => x.GetBinaryData()).ToArray();
+            //IDataTable<TNativeUnit> table = storage.OpenTable<TNativeUnit>();
+            //table.AddOrUpdate(nativeUnits);
+        }
+
+        public void Load(IDataStorage storage)
+        {
+            //IDataTable<TNativeUnit> table = storage.OpenTable<TNativeUnit>();
+            //TNativeUnit[] nativeUnits = table.ToArray();
+            //Update(nativeUnits);
+        }
 
         internal void SetDependencies(IDataStorage storage)
         {

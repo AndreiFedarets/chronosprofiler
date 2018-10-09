@@ -77,7 +77,7 @@ namespace Chronos.Client.Win
             }
             if (!double.IsNaN(viewControl.Height) && !double.IsInfinity(viewControl.Height))
             {
-                window.Height = viewControl.Height = extraHeight;
+                window.Height = viewControl.Height + extraHeight;
             }
             if (!double.IsNaN(viewControl.Width) && !double.IsInfinity(viewControl.Width))
             {

@@ -5,7 +5,7 @@ using Chronos.Storage;
 namespace Chronos.DotNet.BasicProfiler
 {
     [Serializable]
-    [DataTable(TableName = "BasicProfiler_Assemblies")]
+    [DataTable(TableName = "DotNet_BasicProfiler_Assemblies")]
     public sealed class AssemblyNativeInfo : NativeUnitBase
     {
         public AssemblyNativeInfo()

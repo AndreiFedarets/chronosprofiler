@@ -50,8 +50,7 @@ namespace Chronos.Daemon
             }
             _profilingTimer = new ProfilingTimer(profilingBeginTime);
             DirectoryInfo profilingResultsDirectory = _application.ApplicationSettings.ProfilingResults.GetDirectory();
-            string profilingResultsFile = Path.Combine(profilingResultsDirectory.FullName, _application.Uid.ToString("N"));
-            _storage = new DataStorage(profilingResultsFile);
+            _storage = DataStorage.CreateNew(profilingResultsDirectory.FullName, _application.Uid);
             _profiledProcess = new ProfiledProcessManager(profiledProcessId);
             _profiledProcess.Exited += OnProfiledProcessExited;
             ProcessInformation = _profiledProcess.GetProcessInformation();
@@ -111,7 +110,7 @@ namespace Chronos.Daemon
 
         public void SaveSession()
         {
-            throw new NotImplementedException();
+            _profilingTypesManager.SaveData();
         }
 
         public void RemoveSession()

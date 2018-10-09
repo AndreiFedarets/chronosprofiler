@@ -5,7 +5,7 @@ using Chronos.Storage;
 namespace Chronos.DotNet.BasicProfiler
 {
     [Serializable]
-    [DataTable(TableName = "BasicProfiler_Threads")]
+    [DataTable(TableName = "DotNet_BasicProfiler_Threads")]
     public sealed class ThreadNativeInfo : NativeUnitBase
     {
         public ThreadNativeInfo()

@@ -5,7 +5,7 @@ using Chronos.Storage;
 namespace Chronos.DotNet.BasicProfiler
 {
     [Serializable]
-    [DataTable(TableName = "BasicProfiler_AppDomains")]
+    [DataTable(TableName = "DotNet_BasicProfiler_AppDomains")]
     public sealed class AppDomainNativeInfo : NativeUnitBase
     {
     }

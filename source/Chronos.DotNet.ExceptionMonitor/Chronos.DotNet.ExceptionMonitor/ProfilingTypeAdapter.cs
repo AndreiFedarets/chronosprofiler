@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Chronos.Communication.Native;
 using Chronos.Marshaling;
 using Chronos.Storage;

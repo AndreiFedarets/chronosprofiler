@@ -5,7 +5,7 @@ namespace Chronos.Storage
 {
     internal static class QueryBuilder
     {
-        public static string TableExistsQuery(string tableName)
+        public static string CheckTableQuery(string tableName)
         {
             string query = string.Format("SELECT name FROM sqlite_master WHERE type='table' AND name='{0}'", tableName);
             return query;
@@ -19,7 +19,7 @@ namespace Chronos.Storage
             return query;
         }
 
-        public static string InsertTableQuery(string tableName, DataTableColumn[] columns)
+        public static string AddOrUpdateRecordQuery(string tableName, DataTableColumn[] columns)
         {
             List<string> parts = columns.Select(column => column.ParameterName).ToList();
             string tableColumns = string.Join(", ", parts);
@@ -33,7 +33,7 @@ namespace Chronos.Storage
             return query;
         }
 
-        internal static string SelectQuery(string tableName, string columnName, IEnumerable<object> ids)
+        public static string SelectQuery(string tableName, string columnName, IEnumerable<object> ids)
         {
             string array = string.Join(",", ids.Select(x => x.ToString()));
             string query = string.Format("SELECT * FROM {0} WHERE {1} IN ({2})", tableName, columnName, array);

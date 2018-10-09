@@ -62,6 +62,7 @@
     <Compile Include="Extensibility\PrerequisiteDefinitionCollection.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ISessionHistory.cs" />
     <Compile Include="Prerequisites\InternetInformationServiceInstallationPrerequisite.cs" />
     <Compile Include="Prerequisites\AdministratorPermissionsPrerequisite.cs" />
     <Compile Include="IPrerequisite.cs" />

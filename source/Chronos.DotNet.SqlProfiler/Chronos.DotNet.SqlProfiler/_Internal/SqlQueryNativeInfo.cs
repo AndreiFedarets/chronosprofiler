@@ -5,7 +5,7 @@ using Chronos.Storage;
 namespace Chronos.DotNet.SqlProfiler
 {
     [Serializable]
-    [DataTable(TableName = "SqlProfiler_SqlQueries")]
+    [DataTable(TableName = "DotNet_SqlProfiler_SqlQueries")]
     public sealed class SqlQueryNativeInfo : NativeUnitBase
     {
     }

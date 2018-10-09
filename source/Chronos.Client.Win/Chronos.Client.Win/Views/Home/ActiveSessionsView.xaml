@@ -7,10 +7,10 @@
         <ListView ItemsSource="{Binding ActiveSessions}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="PID" DisplayMemberBinding="{Binding Process.ProcessId}"/>
-                    <GridViewColumn Header="Process Name" DisplayMemberBinding="{Binding Process.ProcessName}"/>
-                    <GridViewColumn Header="Started At" DisplayMemberBinding="{Binding Process.StartTime}"/>
-                    <GridViewColumn Header="State" DisplayMemberBinding="{Binding SessionState}"/>
+                    <GridViewColumn Header="PID" DisplayMemberBinding="{Binding Process.ProcessId}" Width="70"/>
+                    <GridViewColumn Header="Process Name" DisplayMemberBinding="{Binding Process.ProcessName}" Width="250"/>
+                    <GridViewColumn Header="Started At" DisplayMemberBinding="{Binding Process.StartTime}" Width="200"/>
+                    <GridViewColumn Header="State" DisplayMemberBinding="{Binding SessionState}" Width="100"/>
                 </GridView>
             </ListView.View>
         </ListView>

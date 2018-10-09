@@ -5,7 +5,7 @@ using Chronos.Storage;
 namespace Chronos.DotNet.BasicProfiler
 {
     [Serializable]
-    [DataTable(TableName = "BasicProfiler_Classes")]
+    [DataTable(TableName = "DotNet_BasicProfiler_Classes")]
     public sealed class ClassNativeInfo : NativeUnitBase
     {
         public ClassNativeInfo()

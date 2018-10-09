@@ -1,9 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
 using System.Reflection;
-using System.Diagnostics;
 
 namespace Chronos.Storage
 {
@@ -12,42 +11,23 @@ namespace Chronos.Storage
         private readonly object _lock;
         private readonly SQLiteConnection _connection;
         private readonly DataTableColumn[] _columns;
-        private string _tableName;
+        private readonly string _tableName;
 
         public DataTable(SQLiteConnection connection)
         {
             _lock = new object();
             _connection = connection;
+            _tableName = ExtractTableName();
             _columns = ExtractDataColumns();
             EnsureTableExists();
         }
 
-        public string TableName
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(_tableName))
-                {
-                    DataTableAttribute dataTableAttribute = typeof(T).GetCustomAttribute<DataTableAttribute>();
-                    if (dataTableAttribute == null || string.IsNullOrWhiteSpace(dataTableAttribute.TableName))
-                    {
-                        _tableName = typeof(T).Name;
-                    }
-                    else
-                    {
-                        _tableName = dataTableAttribute.TableName;
-                    }
-                }
-                return _tableName;
-            }
-        }
-
-        public void Add(T item)
+        public void AddOrUpdate(T item)
         {
             lock (_lock)
             {
                 SQLiteCommand command = _connection.CreateCommand();
-                command.CommandText = QueryBuilder.InsertTableQuery(TableName, _columns);
+                command.CommandText = QueryBuilder.AddOrUpdateRecordQuery(_tableName, _columns);
                 foreach (DataTableColumn column in _columns)
                 {
                     SQLiteParameter parameter = command.CreateParameter();
@@ -59,7 +39,7 @@ namespace Chronos.Storage
             }
         }
 
-        public void Add(IEnumerable<T> items)
+        public void AddOrUpdate(T[] items)
         {
             lock (_lock)
             {
@@ -67,7 +47,7 @@ namespace Chronos.Storage
                 SQLiteCommand command = transaction.Connection.CreateCommand();
                 foreach (T item in items)
                 {
-                    command.CommandText = QueryBuilder.InsertTableQuery(TableName, _columns);
+                    command.CommandText = QueryBuilder.AddOrUpdateRecordQuery(_tableName, _columns);
                     foreach (DataTableColumn column in _columns)
                     {
                         SQLiteParameter parameter = command.CreateParameter();
@@ -81,17 +61,17 @@ namespace Chronos.Storage
             }
         }
 
-        public List<T> Select(IEnumerable<object> ids)
-        {
-            DataTableColumn column = _columns.First(x => x.PrimaryKey);
-            string query = QueryBuilder.SelectQuery(TableName, column.ColumnName, ids);
-            List<T> items = LoadItems(query);
-            return items;
-        }
+        //public List<T> Select(IEnumerable<object> ids)
+        //{
+        //    DataTableColumn column = _columns.First(x => x.PrimaryKey);
+        //    string query = QueryBuilder.SelectQuery(TableName, column.ColumnName, ids);
+        //    List<T> items = LoadItems(query);
+        //    return items;
+        //}
 
         public IEnumerator<T> GetEnumerator()
         {
-            string query = QueryBuilder.SelectAllQuery(TableName);
+            string query = QueryBuilder.SelectAllQuery(_tableName);
             List<T> items = LoadItems(query);
             return items.GetEnumerator();
         }
@@ -123,7 +103,7 @@ namespace Chronos.Storage
             return item;
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
@@ -131,13 +111,25 @@ namespace Chronos.Storage
         private void EnsureTableExists()
         {
             SQLiteCommand command = _connection.CreateCommand();
-            command.CommandText = string.Format("SELECT name FROM sqlite_master WHERE type='table' AND name='{0}'", TableName);
+            command.CommandText = QueryBuilder.CheckTableQuery(_tableName);
             if (command.ExecuteScalar() == null)
             {
                 command = _connection.CreateCommand();
-                command.CommandText = QueryBuilder.CreateTableQuery(TableName, _columns);
+                command.CommandText = QueryBuilder.CreateTableQuery(_tableName, _columns);
                 command.ExecuteScalar();
             }
+        }
+
+        private static string ExtractTableName()
+        {
+            Type underlyingRecordType = typeof(T);
+            string tableName = underlyingRecordType.Name;
+            DataTableAttribute dataTableAttribute = underlyingRecordType.GetCustomAttribute<DataTableAttribute>();
+            if (dataTableAttribute != null && !string.IsNullOrWhiteSpace(dataTableAttribute.TableName))
+            {
+                tableName = dataTableAttribute.TableName;
+            }
+            return tableName;
         }
 
         private static DataTableColumn[] ExtractDataColumns()

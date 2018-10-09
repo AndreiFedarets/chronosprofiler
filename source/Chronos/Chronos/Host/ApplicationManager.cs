@@ -26,7 +26,7 @@ namespace Chronos.Host
             {
                 throw new ApplicationStartupException(ErrorMessageFormatter.HostApplicationIsAlreadyLaunched());
             }
-            IApplication application = null;
+            IApplication application;
             switch (CurrentRuntype)
             {
                 case Runtype.Inplace:

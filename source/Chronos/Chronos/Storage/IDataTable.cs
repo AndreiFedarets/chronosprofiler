@@ -4,10 +4,10 @@ namespace Chronos.Storage
 {
     public interface IDataTable<T> : IEnumerable<T>
     {
-        void Add(T item);
+        void AddOrUpdate(T item);
 
-        void Add(IEnumerable<T> items);
+        void AddOrUpdate(T[] items);
 
-        List<T> Select(IEnumerable<object> ids);
+        //List<T> Select(IEnumerable<object> ids);
     }
 }

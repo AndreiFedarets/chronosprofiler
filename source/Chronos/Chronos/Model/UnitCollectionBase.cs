@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Chronos.Storage;
 
 namespace Chronos.Model
@@ -89,14 +90,14 @@ namespace Chronos.Model
             remove { _unitsUpdated.Remove(value); }
         }
 
-        public void Update(TNativeUnit[] units)
+        public void Update(TNativeUnit[] nativeUnits)
         {
-            TUnit[] updated = new TUnit[units.Length];
+            TUnit[] updated = new TUnit[nativeUnits.Length];
             lock (Lock)
             {
-                for (int i = 0; i < units.Length; i++ )
+                for (int i = 0; i < nativeUnits.Length; i++ )
                 {
-                    updated[i] = UpdateUnitInternal(units[i]);
+                    updated[i] = UpdateUnitInternal(nativeUnits[i]);
                 }
             }
             RaiseUnitsUpdatedEvent(updated);
@@ -129,15 +130,20 @@ namespace Chronos.Model
 
         public void Save(IDataStorage storage)
         {
-            //IDataTable<TUnit> table = storage.OpenTable<TUnit>();
-            //table.Add(_dictionaryByUid.Values);
+            TNativeUnit[] nativeUnits;
+            lock (Lock)
+            {
+                nativeUnits = _dictionaryByUid.Values.Select(x => (TNativeUnit) x.NativeUnit).ToArray();
+            }
+            IDataTable<TNativeUnit> table = storage.OpenTable<TNativeUnit>();
+            table.AddOrUpdate(nativeUnits);
         }
 
         public void Load(IDataStorage storage)
         {
-            //IDataTable<TUnit> table = storage.OpenTable<TUnit>();
-            //IEnumerable<TUnit> units = table;
-            //Update(units.ToArray());
+            IDataTable<TNativeUnit> table = storage.OpenTable<TNativeUnit>();
+            TNativeUnit[] nativeUnits = table.ToArray();
+            Update(nativeUnits);
         }
 
         private TUnit UpdateUnitInternal(TNativeUnit nativeUnit)

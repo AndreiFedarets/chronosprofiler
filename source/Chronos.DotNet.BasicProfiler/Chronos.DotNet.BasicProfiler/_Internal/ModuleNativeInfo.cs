@@ -5,7 +5,7 @@ using Chronos.Storage;
 namespace Chronos.DotNet.BasicProfiler
 {
     [Serializable]
-    [DataTable(TableName = "BasicProfiler_Modules")]
+    [DataTable(TableName = "DotNet_BasicProfiler_Modules")]
     public sealed class ModuleNativeInfo : NativeUnitBase
     {
         public ModuleNativeInfo()

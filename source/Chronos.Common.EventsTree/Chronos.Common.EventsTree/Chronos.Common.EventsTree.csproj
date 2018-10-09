@@ -63,12 +63,12 @@
     <Compile Include="Proxy\EventTreeCollection.cs" />
     <Compile Include="Reference.cs" />
     <Compile Include="_Internal\AgentLibrary.cs" />
-    <Compile Include="_Internal\EventTreeData.cs" />
     <Compile Include="_Internal\Event.cs" />
     <Compile Include="_Internal\EventMessageBuilder.cs" />
     <Compile Include="_Internal\EventPageHeader.cs" />
     <Compile Include="_Internal\EventPageState.cs" />
     <Compile Include="_Internal\DataHandler.cs" />
+    <Compile Include="_Internal\SingleEventTreeNative.cs" />
     <Compile Include="_Internal\SingleEventTree.cs" />
     <Compile Include="_Internal\EventTreeBuilder.cs" />
     <Compile Include="_Internal\EventTreeCollection.cs" />

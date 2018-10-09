@@ -2,7 +2,7 @@
 
 namespace Chronos.Storage
 {
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property)]
     public sealed class DataTableColumnAttribute : Attribute
     {
         public string ColumnName { get; set; }
