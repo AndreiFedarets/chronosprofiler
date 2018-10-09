@@ -170,7 +170,6 @@
     <Compile Include="ViewModels\Home\ProfilingTargetsViewModel.cs" />
     <Compile Include="ViewModels\Home\RecentSessionsViewModel.cs" />
     <Compile Include="ViewModels\TabViewModel.cs" />
-    <Compile Include="Menu\IMenuSource.cs" />
     <Compile Include="ViewModels\Profiling\ProfilingViewModel.cs" />
     <Compile Include="ViewModels\Start\FrameworkViewModel.cs" />
     <Compile Include="ViewModels\Start\HostApplicationSelectViewModel.cs" />
@@ -227,6 +226,7 @@
     <Compile Include="_Internal\ChronosCoreLocator.cs" />
     <Compile Include="_Internal\HostApplicationExtensionAdapter.cs" />
     <Compile Include="_Internal\DaemonApplicationExtensionAdapter.cs" />
+    <Compile Include="_Internal\ClientMessageBus.cs" />
     <Compile Include="_Internal\ViewsManager.cs" />
     <Compile Include="_Internal\ProfilingApplication.cs" />
     <Compile Include="_Internal\CustomWindowManager.cs" />

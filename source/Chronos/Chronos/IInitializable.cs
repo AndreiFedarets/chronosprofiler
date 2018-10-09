@@ -2,6 +2,6 @@
 {
     public interface IInitializable
     {
-        void Initialize(object applicationObject);
+        void Initialize(IChronosApplication applicationObject);
     }
 }

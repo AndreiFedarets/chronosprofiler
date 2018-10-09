@@ -1,5 +1,4 @@
 ﻿using Chronos.Extensibility;
-using Chronos.Prerequisites;
 
 namespace Chronos
 {

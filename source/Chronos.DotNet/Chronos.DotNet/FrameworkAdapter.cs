@@ -12,7 +12,7 @@ namespace Chronos.DotNet
             _installer = new AgentInstaller();
         }
 
-        public void Initialize(object application)
+        public void Initialize(IChronosApplication application)
         {
             _installer.Install();
         }

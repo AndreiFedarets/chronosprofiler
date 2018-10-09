@@ -1,19 +1,29 @@
-﻿using Chronos.Client.Win.DotNet.Properties;
+﻿using System.Collections.Generic;
+using Chronos.Client.Win.DotNet.Properties;
 using Chronos.Client.Win.Menu;
-using Chronos.Client.Win.ViewModels;
 using Chronos.Client.Win.ViewModels.Profiling;
+using Chronos.Messaging;
 
 namespace Chronos.Client.Win.DotNet
 {
-    public class FrameworkAdapter : IFrameworkAdapter, IMenuSource
+    public class FrameworkAdapter : IFrameworkAdapter, IInitializable, IMessageBusHandler
     {
-        public IMenu GetMenu(PageViewModel pageViewModel)
+        private IProfilingApplication _application;
+
+        void IInitializable.Initialize(IChronosApplication applicationObject)
         {
-            if (pageViewModel is ProfilingViewModel)
+            _application = applicationObject as IProfilingApplication;
+            if (_application != null)
             {
-                return MenuReader.ReadMenu(Resources.Menu);
+                _application.MessageBus.Subscribe(this);
             }
-            return null;
+        }
+
+        [MessageHandler(Win.Constants.Message.BuildProfilingViewMenu)]
+        internal void BuildProfilingViewMenu(ProfilingViewModel viewModel, List<IMenu> menus)
+        {
+            IMenu menu = MenuReader.ReadMenu(Resources.Menu);
+            menus.Add(menu);
         }
     }
 }

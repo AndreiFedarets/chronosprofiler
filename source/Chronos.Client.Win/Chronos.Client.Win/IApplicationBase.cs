@@ -1,4 +1,5 @@
 ﻿using Chronos.Client.Win.ViewModels;
+using Chronos.Messaging;
 
 namespace Chronos.Client.Win
 {
@@ -15,5 +16,7 @@ namespace Chronos.Client.Win
         IProductivityCollection Productivities { get; }
 
         IViewModelManager ViewModelManager { get; }
+
+        IMessageBus MessageBus { get; }
     }
 }

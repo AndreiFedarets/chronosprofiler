@@ -80,7 +80,7 @@ namespace Chronos.Client.Win.ViewModels.Profiling
         private void BuildMenu()
         {
             MenuBuilder builder = new MenuBuilder();
-            Menu = builder.BuildMenuForApplication(Application, this);
+            Menu = builder.BuildProfilingViewMenu(this);
         }
     }
 }

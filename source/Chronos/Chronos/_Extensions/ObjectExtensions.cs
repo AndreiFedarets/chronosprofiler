@@ -13,7 +13,7 @@ namespace Chronos
             }
         }
 
-        internal static void TryInitialize(this object obj, object application)
+        internal static void TryInitialize(this object obj, IChronosApplication application)
         {
             IInitializable initializable = obj as IInitializable;
             if (initializable != null)

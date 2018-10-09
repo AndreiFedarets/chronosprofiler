@@ -42,6 +42,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Models\AppDomainsModel.cs" />
     <Compile Include="Models\AssembliesModel.cs" />
     <Compile Include="Models\ClassesModel.cs" />

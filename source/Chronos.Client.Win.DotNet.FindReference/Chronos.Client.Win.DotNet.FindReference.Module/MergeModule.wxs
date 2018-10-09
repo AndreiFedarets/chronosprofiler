@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include "$(var.SolutionDir)\.scripts\ModuleInfo.wxi"?>
+  <Module Id="Chronos.Client.Win.DotNet.FindReference" Language="1033" Version="$(var.Version)">
+    <Package Id="bfa890a7-44ac-4c0e-8d27-1f88d756f3e6" Manufacturer="$(var.Manufacturer)" InstallerVersion="200" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MergeRedirectFolder">
+        <Directory Id="Chronos_Client_Win_DotNet_FindReference_Directory" Name="$(var.ModuleTargetDir)">
+          <Component Id="Chronos_Client_Win_DotNet_FindReference_Component" Guid="715b54e7-6ae5-4e51-89a1-fd2496301f66">
+            <File Id="Chronos_Client_Win_DotNet_FindReference_dll" Name="Chronos.Client.Win.DotNet.FindReference.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.FindReference.dll" />
+            <File Id="Chronos_Client_Win_DotNet_FindReference_xchronex" Name="Chronos.Client.Win.DotNet.FindReference.xchronex" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.FindReference.xchronex" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>

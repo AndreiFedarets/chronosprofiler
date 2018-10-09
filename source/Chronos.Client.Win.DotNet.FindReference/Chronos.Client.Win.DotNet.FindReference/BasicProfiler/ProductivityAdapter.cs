@@ -15,7 +15,7 @@ namespace Chronos.Client.Win.DotNet.FindReference.BasicProfiler
             EventTreeUid = new Guid("{B3352C62-FCAB-45CA-8EEB-EA296E8C3122}");
         }
 
-        public void Initialize(object applicationObject)
+        public void Initialize(IChronosApplication applicationObject)
         {
             IProfilingApplication application = (IProfilingApplication)applicationObject;
             if (!application.ProfilingTypes.Contains(EventTreeUid) ||

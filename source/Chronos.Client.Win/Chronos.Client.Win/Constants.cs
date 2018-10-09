@@ -20,5 +20,10 @@
         {
             public const string Client = "Chronos.Client.Win.Application.exe";
         }
+
+        public static class Message
+        {
+            public const uint BuildProfilingViewMenu = 0x00000002;
+        }
     }
 }

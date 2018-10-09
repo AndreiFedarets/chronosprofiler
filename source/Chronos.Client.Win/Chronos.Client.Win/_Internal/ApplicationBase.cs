@@ -2,6 +2,7 @@
 using System.Reflection;
 using Caliburn.Micro;
 using Chronos.Client.Win.ViewModels;
+using Chronos.Messaging;
 using Chronos.Settings;
 
 namespace Chronos.Client.Win
@@ -40,12 +41,19 @@ namespace Chronos.Client.Win
 
         public IViewModelManager ViewModelManager { get; private set; }
 
+        public IMessageBus MessageBus { get; private set; }
+
         protected override void RunInternal()
         {
             base.RunInternal();
             ConfigureContainer(_container);
             _bootstrapper.Initialize();
             AssemblyResolver.AssemblyLoaded += OnExtensionAssemblyLoaded;
+        }
+
+        protected override void OnEndInitialize()
+        {
+            base.OnEndInitialize();
             ShowMainWindow();
         }
 
@@ -63,7 +71,9 @@ namespace Chronos.Client.Win
             container.RegisterInstance<IApplicationSettings>(ApplicationSettings);
             container.RegisterType<IViewModelManager, ViewModelManager>(true);
             container.RegisterType<IWindowManager, CustomWindowManager>(true);
+            container.RegisterInstance(ClientMessageBus.Current);
             ViewModelManager = container.Resolve<IViewModelManager>();
+            MessageBus = ClientMessageBus.Current;
         }
 
         private void OnExtensionAssemblyLoaded(object sender, AssemblyLoadEventArgs e)

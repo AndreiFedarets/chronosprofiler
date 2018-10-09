@@ -63,6 +63,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ISessionHistory.cs" />
+    <Compile Include="Messaging\IMessageBus.cs" />
+    <Compile Include="Messaging\IMessageBusHandler.cs" />
+    <Compile Include="Messaging\MessageHandlerAttribute.cs" />
     <Compile Include="Prerequisites\InternetInformationServiceInstallationPrerequisite.cs" />
     <Compile Include="Prerequisites\AdministratorPermissionsPrerequisite.cs" />
     <Compile Include="IPrerequisite.cs" />

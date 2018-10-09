@@ -98,14 +98,14 @@ namespace Chronos.Client.Win.ViewModels
 
         public event EventHandler UnderlyingViewModelChanged;
 
-        protected internal override void OnAttached()
-        {
-            ViewModel viewModel = UnderlyingViewModel;
-            if (viewModel != null)
-            {
-                viewModel.OnAttached();
-            }
-        }
+        //protected internal override void OnAttached()
+        //{
+        //    ViewModel viewModel = UnderlyingViewModel;
+        //    if (viewModel != null)
+        //    {
+        //        viewModel.OnAttached();
+        //    }
+        //}
 
         private void OnContentViewModelChanged(object sender, EventArgs e)
         {

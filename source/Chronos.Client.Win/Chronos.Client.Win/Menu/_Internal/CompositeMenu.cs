@@ -6,9 +6,13 @@ namespace Chronos.Client.Win.Menu
     {
         private readonly List<IMenu> _undrelyingControls;
 
-        public CompositeMenu()
+        public CompositeMenu(List<IMenu> menus)
         {
             _undrelyingControls = new List<IMenu>();
+            foreach (IMenu menu in menus)
+            {
+                MergeWith(menu);
+            }
         }
 
         public override string Id

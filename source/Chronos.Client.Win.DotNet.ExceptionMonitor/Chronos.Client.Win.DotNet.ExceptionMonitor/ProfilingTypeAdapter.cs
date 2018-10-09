@@ -1,29 +1,36 @@
-﻿using Chronos.Client.Win.DotNet.ExceptionMonitor.Properties;
+﻿using System.Collections.Generic;
+using Chronos.Client.Win.DotNet.ExceptionMonitor.Properties;
 using Chronos.Client.Win.Menu;
-using Chronos.Client.Win.ViewModels;
 using Chronos.Client.Win.ViewModels.Profiling;
+using Chronos.Messaging;
 
 namespace Chronos.Client.Win.DotNet.ExceptionMonitor
 {
-    public class ProfilingTypeAdapter : IProfilingTypeAdapter, IMenuSource
+    public class ProfilingTypeAdapter : IProfilingTypeAdapter, IInitializable, IMessageBusHandler
     {
+        private IProfilingApplication _application;
+
         public object CreateSettingsPresentation(ProfilingTypeSettings profilingTypeSettings)
         {
             return null;
         }
 
-        public IMenu GetMenu(PageViewModel pageViewModel)
+        void IInitializable.Initialize(IChronosApplication applicationObject)
         {
-            ProfilingViewModel profilingViewModel = pageViewModel as ProfilingViewModel;
-            if (profilingViewModel != null)
+            _application = applicationObject as IProfilingApplication;
+            if (_application != null)
             {
-                IProfilingApplication application = profilingViewModel.Application;
-                ResolutionDependencies dependencies = new ResolutionDependencies();
-                dependencies.Register(application);
-                dependencies.Register(profilingViewModel);
-                return MenuReader.ReadMenu(Resources.Menu, dependencies);
+                _application.MessageBus.Subscribe(this);
             }
-            return null;
+        }
+
+        [MessageHandler(Win.Constants.Message.BuildProfilingViewMenu)]
+        internal void BuildProfilingViewMenu(ProfilingViewModel viewModel, List<IMenu> menus)
+        {
+            ResolutionDependencies dependencies = new ResolutionDependencies();
+            dependencies.Register(viewModel);
+            IMenu menu = MenuReader.ReadMenu(Resources.Menu, dependencies);
+            menus.Add(menu);
         }
     }
 }

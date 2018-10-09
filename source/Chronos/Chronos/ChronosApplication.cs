@@ -133,7 +133,7 @@ namespace Chronos
             _applicationExtensions = new ApplicationExtensionCollection(_catalog.ApplicationExtensions, _exportLoader);
         }
 
-        private void OnBeginInitialize()
+        protected virtual void OnBeginInitialize()
         {
             foreach (IApplicationExtension applicationExtension in _applicationExtensions)
             {
@@ -141,7 +141,7 @@ namespace Chronos
             }
         }
 
-        private void OnEndInitialize()
+        protected virtual void OnEndInitialize()
         {
             foreach (IApplicationExtension applicationExtension in _applicationExtensions)
             {

@@ -55,8 +55,37 @@ namespace Chronos.Client.Win
         protected override void RunInternal()
         {
             base.RunInternal();
+            RunFrameworks();
             RunProfilingTypes();
             RunProductivities();
+        }
+
+        private void RunFrameworks()
+        {
+            FrameworkSettingsCollection frameworksSettings = _configurationSettings.FrameworksSettings;
+            List<IFrameworkAdapter> adapters = new List<IFrameworkAdapter>();
+            foreach (FrameworkSettings frameworkSetting in frameworksSettings)
+            {
+                IFramework framework = Frameworks[frameworkSetting.Uid];
+                IFrameworkAdapter adapter = framework.GetWinAdapter();
+                adapters.Add(adapter);
+            }
+            foreach (IFrameworkAdapter adapter in adapters)
+            {
+                IServiceConsumer serviceConsumer = adapter as IServiceConsumer;
+                if (serviceConsumer != null)
+                {
+                    serviceConsumer.ExportServices(_session.ServiceContainer);
+                }
+            }
+            foreach (IFrameworkAdapter adapter in adapters)
+            {
+                IServiceConsumer serviceConsumer = adapter as IServiceConsumer;
+                if (serviceConsumer != null)
+                {
+                    serviceConsumer.ImportServices(_session.ServiceContainer);
+                }
+            }
         }
 
         private void RunProfilingTypes()

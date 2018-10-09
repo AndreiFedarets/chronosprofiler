@@ -54,7 +54,6 @@ namespace Chronos.Storage
 
         internal static IDataStorage CreateNew(string directoryFullName, Guid sessionUid)
         {
-            Debugger.Launch();
             if (!Directory.Exists(directoryFullName))
             {
                 Directory.CreateDirectory(directoryFullName);

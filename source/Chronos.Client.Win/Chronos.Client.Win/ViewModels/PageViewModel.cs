@@ -56,7 +56,7 @@ namespace Chronos.Client.Win.ViewModels
             Items.Add(viewModel);
             Contracts.RegisterItem(viewModel);
             viewModel.Page = this;
-            viewModel.OnAttached();
+            //viewModel.OnAttached();
             ViewModelManager.Current.OnViewAttached(this, viewModel);
             return true;
         }
@@ -75,7 +75,7 @@ namespace Chronos.Client.Win.ViewModels
             }
             Contracts.UnregisterItem(viewModel);
             Items.Remove(viewModel);
-            viewModel.OnDeattached();
+            //viewModel.OnDeattached();
             ViewModelManager.Current.OnViewDeattached(this, viewModel);
             return true;
         }

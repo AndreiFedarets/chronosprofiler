@@ -303,6 +303,15 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Client.Win.Common.S
 		{59C4185D-D82D-4643-A60F-AF11B3E3F9A2} = {59C4185D-D82D-4643-A60F-AF11B3E3F9A2}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Client.Win.DotNet.FindReference", "Chronos.Client.Win.DotNet.FindReference", "{78525251-56C3-429C-9118-28D57CE943B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronos.Client.Win.DotNet.FindReference", "Chronos.Client.Win.DotNet.FindReference\Chronos.Client.Win.DotNet.FindReference\Chronos.Client.Win.DotNet.FindReference.csproj", "{7E71A746-6141-4A4A-96C9-85139F9C6C29}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Client.Win.DotNet.FindReference.Module", "Chronos.Client.Win.DotNet.FindReference\Chronos.Client.Win.DotNet.FindReference.Module\Chronos.Client.Win.DotNet.FindReference.Module.wixproj", "{5382540C-69DF-496E-8CD0-E85A9C7B4B3D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7E71A746-6141-4A4A-96C9-85139F9C6C29} = {7E71A746-6141-4A4A-96C9-85139F9C6C29}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -860,6 +869,26 @@ Global
 		{2DE9589A-AEDB-4964-8877-C18D11F8D9F5}.Release|Mixed Platforms.Build.0 = Release|x86
 		{2DE9589A-AEDB-4964-8877-C18D11F8D9F5}.Release|x86.ActiveCfg = Release|x86
 		{2DE9589A-AEDB-4964-8877-C18D11F8D9F5}.Release|x86.Build.0 = Release|x86
+		{7E71A746-6141-4A4A-96C9-85139F9C6C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E71A746-6141-4A4A-96C9-85139F9C6C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E71A746-6141-4A4A-96C9-85139F9C6C29}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7E71A746-6141-4A4A-96C9-85139F9C6C29}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7E71A746-6141-4A4A-96C9-85139F9C6C29}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7E71A746-6141-4A4A-96C9-85139F9C6C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E71A746-6141-4A4A-96C9-85139F9C6C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E71A746-6141-4A4A-96C9-85139F9C6C29}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7E71A746-6141-4A4A-96C9-85139F9C6C29}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7E71A746-6141-4A4A-96C9-85139F9C6C29}.Release|x86.ActiveCfg = Release|Any CPU
+		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D}.Debug|x86.ActiveCfg = Debug|x86
+		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D}.Debug|x86.Build.0 = Debug|x86
+		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D}.Release|Any CPU.ActiveCfg = Release|x86
+		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D}.Release|Mixed Platforms.Build.0 = Release|x86
+		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D}.Release|x86.ActiveCfg = Release|x86
+		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -922,5 +951,7 @@ Global
 		{5DBE9D0F-942D-458E-B4DA-1B5A57E60DB4} = {4C859DE2-DF90-427F-8662-5BC5B73CA122}
 		{59C4185D-D82D-4643-A60F-AF11B3E3F9A2} = {93E067D8-BCCD-42CC-8E97-8CDD016E254D}
 		{2DE9589A-AEDB-4964-8877-C18D11F8D9F5} = {93E067D8-BCCD-42CC-8E97-8CDD016E254D}
+		{7E71A746-6141-4A4A-96C9-85139F9C6C29} = {78525251-56C3-429C-9118-28D57CE943B1}
+		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D} = {78525251-56C3-429C-9118-28D57CE943B1}
 	EndGlobalSection
 EndGlobal

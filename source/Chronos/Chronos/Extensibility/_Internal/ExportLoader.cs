@@ -5,9 +5,9 @@ namespace Chronos.Extensibility
     internal class ExportLoader : IExportLoader
     {
         private readonly IExtensionAssemblyResolver _assemblyResolver;
-        private readonly object _application;
+        private readonly IChronosApplication _application;
 
-        public ExportLoader(IExtensionAssemblyResolver assemblyResolver, object application)
+        public ExportLoader(IExtensionAssemblyResolver assemblyResolver, IChronosApplication application)
         {
             _assemblyResolver = assemblyResolver;
             _application = application;
