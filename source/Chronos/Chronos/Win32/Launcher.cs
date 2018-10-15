@@ -14,7 +14,7 @@ namespace Chronos.Win32
         {
             if (requiredSessionId > 0)
             {
-                int currentSessionId = NativeMethods.WTSGetActiveConsoleSessionId();
+                int currentSessionId = Kernel32.WTSGetActiveConsoleSessionId();
                 if (currentSessionId != requiredSessionId)
                 {
                     return LaunchInSpecialSession(requiredSessionId, fileName, args, workingDirectory, environmentVariables);
@@ -84,12 +84,12 @@ namespace Chronos.Win32
 
 
                 NativeMethods.ProcessInformation processInformation;
-                if (NativeMethods.CreateProcessAsUser(userToken, fileName, args, IntPtr.Zero, IntPtr.Zero, false, creationFlags, 
+                if (Advapi32.CreateProcessAsUser(userToken, fileName, args, IntPtr.Zero, IntPtr.Zero, false, creationFlags, 
                     customEnvironment, workingDirectory, ref startupInfo, out processInformation))
                 {
                     process = Process.GetProcessById((int) processInformation.ProcessId);
-                    NativeMethods.CloseHandle(processInformation.Process);
-                    NativeMethods.CloseHandle(processInformation.Thread);
+                    Kernel32.CloseHandle(processInformation.Process);
+                    Kernel32.CloseHandle(processInformation.Thread);
                 }
                 else
                 {
@@ -101,7 +101,7 @@ namespace Chronos.Win32
             {
                 if (userToken != IntPtr.Zero)
                 {
-                    NativeMethods.CloseHandle(userToken);
+                    Kernel32.CloseHandle(userToken);
                 }
                 if (originalEnvironment != IntPtr.Zero)
                 {

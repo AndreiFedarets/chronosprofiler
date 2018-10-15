@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Extension Uid="{2828642B-EF84-4EC4-A08E-0D4EBBF77E33}">
   <Productivity Uid="{69282BA6-7938-46BE-AB79-A9D65E7AB199}">
-    <Export Application="client.win" EntryPoint="Chronos.Client.Win.DotNet.FindReference.BasicProfiler.ProductivityAdapter, Chronos.Client.Win.DotNet.FindReference" />
+    <Export Application="client.win" EntryPoint="Chronos.Client.Win.DotNet.FindReference.ProductivityAdapter, Chronos.Client.Win.DotNet.FindReference" />
     <Localization Culture="en-US">
       <Name>Find usages of .NET entities in the Events Tree</Name>
       <Description>Find usages of .NET entities in the Events Tree</Description>

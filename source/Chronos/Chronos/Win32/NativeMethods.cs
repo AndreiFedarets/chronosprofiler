@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Runtime.InteropServices;
-using System.Security;
 using System.Text;
 
 namespace Chronos.Win32
@@ -20,8 +19,6 @@ namespace Chronos.Win32
             public static extern IntPtr Destroy(IntPtr token);
         }
 
-        
-
         public const UInt32 MaximumAllowed = 0x2000000;
 
         [DllImport("Chronos.Agent.dll", CharSet = CharSet.Auto, SetLastError = true, CallingConvention = CallingConvention.Cdecl)]
@@ -33,44 +30,15 @@ namespace Chronos.Win32
         [DllImport("user32.dll")]
         public static extern IntPtr GetActiveWindow();
 
-        [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int LogonUser(string userName, string domain, string password, int logonType, int logonProvider, ref IntPtr token);
-
-        [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int DuplicateToken(IntPtr token, int impersonationLevel, ref IntPtr newToken);
-
-        [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool RevertToSelf();
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool CloseHandle(IntPtr handle);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern Int32 WTSGetActiveConsoleSessionId();
-
         [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DeleteObject(IntPtr handle);
-
-        [DllImport("advapi32", CharSet = CharSet.Auto, SetLastError = true), SuppressUnmanagedCodeSecurity]
-        public static extern Boolean OpenProcessToken(IntPtr processHandle, // handle to process
-                                                    Int32 desiredAccess, // desired access to process
-                                                    ref IntPtr tokenHandle); // handle to open access token
 
         [DllImport("Wtsapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool WTSQueryUserToken(int sessionId, ref IntPtr token);
 
         [DllImport("userenv.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool CreateEnvironmentBlock(ref IntPtr environment, IntPtr token, bool inherit);
-
-        [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool CreateProcessAsUser(
-            IntPtr token, String applicationName, String commandLine,
-            IntPtr processAttributes, IntPtr threadAttributes,
-            bool inheritHandle, UInt32 creationFlags, IntPtr environment,
-            String currentDirectory, ref StartupInfo startupInfo,
-            out ProcessInformation processInformation);
-
 
         [DllImport("userenv.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool DestroyEnvironmentBlock(IntPtr environment);

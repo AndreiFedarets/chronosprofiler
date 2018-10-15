@@ -65,9 +65,9 @@ namespace Chronos.Client.Win.ViewModels.Start
         protected override void BuildLayout()
         {
             base.BuildLayout();
-            Add(new HostApplicationSelectViewModel(HostApplicationSelector));
-            Add(new PlaceholderViewModel(new ProfilingTargetContent(ProfilingTarget, this, HostApplicationSelector)));
-            Add(new ProfilingTypesViewModel(Application, ConfigurationSettings));
+            TryAdd(new HostApplicationSelectViewModel(HostApplicationSelector));
+            TryAdd(new PlaceholderViewModel(new ProfilingTargetContent(ProfilingTarget, this, HostApplicationSelector)));
+            TryAdd(new ProfilingTypesViewModel(Application, ConfigurationSettings));
         }
 
         public override void Dispose()

@@ -1,6 +1,6 @@
-﻿using Chronos.Common.EventsTree;
+﻿using Chronos.Proxy;
 
-namespace Chronos.Proxy.Common.EventsTree
+namespace Chronos.Common.EventsTree.Proxy
 {
     internal sealed class ThreadEventTreeMessage : ProxyBaseObject<IThreadEventTreeMessage>, IThreadEventTreeMessage
     {

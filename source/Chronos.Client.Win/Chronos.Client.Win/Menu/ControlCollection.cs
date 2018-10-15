@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
 
 namespace Chronos.Client.Win.Menu
 {
@@ -13,8 +14,12 @@ namespace Chronos.Client.Win.Menu
         protected ControlCollection()
         {
             _children = new ObservableCollection<IControl>();
-            //TODO: hm... will it work or not?
-            _children.CollectionChanged += CollectionChanged;
+            _children.CollectionChanged += ChildrenCollectionChanged;
+        }
+
+        public IControl this[string id]
+        {
+            get { return _children.FirstOrDefault(x => string.Equals(x.Id, id, StringComparison.Ordinal)); }
         }
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
@@ -61,6 +66,11 @@ namespace Chronos.Client.Win.Menu
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        private void ChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            CollectionChanged.SafeInvoke(this, e);
         }
     }
 }

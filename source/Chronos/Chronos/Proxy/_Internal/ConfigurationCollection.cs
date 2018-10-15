@@ -139,18 +139,22 @@ namespace Chronos.Proxy
 
         public override void Dispose()
         {
-            lock (_collection)
+            ExecuteDispose(() =>
             {
-                VerifyDisposed();
                 _configurationCreatedEventSink.Dispose();
                 _configurationRemovedEventSink.Dispose();
-                foreach (Configuration configuration in _collection.Values)
+                List<Configuration> conllection;
+                lock (_collection)
+                {
+                    conllection = new List<Configuration>(_collection.Values);
+                    _collection.Clear();
+                }
+                foreach (Configuration configuration in conllection)
                 {
                     configuration.Dispose();
                 }
-                _collection.Clear();
-                base.Dispose();
-            }
+            });
+            base.Dispose();
         }
 
         private void Initialize()

@@ -5,7 +5,6 @@ namespace Chronos.DotNet.TracingProfiler
 {
     internal sealed class ThreadCreateEventMessage : RemoteBaseObject, IThreadCreateEventMessage 
     {
-        public const byte EventType = 0x09;
         private readonly IThreadCollection _threads;
 
         public ThreadCreateEventMessage(IThreadCollection threads)

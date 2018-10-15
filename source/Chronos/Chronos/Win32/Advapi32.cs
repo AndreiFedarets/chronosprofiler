@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Security;
 using System.ServiceProcess;
 
 namespace Chronos.Win32
@@ -26,6 +27,29 @@ namespace Chronos.Win32
 
         [DllImport("advapi32.dll", SetLastError = true)]
         private static extern bool QueryServiceStatusEx(SafeHandle hService, int infoLevel, IntPtr lpBuffer, uint cbBufSize, out uint pcbBytesNeeded);
+
+        [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int LogonUser(string userName, string domain, string password, int logonType, int logonProvider, ref IntPtr token);
+
+        [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int DuplicateToken(IntPtr token, int impersonationLevel, ref IntPtr newToken);
+
+        [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool RevertToSelf();
+
+        [DllImport("advapi32", CharSet = CharSet.Auto, SetLastError = true), SuppressUnmanagedCodeSecurity]
+        public static extern Boolean OpenProcessToken(IntPtr processHandle, // handle to process
+            Int32 desiredAccess, // desired access to process
+            ref IntPtr tokenHandle); // handle to open access token
+
+        [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool CreateProcessAsUser(
+            IntPtr token, String applicationName, String commandLine,
+            IntPtr processAttributes, IntPtr threadAttributes,
+            bool inheritHandle, UInt32 creationFlags, IntPtr environment,
+            String currentDirectory, ref NativeMethods.StartupInfo startupInfo,
+            out NativeMethods.ProcessInformation processInformation);
+
 
         public static Process GetServiceProcessId(ServiceController sc)
         {

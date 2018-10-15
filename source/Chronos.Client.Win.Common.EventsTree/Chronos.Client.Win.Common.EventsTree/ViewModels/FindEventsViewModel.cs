@@ -3,11 +3,11 @@ using System.Windows.Input;
 
 namespace Chronos.Client.Win.ViewModels.Common.EventsTree
 {
-    public class FindReferencesViewModel : ViewModel
+    public class FindEventsViewModel : ViewModel
     {
         private object _selectedNode;
 
-        public FindReferencesViewModel(HeaderReference<uint, IEvent> headerReference, IEventsTreeViewModel eventsTreeViewModel)
+        public FindEventsViewModel(HeaderReference<uint, IEvent> headerReference, IEventsTreeViewModel eventsTreeViewModel)
         {
             HeaderReference = headerReference;
         }

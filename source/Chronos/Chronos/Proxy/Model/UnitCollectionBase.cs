@@ -118,8 +118,11 @@ namespace Chronos.Proxy.Model
 
         public override void Dispose()
         {
-            _unitsUpdatedSubscriber.Dispose();
-            _collection.CollectionChanged -= OnCollectionChanged;
+            ExecuteDispose(() =>
+            {
+                _unitsUpdatedSubscriber.Dispose();
+                _collection.CollectionChanged -= OnCollectionChanged;
+            });
             base.Dispose();
         }
 

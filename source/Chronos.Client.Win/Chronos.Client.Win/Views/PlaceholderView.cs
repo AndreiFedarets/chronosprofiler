@@ -7,8 +7,8 @@ namespace Chronos.Client.Win.Views
     {
         public PlaceholderView()
         {
-            DisplayPanel = true;
             DataContextChanged += OnDataContextChanged;
+            DisplayPanel = true;
         }
 
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -17,7 +17,6 @@ namespace Chronos.Client.Win.Views
             if (viewModel != null)
             {
                 viewModel.UnderlyingViewModelChanged -= OnUnderlyingViewModelChanged;
-
             }
             viewModel = e.NewValue as PlaceholderViewModel;
             if (viewModel != null)

@@ -1,8 +1,8 @@
 ﻿namespace Chronos.Client.Win.Views.Common.EventsTree
 {
-    public partial class FindReferencesView
+    public partial class FindEventsView
     {
-        public FindReferencesView()
+        public FindEventsView()
         {
             InitializeComponent();
         }

@@ -1,16 +1,15 @@
 ﻿using Chronos.Client.Win.Common.EventsTree.Properties;
-using Chronos.Client.Win.Menu.Specialized;
 using Chronos.Client.Win.ViewModels.Common.EventsTree;
-using Chronos.Client.Win.ViewModels.Profiling;
-using Chronos.Common.EventsTree;
 
 namespace Chronos.Client.Win.Menu.Common.EventsTree
 {
-    internal sealed class EventsTreeMenuItem : ProfilingMenuItemBase
+    internal sealed class EventsTreeMenuItem : MenuItem
     {
-        public EventsTreeMenuItem(ProfilingViewModel profilingViewModel)
-            : base(profilingViewModel)
+        private readonly IEventsTreeViewModelCollection _eventsTreeViewModels;
+
+        public EventsTreeMenuItem(IEventsTreeViewModelCollection eventsTreeViewModels)
         {
+            _eventsTreeViewModels = eventsTreeViewModels;
         }
 
         public override string Text
@@ -18,12 +17,9 @@ namespace Chronos.Client.Win.Menu.Common.EventsTree
             get { return Resources.EventsTreeMenuItem_Text; }
         }
 
-        protected override ViewModels.ViewModel GetViewModel()
+        public override void OnAction()
         {
-            IProfilingApplication application = ProfilingViewModel.Application;
-            IEventTreeCollection eventTrees = application.ServiceContainer.Resolve<IEventTreeCollection>();
-            IEventMessageBuilder messageBuilder = application.ServiceContainer.Resolve<IEventMessageBuilder>();
-            return new EventsTreeViewModel(eventTrees, messageBuilder);
+            _eventsTreeViewModels.Open();
         }
     }
 }

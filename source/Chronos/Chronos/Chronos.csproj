@@ -72,6 +72,7 @@
     <Compile Include="IPrerequisiteAdapter.cs" />
     <Compile Include="IPrerequisiteCollection.cs" />
     <Compile Include="PrerequisiteValidationResult.cs" />
+    <Compile Include="Win32\User32.cs" />
     <Compile Include="_Internal\Prerequisite.cs" />
     <Compile Include="_Internal\PrerequisiteCollection.cs" />
     <Compile Include="Proxy\_Internal\PrerequisiteCollection.cs" />

@@ -8,9 +8,12 @@ namespace Chronos.Client.Win.Menu.Common.EventsTree
 {
     internal sealed class TimelineMenuItem : ProfilingMenuItemBase
     {
-        public TimelineMenuItem(ProfilingViewModel profilingViewModel)
+        private readonly IEventsTreeViewModelCollection _eventsTreeViewModels;
+
+        public TimelineMenuItem(ProfilingViewModel profilingViewModel, IEventsTreeViewModelCollection eventsTreeViewModels)
             : base(profilingViewModel)
         {
+            _eventsTreeViewModels = eventsTreeViewModels;
         }
 
         public override string Text
@@ -23,7 +26,7 @@ namespace Chronos.Client.Win.Menu.Common.EventsTree
             IProfilingApplication application = ProfilingViewModel.Application;
             IEventTreeCollection eventTrees = application.ServiceContainer.Resolve<IEventTreeCollection>();
             IEventMessageBuilder messageBuilder = application.ServiceContainer.Resolve<IEventMessageBuilder>();
-            return new TimelineViewModel(eventTrees, application.ProfilingTimer, messageBuilder, ProfilingViewModel);
+            return new TimelineViewModel(eventTrees, application.ProfilingTimer, messageBuilder, _eventsTreeViewModels);
         }
     }
 }

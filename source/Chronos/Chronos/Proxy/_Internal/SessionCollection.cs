@@ -113,19 +113,23 @@ namespace Chronos.Proxy
 
         public override void Dispose()
         {
-            lock (_collection)
+            ExecuteDispose(() =>
             {
-                VerifyDisposed();
                 _sessionCreatedEventSink.Dispose();
                 _sessionRemovedEventSink.Dispose();
                 _sessionStateChangedEventSink.Dispose();
-                foreach (Session session in _collection.Values)
+                List<Session> collection;
+                lock (_collection)
+                {
+                    collection = new List<Session>(_collection.Values);
+                    _collection.Clear();
+                }
+                foreach (Session session in collection)
                 {
                     session.Dispose();
                 }
-                _collection.Clear();
-                base.Dispose();
-            }
+            });
+            base.Dispose();
         }
 
         private void Initialize()

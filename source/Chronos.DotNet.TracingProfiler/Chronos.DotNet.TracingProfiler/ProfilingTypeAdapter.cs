@@ -43,19 +43,19 @@ namespace Chronos.DotNet.TracingProfiler
             IEventMessageBuilder messageBuilder = container.Resolve<IEventMessageBuilder>();
 
             IManagedFunctionCallEventMessage functionCallEventMessage = new ManagedFunctionCallEventMessage(functions);
-            messageBuilder.RegisterMessage(ManagedFunctionCallEventMessage.EventType, functionCallEventMessage);
+            messageBuilder.RegisterMessage(Constants.EventType.ManagedFunctionCall, functionCallEventMessage);
 
             IManagedToUnmanagedTransactionEventMessage managedToUnmanagedTransactionEventMessage = new ManagedToUnmanagedTransactionEventMessage();
-            messageBuilder.RegisterMessage(ManagedToUnmanagedTransactionEventMessage.EventType, managedToUnmanagedTransactionEventMessage);
+            messageBuilder.RegisterMessage(Constants.EventType.ManagedToUnmanagedTransaction, managedToUnmanagedTransactionEventMessage);
 
             IUnmanagedToManagedTransactionEventMessage unmanagedToManagedTransactionEventMessage = new UnmanagedToManagedTransactionEventMessage();
-            messageBuilder.RegisterMessage(UnmanagedToManagedTransactionEventMessage.EventType, unmanagedToManagedTransactionEventMessage);
+            messageBuilder.RegisterMessage(Constants.EventType.UnmanagedToManagedTransaction, unmanagedToManagedTransactionEventMessage);
 
             IThreadCreateEventMessage threadCreateEventMessage = new ThreadCreateEventMessage(threads);
-            messageBuilder.RegisterMessage(ThreadCreateEventMessage.EventType, threadCreateEventMessage);
+            messageBuilder.RegisterMessage(Constants.EventType.ThreadCreate, threadCreateEventMessage);
 
             IThreadDestroyEventMessage threadDestroyEventMessage = new ThreadDestroyEventMessage(threads);
-            messageBuilder.RegisterMessage(ThreadDestroyEventMessage.EventType, threadDestroyEventMessage);
+            messageBuilder.RegisterMessage(Constants.EventType.ThreadDestroy, threadDestroyEventMessage);
         }
 
         public IDataHandler CreateDataHandler()

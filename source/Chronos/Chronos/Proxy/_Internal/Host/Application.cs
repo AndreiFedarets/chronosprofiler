@@ -45,12 +45,14 @@
 
         public override void Dispose()
         {
-            VerifyDisposed();
-            _configurations.Dispose();
-            _sessions.Dispose();
-            _frameworks.Dispose();
-            _profilingTypes.Dispose();
-            _profilingTargets.Dispose();
+            ExecuteDispose(() =>
+            {
+                _configurations.Dispose();
+                _sessions.Dispose();
+                _frameworks.Dispose();
+                _profilingTypes.Dispose();
+                _profilingTargets.Dispose();
+            });
             base.Dispose();
         }
     }

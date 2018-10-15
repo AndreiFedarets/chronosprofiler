@@ -26,9 +26,9 @@ namespace Chronos.Client.Win.ViewModels.Home
         protected override void BuildLayout()
         {
             base.BuildLayout();
-            Add(new ProfilingTargetsViewModel(_application));
-            Add(new ActiveSessionsViewModel(_application));
-            Add(new RecentSessionsViewModel(_application));
+            TryAdd(new ProfilingTargetsViewModel(_application));
+            TryAdd(new ActiveSessionsViewModel(_application));
+            TryAdd(new RecentSessionsViewModel(_application));
         }
 
         private void OnApplicationStateChanged(object sender, ApplicationStateEventArgs e)

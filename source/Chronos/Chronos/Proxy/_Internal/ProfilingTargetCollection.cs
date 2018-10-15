@@ -91,16 +91,20 @@ namespace Chronos.Proxy
 
         public override void Dispose()
         {
-            lock (_collection)
+            ExecuteDispose(() =>
             {
-                VerifyDisposed();
-                foreach (ProfilingTarget profilingTarget in _collection.Values)
+                List<ProfilingTarget> collection;
+                lock (_collection)
+                {
+                    collection = new List<ProfilingTarget>(_collection.Values);
+                    _collection.Clear();
+                }
+                foreach (ProfilingTarget profilingTarget in collection)
                 {
                     profilingTarget.Dispose();
                 }
-                _collection.Clear();
-                base.Dispose();
-            }
+            });
+            base.Dispose();
         }
 
         private void Initialize()

@@ -28,6 +28,12 @@ namespace Chronos.Win32
         [DllImport("kernel32.dll", EntryPoint = "QueryPerformanceCounter", SetLastError = true)]
         private static extern bool _QueryPerformanceCounter(out long counter);
 
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool CloseHandle(IntPtr handle);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern Int32 WTSGetActiveConsoleSessionId();
+
         public static IntPtr LoadLibrary(string libraryPath)
         {
             IntPtr library = _LoadLibrary(libraryPath);

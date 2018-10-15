@@ -47,17 +47,20 @@ namespace Chronos.Client.Win.ViewModels
             return Contains(viewModel);
         }
 
-        public bool Add(ViewModel viewModel)
+        public bool TryAdd(ViewModel viewModel)
         {
-            if (viewModel == null || Items.Contains(viewModel))
+            if (viewModel == null)
             {
                 return false;
             }
+            if (Items.Contains(viewModel))
+            {
+                return true;
+            }
             Items.Add(viewModel);
-            Contracts.RegisterItem(viewModel);
             viewModel.Page = this;
-            //viewModel.OnAttached();
-            ViewModelManager.Current.OnViewAttached(this, viewModel);
+            Contracts.RegisterItem(viewModel);
+            viewModel.OnAttached();
             return true;
         }
 
@@ -75,8 +78,7 @@ namespace Chronos.Client.Win.ViewModels
             }
             Contracts.UnregisterItem(viewModel);
             Items.Remove(viewModel);
-            //viewModel.OnDeattached();
-            ViewModelManager.Current.OnViewDeattached(this, viewModel);
+            viewModel.OnDeattached();
             return true;
         }
 

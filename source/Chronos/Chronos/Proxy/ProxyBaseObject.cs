@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Runtime.Remoting;
 
 namespace Chronos.Proxy
@@ -76,11 +77,31 @@ namespace Chronos.Proxy
             }
         }
 
+        protected void ExecuteDispose(Action disposeAction)
+        {
+            try
+            {
+                disposeAction();
+            }
+            catch (RemotingException)
+            {
+            }
+            catch (TargetInvocationException invocationException)
+            {
+                if (!(invocationException.InnerException is RemotingException))
+                {
+                    throw;
+                }
+            }
+        }
+
         public virtual void Dispose()
         {
-            VerifyDisposed();
-            UninitializeSponsorship(RemoteObject, _sponsorshipCookie);
-            _disposableTracker.Dispose();
+            ExecuteDispose(() =>
+            {
+                UninitializeSponsorship(RemoteObject, _sponsorshipCookie);
+                _disposableTracker.Dispose();
+            });
         }
 
         protected void VerifyDisposed()

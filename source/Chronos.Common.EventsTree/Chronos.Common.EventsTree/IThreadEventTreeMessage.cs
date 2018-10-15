@@ -1,6 +1,6 @@
 ﻿namespace Chronos.Common.EventsTree
 {
-    [PublicService(typeof(Chronos.Proxy.Common.EventsTree.ThreadEventTreeMessage))]
+    [PublicService(typeof(Proxy.ThreadEventTreeMessage))]
     public interface IThreadEventTreeMessage : IEventMessage
     {
     }

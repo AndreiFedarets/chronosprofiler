@@ -81,9 +81,11 @@ namespace Chronos.Proxy.Daemon
 
         public override void Dispose()
         {
-            VerifyDisposed();
-            _sessionStateChangedEventSink.Dispose();
-            _agentClient.Dispose();
+            ExecuteDispose(() =>
+            {
+                _sessionStateChangedEventSink.Dispose();
+                _agentClient.Dispose();
+            });
             base.Dispose();
         }
 

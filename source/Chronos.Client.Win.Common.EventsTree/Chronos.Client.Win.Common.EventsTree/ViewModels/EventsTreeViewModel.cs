@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Chronos.Client.Win.ViewModels.Common.EventsTree
 {
-    public sealed class EventsTreeViewModel : ViewModel
+    public sealed class EventsTreeViewModel : ViewModel, IEventsTreeViewModel
     {
         private readonly EventTreeMerger _eventTreeMerger;
         private readonly IEventTreeCollection _eventTrees;
@@ -23,6 +23,8 @@ namespace Chronos.Client.Win.ViewModels.Common.EventsTree
             AvailableSortTypes = new List<EventTreeSortType> { EventTreeSortType.None, EventTreeSortType.Time, EventTreeSortType.Hits };
             SelectedSortType = EventTreeSortType.Time;
         }
+
+        public IEventSearch EventSearch { get; set; }
 
         public IEnumerable<EventTreeMergeType> AvailableMergeTypes { get; private set; }
 

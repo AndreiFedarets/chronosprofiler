@@ -91,6 +91,11 @@ namespace Chronos
 				Value = null;
 			}
 
+			~InterlockedContainer()
+			{
+				Value = null;
+			}
+
 			T* SetValue(T* value)
 			{
 				T* temp = (T*)InterlockedExchangePointer((PVOID*)&(Value), (PVOID)value);

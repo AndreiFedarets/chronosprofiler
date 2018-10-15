@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Alignment.cs" />
     <Compile Include="ApplicationExtensionAdapter.cs" />
+    <Compile Include="ChronosApplicationLauncher.cs" />
     <Compile Include="Container.cs" />
     <Compile Include="Contracts\ContractBase.cs" />
     <Compile Include="Contracts\ContractCollection.cs" />
@@ -75,7 +76,9 @@
     <Compile Include="Contracts\IContractConsumer.cs" />
     <Compile Include="Contracts\IContractProxy.cs" />
     <Compile Include="Contracts\IContractSource.cs" />
+    <Compile Include="Controls\_Generic\BindingForward.cs" />
     <Compile Include="Controls\_Generic\ImageButton.cs" />
+    <Compile Include="Controls\_Menu\ContextMenu.cs" />
     <Compile Include="Converters\InvertBoolToVisibilityConverter.cs" />
     <Compile Include="Menu\Specialized\ProfilingMenuItemBase.cs" />
     <Compile Include="Menu\Specialized\UnitsMenuItemBase.cs" />
@@ -91,6 +94,7 @@
     </Compile>
     <Compile Include="ViewModels\Common\PrerequisitesValidationResultViewModel.cs" />
     <Compile Include="ViewModels\Home\SessionInformation.cs" />
+    <Compile Include="ViewModels\PlaceholderStaticContent.cs" />
     <Compile Include="ViewModels\Start\ProfilingTargetSettingsBaseViewModel.cs" />
     <Compile Include="Views\Common\PrerequisitesValidationResultView.xaml.cs">
       <DependentUpon>PrerequisitesValidationResultView.xaml</DependentUpon>
@@ -225,7 +229,6 @@
     <Compile Include="_Internal\Bootstrapper.cs" />
     <Compile Include="_Internal\ChronosCoreLocator.cs" />
     <Compile Include="_Internal\HostApplicationExtensionAdapter.cs" />
-    <Compile Include="_Internal\DaemonApplicationExtensionAdapter.cs" />
     <Compile Include="_Internal\ClientMessageBus.cs" />
     <Compile Include="_Internal\ViewsManager.cs" />
     <Compile Include="_Internal\ProfilingApplication.cs" />

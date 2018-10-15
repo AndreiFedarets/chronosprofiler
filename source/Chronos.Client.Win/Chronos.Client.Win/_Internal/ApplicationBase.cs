@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reflection;
 using Caliburn.Micro;
 using Chronos.Client.Win.ViewModels;
 using Chronos.Messaging;
 using Chronos.Settings;
+using Chronos.Win32;
 
 namespace Chronos.Client.Win
 {
@@ -42,6 +44,14 @@ namespace Chronos.Client.Win
         public IViewModelManager ViewModelManager { get; private set; }
 
         public IMessageBus MessageBus { get; private set; }
+
+        public void Activate()
+        {
+            using (Process process = Process.GetCurrentProcess())
+            {
+                User32.SetForegroundWindow(process.MainWindowHandle);
+            }
+        }
 
         protected override void RunInternal()
         {

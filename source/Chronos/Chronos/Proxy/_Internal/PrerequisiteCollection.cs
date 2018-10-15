@@ -41,16 +41,20 @@ namespace Chronos.Proxy
 
         public override void Dispose()
         {
-            lock (_collection)
+            ExecuteDispose(() =>
             {
-                VerifyDisposed();
-                foreach (Prerequisite prerequisite in _collection)
+                List<Prerequisite> collection;
+                lock (_collection)
+                {
+                    collection = new List<Prerequisite>(_collection);
+                    _collection.Clear();
+                }
+                foreach (Prerequisite prerequisite in collection)
                 {
                     prerequisite.Dispose();
                 }
-                _collection.Clear();
-                base.Dispose();
-            }
+            });
+            base.Dispose();
         }
 
         private void Initialize()

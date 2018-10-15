@@ -20,7 +20,7 @@ namespace Chronos
 				ComplexEventsTreeMerger::~ComplexEventsTreeMerger()
 				{
 					//TODO: delete thread
-					//__FREEOBJ(_mergingThread);
+					__FREEOBJ(_mergingThread);
 					for (__uint i = 0; i < Capacity; i++)
 					{
 						DetailedEventsPage* detailedPage = _pages[i].SetValue(null);

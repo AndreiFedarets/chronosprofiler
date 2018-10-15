@@ -62,8 +62,11 @@ namespace Chronos.Proxy
 
         public override void Dispose()
         {
-            _applicationStateChangedEventSink.Dispose();
-            _serviceContainer.Dispose();
+            ExecuteDispose(() =>
+            {
+                _applicationStateChangedEventSink.Dispose();
+                _serviceContainer.Dispose();
+            });
             base.Dispose();
         }
     }

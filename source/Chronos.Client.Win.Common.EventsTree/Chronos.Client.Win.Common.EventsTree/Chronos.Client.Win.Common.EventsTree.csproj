@@ -45,6 +45,11 @@
     <Reference Include="System.Drawing" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\externals\System.Windows.Interactivity.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -66,7 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\FindReferencesView.xaml">
+    <Page Include="Views\FindEventsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -77,6 +82,8 @@
     <Compile Include="Controls\EventTreeItemSorter.cs" />
     <Compile Include="Controls\EventTreeSortType.cs" />
     <Compile Include="Controls\ThreadTimeline.cs" />
+    <Compile Include="Controls\IEventSearch.cs" />
+    <Compile Include="Controls\IEventSearchAdapter.cs" />
     <Compile Include="Menu\TimelineMenuItem.cs" />
     <Compile Include="ProfilingTypeAdapter.cs" />
     <Compile Include="Controls\EventTreeItem.cs" />
@@ -90,8 +97,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\EventsTreeViewModel.cs" />
-    <Compile Include="ViewModels\FindReferencesViewModel.cs" />
+    <Compile Include="ViewModels\FindEventsViewModel.cs" />
     <Compile Include="ViewModels\IEventsTreeViewModel.cs" />
+    <Compile Include="ViewModels\IEventsTreeViewModelCollection.cs" />
     <Compile Include="ViewModels\TimelineViewModel.cs" />
     <Compile Include="Views\TimelineView.xaml.cs">
       <DependentUpon>TimelineView.xaml</DependentUpon>
@@ -99,11 +107,12 @@
     <Compile Include="Views\EventsTreeView.xaml.cs">
       <DependentUpon>EventsTreeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FindReferencesView.xaml.cs">
-      <DependentUpon>FindReferencesView.xaml</DependentUpon>
+    <Compile Include="Views\FindEventsView.xaml.cs">
+      <DependentUpon>FindEventsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menu\EventsTreeMenuItem.cs" />
     <Compile Include="Menu\PerformanceMenuItem.cs" />
+    <Compile Include="ViewModels\_Internal\EventsTreeViewModelCollection.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -135,6 +144,9 @@
       <Name>Chronos</Name>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Proxy\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

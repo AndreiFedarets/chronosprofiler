@@ -5,6 +5,8 @@ namespace Chronos.Client.Win.Menu
 {
     public interface IControlCollection : IControl, IEnumerable<IControl>, INotifyCollectionChanged
     {
+        IControl this[string id] { get; }
+
         IControlCollection Add(IControl control);
 
         IControlCollection Remove(IControl control);

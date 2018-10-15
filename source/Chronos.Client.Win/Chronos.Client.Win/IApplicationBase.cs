@@ -18,5 +18,7 @@ namespace Chronos.Client.Win
         IViewModelManager ViewModelManager { get; }
 
         IMessageBus MessageBus { get; }
+
+        void Activate();
     }
 }

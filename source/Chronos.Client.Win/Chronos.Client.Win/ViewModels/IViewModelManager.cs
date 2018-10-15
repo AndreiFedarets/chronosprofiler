@@ -1,12 +1,7 @@
-﻿using System;
-namespace Chronos.Client.Win.ViewModels
+﻿namespace Chronos.Client.Win.ViewModels
 {
     public interface IViewModelManager
     {
-        event EventHandler<ViewModelEventArgs> ViewAttached;
-
-        event EventHandler<ViewModelEventArgs> ViewDeattached;
-
         void ShowWindow(ViewModel viewModel);
 
         bool? ShowDialog(ViewModel viewModel);

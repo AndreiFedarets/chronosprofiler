@@ -1,21 +1,20 @@
 ﻿using System.Windows.Input;
 using Chronos.Client.Win.Commands;
-using Chronos.Client.Win.ViewModels.Profiling;
 using Chronos.Common.EventsTree;
 
 namespace Chronos.Client.Win.ViewModels.Common.EventsTree
 {
     public sealed class TimelineViewModel : ViewModel
     {
-        private readonly ProfilingViewModel _profilingViewModel;
+        private readonly IEventsTreeViewModelCollection _eventsTreeViewModel;
         private IEventTreeCollection _eventTrees;
 
-        public TimelineViewModel(IEventTreeCollection eventTrees, IProfilingTimer profilingTimer, IEventMessageBuilder eventMessageBuilder, ProfilingViewModel profilingViewModel)
+        public TimelineViewModel(IEventTreeCollection eventTrees, IProfilingTimer profilingTimer, IEventMessageBuilder eventMessageBuilder, IEventsTreeViewModelCollection eventsTreeViewModel)
         {
             _eventTrees = eventTrees;
             ProfilingTimer = profilingTimer;
             EventMessageBuilder = eventMessageBuilder;
-            _profilingViewModel = profilingViewModel;
+            _eventsTreeViewModel = eventsTreeViewModel;
             OpenEventTreeCommand = new SyncCommand<ISingleEventTree>(OpenEventTree);
             _eventTrees.CollectionUpdated += OnEventTreesCollectionUpdated;
         }
@@ -54,8 +53,7 @@ namespace Chronos.Client.Win.ViewModels.Common.EventsTree
         private void OpenEventTree(ISingleEventTree eventTree)
         {
             IEventTreeCollection collection = new StaticEventTreeCollection(eventTree);
-            EventsTreeViewModel viewModel = new EventsTreeViewModel(collection, EventMessageBuilder);
-            _profilingViewModel.Activate(viewModel);
+            _eventsTreeViewModel.Open(collection);
         }
     }
 }

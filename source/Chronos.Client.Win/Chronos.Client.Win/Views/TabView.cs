@@ -128,7 +128,7 @@ namespace Chronos.Client.Win.Views
 
             private TabItemViewModel FindTabItemViewModel(ViewModel viewModel)
             {
-                TabItemViewModel item = this.FirstOrDefault(x => x.MainViewModel == viewModel);
+                TabItemViewModel item = this.FirstOrDefault(x => x.UnderlyingViewModel == viewModel);
                 return item;
             }
         }

@@ -105,7 +105,10 @@ namespace Chronos.Proxy
 
         public override void Dispose()
         {
-            _serviceContainer.Dispose();
+            ExecuteDispose(() =>
+            {
+                _serviceContainer.Dispose();
+            });
             base.Dispose();
         }
     }

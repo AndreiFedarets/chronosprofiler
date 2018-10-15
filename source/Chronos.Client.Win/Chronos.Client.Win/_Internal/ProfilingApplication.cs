@@ -13,7 +13,7 @@ namespace Chronos.Client.Win
         private readonly Guid _sessionUid;
 
         public ProfilingApplication(Guid sessionUid)
-            : base(sessionUid.ReverseBits())
+            : base(GenerateApplicationUid(sessionUid))
         {
             _sessionUid = sessionUid;
         }
@@ -54,6 +54,7 @@ namespace Chronos.Client.Win
 
         protected override void RunInternal()
         {
+            System.Diagnostics.Debugger.Launch();
             base.RunInternal();
             RunFrameworks();
             RunProfilingTypes();
@@ -202,6 +203,11 @@ namespace Chronos.Client.Win
         public bool ShouldStayAlive()
         {
             return true;
+        }
+
+        internal static Guid GenerateApplicationUid(Guid sessionUid)
+        {
+            return sessionUid.ReverseBits();
         }
     }
 }

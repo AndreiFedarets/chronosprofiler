@@ -196,11 +196,19 @@ namespace Chronos.Daemon
 
         public void Close()
         {
-            IApplication application;
-            if (VerifyDaemonLaunched(false, out application))
+            try
             {
-                application.SessionStateChanged -= OnSessionStateChanged;
-                application.Close();
+                IApplication application;
+                if (VerifyDaemonLaunched(false, out application))
+                {
+                    application.SessionStateChanged -= OnSessionStateChanged;
+                    application.Close();
+                }
+            }
+            catch (RemoteApplicationUnavailableException) 
+            {
+                //From time to time it's crashing because Daemon is closed between we check it's alive and .Close()
+                //we can just hide this exception as it's not critical - we want Daemon to be close, no matter how it's closed
             }
         }
 
@@ -258,15 +266,19 @@ namespace Chronos.Daemon
                 {
                     try
                     {
-                        _application.Ping(string.Empty);
-                        application = _application;
-                        return true;
+                        const string request = "test";
+                        string response = _application.Ping(request);
+                        if (string.Equals(response, request, StringComparison.Ordinal))
+                        {
+                            application = _application;
+                            return true;
+                        }
                     }
                     catch (RemoteApplicationUnavailableException remotingException)
                     {
-                        _application = null;
                         LoggingProvider.Current.Log(TraceEventType.Information, remotingException);
                     }
+                    _application = null;
                 }
                 if (launchIfNotLaunched)
                 {

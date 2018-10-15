@@ -18,12 +18,19 @@
 
         public static class CoreProcessName
         {
+            public const string Client = "Chronos.Client.Win.Application";
+        }
+
+        public static class CoreExecutableName
+        {
             public const string Client = "Chronos.Client.Win.Application.exe";
         }
 
         public static class Message
         {
-            public const uint BuildProfilingViewMenu = 0x00000002;
+            public const uint BuildProfilingViewMenu = 0x00000003;
+            public const uint ViewModelActivated = 0x00000001;
+            public const uint ViewModelDeactivated = 0x00000002;
         }
     }
 }

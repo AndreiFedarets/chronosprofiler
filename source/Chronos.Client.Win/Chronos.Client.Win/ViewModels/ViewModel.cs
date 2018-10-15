@@ -9,7 +9,6 @@ namespace Chronos.Client.Win.ViewModels
         protected ViewModel()
         {
             InstanceId = Guid.NewGuid();
-            Deactivated += OnDeactivated;
             ContextMenu = new Menu.Menu();
         }
 
@@ -26,27 +25,27 @@ namespace Chronos.Client.Win.ViewModels
 
         public virtual void Dispose()
         {
-            Deactivated -= OnDeactivated;
             ContextMenu.TryDispose();
         }
 
-        protected virtual void BuildContextMenu()
+        protected override void OnDeactivate(bool close)
         {
-            
-        }
-
-        private void OnDeactivated(object sender, DeactivationEventArgs e)
-        {
-            if (e.WasClosed)
+            base.OnDeactivate(close);
+            if (close)
             {
                 Dispose();
             }
         }
+        
+        protected internal virtual void OnAttached()
+        {
+            ClientMessageBus.Current.SendMessage(this, Constants.Message.ViewModelActivated, null);
+        }
 
-        //protected internal virtual void OnAttached()
-        //{
-
-        //}
+        protected internal virtual void OnDeattached()
+        {
+            ClientMessageBus.Current.SendMessage(this, Constants.Message.ViewModelDeactivated, null);
+        }
 
         //public void Attach(ViewModel viewModel)
         //{
@@ -59,11 +58,6 @@ namespace Chronos.Client.Win.ViewModels
         //        throw new TempException();
         //    }
         //    Page.Add(viewModel);
-        //}
-
-        //protected internal virtual void OnDeattached()
-        //{
-
         //}
 
         //public void Deattach(Guid instanceId)

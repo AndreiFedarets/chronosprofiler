@@ -7,7 +7,7 @@ using System.Windows.Controls;
 namespace Chronos.Client.Win.Controls.Common.EventsTree
 {
     [TemplatePart(Name = ItemsControlPartName, Type = typeof(ItemsControl))]
-    public class EventsTreeView : Control
+    public class EventsTreeView : Control, IEventSearch
     {
         private const string ItemsControlPartName = "ItemsControl";
 
@@ -18,10 +18,12 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
         private static readonly DependencyPropertyKey SelectedItemPropertyKey;
         private static readonly DependencyPropertyKey HoveredEventPropertyKey;
         private static readonly DependencyPropertyKey SelectedEventPropertyKey;
+        private static readonly DependencyPropertyKey EventSearchPropertyKey;
         private static readonly DependencyProperty HoveredItemProperty;
         private static readonly DependencyProperty SelectedItemProperty;
         private static readonly DependencyProperty HoveredEventProperty;
         private static readonly DependencyProperty SelectedEventProperty;
+        private static readonly DependencyProperty EventSearchProperty;
 
         private readonly ObservableCollection<EventsTreeItem> _board;
         private ItemsControl _itemsControl;
@@ -48,6 +50,9 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             // SelectedEvent
             SelectedEventPropertyKey = DependencyProperty.RegisterReadOnly("SelectedEvent", typeof(IEvent), typeof(EventsTreeView), new PropertyMetadata());
             SelectedEventProperty = SelectedEventPropertyKey.DependencyProperty;
+            // EventSearch
+            EventSearchPropertyKey = DependencyProperty.RegisterReadOnly("EventSearch", typeof(IEventSearch), typeof(EventsTreeView), new PropertyMetadata());
+            EventSearchProperty = EventSearchPropertyKey.DependencyProperty;
         }
 
         public EventsTreeView()
@@ -85,6 +90,12 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             private set { SetValue(SelectedEventPropertyKey, value); }
         }
 
+        public IEventSearch EventSearch
+        {
+            get { return (IEventSearch)GetValue(EventSearchProperty); }
+            private set { SetValue(EventSearchPropertyKey, value); }
+        }
+
         public IEnumerable<IEventTree> Events
         {
             get { return (IEnumerable<IEventTree>)GetValue(EventsProperty); }
@@ -105,6 +116,7 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+            EventSearch = this;
             //------------------
             _itemsControl = GetTemplateChild(ItemsControlPartName) as ItemsControl;
             if (_itemsControl != null)
@@ -112,6 +124,11 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
                 _itemsControl.ItemsSource = _board;
             }
             InitializeChildren();
+        }
+
+        public void BeginSearch(IEventSearchAdapter searchAdapter)
+        {
+            
         }
 
         protected void InitializeChildren()

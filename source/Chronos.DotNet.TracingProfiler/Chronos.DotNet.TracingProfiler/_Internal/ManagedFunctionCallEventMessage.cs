@@ -5,7 +5,6 @@ namespace Chronos.DotNet.TracingProfiler
 {
     internal sealed class ManagedFunctionCallEventMessage : RemoteBaseObject, IManagedFunctionCallEventMessage 
     {
-        public const byte EventType = 0x0D;
         private readonly IFunctionCollection _functions;
 
         public ManagedFunctionCallEventMessage(IFunctionCollection functions)

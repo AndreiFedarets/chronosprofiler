@@ -10,10 +10,10 @@
             {
                 _adapter = new HostApplicationExtensionAdapter();
             }
-            else if (application is Daemon.IApplication)
-            {
-                _adapter = new DaemonApplicationExtensionAdapter();
-            }
+            //else if (application is Daemon.IApplication)
+            //{
+            //    _adapter = new DaemonApplicationExtensionAdapter();
+            //}
             else
 	        {
                 _adapter = new EmptyApplicationExtensionAdapter();

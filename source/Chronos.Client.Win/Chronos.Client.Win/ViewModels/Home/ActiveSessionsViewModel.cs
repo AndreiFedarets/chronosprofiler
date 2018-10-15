@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
+using Chronos.Client.Win.Commands;
 
 namespace Chronos.Client.Win.ViewModels.Home
 {
@@ -13,6 +15,7 @@ namespace Chronos.Client.Win.ViewModels.Home
         {
             _sessions = application.Sessions;
             _collection = new ObservableCollection<SessionInformation>();
+            OpenSessionCommand = new SyncCommand<SessionInformation>(OpenSession);
             lock (_collection)
             {
                 _sessions.SessionCreated += OnSessionCreated;
@@ -34,6 +37,8 @@ namespace Chronos.Client.Win.ViewModels.Home
             get { return "Active Sessions"; }
         }
 
+        public ICommand OpenSessionCommand { get; private set; }
+
         public IEnumerable<SessionInformation> ActiveSessions
         {
             get { return _collection; }
@@ -45,6 +50,12 @@ namespace Chronos.Client.Win.ViewModels.Home
             _sessions.SessionCreated -= OnSessionCreated;
             _sessions.SessionRemoved -= OnSessionRemoved;
             _sessions.SessionStateChanged -= OnSessionStateChanged;
+        }
+
+        private void OpenSession(SessionInformation sessionInformation)
+        {
+            //TODO: hide (move) this logic somewhere in MainApplication or SessionCollection
+            ApplicationManager.Profiling.RunOrActivateApplication(sessionInformation.Session.Uid);
         }
 
         private void OnSessionCreated(object sender, SessionEventArgs eventArgs)

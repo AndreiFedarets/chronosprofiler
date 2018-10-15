@@ -16,6 +16,7 @@ namespace Chronos.Client.Win.Application
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            SetupOutput();
             using (Process current = Process.GetCurrentProcess())
             {
                 try
@@ -37,6 +38,14 @@ namespace Chronos.Client.Win.Application
                 }
             }
             base.OnStartup(e);
+        }
+
+        private void SetupOutput()
+        {
+            PresentationTraceSources.Refresh();
+            PresentationTraceSources.DataBindingSource.Listeners.Add(new ConsoleTraceListener());
+            PresentationTraceSources.DataBindingSource.Listeners.Add(new DefaultTraceListener());
+            PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Warning | SourceLevels.Error;
         }
 
         protected override void OnExit(ExitEventArgs e)

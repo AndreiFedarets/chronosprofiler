@@ -88,22 +88,24 @@ namespace Chronos.Proxy
 
         public override void Dispose()
         {
-            lock (_registrations)
+            ExecuteDispose(() =>
             {
-                foreach (ServiceRegistration registration in _registrations.Values)
+                List<ServiceRegistration> collection;
+                lock (_registrations)
+                {
+                    collection = new List<ServiceRegistration>(_registrations.Values);
+                    _registrations.Clear();
+                }
+                foreach (ServiceRegistration registration in collection)
                 {
                     object service = registration.Service;
-                    if (object.Equals(service, this))
+                    if (Equals(service, this))
                     {
                         continue;
                     }
-                    else if (service is IDisposable)
-                    {
-                        ((IDisposable)service).Dispose();
-                    }
+                    service.TryDispose();
                 }
-                _registrations.Clear();
-            }
+            });
             base.Dispose();
         }
     }

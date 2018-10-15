@@ -56,9 +56,12 @@ namespace Chronos.Common.EventsTree.Proxy
 
         public override void Dispose()
         {
-            _collectionUpdatedSubscriber.Unsubscribe();
-            _collectionUpdatedEvent.Dispose();
-            _collection.CollectionChanged -= OnCollectionChanged;
+            ExecuteDispose(() =>
+            {
+                _collectionUpdatedSubscriber.Unsubscribe();
+                _collectionUpdatedEvent.Dispose();
+                _collection.CollectionChanged -= OnCollectionChanged;
+            });
             base.Dispose();
         }
 

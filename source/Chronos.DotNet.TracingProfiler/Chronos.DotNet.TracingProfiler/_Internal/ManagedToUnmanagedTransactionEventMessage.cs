@@ -4,8 +4,6 @@ namespace Chronos.DotNet.TracingProfiler
 {
     internal sealed class ManagedToUnmanagedTransactionEventMessage : RemoteBaseObject, IManagedToUnmanagedTransactionEventMessage
     {
-        public const byte EventType = 0x0E;
-
         public ManagedToUnmanagedTransactionEventMessage()
         {
         }
