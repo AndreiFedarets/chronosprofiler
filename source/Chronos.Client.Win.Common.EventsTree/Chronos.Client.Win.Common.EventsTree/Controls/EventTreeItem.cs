@@ -5,23 +5,24 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Collections;
 
 namespace Chronos.Client.Win.Controls.Common.EventsTree
 {
-    [TemplatePart(Name = HeaderPanelPartName, Type = typeof(Panel))]
+    //[TemplatePart(Name = HeaderPanelPartName, Type = typeof(Panel))]
+    //[TemplatePart(Name = ContentPanelPartName, Type = typeof(Panel))]
+    //[TemplatePart(Name = FooterPanelPartName, Type = typeof(Panel))]
     [TemplatePart(Name = ChildrenIndicatorBorderPartName, Type = typeof(Border))]
     [TemplatePart(Name = PercentsColorIndicatorBorderPartName, Type = typeof(Border))]
     [TemplatePart(Name = PercentTextBlockPartName, Type = typeof(TextBlock))]
-    [TemplatePart(Name = ContentPanelPartName, Type = typeof(Panel))]
     [TemplatePart(Name = NameTextBlockPartName, Type = typeof(TextBlock))]
-    [TemplatePart(Name = FooterPanelPartName, Type = typeof(Panel))]
     [TemplatePart(Name = TimeTextBlockPartName, Type = typeof(TextBlock))]
     [TemplatePart(Name = HitsTextBlockPartName, Type = typeof(TextBlock))]
-    public class EventsTreeItem : Control
+    public class EventsTreeItem : Control, IEnumerable<EventsTreeItem>
     {
-        private const string HeaderPanelPartName = "HeaderPanel";
-        private const string ContentPanelPartName = "ContentPanel";
-        private const string FooterPanelPartName = "FooterPanel";
+        //private const string HeaderPanelPartName = "HeaderPanel";
+        //private const string ContentPanelPartName = "ContentPanel";
+        //private const string FooterPanelPartName = "FooterPanel";
         private const string ChildrenIndicatorBorderPartName = "ChildrenIndicatorBorder";
         private const string PercentsColorIndicatorBorderPartName = "PercentsColorIndicatorBorder";
         private const string PercentTextBlockPartName = "PercentTextBlock";
@@ -44,9 +45,9 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
         private readonly int _level;
         private EventTreeSortType _eventsSortType;
         private List<EventsTreeItem> _children;
-        private Panel _headerPanel;
-        private Panel _contentPanel;
-        private Panel _footerPanel;
+        //private Panel _headerPanel;
+        //private Panel _contentPanel;
+        //private Panel _footerPanel;
 
         static EventsTreeItem()
         {
@@ -124,11 +125,25 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             get { return _children != null; }
         }
 
+        public void Select()
+        {
+            Expand();
+            IsSelected = true;
+        }
+
         public void Expand()
         {
+            if (IsExpanded)
+            {
+                return;
+            }
+            if (_parent != null)
+            {
+                _parent.Expand();   
+            }
             InitializeChildren();
             _treeView.InsertRange(BoardIndex + 1, _children);
-            IsExpanded = true;
+            IsExpanded = true;   
         }
 
         public void Collapse()
@@ -145,20 +160,24 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             IsExpanded = false;
         }
 
-        private void Sort()
+        public IEnumerator<EventsTreeItem> GetEnumerator()
         {
-            _treeView.RemoveRange(BoardIndex + 1, _children.Count);
-            EventTreeItemSorter.Sort(_children, _eventsSortType);
-            _treeView.InsertRange(BoardIndex + 1, _children);
+            InitializeChildren();
+            return _children.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             //------------------
-            _headerPanel = GetTemplateChild(HeaderPanelPartName) as Panel;
-            _contentPanel = GetTemplateChild(ContentPanelPartName) as Panel;
-            _footerPanel = GetTemplateChild(FooterPanelPartName) as Panel;
+            //_headerPanel = GetTemplateChild(HeaderPanelPartName) as Panel;
+            //_contentPanel = GetTemplateChild(ContentPanelPartName) as Panel;
+            //_footerPanel = GetTemplateChild(FooterPanelPartName) as Panel;
             double eventPercent = NativeEventHelper.GetEventPercent(_event);
             //------------------
             Border childrenIndicatorBorder = GetTemplateChild(ChildrenIndicatorBorderPartName) as Border;
@@ -198,6 +217,13 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
                 nameTextBlock.Text = _eventMessageBuilder.BuildMessage(_event);
             }
             SynchronizeLevelOffset(LevelOffset);
+        }
+
+        private void Sort()
+        {
+            _treeView.RemoveRange(BoardIndex + 1, _children.Count);
+            EventTreeItemSorter.Sort(_children, _eventsSortType);
+            _treeView.InsertRange(BoardIndex + 1, _children);
         }
 
         protected override void OnMouseEnter(MouseEventArgs e)
@@ -241,6 +267,7 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
                     _children.Add(item);
                 }
                 EventTreeItemSorter.Sort(_children, _eventsSortType);
+                //TODO: why do we have it here ???
                 DispatcherExtensions.DoEvents();
             }
         }

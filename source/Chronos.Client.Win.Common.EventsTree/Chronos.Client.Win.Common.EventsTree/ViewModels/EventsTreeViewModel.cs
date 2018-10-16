@@ -24,8 +24,6 @@ namespace Chronos.Client.Win.ViewModels.Common.EventsTree
             SelectedSortType = EventTreeSortType.Time;
         }
 
-        public IEventSearch EventSearch { get; set; }
-
         public IEnumerable<EventTreeMergeType> AvailableMergeTypes { get; private set; }
 
         public IEnumerable<EventTreeSortType> AvailableSortTypes { get; private set; }

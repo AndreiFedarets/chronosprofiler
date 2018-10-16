@@ -54,6 +54,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TOSORT\IEventSearch.cs" />
+    <Compile Include="TOSORT\IEventSearchAdapter.cs" />
+    <Compile Include="TOSORT\Class1.cs" />
     <Compile Include="_Internal\FunctionEventSearchAdapter.cs" />
   </ItemGroup>
   <ItemGroup>

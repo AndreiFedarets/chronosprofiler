@@ -82,8 +82,6 @@
     <Compile Include="Controls\EventTreeItemSorter.cs" />
     <Compile Include="Controls\EventTreeSortType.cs" />
     <Compile Include="Controls\ThreadTimeline.cs" />
-    <Compile Include="Controls\IEventSearch.cs" />
-    <Compile Include="Controls\IEventSearchAdapter.cs" />
     <Compile Include="Menu\TimelineMenuItem.cs" />
     <Compile Include="ProfilingTypeAdapter.cs" />
     <Compile Include="Controls\EventTreeItem.cs" />

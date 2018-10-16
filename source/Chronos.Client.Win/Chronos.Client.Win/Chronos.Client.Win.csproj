@@ -94,7 +94,9 @@
     </Compile>
     <Compile Include="ViewModels\Common\PrerequisitesValidationResultViewModel.cs" />
     <Compile Include="ViewModels\Home\SessionInformation.cs" />
-    <Compile Include="ViewModels\PlaceholderStaticContent.cs" />
+    <Compile Include="ViewModels\IContainerViewModel.cs" />
+    <Compile Include="ViewModels\IViewModel.cs" />
+    <Compile Include="ViewModels\_Placeholder\PlaceholderStaticContent.cs" />
     <Compile Include="ViewModels\Start\ProfilingTargetSettingsBaseViewModel.cs" />
     <Compile Include="Views\Common\PrerequisitesValidationResultView.xaml.cs">
       <DependentUpon>PrerequisitesValidationResultView.xaml</DependentUpon>
@@ -106,8 +108,8 @@
     <Compile Include="IProfilingTargetAdapter.cs" />
     <Compile Include="IProfilingTypeAdapter.cs" />
     <Compile Include="Models\IUnitsModel.cs" />
-    <Compile Include="ViewModels\PlaceholderContent.cs" />
-    <Compile Include="ViewModels\PlaceholderViewModel.cs" />
+    <Compile Include="ViewModels\_Placeholder\PlaceholderContent.cs" />
+    <Compile Include="ViewModels\_Placeholder\PlaceholderViewModel.cs" />
     <Compile Include="Views\GridView.cs" />
     <Compile Include="IHostApplicationSelector.cs" />
     <Compile Include="IMainApplication.cs" />
@@ -164,7 +166,6 @@
     </Compile>
     <Compile Include="Views\View.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelActivationMode.cs" />
     <Compile Include="ViewModels\PageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelEventArgs.cs" />
     <Compile Include="ViewModels\GridViewModel.cs" />

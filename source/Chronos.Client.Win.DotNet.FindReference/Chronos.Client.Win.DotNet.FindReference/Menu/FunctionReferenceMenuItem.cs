@@ -27,7 +27,7 @@ namespace Chronos.Client.Win.Menu.Common.FindReference
             FunctionInfo functionInfo = (FunctionInfo) _unitsViewModel.SelectedUnit;
             FunctionEventSearchAdapter adapter = new FunctionEventSearchAdapter(functionInfo);
             IEventsTreeViewModel viewModel = _eventsTreeViewModels.Open();
-            viewModel.EventSearch.BeginSearch(adapter);
+            //viewModel.EventSearch.BeginSearch(adapter);
         }
     }
 }

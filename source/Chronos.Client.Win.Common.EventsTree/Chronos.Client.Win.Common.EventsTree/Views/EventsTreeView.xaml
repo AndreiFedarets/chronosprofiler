@@ -3,8 +3,7 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:controls="clr-namespace:Chronos.Client.Win.Controls.Common.EventsTree"
             xmlns:views="clr-namespace:Chronos.Client.Win.Views;assembly=Chronos.Client.Win"
-            xmlns:theme="clr-namespace:Chronos.Client.Win.Themes;assembly=Chronos.Client.Win"
-            xmlns:coreControls="clr-namespace:Chronos.Client.Win.Controls;assembly=Chronos.Client.Win">
+            xmlns:theme="clr-namespace:Chronos.Client.Win.Themes;assembly=Chronos.Client.Win">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -26,6 +25,5 @@
         <Border Grid.Row="1" BorderBrush="{x:Static theme:FontsAndColors.DarkNeutralBrush}" BorderThickness="1">
             <controls:EventsTreeView x:Name="EventsTree" Events="{Binding Events}" EventMessageBuilder="{Binding EventMessageBuilder}" EventsSortType="{Binding SelectedSortType, Mode=OneWay}" />
         </Border>
-        <coreControls:BindingForward Source="{Binding Path=EventSearch, ElementName=EventsTree, Mode=OneWay}" Target="{Binding EventSearch, Mode=OneWayToSource}"/>
     </Grid>
 </views:View>

@@ -54,7 +54,6 @@ namespace Chronos.Client.Win
 
         protected override void RunInternal()
         {
-            System.Diagnostics.Debugger.Launch();
             base.RunInternal();
             RunFrameworks();
             RunProfilingTypes();
