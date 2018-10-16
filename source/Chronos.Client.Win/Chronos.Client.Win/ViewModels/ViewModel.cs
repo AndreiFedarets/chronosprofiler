@@ -4,48 +4,59 @@ using Chronos.Client.Win.Menu;
 
 namespace Chronos.Client.Win.ViewModels
 {
-    public abstract class ViewModel : Screen, IDisposable
+    public abstract class ViewModel : Screen, IViewModel, IDisposable
     {
+        private readonly ViewModelContext _context;
+
         protected ViewModel()
         {
-            InstanceId = Guid.NewGuid();
-            ContextMenu = new Menu.Menu();
+            _context = new ViewModelContext(this);
         }
 
         public virtual Guid TypeId
         {
-            get { return GetType().GUID; }
+            get { return _context.TypeId; }
         }
 
-        public IMenu ContextMenu { get; private set; }
+        //TODO: I don't like it here
+        public IMenu ContextMenu
+        {
+            get { return _context.ContextMenu; }
+        }
 
-        public virtual Guid InstanceId { get; private set; }
+        public virtual Guid InstanceId
+        {
+            get { return _context.InstanceId; }
+        }
 
-        public virtual PageViewModel Page { get; internal set; }
+        public new IContainerViewModel Parent
+        {
+            get { return base.Parent as IContainerViewModel; }
+        }
 
         public virtual void Dispose()
         {
-            ContextMenu.TryDispose();
+            _context.TryDispose();
         }
 
-        protected override void OnDeactivate(bool close)
-        {
-            base.OnDeactivate(close);
-            if (close)
-            {
-                Dispose();
-            }
-        }
+        //protected override void OnDeactivate(bool close)
+        //{
+        //    base.OnDeactivate(close);
+        //    if (close)
+        //    {
+        //        Dispose();
+        //    }
+        //}
         
-        protected internal virtual void OnAttached()
-        {
-            ClientMessageBus.Current.SendMessage(this, Constants.Message.ViewModelActivated, null);
-        }
+        //protected internal virtual void OnAttached()
+        //{
+        //    ClientMessageBus.Current.SendMessage(this, Constants.Message.ViewModelActivated, null);
+        //}
 
-        protected internal virtual void OnDeattached()
-        {
-            ClientMessageBus.Current.SendMessage(this, Constants.Message.ViewModelDeactivated, null);
-        }
+        //protected internal virtual void OnDeattached()
+        //{
+        //    ClientMessageBus.Current.SendMessage(this, Constants.Message.ViewModelDeactivated, null);
+        //}
 
         //public void Attach(ViewModel viewModel)
         //{

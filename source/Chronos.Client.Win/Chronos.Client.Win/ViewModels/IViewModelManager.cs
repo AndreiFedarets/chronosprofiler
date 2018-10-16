@@ -2,11 +2,11 @@
 {
     public interface IViewModelManager
     {
-        void ShowWindow(ViewModel viewModel);
+        void ShowWindow(IViewModel viewModel);
 
-        bool? ShowDialog(ViewModel viewModel);
+        bool? ShowDialog(IViewModel viewModel);
 
-        void ShowPopup(ViewModel viewModel);
+        void ShowPopup(IViewModel viewModel);
     }
 
     public static class ViewModelManagerExtensions

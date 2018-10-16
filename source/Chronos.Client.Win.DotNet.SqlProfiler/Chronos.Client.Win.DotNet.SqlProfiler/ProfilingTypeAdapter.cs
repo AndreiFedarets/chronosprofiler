@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Chronos.Client.Win.DotNet.SqlProfiler.Properties;
 using Chronos.Client.Win.Menu;
-using Chronos.Client.Win.ViewModels.Profiling;
+using Chronos.Client.Win.ViewModels;
 using Chronos.Messaging;
 
 namespace Chronos.Client.Win.DotNet.SqlProfiler
@@ -25,10 +25,10 @@ namespace Chronos.Client.Win.DotNet.SqlProfiler
         }
 
         [MessageHandler(Win.Constants.Message.BuildProfilingViewMenu)]
-        internal void BuildProfilingViewMenu(ProfilingViewModel viewModel, List<IMenu> menus)
+        internal void BuildProfilingViewMenu(IContainerViewModel viewModel, List<IMenu> menus)
         {
             ResolutionDependencies dependencies = new ResolutionDependencies();
-            dependencies.Register(viewModel);
+            dependencies.Register(_application);
             IMenu menu = MenuReader.ReadMenu(Resources.Menu, dependencies);
             menus.Add(menu);
         }

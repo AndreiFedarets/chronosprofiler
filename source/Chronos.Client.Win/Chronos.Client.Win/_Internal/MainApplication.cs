@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using Chronos.Client.Win.ViewModels;
 using Chronos.Client.Win.ViewModels.Home;
 
@@ -17,7 +16,7 @@ namespace Chronos.Client.Win
         {
         }
 
-        protected override PageViewModel BuildMainViewModel()
+        protected override IContainerViewModel BuildMainViewModel()
         {
             return new HomePageViewModel(this);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Chronos.Client.Win.Menu;
 
 namespace Chronos.Client.Win.ViewModels
 {
@@ -8,6 +9,10 @@ namespace Chronos.Client.Win.ViewModels
 
         Guid InstanceId { get; }
 
+        string DisplayName { get; }
+
         IContainerViewModel Parent { get; }
+
+        IMenu ContextMenu { get; }
     }
 }

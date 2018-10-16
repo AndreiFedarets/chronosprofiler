@@ -62,18 +62,12 @@ namespace Chronos.Client.Win.ViewModels.Start
             TryClose(true);
         }
 
-        protected override void BuildLayout()
+        protected override void OnInitialize()
         {
-            base.BuildLayout();
-            TryAdd(new HostApplicationSelectViewModel(HostApplicationSelector));
-            TryAdd(new PlaceholderViewModel(new ProfilingTargetContent(ProfilingTarget, this, HostApplicationSelector)));
-            TryAdd(new ProfilingTypesViewModel(Application, ConfigurationSettings));
-        }
-
-        public override void Dispose()
-        {
-            HostApplicationSelector.TryDispose();
-            base.Dispose();
+            base.OnInitialize();
+            ActivateItem(new HostApplicationSelectViewModel(HostApplicationSelector));
+            ActivateItem(new PlaceholderViewModel(new ProfilingTargetContent(ProfilingTarget, this, HostApplicationSelector)));
+            ActivateItem(new ProfilingTypesViewModel(Application, ConfigurationSettings));
         }
 
         void Contracts.Dialog.IContractConsumer.OnReadyChanged(bool ready)

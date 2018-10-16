@@ -39,7 +39,7 @@ namespace Chronos.Client.Win
             get { return Constants.ApplicationCodeName.WinClient; }
         }
 
-        public PageViewModel MainViewModel { get; private set; }
+        public IContainerViewModel MainViewModel { get; private set; }
 
         public IViewModelManager ViewModelManager { get; private set; }
 
@@ -59,6 +59,7 @@ namespace Chronos.Client.Win
             ConfigureContainer(_container);
             _bootstrapper.Initialize();
             AssemblyResolver.AssemblyLoaded += OnExtensionAssemblyLoaded;
+            MainViewModel = BuildMainViewModel();
         }
 
         protected override void OnEndInitialize()
@@ -67,11 +68,10 @@ namespace Chronos.Client.Win
             ShowMainWindow();
         }
 
-        protected abstract PageViewModel BuildMainViewModel();
+        protected abstract IContainerViewModel BuildMainViewModel();
 
         private void ShowMainWindow()
         {
-            MainViewModel = BuildMainViewModel();
             ViewModelManager.ShowWindow(MainViewModel);
         }
 
@@ -98,7 +98,7 @@ namespace Chronos.Client.Win
         public override void Dispose()
         {
             AssemblyResolver.AssemblyLoaded -= OnExtensionAssemblyLoaded;
-            MainViewModel.Dispose();
+            MainViewModel.TryDispose();
             Properties.Settings.Default.Save();
             base.Dispose();
         }

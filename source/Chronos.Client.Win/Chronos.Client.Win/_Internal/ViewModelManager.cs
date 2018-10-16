@@ -11,17 +11,17 @@ namespace Chronos.Client.Win.ViewModels
             _windowsManager = windowsManager;
         }
 
-        public void ShowWindow(ViewModel viewModel)
+        public void ShowWindow(IViewModel viewModel)
         {
             _windowsManager.ShowWindow(viewModel);
         }
 
-        public bool? ShowDialog(ViewModel viewModel)
+        public bool? ShowDialog(IViewModel viewModel)
         {
             return _windowsManager.ShowDialog(viewModel);
         }
 
-        public void ShowPopup(ViewModel viewModel)
+        public void ShowPopup(IViewModel viewModel)
         {
             _windowsManager.ShowPopup(viewModel);
         }

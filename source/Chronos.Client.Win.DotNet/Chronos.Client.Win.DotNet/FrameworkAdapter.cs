@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Chronos.Client.Win.DotNet.Properties;
 using Chronos.Client.Win.Menu;
+using Chronos.Client.Win.ViewModels;
 using Chronos.Client.Win.ViewModels.Profiling;
 using Chronos.Messaging;
 
@@ -20,7 +21,7 @@ namespace Chronos.Client.Win.DotNet
         }
 
         [MessageHandler(Win.Constants.Message.BuildProfilingViewMenu)]
-        internal void BuildProfilingViewMenu(ProfilingViewModel viewModel, List<IMenu> menus)
+        internal void BuildProfilingViewMenu(IContainerViewModel viewModel, List<IMenu> menus)
         {
             IMenu menu = MenuReader.ReadMenu(Resources.Menu);
             menus.Add(menu);

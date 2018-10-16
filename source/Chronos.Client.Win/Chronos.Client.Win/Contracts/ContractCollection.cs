@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Chronos.Client.Win.Contracts
 {
@@ -6,9 +7,10 @@ namespace Chronos.Client.Win.Contracts
     {
         private readonly List<IContract> _contracts;
 
-        public ContractCollection()
+        public ContractCollection(object contractOwner)
         {
             _contracts = new List<IContract>();
+            RegisterOwnerContracts(contractOwner);
         }
 
         public void RegisterContract(IContract contract)
@@ -30,6 +32,24 @@ namespace Chronos.Client.Win.Contracts
             {
                 contract.Unregister(item);
             }
+        }
+
+        public void RegisterOwnerContracts(object contractOwner)
+        {
+            if (contractOwner == null)
+            {
+                return;
+            }
+            Type contractOwnerType = contractOwner.GetType();
+            IEnumerable<EnableContractAttribute> attributes = EnableContractAttribute.GetContractAttributes(contractOwnerType);
+            foreach (EnableContractAttribute attribute in attributes)
+            {
+                Type contractType = attribute.ContractType;
+                object contractObject = Activator.CreateInstance(contractType);
+                IContract contract = (IContract)contractObject;
+                RegisterContract(contract);
+            }
+            RegisterItem(contractOwner);
         }
     }
 }

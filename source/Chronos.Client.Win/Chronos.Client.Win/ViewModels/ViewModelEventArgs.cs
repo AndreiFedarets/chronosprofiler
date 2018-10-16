@@ -4,11 +4,27 @@ namespace Chronos.Client.Win.ViewModels
 {
     public sealed class ViewModelEventArgs : EventArgs
     {
-        public ViewModelEventArgs(ViewModel viewModel)
+        public ViewModelEventArgs(IViewModel viewModel)
         {
             ViewModel = viewModel;
         }
 
-        public ViewModel ViewModel { get; private set; }
+        public IViewModel ViewModel { get; private set; }
+
+        internal static void RaiseEvent(EventHandler<ViewModelEventArgs> handler, object sender, ViewModelEventArgs eventArgs)
+        {
+            if (handler != null)
+            {
+                handler(sender, eventArgs);
+            }
+        }
+
+        internal static void RaiseEvent(EventHandler<ViewModelEventArgs> handler, object sender, IViewModel viewModel)
+        {
+            if (handler != null)
+            {
+                handler(sender, new ViewModelEventArgs(viewModel));
+            }
+        }
     }
 }

@@ -23,12 +23,12 @@ namespace Chronos.Client.Win.ViewModels.Home
             set { }
         }
 
-        protected override void BuildLayout()
+        protected override void OnInitialize()
         {
-            base.BuildLayout();
-            TryAdd(new ProfilingTargetsViewModel(_application));
-            TryAdd(new ActiveSessionsViewModel(_application));
-            TryAdd(new RecentSessionsViewModel(_application));
+            base.OnInitialize();
+            ActivateItem(new ProfilingTargetsViewModel(_application));
+            ActivateItem(new ActiveSessionsViewModel(_application));
+            ActivateItem(new RecentSessionsViewModel(_application));
         }
 
         private void OnApplicationStateChanged(object sender, ApplicationStateEventArgs e)

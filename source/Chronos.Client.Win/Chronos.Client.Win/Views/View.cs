@@ -16,6 +16,7 @@ namespace Chronos.Client.Win.Views
         public static readonly DependencyProperty ContentMinWidthProperty;
         public static readonly DependencyProperty ContentWidthProperty;
         public static readonly DependencyProperty ContentMaxWidthProperty;
+        private IViewBehaviorExtension _behaviorExtension;
 
         static View()
         {
@@ -39,11 +40,12 @@ namespace Chronos.Client.Win.Views
             HorizontalContentAlignment = HorizontalAlignment.Stretch;
             VerticalAlignment = VerticalAlignment.Stretch;
             VerticalContentAlignment = VerticalAlignment.Stretch;
+            DataContextChanged += OnDataContextChanged;
         }
 
-        public ViewModel ViewModel
+        public IViewModel ViewModel
         {
-            get { return (ViewModel)DataContext; }
+            get { return (IViewModel)DataContext; }
         }
 
         public bool DisplayPanel
@@ -100,9 +102,39 @@ namespace Chronos.Client.Win.Views
             set { SetValue(ContentMaxWidthProperty, value); }
         }
 
-        protected override Size MeasureOverride(Size constraint)
+        private void UpdateBehaviorExtension()
         {
-            return base.MeasureOverride(constraint);
+            if (_behaviorExtension != null)
+            {
+                _behaviorExtension.Dispose();
+            }
+            if (DataContext is TabViewModel)
+            {
+                _behaviorExtension = new TabViewBehaviorExtension(this, (TabViewModel)DataContext);
+            }
+            else if (DataContext is GridViewModel)
+            {
+                _behaviorExtension = new GridViewBehaviorExtension(this, (GridViewModel)DataContext);
+            }
+            else if (DataContext is PlaceholderViewModel)
+            {
+                _behaviorExtension = new PlaceholderViewBehaviorExtension(this, (PlaceholderViewModel) DataContext);
+            }
+            else if (DataContext is ViewModel)
+            {
+                _behaviorExtension = new ContentViewBehaviorExtension(this, (ViewModel)DataContext);
+            }
+            else
+            {
+                throw new NotSupportedException("This type of DataContext is not supported");
+            }
+            _behaviorExtension.Initialize();
+        }
+
+        private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            View view = (View) sender;
+            view.UpdateBehaviorExtension();
         }
     }
 }

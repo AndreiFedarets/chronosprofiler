@@ -1,10 +1,6 @@
 ﻿namespace Chronos.Client.Win.Views
 {
-    public class TabItemView : PlaceholderView
+    public class TabItemView : View
     {
-        public TabItemView()
-        {
-            DisplayPanel = false;
-        }
     }
 }

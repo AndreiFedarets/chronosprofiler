@@ -7,12 +7,13 @@ namespace Chronos.Client.Win.ViewModels.Profiling
     public class ProfilingViewModel : TabViewModel
     {
         private bool _isEnabled;
+        private readonly IProfilingApplication _application;
 
         public ProfilingViewModel(IProfilingApplication application)
         {
-            Application = application;
-            Application.ApplicationStateChanged += OnApplicationStateChanged;
-            Application.SessionStateChanged += OnSessionStateChanged;
+            _application = application;
+            _application.ApplicationStateChanged += OnApplicationStateChanged;
+            _application.SessionStateChanged += OnSessionStateChanged;
             _isEnabled = true;
         }
 
@@ -28,16 +29,14 @@ namespace Chronos.Client.Win.ViewModels.Profiling
 
         public bool IsProfilingActive
         {
-            get { return Application.SessionState == SessionState.Profiling; }
+            get { return _application.SessionState == SessionState.Profiling; }
         }
-
-        public IProfilingApplication Application { get; private set; }
 
         public IMenu Menu { get; private set; }
 
         public double StartupTime
         {
-            get { return Math.Round(Application.StartupTime.TotalSeconds, 3); }
+            get { return Math.Round(_application.StartupTime.TotalSeconds, 3); }
         }
 
         public override string DisplayName
@@ -49,19 +48,13 @@ namespace Chronos.Client.Win.ViewModels.Profiling
         public void ReloadSnapshot()
         {
             IsEnabled = false;
-            Task.Factory.StartNew(() => Application.FlushData()).ContinueWith(t => IsEnabled = true);
+            Task.Factory.StartNew(() => _application.FlushData()).ContinueWith(t => IsEnabled = true);
         }
 
-        public override void Dispose()
+        protected override void OnInitialize()
         {
-            Menu.TryDispose();
-            base.Dispose();
-        }
-
-        protected override void BuildLayout()
-        {
+            base.OnInitialize();
             BuildMenu();
-            base.BuildLayout();
         }
 
         private void OnApplicationStateChanged(object sender, ApplicationStateEventArgs e)

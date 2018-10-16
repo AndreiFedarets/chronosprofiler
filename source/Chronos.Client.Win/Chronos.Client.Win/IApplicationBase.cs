@@ -5,7 +5,7 @@ namespace Chronos.Client.Win
 {
     public interface IApplicationBase : IChronosApplication
     {
-        PageViewModel MainViewModel { get; }
+        IContainerViewModel MainViewModel { get; }
 
         IFrameworkCollection Frameworks { get; }
 

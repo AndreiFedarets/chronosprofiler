@@ -1,25 +1,24 @@
 ﻿using System;
 using Chronos.Client.Win.ViewModels;
-using Chronos.Client.Win.ViewModels.Profiling;
 
 namespace Chronos.Client.Win.Menu.Specialized
 {
     public abstract class ProfilingMenuItemBase : MenuItem
     {
-        protected readonly ProfilingViewModel ProfilingViewModel;
-        private readonly Lazy<ViewModel> _viewModel;
+        protected IProfilingApplication Application;
+        private readonly Lazy<IViewModel> _viewModel;
 
-        protected ProfilingMenuItemBase(ProfilingViewModel profilingViewModel)
+        protected ProfilingMenuItemBase(IProfilingApplication application)
         {
-            ProfilingViewModel = profilingViewModel;
-            _viewModel = new Lazy<ViewModel>(GetViewModel);
+            Application = application;
+            _viewModel = new Lazy<IViewModel>(GetViewModel);
         }
 
-        protected abstract ViewModel GetViewModel();
+        protected abstract IViewModel GetViewModel();
 
         public override void OnAction()
         {
-            ProfilingViewModel.Activate(_viewModel.Value);
+            Application.MainViewModel.ActivateItem(_viewModel.Value);
         }
     }
 }

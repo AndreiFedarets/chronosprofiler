@@ -1,13 +1,13 @@
 ﻿using Chronos.Client.Win.Common.EventsTree.Properties;
 using Chronos.Client.Win.Menu.Specialized;
-using Chronos.Client.Win.ViewModels.Profiling;
+using Chronos.Client.Win.ViewModels;
 
 namespace Chronos.Client.Win.Menu.Common.EventsTree
 {
     internal class PerformanceMenuItem : ProfilingMenuItemBase
     {
-        public PerformanceMenuItem(ProfilingViewModel profilingViewModel)
-            : base(profilingViewModel)
+        public PerformanceMenuItem(IProfilingApplication application)
+            : base(application)
         {
         }
 
@@ -16,7 +16,7 @@ namespace Chronos.Client.Win.Menu.Common.EventsTree
             get { return Resources.PerformanceMenuItem_Text; }
         }
 
-        protected override ViewModels.ViewModel GetViewModel()
+        protected override IViewModel GetViewModel()
         {
             throw new System.NotImplementedException();
         }

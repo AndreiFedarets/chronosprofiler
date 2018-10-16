@@ -30,7 +30,7 @@ namespace Chronos.Client.Win.Views
                     ListViewItem listViewItem = (ListViewItem)UnitsListView.ItemContainerGenerator.ContainerFromItem(item);
                     if (listViewItem != null)
                     {
-                        listViewItem.ContextMenu = new Controls.ContextMenu { Source = ViewModel.ContextMenu };   
+                        //listViewItem.ContextMenu = new Controls.ContextMenu { Source = ViewModel.ContextMenu };   
                     }
                 }
             }

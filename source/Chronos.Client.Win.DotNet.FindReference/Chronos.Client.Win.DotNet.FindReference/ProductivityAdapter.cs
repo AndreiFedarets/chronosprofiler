@@ -32,22 +32,12 @@ namespace Chronos.Client.Win.DotNet.FindReference
                 return;
             }
             _application.MessageBus.Subscribe(this);
+            _application.MainViewModel.ViewModelAttached += OnViewModelAttached;
         }
 
-        void IServiceConsumer.ExportServices(IServiceContainer container)
+        private void OnViewModelAttached(object sender, ViewModelEventArgs e)
         {
-
-        }
-
-        void IServiceConsumer.ImportServices(IServiceContainer container)
-        {
-            _eventsTreeViewModels = container.Resolve<IEventsTreeViewModelCollection>();
-        }
-
-        [MessageHandler(Win.Constants.Message.ViewModelActivated)]
-        internal void OnViewModelCreated(ViewModel viewModel, object parameter)
-        {
-            UnitsViewModel unitsViewModel = viewModel as UnitsViewModel;
+            UnitsViewModel unitsViewModel = e.ViewModel as UnitsViewModel;
             if (unitsViewModel == null)
             {
                 return;
@@ -68,6 +58,16 @@ namespace Chronos.Client.Win.DotNet.FindReference
             {
                 unitsViewModel.ContextMenu.Add(new FunctionReferenceMenuItem(unitsViewModel, _eventsTreeViewModels));
             }
+        }
+
+        void IServiceConsumer.ExportServices(IServiceContainer container)
+        {
+
+        }
+
+        void IServiceConsumer.ImportServices(IServiceContainer container)
+        {
+            _eventsTreeViewModels = container.Resolve<IEventsTreeViewModelCollection>();
         }
     }
 }

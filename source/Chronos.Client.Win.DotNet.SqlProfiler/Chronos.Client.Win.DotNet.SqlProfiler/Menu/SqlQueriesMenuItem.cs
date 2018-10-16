@@ -2,15 +2,14 @@
 using Chronos.Client.Win.Menu.Specialized;
 using Chronos.Client.Win.Models;
 using Chronos.Client.Win.Models.DotNet.SqlProfiler;
-using Chronos.Client.Win.ViewModels.Profiling;
 using Chronos.DotNet.SqlProfiler;
 
 namespace Chronos.Client.Win.Menu.DotNet.SqlProfiler
 {
     internal sealed class SqlQueriesMenuItem : UnitsMenuItemBase
     {
-        public SqlQueriesMenuItem(ProfilingViewModel profilingViewModel)
-            : base(profilingViewModel)
+        public SqlQueriesMenuItem(IProfilingApplication application)
+            : base(application)
         {
         }
 
@@ -22,7 +21,7 @@ namespace Chronos.Client.Win.Menu.DotNet.SqlProfiler
 
         protected override IUnitsModel GetModel()
         {
-            ISqlQueryCollection collection = ProfilingViewModel.Application.ServiceContainer.Resolve<ISqlQueryCollection>();
+            ISqlQueryCollection collection = Application.ServiceContainer.Resolve<ISqlQueryCollection>();
             SqlQueriesModel model = new SqlQueriesModel(collection);
             return model;
         }

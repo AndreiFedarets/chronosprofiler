@@ -41,7 +41,7 @@ namespace Chronos.Client.Win
 
         public event EventHandler<SessionStateEventArgs> SessionStateChanged;
 
-        protected override PageViewModel BuildMainViewModel()
+        protected override IContainerViewModel BuildMainViewModel()
         {
             return new ProfilingViewModel(this);
         }

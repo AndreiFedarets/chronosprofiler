@@ -5,11 +5,11 @@ namespace Chronos.Client.Win.Menu.Common.EventsTree
 {
     internal sealed class EventsTreeMenuItem : MenuItem
     {
-        private readonly IEventsTreeViewModelCollection _eventsTreeViewModels;
+        private readonly IProfilingApplication _application;
 
-        public EventsTreeMenuItem(IEventsTreeViewModelCollection eventsTreeViewModels)
+        public EventsTreeMenuItem(IProfilingApplication application)
         {
-            _eventsTreeViewModels = eventsTreeViewModels;
+            _application = application;
         }
 
         public override string Text
@@ -19,7 +19,8 @@ namespace Chronos.Client.Win.Menu.Common.EventsTree
 
         public override void OnAction()
         {
-            _eventsTreeViewModels.Open();
+            IEventsTreeViewModelCollection viewModels = _application.ServiceContainer.Resolve<IEventsTreeViewModelCollection>();
+            viewModels.Open();
         }
     }
 }

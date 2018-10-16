@@ -96,21 +96,21 @@
     <Compile Include="ViewModels\Home\SessionInformation.cs" />
     <Compile Include="ViewModels\IContainerViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
-    <Compile Include="ViewModels\_Placeholder\PlaceholderStaticContent.cs" />
+    <Compile Include="ViewModels\ViewModelContext.cs" />
     <Compile Include="ViewModels\Start\ProfilingTargetSettingsBaseViewModel.cs" />
     <Compile Include="Views\Common\PrerequisitesValidationResultView.xaml.cs">
       <DependentUpon>PrerequisitesValidationResultView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TabItemView.cs" />
-    <Compile Include="Views\TabView.cs" />
+    <Compile Include="Views\ContentViewBehaviorExtension.cs" />
+    <Compile Include="Views\GridViewBehaviorExtension.cs" />
+    <Compile Include="Views\IViewBehaviorExtension.cs" />
     <Compile Include="IContainer.cs" />
     <Compile Include="IFrameworkAdapter.cs" />
     <Compile Include="IProfilingTargetAdapter.cs" />
     <Compile Include="IProfilingTypeAdapter.cs" />
     <Compile Include="Models\IUnitsModel.cs" />
-    <Compile Include="ViewModels\_Placeholder\PlaceholderContent.cs" />
-    <Compile Include="ViewModels\_Placeholder\PlaceholderViewModel.cs" />
-    <Compile Include="Views\GridView.cs" />
+    <Compile Include="ViewModels\PlaceholderContent.cs" />
+    <Compile Include="ViewModels\PlaceholderViewModel.cs" />
     <Compile Include="IHostApplicationSelector.cs" />
     <Compile Include="IMainApplication.cs" />
     <Compile Include="IProfilingApplication.cs" />
@@ -141,7 +141,6 @@
     <Compile Include="Menu\_Internal\ICompositeControlCollection.cs" />
     <Compile Include="Menu\_Internal\MenuBuilder.cs" />
     <Compile Include="Menu\_Internal\MenuReaderInternal.cs" />
-    <Compile Include="Views\PageView.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="ResolutionDependencies.cs" />
     <Compile Include="ApplicationManager.cs" />
@@ -161,12 +160,17 @@
     <Compile Include="Commands\SyncNonParameterizedCommand.cs" />
     <Compile Include="Commands\SyncParameterizedCommand.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
+    <Compile Include="Views\TabItemView.cs" />
+    <Compile Include="Views\PlaceholderView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\PlaceholderViewBehaviorExtension.cs" />
+    <Compile Include="Views\TabViewBehaviorExtension.cs" />
     <Compile Include="Views\UnitsView.xaml.cs">
       <DependentUpon>UnitsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\View.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
-    <Compile Include="ViewModels\PageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelEventArgs.cs" />
     <Compile Include="ViewModels\GridViewModel.cs" />
     <Compile Include="ViewModels\Common\OpenFileViewModel.cs" />
@@ -198,7 +202,6 @@
     <Compile Include="Views\Home\RecentSessionsView.xaml.cs">
       <DependentUpon>RecentSessionsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlaceholderView.cs" />
     <Compile Include="Views\Profiling\ProfilingView.xaml.cs">
       <DependentUpon>ProfilingView.xaml</DependentUpon>
     </Compile>

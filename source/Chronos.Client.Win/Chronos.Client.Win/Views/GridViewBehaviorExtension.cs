@@ -1,100 +1,112 @@
-﻿using Chronos.Client.Win.ViewModels;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using Chronos.Client.Win.ViewModels;
 
 namespace Chronos.Client.Win.Views
 {
-    public class GridView : PageView
+    public sealed class GridViewBehaviorExtension : IViewBehaviorExtension
     {
-        public new GridViewModel ViewModel
+        private readonly View _view;
+        private readonly GridViewModel _viewModel;
+
+        public GridViewBehaviorExtension(View view, GridViewModel viewModel)
         {
-            get { return (GridViewModel)DataContext; }
+            _view = view;
+            _viewModel = viewModel;
         }
 
-        protected override void OnViewModelChanged(ViewModel oldValue, ViewModel newValue)
+        public void Initialize()
         {
-            ViewModel.CollectionChanged += OnViewModelCollectionChanged;
-            ApplyLayout();
+            BuildLayout();
+            _viewModel.Items.CollectionChanged += OnViewModelCollectionChanged;
         }
 
-        private void ApplyLayout()
+        public void Dispose()
         {
+            _viewModel.Items.CollectionChanged -= OnViewModelCollectionChanged;
             ClearLayout();
-            GridViewLayout layout = new GridViewLayout(ViewModel);
+        }
+
+        private void ClearLayout()
+        {
+            ContentControl contentControl = ViewsManager.FindViewContent(_view);
+            if (contentControl.Content == null)
+            {
+                return;
+            }
+            Grid control = (Grid)contentControl.Content;
+            contentControl.Content = null;
+            control.Children.Clear();
+        }
+
+        private void BuildLayout()
+        {
+            GridViewLayout layout = new GridViewLayout(_viewModel);
             layout.BuildGrid();
-            System.Windows.Controls.Grid grid = new System.Windows.Controls.Grid();
-            grid.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-            grid.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
+            Grid grid = new Grid();
+            grid.HorizontalAlignment = HorizontalAlignment.Stretch;
+            grid.VerticalAlignment = VerticalAlignment.Stretch;
             if (layout.Rows > 1)
             {
                 for (int row = 0; row < layout.Rows; row++)
                 {
-                    System.Windows.Controls.RowDefinition rowDefinition = new System.Windows.Controls.RowDefinition();
+                    RowDefinition rowDefinition = new RowDefinition();
                     bool isFixedHeight = layout.GetIsFixedHeight(row);
                     if (isFixedHeight)
                     {
-                        rowDefinition.Height = System.Windows.GridLength.Auto;
+                        rowDefinition.Height = GridLength.Auto;
                     }
                     else
                     {
-                        rowDefinition.Height = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star);
+                        rowDefinition.Height = new GridLength(1, GridUnitType.Star);
                     }
                     grid.RowDefinitions.Add(rowDefinition);
-                } 
+                }
             }
             if (layout.Columns > 1)
             {
                 for (int column = 0; column < layout.Columns; column++)
                 {
-                    System.Windows.Controls.ColumnDefinition columnDefinition = new System.Windows.Controls.ColumnDefinition();
+                    ColumnDefinition columnDefinition = new ColumnDefinition();
                     bool isFixedHeight = layout.GetIsFixedWidth(column);
                     if (isFixedHeight)
                     {
-                        columnDefinition.Width = System.Windows.GridLength.Auto;
+                        columnDefinition.Width = GridLength.Auto;
                     }
                     else
                     {
-                        columnDefinition.Width = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star);
+                        columnDefinition.Width = new GridLength(1, GridUnitType.Star);
                     }
                     grid.ColumnDefinitions.Add(columnDefinition);
-                } 
+                }
             }
             foreach (GridViewLayoutItem item in layout)
             {
                 grid.Children.Add(item.View);
             }
-            System.Windows.Controls.ContentControl contentControl = ViewsManager.FindViewContent(this);
+            ContentControl contentControl = ViewsManager.FindViewContent(_view);
             contentControl.Content = grid;
-        }
-
-        private void ClearLayout()
-        {
-            System.Windows.Controls.ContentControl contentControl = ViewsManager.FindViewContent(this);
-            if (contentControl.Content == null)
-            {
-                return;
-            }
-            System.Windows.Controls.Grid grid = (System.Windows.Controls.Grid) contentControl.Content;
-            contentControl.Content = null;
-            grid.Children.Clear();
         }
 
         private void OnViewModelCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            ApplyLayout();
+            ClearLayout();
+            BuildLayout();
         }
 
         private sealed class GridViewLayout : IEnumerable<GridViewLayoutItem>
         {
             private readonly Dictionary<Guid, GridViewLayoutItem> _items;
             private List<GridViewLayoutItem> _processedItems;
-            private List<GridViewLayoutItem> _residualItems;
+            private List<GridViewLayoutItem> _remainingItems;
             private GridViewLayoutItem _firstLayoutItem;
 
-            public GridViewLayout(IEnumerable<ViewModel> viewModels)
+            public GridViewLayout(IEnumerable<IViewModel> viewModels)
             {
                 IEnumerable<GridViewLayoutItem> cells = viewModels.Select(x => new GridViewLayoutItem(x));
                 _items = cells.ToDictionary(x => x.TypeId, x => x);
@@ -160,8 +172,8 @@ namespace Chronos.Client.Win.Views
                 }
                 _firstLayoutItem = null;
                 _processedItems = new List<GridViewLayoutItem>();
-                _residualItems = new List<GridViewLayoutItem>(_items.Values);
-                List<GridViewLayoutItem> rootItems = TakeResidualItems(x => x.IsRoot);
+                _remainingItems = new List<GridViewLayoutItem>(_items.Values);
+                List<GridViewLayoutItem> rootItems = TakeRemainingItems(x => x.IsRoot);
                 foreach (GridViewLayoutItem item in rootItems)
                 {
                     InsertItem(item);
@@ -181,7 +193,7 @@ namespace Chronos.Client.Win.Views
                     InsertUsualItem(insertingItem);
                 }
                 _processedItems.Add(insertingItem);
-                List<GridViewLayoutItem> items = TakeResidualItems(x => insertingItem.TypeId == x.AttachTo);
+                List<GridViewLayoutItem> items = TakeRemainingItems(x => insertingItem.TypeId == x.AttachTo);
                 foreach (GridViewLayoutItem item in items)
                 {
                     InsertItem(item);
@@ -334,12 +346,12 @@ namespace Chronos.Client.Win.Views
                 return null;
             }
 
-            private List<GridViewLayoutItem> TakeResidualItems(Func<GridViewLayoutItem, bool> filter)
+            private List<GridViewLayoutItem> TakeRemainingItems(Func<GridViewLayoutItem, bool> filter)
             {
-                List<GridViewLayoutItem> targetItems = _residualItems.Where(filter).ToList();
+                List<GridViewLayoutItem> targetItems = _remainingItems.Where(filter).ToList();
                 foreach (GridViewLayoutItem targetItem in targetItems)
                 {
-                    _residualItems.Remove(targetItem);
+                    _remainingItems.Remove(targetItem);
                 }
                 return targetItems;
             }
@@ -430,16 +442,15 @@ namespace Chronos.Client.Win.Views
 
         private sealed class GridViewLayoutItem
         {
+            private readonly IViewModel _viewModel;
             private View _view;
 
-            public GridViewLayoutItem(ViewModel viewModel)
+            public GridViewLayoutItem(IViewModel viewModel)
             {
-                ViewModel = viewModel;
+                _viewModel = viewModel;
                 RowSpan = 1;
                 ColumnSpan = 1;
             }
-
-            public ViewModel ViewModel { get; private set; }
 
             public View View
             {
@@ -447,7 +458,7 @@ namespace Chronos.Client.Win.Views
                 {
                     if (_view == null)
                     {
-                        _view = ViewsManager.LocateViewForModel(ViewModel);
+                        _view = ViewsManager.LocateViewForModel(_viewModel);
                     }
                     return _view;
                 }
@@ -465,7 +476,7 @@ namespace Chronos.Client.Win.Views
 
             public Guid TypeId
             {
-                get { return ViewModel.TypeId; }
+                get { return _viewModel.TypeId; }
             }
 
             public bool IsRoot
@@ -475,8 +486,8 @@ namespace Chronos.Client.Win.Views
 
             public int Row
             {
-                get { return (int)View.GetValue(System.Windows.Controls.Grid.RowProperty); }
-                set { View.SetValue(System.Windows.Controls.Grid.RowProperty, value); }
+                get { return (int)View.GetValue(Grid.RowProperty); }
+                set { View.SetValue(Grid.RowProperty, value); }
             }
 
             public int RowEnd
@@ -486,14 +497,14 @@ namespace Chronos.Client.Win.Views
 
             public int RowSpan
             {
-                get { return (int)View.GetValue(System.Windows.Controls.Grid.RowSpanProperty); }
-                set { View.SetValue(System.Windows.Controls.Grid.RowSpanProperty, value); }
+                get { return (int)View.GetValue(Grid.RowSpanProperty); }
+                set { View.SetValue(Grid.RowSpanProperty, value); }
             }
 
             public int Column
             {
-                get { return (int)View.GetValue(System.Windows.Controls.Grid.ColumnProperty); }
-                set { View.SetValue(System.Windows.Controls.Grid.ColumnProperty, value); }
+                get { return (int)View.GetValue(Grid.ColumnProperty); }
+                set { View.SetValue(Grid.ColumnProperty, value); }
             }
 
             public int ColumnEnd
@@ -503,13 +514,13 @@ namespace Chronos.Client.Win.Views
 
             public int ColumnSpan
             {
-                get { return (int)View.GetValue(System.Windows.Controls.Grid.ColumnSpanProperty); }
-                set { View.SetValue(System.Windows.Controls.Grid.ColumnSpanProperty, value); }
+                get { return (int)View.GetValue(Grid.ColumnSpanProperty); }
+                set { View.SetValue(Grid.ColumnSpanProperty, value); }
             }
 
             public bool IsFixedHeight
             {
-                get { return !View.Height.IsNaNOrZero() || !View.MinHeight.IsNaNOrZero() || !View.ContentHeight.IsNaNOrZero()  || !View.ContentMinHeight.IsNaNOrZero(); }
+                get { return !View.Height.IsNaNOrZero() || !View.MinHeight.IsNaNOrZero() || !View.ContentHeight.IsNaNOrZero() || !View.ContentMinHeight.IsNaNOrZero(); }
             }
 
             public bool IsFixedWidth

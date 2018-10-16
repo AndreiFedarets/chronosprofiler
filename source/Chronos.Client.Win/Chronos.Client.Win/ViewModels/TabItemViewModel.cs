@@ -3,23 +3,37 @@ using Chronos.Client.Win.Commands;
 
 namespace Chronos.Client.Win.ViewModels
 {
-    public class TabItemViewModel : PlaceholderViewModel
+    public class TabItemViewModel : GridViewModel
     {
-        private readonly TabViewModel _ownerViewModel;
 
-        public TabItemViewModel(ViewModel viewModel, TabViewModel ownerViewModel)
-            : base(new PlaceholderStaticContent(viewModel))
+        public TabItemViewModel(IViewModel viewModel)
         {
-            _ownerViewModel = ownerViewModel;
+            MainViewModel = viewModel;
             CloseCommand = new SyncCommand(Close);
+        }
+
+        public IViewModel MainViewModel { get; private set; }
+
+        public override string DisplayName
+        {
+            get { return MainViewModel.DisplayName; }
         }
 
         public ICommand CloseCommand { get; private set; }
 
+        public void ActivateMainViewModel()
+        {
+            ActivateItem(MainViewModel);
+        }
+
+        public void DeactivateMainViewModel()
+        {
+            DeactivateItem(MainViewModel, true);
+        }
+
         public void Close()
         {
-            _ownerViewModel.Remove(UnderlyingViewModel);
-            Dispose();
+            Parent.DeactivateItem(MainViewModel, true);
         }
     }
 }

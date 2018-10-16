@@ -8,7 +8,7 @@ namespace Chronos.Client.Win.ViewModels
         private EventHandler<ContractProxyObjectChangedEventArgs> _underlyingObjectChanged;
         private readonly PlaceholderContent _content;
         private ViewModel _underlyingViewModel;
-        private PageViewModel _page;
+        //private PageViewModel _page;
 
         public PlaceholderViewModel(PlaceholderContent content)
         {
@@ -82,19 +82,19 @@ namespace Chronos.Client.Win.ViewModels
             }
         }
 
-        public override PageViewModel Page
-        {
-            get { return _page; }
-            internal set 
-            {
-                _page = value;
-                ViewModel viewModel = UnderlyingViewModel;
-                if (viewModel != null)
-                {
-                    viewModel.Page = value; 
-                }
-            }
-        }
+        //public override PageViewModel Page
+        //{
+        //    get { return _page; }
+        //    internal set 
+        //    {
+        //        _page = value;
+        //        ViewModel viewModel = UnderlyingViewModel;
+        //        if (viewModel != null)
+        //        {
+        //            viewModel.Page = value; 
+        //        }
+        //    }
+        //}
 
         public event EventHandler UnderlyingViewModelChanged;
 

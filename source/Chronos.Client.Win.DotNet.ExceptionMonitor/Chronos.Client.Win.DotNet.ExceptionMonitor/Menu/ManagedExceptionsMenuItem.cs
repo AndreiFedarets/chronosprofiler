@@ -2,15 +2,14 @@
 using Chronos.Client.Win.Menu.Specialized;
 using Chronos.Client.Win.Models;
 using Chronos.Client.Win.Models.DotNet.ExceptionMonitor;
-using Chronos.Client.Win.ViewModels.Profiling;
 using Chronos.DotNet.ExceptionMonitor;
 
 namespace Chronos.Client.Win.Menu.DotNet.ExceptionMonitor
 {
     internal sealed class ManagedExceptionsMenuItem : UnitsMenuItemBase
     {
-        public ManagedExceptionsMenuItem(ProfilingViewModel profilingViewModel)
-            : base(profilingViewModel)
+        public ManagedExceptionsMenuItem(IProfilingApplication application)
+            : base(application)
         {
         }
 
@@ -22,7 +21,7 @@ namespace Chronos.Client.Win.Menu.DotNet.ExceptionMonitor
 
         protected override IUnitsModel GetModel()
         {
-            IManagedExceptionCollection collection = ProfilingViewModel.Application.ServiceContainer.Resolve<IManagedExceptionCollection>();
+            IManagedExceptionCollection collection = Application.ServiceContainer.Resolve<IManagedExceptionCollection>();
             ManagedExceptionsModel model = new ManagedExceptionsModel(collection);
             return model;
         }
