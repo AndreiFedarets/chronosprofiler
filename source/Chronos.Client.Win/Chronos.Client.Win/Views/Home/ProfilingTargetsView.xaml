@@ -1,15 +1,14 @@
-﻿<views:View x:Class="Chronos.Client.Win.Views.Home.ProfilingTargetsView"
+﻿<adenium:View x:Class="Chronos.Client.Win.Views.Home.ProfilingTargetsView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:caliburn="http://www.caliburnproject.org"
-            xmlns:converters ="clr-namespace:Chronos.Client.Win.Converters"
-            xmlns:controls="clr-namespace:Chronos.Client.Win.Controls"
+            xmlns:adenium="clr-namespace:Adenium;assembly=Adenium"
             xmlns:core="clr-namespace:Chronos.Client;assembly=Chronos"
-            xmlns:views="clr-namespace:Chronos.Client.Win.Views"
+            xmlns:controls="clr-namespace:Adenium.Controls;assembly=Adenium"
             MinHeight="200" DisplayPanel="True">
-    <views:View.Resources>
-        <converters:UriToBitmapSourceConverter x:Key="UriToBitmapSourceConverter" />
-    </views:View.Resources>
+    <adenium:View.Resources>
+        <adenium:UriToBitmapSourceConverter x:Key="UriToBitmapSourceConverter" />
+    </adenium:View.Resources>
     <Grid>
         <ItemsControl x:Name="ProfilingTargets" ItemsSource="{Binding ProfilingTargets}">
             <ItemsControl.ItemTemplate>
@@ -26,4 +25,4 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
     </Grid>
-</views:View>
+</adenium:View>

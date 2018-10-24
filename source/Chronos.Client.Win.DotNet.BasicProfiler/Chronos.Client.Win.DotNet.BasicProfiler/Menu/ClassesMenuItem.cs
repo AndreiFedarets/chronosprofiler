@@ -19,7 +19,7 @@ namespace Chronos.Client.Win.Menu.DotNet.BasicProfiler
             protected set { }
         }
 
-        protected override IUnitsModel GetModel()
+        protected override IUnitsListModel GetModel()
         {
             IClassCollection collection = Application.ServiceContainer.Resolve<IClassCollection>();
             ClassesModel model = new ClassesModel(collection);

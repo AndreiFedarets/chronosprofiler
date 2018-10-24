@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Common
 {

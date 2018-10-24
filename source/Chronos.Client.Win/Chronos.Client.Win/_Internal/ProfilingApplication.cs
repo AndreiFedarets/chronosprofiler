@@ -3,6 +3,7 @@ using Chronos.Client.Win.ViewModels.Profiling;
 using Chronos.Extensibility;
 using System;
 using System.Collections.Generic;
+using Adenium;
 
 namespace Chronos.Client.Win
 {
@@ -12,11 +13,11 @@ namespace Chronos.Client.Win
         private ConfigurationSettings _configurationSettings;
         private readonly Guid _sessionUid;
 
-        public ProfilingApplication(Guid sessionUid)
-            : base(GenerateApplicationUid(sessionUid))
-        {
-            _sessionUid = sessionUid;
-        }
+        //public ProfilingApplication(Guid sessionUid)
+        //    : base(GenerateApplicationUid(sessionUid))
+        //{
+        //    _sessionUid = sessionUid;
+        //}
 
         public ProfilingApplication(Guid sessionUid, bool processOwner)
             : base(sessionUid.ReverseBits(), processOwner)

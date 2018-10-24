@@ -12,7 +12,7 @@ namespace Chronos.Client.Win.ViewModels
         {
             _viewModel = viewModel;
             InstanceId = Guid.NewGuid();
-            ContextMenu = new Menu.Menu();
+            Menus = new MenuCollection();
             Contracts = new ContractCollection(viewModel);
         }
 
@@ -25,12 +25,11 @@ namespace Chronos.Client.Win.ViewModels
 
         public ContractCollection Contracts { get; private set; }
 
-        //TODO: I don't like it to be here
-        public IMenu ContextMenu { get; private set; }
+        public IMenuCollection Menus { get; private set; }
 
         void IDisposable.Dispose()
         {
-            ContextMenu.TryDispose();
+            Menus.TryDispose();
         }
     }
 }

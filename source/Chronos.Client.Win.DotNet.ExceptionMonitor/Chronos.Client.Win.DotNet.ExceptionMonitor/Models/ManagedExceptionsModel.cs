@@ -3,10 +3,11 @@ using Chronos.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Adenium;
 
 namespace Chronos.Client.Win.Models.DotNet.ExceptionMonitor
 {
-    public sealed class ManagedExceptionsModel : IUnitsModel
+    public sealed class ManagedExceptionsModel : IUnitsListModel
     {
         public ManagedExceptionsModel(IManagedExceptionCollection units)
         {

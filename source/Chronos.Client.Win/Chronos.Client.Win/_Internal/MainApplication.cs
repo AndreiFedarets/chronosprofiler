@@ -1,5 +1,5 @@
 ﻿using System;
-using Chronos.Client.Win.ViewModels;
+using Adenium;
 using Chronos.Client.Win.ViewModels.Home;
 
 namespace Chronos.Client.Win

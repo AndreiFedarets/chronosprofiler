@@ -19,7 +19,7 @@ namespace Chronos.Client.Win.Menu.DotNet.ExceptionMonitor
             protected set { }
         }
 
-        protected override IUnitsModel GetModel()
+        protected override IUnitsListModel GetModel()
         {
             IManagedExceptionCollection collection = Application.ServiceContainer.Resolve<IManagedExceptionCollection>();
             ManagedExceptionsModel model = new ManagedExceptionsModel(collection);

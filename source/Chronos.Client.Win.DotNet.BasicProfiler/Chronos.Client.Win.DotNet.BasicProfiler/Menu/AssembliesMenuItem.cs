@@ -19,7 +19,7 @@ namespace Chronos.Client.Win.Menu.DotNet.BasicProfiler
             protected set { }
         }
 
-        protected override IUnitsModel GetModel()
+        protected override IUnitsListModel GetModel()
         {
             IAssemblyCollection collection = Application.ServiceContainer.Resolve<IAssemblyCollection>();
             AssembliesModel model = new AssembliesModel(collection);

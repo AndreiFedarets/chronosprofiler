@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Chronos.Client.Win.Menu;
+using Adenium;
+using Adenium.Menu;
 
 namespace Chronos.Client.Win.ViewModels.Profiling
 {

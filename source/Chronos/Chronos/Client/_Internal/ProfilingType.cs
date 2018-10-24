@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using Chronos.Extensibility;
 
 namespace Chronos.Client
 {
-    internal sealed class ProfilingType : PropertyChangedBase, IProfilingType, IProfilingTypeAdapter, IWrapper
+    internal sealed class ProfilingType : RemoteBaseObject, IProfilingType, IProfilingTypeAdapter, IWrapper
     {
         private const string TechnicalAttributeName = "Technical";
         private IProfilingTypeAdapter _adapter;
@@ -28,7 +27,6 @@ namespace Chronos.Client
             _frameworks = frameworks;
             _hostApplications = hostApplications;
             _supportedHostApplications = new ObservableCollection<Host.IApplication>();
-            _supportedHostApplications.CollectionChanged += OnSupportedHostApplicationsCollectionChanged;
             _hostApplications.ApplicationConnected += OnHostApplicationConnected;
             _hostApplications.ApplicationDisconnected += OnHostApplicationDisconnected;
         }
@@ -107,18 +105,8 @@ namespace Chronos.Client
                 VerifyDisposed();
                 _hostApplications.ApplicationConnected -= OnHostApplicationConnected;
                 _hostApplications.ApplicationDisconnected -= OnHostApplicationDisconnected;
-                _supportedHostApplications.CollectionChanged -= OnSupportedHostApplicationsCollectionChanged;
                 _adapter.TryDispose();
                 base.Dispose();
-            }
-        }
-
-        private void OnSupportedHostApplicationsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            lock (Lock)
-            {
-                VerifyDisposed();
-                NotifyOfPropertyChange(() => IsAvailable);
             }
         }
 

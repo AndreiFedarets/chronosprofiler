@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using Chronos.Extensibility;
 
 namespace Chronos.Client
 {
-    internal sealed class Framework : PropertyChangedBase, IFramework, IFrameworkAdapter, IWrapper
+    internal sealed class Framework : RemoteBaseObject, IFramework, IFrameworkAdapter, IWrapper
     {
         private IFrameworkAdapter _adapter;
         private readonly string _applicationCode;
@@ -27,7 +26,6 @@ namespace Chronos.Client
             _profilingTypes = profilingTypes;
             _hostApplications = hostApplications;
             _supportedHostApplications = InitializeSupportedApplications(hostApplications);
-            _supportedHostApplications.CollectionChanged += OnSupportedHostApplicationsCollectionChanged;
             _hostApplications.ApplicationConnected += OnHostApplicationConnected;
             _hostApplications.ApplicationDisconnected += OnHostApplicationDisconnected;
         }
@@ -108,33 +106,9 @@ namespace Chronos.Client
                 VerifyDisposed();
                 _hostApplications.ApplicationConnected -= OnHostApplicationConnected;
                 _hostApplications.ApplicationDisconnected -= OnHostApplicationDisconnected;
-                _supportedHostApplications.CollectionChanged -= OnSupportedHostApplicationsCollectionChanged;
                 //Do not use Adapter because it may cause initialization (but it's not needed here)
                 _adapter.TryDispose();
                 base.Dispose();
-            }
-        }
-
-        //object IFrameworkAdapter.CreateSettingsPresentation(FrameworkSettings frameworkSettings)
-        //{
-        //    lock (Lock)
-        //    {
-        //        VerifyDisposed();
-        //        return Adapter.CreateSettingsPresentation(frameworkSettings);
-        //    }
-        //}
-
-        //public object CreateSettingsPresentation(FrameworkSettings frameworkSettings)
-        //{
-        //    return ((IFrameworkAdapter)this).CreateSettingsPresentation(frameworkSettings);
-        //}
-
-        private void OnSupportedHostApplicationsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            lock (Lock)
-            {
-                VerifyDisposed();
-                NotifyOfPropertyChange(() => IsAvailable);
             }
         }
 

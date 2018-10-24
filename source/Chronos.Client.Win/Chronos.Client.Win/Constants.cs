@@ -32,5 +32,12 @@
             public const uint ViewModelActivated = 0x00000001;
             public const uint ViewModelDeactivated = 0x00000002;
         }
+
+        public static class Menus
+        {
+            public const string MainMenu = "Menu.Main";
+            public const string ContextMenu = "Menu.Context";
+            public const string ItemContextMenu = "Menu.Context.Item";
+        }
     }
 }

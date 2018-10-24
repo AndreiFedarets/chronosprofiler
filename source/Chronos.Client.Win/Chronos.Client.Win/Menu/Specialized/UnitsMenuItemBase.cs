@@ -1,4 +1,5 @@
-﻿using Chronos.Client.Win.Models;
+﻿using Adenium;
+using Chronos.Client.Win.Models;
 using Chronos.Client.Win.ViewModels;
 
 namespace Chronos.Client.Win.Menu.Specialized
@@ -10,12 +11,12 @@ namespace Chronos.Client.Win.Menu.Specialized
         {
         }
         
-        protected abstract IUnitsModel GetModel();
+        protected abstract IUnitsListModel GetModel();
 
         protected sealed override IViewModel GetViewModel()
         {
-            IUnitsModel model = GetModel();
-            return new UnitsViewModel(model);
+            IUnitsListModel model = GetModel();
+            return new UnitsListViewModel(model);
         }
     }
 }

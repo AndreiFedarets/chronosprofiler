@@ -23,7 +23,7 @@
                     BorderBrush="{TemplateBinding Border.BorderBrush}"
                     Background="{TemplateBinding Panel.Background}"
                     SnapsToDevicePixels="True">
-                        <ScrollViewer Padding="{TemplateBinding Control.Padding}" Focusable="False">
+                        <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Control.Padding}" Focusable="False">
                             <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
                         </ScrollViewer>
                     </Border>
@@ -38,7 +38,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:EventsTreeView}">
                     <!--<ScrollViewer x:Name="ScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">-->
-                    <ItemsControl x:Name="ItemsControl" VirtualizingStackPanel.IsVirtualizing="True" Style="{StaticResource ItemsControlVirtialisedStyle}" />
+                    <ItemsControl x:Name="ItemsControl" Style="{StaticResource ItemsControlVirtialisedStyle}" />
                     <!--</ScrollViewer>-->
                 </ControlTemplate>
             </Setter.Value>
@@ -46,7 +46,7 @@
     </Style>
     
 <!-- EventsTreeItem ================================================================================================================= -->
-    <Style x:Key="{x:Type controls:EventsTreeItem}" TargetType="{x:Type controls:EventsTreeItem}">
+    <Style x:Key="{x:Type controls:EventTreeItem}" TargetType="{x:Type controls:EventTreeItem}">
         <Setter Property="FontSize" Value="13" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -54,7 +54,7 @@
         <Setter Property="LevelOffset" Value="10"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type controls:EventsTreeItem}">
+                <ControlTemplate TargetType="{x:Type controls:EventTreeItem}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />

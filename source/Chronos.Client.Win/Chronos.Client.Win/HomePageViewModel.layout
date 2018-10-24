@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Layout>
+  <ViewModel Type="Chronos.Client.Win.ViewModels.Home.ProfilingTargetsViewModel, Chronos.Client.Win" Mode="Single" Activation="OnStartup" />
+  <ViewModel Type="Chronos.Client.Win.ViewModels.Home.ActiveSessionsViewModel, Chronos.Client.Win" Mode="Single" Activation="OnStartup" />
+  <ViewModel Type="Chronos.Client.Win.ViewModels.Home.RecentSessionsViewModel, Chronos.Client.Win" Mode="Single" Activation="OnStartup" />
+</Layout>

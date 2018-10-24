@@ -1,8 +1,10 @@
 ﻿
+using Adenium;
+
 namespace Chronos.Client.Win.ViewModels.Start
 {
-    [Contracts.EnableContract(typeof(Contracts.Dialog.Contract))]
-    public class StartPageViewModel : GridViewModel, Contracts.Dialog.IContractConsumer
+    [EnableContract(typeof(DialogContract))]
+    public class StartPageViewModel : GridViewModel, IDialogContractConsumer
     {
         private bool _startProfilingImmediately;
         private bool _isReady;
@@ -70,7 +72,7 @@ namespace Chronos.Client.Win.ViewModels.Start
             ActivateItem(new ProfilingTypesViewModel(Application, ConfigurationSettings));
         }
 
-        void Contracts.Dialog.IContractConsumer.OnReadyChanged(bool ready)
+        void IDialogContractConsumer.OnReadyChanged(bool ready)
         {
             CanCreateConfiguration = ready;
         }

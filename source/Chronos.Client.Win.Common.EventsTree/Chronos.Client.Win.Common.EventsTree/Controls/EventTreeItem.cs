@@ -1,4 +1,5 @@
-﻿using Chronos.Client.Win.Converters;
+﻿using System;
+using Chronos.Client.Win.Converters;
 using Chronos.Common.EventsTree;
 using System.Collections.Generic;
 using System.Windows;
@@ -6,6 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Collections;
+using System.Collections.ObjectModel;
+using Adenium;
 
 namespace Chronos.Client.Win.Controls.Common.EventsTree
 {
@@ -18,7 +21,7 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
     [TemplatePart(Name = NameTextBlockPartName, Type = typeof(TextBlock))]
     [TemplatePart(Name = TimeTextBlockPartName, Type = typeof(TextBlock))]
     [TemplatePart(Name = HitsTextBlockPartName, Type = typeof(TextBlock))]
-    public class EventsTreeItem : Control, IEnumerable<EventsTreeItem>
+    public class EventTreeItem : Control
     {
         //private const string HeaderPanelPartName = "HeaderPanel";
         //private const string ContentPanelPartName = "ContentPanel";
@@ -39,37 +42,40 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
         public static readonly DependencyProperty IsSelectedProperty;
 
         private readonly IEventMessageBuilder _eventMessageBuilder;
-        private readonly EventsTreeItem _parent;
         private readonly EventsTreeView _treeView;
         private readonly IEvent _event;
         private readonly int _level;
         private EventTreeSortType _eventsSortType;
-        private List<EventsTreeItem> _children;
+        private EventTreeItemCollection _children;
+        private Lazy<string> _eventText;
         //private Panel _headerPanel;
         //private Panel _contentPanel;
         //private Panel _footerPanel;
 
-        static EventsTreeItem()
+        static EventTreeItem()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(EventsTreeItem), new FrameworkPropertyMetadata(typeof(EventsTreeItem)));
-            LevelOffsetProperty = DependencyProperty.Register("LevelOffset", typeof(int), typeof(EventsTreeItem), new PropertyMetadata(OnLevelOffsetPropertyChanged));
-            IsExpandedPropertyKey = DependencyProperty.RegisterReadOnly("IsExpanded", typeof(bool), typeof(EventsTreeItem), new PropertyMetadata());
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(EventTreeItem), new FrameworkPropertyMetadata(typeof(EventTreeItem)));
+            LevelOffsetProperty = DependencyProperty.Register("LevelOffset", typeof(int), typeof(EventTreeItem), new PropertyMetadata(OnLevelOffsetPropertyChanged));
+            IsExpandedPropertyKey = DependencyProperty.RegisterReadOnly("IsExpanded", typeof(bool), typeof(EventTreeItem), new PropertyMetadata());
             IsExpandedProperty = IsExpandedPropertyKey.DependencyProperty;
-            IsHoveredPropertyKey = DependencyProperty.RegisterReadOnly("IsHovered", typeof(bool), typeof(EventsTreeItem), new PropertyMetadata(OnIsHoveredPropertyChanged));
+            IsHoveredPropertyKey = DependencyProperty.RegisterReadOnly("IsHovered", typeof(bool), typeof(EventTreeItem), new PropertyMetadata(OnIsHoveredPropertyChanged));
             IsHoveredProperty = IsHoveredPropertyKey.DependencyProperty;
-            IsSelectedPropertyKey = DependencyProperty.RegisterReadOnly("IsSelected", typeof(bool), typeof(EventsTreeItem), new PropertyMetadata(OnIsSelectedPropertyChanged));
+            IsSelectedPropertyKey = DependencyProperty.RegisterReadOnly("IsSelected", typeof(bool), typeof(EventTreeItem), new PropertyMetadata(OnIsSelectedPropertyChanged));
             IsSelectedProperty = IsSelectedPropertyKey.DependencyProperty;
         }
 
-        public EventsTreeItem(IEvent @event, IEventMessageBuilder eventMessageBuilder, EventsTreeItem parent, EventsTreeView treeView, int level, EventTreeSortType sortType)
+        public EventTreeItem(IEvent @event, IEventMessageBuilder eventMessageBuilder, EventTreeItem parent, EventsTreeView treeView, int level, EventTreeSortType sortType)
         {
             _event = @event;
             _eventMessageBuilder = eventMessageBuilder;
-            _parent = parent;
+            ParentItem = parent;
             _treeView = treeView;
             _level = level;
             _eventsSortType = sortType;
+            _eventText = new Lazy<string>(GetEventText);
         }
+
+        public EventTreeItem ParentItem { get; private set; }
 
         public bool IsRootItem
         {
@@ -115,6 +121,20 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             get { return _event; }
         }
 
+        public ReadOnlyCollection<EventTreeItem> Children
+        {
+            get
+            {
+                InitializeChildren();
+                return _children;
+            }
+        }
+
+        public string EventText
+        {
+            get { return _eventText.Value; }
+        }
+
         private int BoardIndex
         {
             get { return _treeView.IndexOf(this); }
@@ -125,10 +145,17 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             get { return _children != null; }
         }
 
-        public void Select()
+        public void Select(bool scroll)
         {
-            Expand();
+            if (ParentItem != null)
+            {
+                ParentItem.Expand();
+            }
             IsSelected = true;
+            if (scroll)
+            {
+                _treeView.ScrollTo(this);
+            }
         }
 
         public void Expand()
@@ -137,9 +164,9 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             {
                 return;
             }
-            if (_parent != null)
+            if (ParentItem != null)
             {
-                _parent.Expand();   
+                ParentItem.Expand();   
             }
             InitializeChildren();
             _treeView.InsertRange(BoardIndex + 1, _children);
@@ -152,23 +179,12 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             {
                 return;
             }
-            foreach (EventsTreeItem item in _children)
+            foreach (EventTreeItem item in _children)
             {
                 item.Collapse();
             }
             _treeView.RemoveRange(BoardIndex + 1, _children.Count);
             IsExpanded = false;
-        }
-
-        public IEnumerator<EventsTreeItem> GetEnumerator()
-        {
-            InitializeChildren();
-            return _children.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
 
         public override void OnApplyTemplate()
@@ -214,15 +230,20 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             TextBlock nameTextBlock = GetTemplateChild(NameTextBlockPartName) as TextBlock;
             if (nameTextBlock != null)
             {
-                nameTextBlock.Text = _eventMessageBuilder.BuildMessage(_event);
+                nameTextBlock.Text = EventText;
             }
             SynchronizeLevelOffset(LevelOffset);
+        }
+
+        private string GetEventText()
+        {
+            return _eventMessageBuilder.BuildMessage(_event);
         }
 
         private void Sort()
         {
             _treeView.RemoveRange(BoardIndex + 1, _children.Count);
-            EventTreeItemSorter.Sort(_children, _eventsSortType);
+            _children.Sort(_eventsSortType);
             _treeView.InsertRange(BoardIndex + 1, _children);
         }
 
@@ -258,17 +279,22 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             {
                 return;
             }
-            _children = new List<EventsTreeItem>();
+            List<EventTreeItem> children = new List<EventTreeItem>();
             if (_event.HasChildren)
             {
                 foreach (IEvent @event in _event.Children)
                 {
-                    EventsTreeItem item = new EventsTreeItem(@event, _eventMessageBuilder, this, _treeView, _level + 1, EventsSortType);
-                    _children.Add(item);
+                    EventTreeItem item = new EventTreeItem(@event, _eventMessageBuilder, this, _treeView, _level + 1, EventsSortType);
+                    children.Add(item);
                 }
-                EventTreeItemSorter.Sort(_children, _eventsSortType);
+                _children = new EventTreeItemCollection(children);
+                _children.Sort(_eventsSortType);
                 //TODO: why do we have it here ???
                 DispatcherExtensions.DoEvents();
+            }
+            else
+            {
+                _children = new EventTreeItemCollection();
             }
         }
 
@@ -313,7 +339,7 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
         
         private static void OnLevelOffsetPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            EventsTreeItem item = (EventsTreeItem)sender;
+            EventTreeItem item = (EventTreeItem)sender;
             int oldValue = (int) e.OldValue;
             int newValue = (int) e.NewValue;
             if (oldValue != newValue)
@@ -324,13 +350,13 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
 
         private static void OnIsHoveredPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            EventsTreeItem item = (EventsTreeItem)sender;
+            EventTreeItem item = (EventTreeItem)sender;
             item.SynchronizeIsHovered((bool)e.OldValue, (bool)e.NewValue);
         }
 
         private static void OnIsSelectedPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            EventsTreeItem item = (EventsTreeItem)sender;
+            EventTreeItem item = (EventTreeItem)sender;
             item.SynchronizeIsSelected((bool)e.OldValue, (bool)e.NewValue);
         }
     }

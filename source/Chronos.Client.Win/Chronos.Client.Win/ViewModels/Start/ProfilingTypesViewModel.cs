@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
-    public class ProfilingTypesViewModel : ViewModel, Contracts.Dialog.IContractSource
+    public class ProfilingTypesViewModel : ViewModel, IDialogContractSource
     {
         private readonly List<FrameworkViewModel> _frameworks;
         private object _selectedItem;

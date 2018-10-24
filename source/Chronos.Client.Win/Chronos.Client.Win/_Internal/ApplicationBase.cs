@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Reflection;
+using Adenium;
 using Caliburn.Micro;
-using Chronos.Client.Win.ViewModels;
 using Chronos.Messaging;
 using Chronos.Settings;
 using Chronos.Win32;
@@ -26,7 +26,6 @@ namespace Chronos.Client.Win
             _uid = uid;
             _container = new Container();
             _bootstrapper = new Bootstrapper(_container);
-            DispatcherHolder.Initialize(new WindowsDispatcher());
         }
 
         public override Guid Uid
@@ -98,7 +97,7 @@ namespace Chronos.Client.Win
         public override void Dispose()
         {
             AssemblyResolver.AssemblyLoaded -= OnExtensionAssemblyLoaded;
-            MainViewModel.TryDispose();
+            MainViewModel.Dispose();
             Properties.Settings.Default.Save();
             base.Dispose();
         }

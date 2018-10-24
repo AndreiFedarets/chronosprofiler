@@ -137,8 +137,7 @@ namespace Chronos.Proxy.Model
 
         public void OnUnitServerCollectionUpdated(object sender, UnitCollectionEventArgs<T> e)
         {
-            Action action = () => UpdateUnits(e.Units);
-            DispatcherHolder.BeginInvoke(action);
+            UpdateUnits(e.Units);
         }
 
         private void UpdateUnits(IEnumerable<T> units)

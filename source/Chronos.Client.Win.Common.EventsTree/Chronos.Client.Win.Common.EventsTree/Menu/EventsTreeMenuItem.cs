@@ -1,4 +1,5 @@
-﻿using Chronos.Client.Win.Common.EventsTree.Properties;
+﻿using Adenium.Menu;
+using Chronos.Client.Win.Common.EventsTree.Properties;
 using Chronos.Client.Win.ViewModels.Common.EventsTree;
 
 namespace Chronos.Client.Win.Menu.Common.EventsTree

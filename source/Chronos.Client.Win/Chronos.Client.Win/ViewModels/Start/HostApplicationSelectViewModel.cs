@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
-    public sealed class HostApplicationSelectViewModel : ViewModel, Contracts.Dialog.IContractSource
+    public sealed class HostApplicationSelectViewModel : ViewModel, IDialogContractSource
     {
         private readonly IHostApplicationSelector _hostApplicationSelector;
 

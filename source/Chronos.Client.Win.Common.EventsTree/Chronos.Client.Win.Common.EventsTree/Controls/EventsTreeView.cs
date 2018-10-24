@@ -1,16 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Chronos.Common.EventsTree;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using Adenium;
 
 namespace Chronos.Client.Win.Controls.Common.EventsTree
 {
     [TemplatePart(Name = ItemsControlPartName, Type = typeof(ItemsControl))]
-    public class EventsTreeView : Control, IEnumerable<EventsTreeItem>
+    [TemplatePart(Name = ScrollViewerPartName, Type = typeof(ScrollViewer))]
+    public class EventsTreeView : Control, IEnumerable<EventTreeItem>
     {
         private const string ItemsControlPartName = "ItemsControl";
+        private const string ScrollViewerPartName = "ScrollViewer";
 
         private static readonly DependencyProperty EventsProperty;
         private static readonly DependencyProperty EventsSortTypeProperty;
@@ -24,9 +29,9 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
         private static readonly DependencyProperty HoveredEventProperty;
         private static readonly DependencyProperty SelectedEventProperty;
 
-        private readonly ObservableCollection<EventsTreeItem> _board;
+        private readonly ObservableCollection<EventTreeItem> _board;
         private ItemsControl _itemsControl;
-        private List<EventsTreeItem> _children;
+        private EventTreeItemCollection _children;
 
         static EventsTreeView()
         {
@@ -38,10 +43,10 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             // EventMessageBuilder
             EventMessageBuilderProperty = DependencyProperty.Register("EventMessageBuilder", typeof(IEventMessageBuilder), typeof(EventsTreeView), new PropertyMetadata(OnEventFormatterPropertyChanged));
             // HoveredItem
-            HoveredItemPropertyKey = DependencyProperty.RegisterReadOnly("HoveredItem", typeof(EventsTreeItem), typeof(EventsTreeView), new PropertyMetadata(OnHoveredItemPropertyChanged));
+            HoveredItemPropertyKey = DependencyProperty.RegisterReadOnly("HoveredItem", typeof(EventTreeItem), typeof(EventsTreeView), new PropertyMetadata(OnHoveredItemPropertyChanged));
             HoveredItemProperty = HoveredItemPropertyKey.DependencyProperty;
             // SelectedItem
-            SelectedItemPropertyKey = DependencyProperty.RegisterReadOnly("SelectedItem", typeof(EventsTreeItem), typeof(EventsTreeView), new PropertyMetadata(OnSelectedItemPropertyChanged));
+            SelectedItemPropertyKey = DependencyProperty.RegisterReadOnly("SelectedItem", typeof(EventTreeItem), typeof(EventsTreeView), new PropertyMetadata(OnSelectedItemPropertyChanged));
             SelectedItemProperty = SelectedItemPropertyKey.DependencyProperty;
             // HoveredEvent
             HoveredEventPropertyKey = DependencyProperty.RegisterReadOnly("HoveredEvent", typeof(IEvent), typeof(EventsTreeView), new PropertyMetadata());
@@ -53,7 +58,7 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
 
         public EventsTreeView()
         {
-            _board = new ObservableCollection<EventsTreeItem>();
+            _board = new ObservableCollection<EventTreeItem>();
         }
 
         public EventTreeSortType EventsSortType
@@ -62,15 +67,15 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             set { SetValue(EventsSortTypeProperty, value); }
         }
 
-        public EventsTreeItem HoveredItem
+        public EventTreeItem HoveredItem
         {
-            get { return (EventsTreeItem)GetValue(HoveredItemProperty); }
+            get { return (EventTreeItem)GetValue(HoveredItemProperty); }
             internal set { SetValue(HoveredItemPropertyKey, value); }
         }
 
-        public EventsTreeItem SelectedItem
+        public EventTreeItem SelectedItem
         {
-            get { return (EventsTreeItem)GetValue(SelectedItemProperty); }
+            get { return (EventTreeItem)GetValue(SelectedItemProperty); }
             internal set { SetValue(SelectedItemPropertyKey, value); }
         }
 
@@ -98,6 +103,17 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             set { SetValue(EventMessageBuilderProperty, value); }
         }
 
+        public event EventHandler ChildrenUpdated;
+
+        public ReadOnlyCollection<EventTreeItem> Children
+        {
+            get
+            {
+                InitializeChildren();
+                return _children;
+            }
+        }
+
         private bool AreChildrenInitialized
         {
             get { return _children != null; }
@@ -115,10 +131,9 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             InitializeChildren();
         }
 
-        public IEnumerator<EventsTreeItem> GetEnumerator()
+        public IEnumerator<EventTreeItem> GetEnumerator()
         {
-            InitializeChildren();
-            return _children.GetEnumerator();
+            return new EventsTreeViewEnumerator(this);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -136,26 +151,44 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             {
                 return;
             }
-            _children = new List<EventsTreeItem>();
+            List<EventTreeItem> children = new List<EventTreeItem>();
             _board.Clear();
             foreach (IEventTree @event in Events)
             {
-                EventsTreeItem item = new EventsTreeItem(@event, EventMessageBuilder, null, this, 0, EventsSortType);
-                _children.Add(item);
+                EventTreeItem item = new EventTreeItem(@event, EventMessageBuilder, null, this, 0, EventsSortType);
+                children.Add(item);
             }
-            EventTreeItemSorter.Sort(_children, EventsSortType);
-            foreach (EventsTreeItem item in _children)
+            _children = new EventTreeItemCollection(children);
+            _children.Sort(EventsSortType);
+            foreach (EventTreeItem item in _children)
             {
                 _board.Add(item);
             }
+            ChildrenUpdated.SafeInvoke(this, EventArgs.Empty);
         }
 
-        internal void InsertRange(int index, IEnumerable<EventsTreeItem> items)
+        internal void InsertRange(int index, IEnumerable<EventTreeItem> items)
         {
-            foreach (EventsTreeItem item in items)
+            foreach (EventTreeItem item in items)
             {
                 _board.Insert(index, item);
                 index++;
+            }
+        }
+
+        internal void ScrollTo(EventTreeItem item)
+        {
+            if (_itemsControl != null)
+            {
+                ScrollViewer scrollViewer = _itemsControl.FindFirstVisualChild<ScrollViewer>();
+                if (scrollViewer != null)
+                {
+                    int index = _itemsControl.Items.IndexOf(item);
+                    if (index != -1)
+                    {
+                        scrollViewer.ScrollToVerticalOffset(index);
+                    }   
+                }
             }
         }
 
@@ -167,7 +200,7 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
             }
         }
 
-        internal int IndexOf(EventsTreeItem item)
+        internal int IndexOf(EventTreeItem item)
         {
             return _board.IndexOf(item);
         }
@@ -196,8 +229,8 @@ namespace Chronos.Client.Win.Controls.Common.EventsTree
         private static void OnSelectedItemPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             EventsTreeView view = (EventsTreeView)sender;
-            EventsTreeItem oldSelectedItem = (EventsTreeItem)e.OldValue;
-            EventsTreeItem newSelectedItem = (EventsTreeItem)e.NewValue;
+            EventTreeItem oldSelectedItem = (EventTreeItem)e.OldValue;
+            EventTreeItem newSelectedItem = (EventTreeItem)e.NewValue;
             if (oldSelectedItem != null)
             {
                 oldSelectedItem.IsSelected = false;

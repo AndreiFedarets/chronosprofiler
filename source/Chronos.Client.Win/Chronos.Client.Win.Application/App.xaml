@@ -4,8 +4,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="pack://application:,,,/Chronos.Client.Win;component/Themes/Common.xaml"/>-->
-                <ResourceDictionary Source="pack://application:,,,/Chronos.Client.Win;component/Themes/Generic.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Adenium;component/Themes/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

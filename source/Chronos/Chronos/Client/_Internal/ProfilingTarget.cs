@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using Chronos.Extensibility;
 
 namespace Chronos.Client
 {
-    internal sealed class ProfilingTarget : PropertyChangedBase, IProfilingTarget, IProfilingTargetAdapter, IWrapper
+    internal sealed class ProfilingTarget : RemoteBaseObject, IProfilingTarget, IProfilingTargetAdapter, IWrapper
     {
         private IProfilingTargetAdapter _adapter;
         private readonly string _applicationCode;
@@ -25,7 +24,6 @@ namespace Chronos.Client
             _exportLoader = exportLoader;
             _applicationCode = applicationCode;
             _supportedHostApplications = InitializeSupportedApplications(hostApplications);
-            _supportedHostApplications.CollectionChanged += OnSupportedHostApplicationsCollectionChanged;
             _hostApplications.ApplicationConnected += OnHostApplicationConnected;
             _hostApplications.ApplicationDisconnected += OnHostApplicationDisconnected;
         }
@@ -81,20 +79,6 @@ namespace Chronos.Client
             get { return Adapter; }
         }
 
-        //object IProfilingTargetAdapter.CreateSettingsPresentation(ProfilingTargetSettings profilingTargetSettings)
-        //{
-        //    lock (Lock)
-        //    {
-        //        VerifyDisposed();
-        //        return Adapter.CreateSettingsPresentation(profilingTargetSettings);
-        //    }
-        //}
-
-        //public object CreateSettingsPresentation(ProfilingTargetSettings profilingTargetSettings)
-        //{
-        //    return ((IProfilingTargetAdapter) this).CreateSettingsPresentation(profilingTargetSettings);
-        //}
-
         public override void Dispose()
         {
             lock (Lock)
@@ -102,18 +86,8 @@ namespace Chronos.Client
                 VerifyDisposed();
                 _hostApplications.ApplicationConnected -= OnHostApplicationConnected;
                 _hostApplications.ApplicationDisconnected -= OnHostApplicationDisconnected;
-                _supportedHostApplications.CollectionChanged -= OnSupportedHostApplicationsCollectionChanged;
                 _adapter.TryDispose();
                 base.Dispose();
-            }
-        }
-
-        private void OnSupportedHostApplicationsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            lock (Lock)
-            {
-                VerifyDisposed();
-                NotifyOfPropertyChange(() => IsAvailable);
             }
         }
 

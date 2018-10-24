@@ -2,7 +2,7 @@
 
 namespace Chronos.Client
 {
-    internal sealed class Productivity : PropertyChangedBase, IProductivity, IProductivityAdapter, IWrapper
+    internal sealed class Productivity : RemoteBaseObject, IProductivity, IProductivityAdapter, IWrapper
     {
         private IProductivityAdapter _adapter;
         private readonly string _applicationCode;

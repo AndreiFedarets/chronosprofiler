@@ -73,6 +73,10 @@
     <Content Include="Menu\Menu.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Adenuim\Adenium\Adenium.csproj">
+      <Project>{8abfd019-e257-4896-a31c-cf180936d329}</Project>
+      <Name>Adenium</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Chronos.Client.Win.DotNet.BasicProfiler\Chronos.Client.Win.DotNet.BasicProfiler\Chronos.Client.Win.DotNet.BasicProfiler.csproj">
       <Project>{1e668793-1dea-4f66-b583-7c39fc670219}</Project>
       <Name>Chronos.Client.Win.DotNet.BasicProfiler</Name>

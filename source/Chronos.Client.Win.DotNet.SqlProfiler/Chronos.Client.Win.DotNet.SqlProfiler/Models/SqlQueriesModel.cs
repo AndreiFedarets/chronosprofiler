@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Adenium;
 using Chronos.DotNet.SqlProfiler;
 using Chronos.Model;
 
 namespace Chronos.Client.Win.Models.DotNet.SqlProfiler
 {
-    public sealed class SqlQueriesModel : IUnitsModel
+    public sealed class SqlQueriesModel : IUnitsListModel
     {
         public SqlQueriesModel(ISqlQueryCollection units)
         {

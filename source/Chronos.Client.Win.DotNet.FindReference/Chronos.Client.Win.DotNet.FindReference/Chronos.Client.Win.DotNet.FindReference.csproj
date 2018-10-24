@@ -36,9 +36,13 @@
       <HintPath>..\..\..\externals\Caliburn.Micro.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Menu\AssemblyReferenceMenuItem.cs" />
@@ -54,9 +58,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TOSORT\IEventSearch.cs" />
-    <Compile Include="TOSORT\IEventSearchAdapter.cs" />
-    <Compile Include="TOSORT\Class1.cs" />
+    <Compile Include="_Internal\EventSearch.cs" />
+    <Compile Include="_Internal\EventTextSearchAdapter.cs" />
+    <Compile Include="_Internal\IEventSearch.cs" />
+    <Compile Include="_Internal\IEventSearchAdapter.cs" />
+    <Compile Include="Views\FindReferenceView.xaml.cs">
+      <DependentUpon>FindReferenceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\FindReferenceViewModel.cs" />
     <Compile Include="_Internal\FunctionEventSearchAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +74,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Adenuim\Adenium\Adenium.csproj">
+      <Project>{8abfd019-e257-4896-a31c-cf180936d329}</Project>
+      <Name>Adenium</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Chronos.Client.Win.Common.EventsTree\Chronos.Client.Win.Common.EventsTree\Chronos.Client.Win.Common.EventsTree.csproj">
       <Project>{2f82a13c-1f9f-400c-b802-7b37ac97115f}</Project>
       <Name>Chronos.Client.Win.Common.EventsTree</Name>
@@ -107,9 +120,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
+    <Page Include="Views\FindReferenceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

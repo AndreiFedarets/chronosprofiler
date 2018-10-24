@@ -13,6 +13,6 @@ namespace Chronos.Client.Win.ViewModels
 
         IContainerViewModel Parent { get; }
 
-        IMenu ContextMenu { get; }
+        IMenuCollection Menus { get; }
     }
 }

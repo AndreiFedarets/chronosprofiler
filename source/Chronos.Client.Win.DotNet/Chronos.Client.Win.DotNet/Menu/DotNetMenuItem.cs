@@ -1,4 +1,5 @@
-﻿using Chronos.Client.Win.DotNet.Properties;
+﻿using Adenium.Menu;
+using Chronos.Client.Win.DotNet.Properties;
 
 namespace Chronos.Client.Win.Menu.DotNet
 {

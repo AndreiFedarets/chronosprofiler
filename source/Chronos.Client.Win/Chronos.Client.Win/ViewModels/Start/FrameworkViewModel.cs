@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
-    public sealed class FrameworkViewModel : PropertyChangedBaseEx, Contracts.Dialog.IContractSource
+    public sealed class FrameworkViewModel : PropertyChangedBaseEx, IDialogContractSource
     {
         private readonly IFramework _framework;
         private readonly FrameworkSettingsCollection _frameworksSettings;

@@ -1,4 +1,4 @@
-﻿using Chronos.Client.Win.ViewModels;
+﻿using Adenium;
 using Chronos.Messaging;
 
 namespace Chronos.Client.Win

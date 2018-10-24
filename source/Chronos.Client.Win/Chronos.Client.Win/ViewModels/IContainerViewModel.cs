@@ -13,5 +13,7 @@ namespace Chronos.Client.Win.ViewModels
         void ActivateItem(IViewModel viewModel);
 
         void DeactivateItem(IViewModel viewModel, bool close);
+
+        T FindFirstChild<T>() where T : IViewModel;
     }
 }

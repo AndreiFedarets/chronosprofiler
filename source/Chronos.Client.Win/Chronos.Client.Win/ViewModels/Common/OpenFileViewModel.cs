@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows;
+using Adenium;
 using Chronos.Accessibility.IO;
 
 namespace Chronos.Client.Win.ViewModels.Common

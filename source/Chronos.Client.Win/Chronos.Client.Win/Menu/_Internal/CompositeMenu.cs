@@ -5,9 +5,11 @@ namespace Chronos.Client.Win.Menu
     internal sealed class CompositeMenu : ControlCollection, ICompositeControlCollection, IMenu
     {
         private readonly List<IMenu> _undrelyingControls;
+        private readonly string _id;
 
-        public CompositeMenu(List<IMenu> menus)
+        public CompositeMenu(string id, List<IMenu> menus)
         {
+            _id = id;
             _undrelyingControls = new List<IMenu>();
             foreach (IMenu menu in menus)
             {
@@ -15,9 +17,15 @@ namespace Chronos.Client.Win.Menu
             }
         }
 
+        public CompositeMenu(string id)
+        {
+            _id = id;
+            _undrelyingControls = new List<IMenu>();
+        }
+
         public override string Id
         {
-            get { return string.Empty; }
+            get { return _id; }
         }
 
         public override bool? IsEnabled

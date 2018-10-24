@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Adenium;
 using Caliburn.Micro;
-using Microsoft.Practices.Unity;
 
 namespace Chronos.Client.Win
 {
@@ -12,6 +12,7 @@ namespace Chronos.Client.Win
         public Bootstrapper(IContainer container)
         {
             _container = container;
+            SmartDispatcher.Initialize();
         }
 
         protected override IEnumerable<object> GetAllInstances(Type service)

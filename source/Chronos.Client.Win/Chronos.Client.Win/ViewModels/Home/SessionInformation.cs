@@ -1,4 +1,5 @@
-﻿
+﻿using Adenium;
+
 namespace Chronos.Client.Win.ViewModels.Home
 {
     public sealed class SessionInformation : PropertyChangedBaseEx

@@ -1,9 +1,9 @@
-﻿using Chronos.Client.Win.ViewModels;
+﻿using Adenium;
 
 namespace Chronos.Client.Win
 {
     public interface IProfilingTargetAdapter : Client.IProfilingTargetAdapter
     {
-        ViewModel CreateConfigurationViewModel(ViewModels.Start.StartPageViewModel pageViewModel);
+        IViewModel CreateConfigurationViewModel(IContainerViewModel startViewModel);
     }
 }

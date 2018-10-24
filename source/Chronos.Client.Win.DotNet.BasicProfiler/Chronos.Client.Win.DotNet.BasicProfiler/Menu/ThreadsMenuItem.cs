@@ -19,7 +19,7 @@ namespace Chronos.Client.Win.Menu.DotNet.BasicProfiler
             protected set { }
         }
 
-        protected override IUnitsModel GetModel()
+        protected override IUnitsListModel GetModel()
         {
             IThreadCollection collection = Application.ServiceContainer.Resolve<IThreadCollection>();
             ThreadsModel model = new ThreadsModel(collection);

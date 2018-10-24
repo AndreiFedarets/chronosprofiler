@@ -57,6 +57,7 @@
     <Compile Include="Menu\DotNetMenuItem.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ProfilingViewModel.layout" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -71,6 +72,10 @@
     <None Include="Menu\Menu.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Adenuim\Adenium\Adenium.csproj">
+      <Project>{8abfd019-e257-4896-a31c-cf180936d329}</Project>
+      <Name>Adenium</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Chronos.Client.Win\Chronos.Client.Win\Chronos.Client.Win.csproj">
       <Project>{6db0686c-3f7a-4156-a4bb-3709bc048454}</Project>
       <Name>Chronos.Client.Win</Name>

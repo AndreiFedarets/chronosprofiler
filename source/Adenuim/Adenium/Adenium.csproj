@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8ABFD019-E257-4896-A31C-CF180936D329}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Adenium</RootNamespace>
+    <AssemblyName>Adenium</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Properties\StrongName.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Caliburn.Micro">
+      <HintPath>..\..\..\externals\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Platform">
+      <HintPath>..\..\..\externals\Caliburn.Micro.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\..\externals\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Windows.Shell">
+      <HintPath>..\..\..\externals\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\externals\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.XML" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Container.cs" />
+    <Compile Include="IActivator.cs" />
+    <Compile Include="Layouting\CompositeLayoutProvider.cs" />
+    <Compile Include="Layouting\ILayoutProvider.cs" />
+    <Compile Include="Layouting\_Internal\CompositeMenuControlHandler.cs" />
+    <Compile Include="Layouting\_Menu\MenuControlHandlerBase.cs" />
+    <Compile Include="Layouting\_Menu\IMenuControlHandler.cs" />
+    <Compile Include="_Extensions\_Internal\XmlReaderExtension.cs" />
+    <Compile Include="Layouting\_Internal\_ViewModel\ViewModelLayout.cs" />
+    <Compile Include="Layouting\_Internal\LayoutProvider.cs" />
+    <Compile Include="Layouting\_Internal\ViewModelBuilder.cs" />
+    <Compile Include="IContainer.cs" />
+    <Compile Include="IDispatcher.cs" />
+    <Compile Include="PropertyChangedBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Themes\FontsAndColors.cs" />
+    <Compile Include="_Commands\ControlClickCommandBehavior.cs" />
+    <Compile Include="_Commands\ControlDoubleClickCommandBehavior.cs" />
+    <Compile Include="_Commands\ControlEventCommandBehavior.cs" />
+    <Compile Include="_Commands\Event.cs" />
+    <Compile Include="_Commands\ExtendedCommandBase.cs" />
+    <Compile Include="_Commands\IExtendedCommand.cs" />
+    <Compile Include="_Commands\SyncCommandBase.cs" />
+    <Compile Include="_Commands\SyncNonParameterizedCommand.cs" />
+    <Compile Include="_Commands\SyncParameterizedCommand.cs" />
+    <Compile Include="_Contracts\ContractBase.cs" />
+    <Compile Include="_Contracts\ContractCollection.cs" />
+    <Compile Include="_Contracts\ContractProxyObjectChangedEventArgs.cs" />
+    <Compile Include="_Contracts\_Dialog\DialogContract.cs" />
+    <Compile Include="_Contracts\_Dialog\IDialogContractConsumer.cs" />
+    <Compile Include="_Contracts\_Dialog\IDialogContractSource.cs" />
+    <Compile Include="_Contracts\EnableContractAttribute.cs" />
+    <Compile Include="_Contracts\IContract.cs" />
+    <Compile Include="_Contracts\IContractConsumer.cs" />
+    <Compile Include="_Contracts\IContractProxy.cs" />
+    <Compile Include="_Contracts\IContractSource.cs" />
+    <Compile Include="Controls\_Generic\BindingRouter.cs" />
+    <Compile Include="Controls\_Generic\BlurlessImage.cs" />
+    <Compile Include="Controls\_Generic\ColorImage.cs" />
+    <Compile Include="Controls\_Generic\CustomWindow.cs" />
+    <Compile Include="Controls\_Generic\ImageButton.cs" />
+    <Compile Include="Controls\_Generic\ResizeBorderThicknessToCaptionMarginConverter.cs" />
+    <Compile Include="Controls\_Generic\TileButton.cs" />
+    <Compile Include="Controls\_Menu\ContextMenu.cs" />
+    <Compile Include="Controls\_Menu\MenuControl.cs" />
+    <Compile Include="Controls\_Menu\MenuControlConverter.cs" />
+    <Compile Include="Controls\_Menu\MenuItem.cs" />
+    <Compile Include="_Converters\BitmapToBitmapSourceConverter.cs" />
+    <Compile Include="_Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="_Converters\IconToBitmapSourceConverter.cs" />
+    <Compile Include="_Converters\InvertBoolConverter.cs" />
+    <Compile Include="_Converters\InvertBoolToVisibilityConverter.cs" />
+    <Compile Include="_Converters\PercentsToColorConverter.cs" />
+    <Compile Include="_Converters\UriToBitmapSourceConverter.cs" />
+    <Compile Include="_Extensions\_Internal\NumberExtensions.cs" />
+    <Compile Include="Layouting\_Internal\_Menu\MenuControl.cs" />
+    <Compile Include="Layouting\_Internal\_Menu\MenuControlCollection.cs" />
+    <Compile Include="Layouting\_Menu\IMenuControl.cs" />
+    <Compile Include="Layouting\_Menu\IMenuControlCollection.cs" />
+    <Compile Include="Layouting\_Menu\IMenu.cs" />
+    <Compile Include="Layouting\_Menu\IMenuCollection.cs" />
+    <Compile Include="Layouting\_Internal\_Menu\Menu.cs" />
+    <Compile Include="Layouting\_Internal\_Menu\MenuItem.cs" />
+    <Compile Include="Layouting\_Internal\_Menu\_Internal\CompositeAggregator.cs" />
+    <Compile Include="Layouting\_Internal\_Menu\_Internal\CompositeControl.cs" />
+    <Compile Include="Layouting\_Internal\_Menu\_Internal\CompositeControlCollection.cs" />
+    <Compile Include="Layouting\_Internal\_Menu\_Internal\CompositeControlFactory.cs" />
+    <Compile Include="Layouting\_Internal\_Menu\_Internal\CompositeMenu.cs" />
+    <Compile Include="Layouting\_Internal\_Menu\_Internal\CompositeMenuItem.cs" />
+    <Compile Include="Layouting\_Internal\_Menu\_Internal\ICompositeControl.cs" />
+    <Compile Include="Layouting\_Internal\_Menu\_Internal\ICompositeControlCollection.cs" />
+    <Compile Include="Layouting\_Internal\_Menu\MenuCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Layouting\_Internal\LayoutReader.cs" />
+    <Compile Include="Layouting\_Internal\_ViewModel\ViewModelActivation.cs" />
+    <Compile Include="Layouting\_Internal\_ViewModel\ViewModelMode.cs" />
+    <Compile Include="Layouting\_Internal\_ViewModel\ViewModelReference.cs" />
+    <Compile Include="_ViewModels\GridViewModel.cs" />
+    <Compile Include="_ViewModels\IContainerViewModel.cs" />
+    <Compile Include="_ViewModels\IViewModel.cs" />
+    <Compile Include="_ViewModels\IViewModelManager.cs" />
+    <Compile Include="_ViewModels\PlaceholderContent.cs" />
+    <Compile Include="_ViewModels\PlaceholderViewModel.cs" />
+    <Compile Include="_ViewModels\TabItemViewModel.cs" />
+    <Compile Include="_ViewModels\TabViewModel.cs" />
+    <Compile Include="_ViewModels\ViewModel.cs" />
+    <Compile Include="_ViewModels\ViewModelContext.cs" />
+    <Compile Include="_ViewModels\ViewModelEventArgs.cs" />
+    <Compile Include="_Views\ContentViewBehaviorExtension.cs" />
+    <Compile Include="_Views\GridViewBehaviorExtension.cs" />
+    <Compile Include="_Views\IViewBehaviorExtension.cs" />
+    <Compile Include="_Views\PlaceholderView.cs" />
+    <Compile Include="_Views\PlaceholderViewBehaviorExtension.cs" />
+    <Compile Include="_Views\Position.cs" />
+    <Compile Include="_Views\TabItemView.cs" />
+    <Compile Include="_Views\TabViewBehaviorExtension.cs" />
+    <Compile Include="_Views\View.cs" />
+    <Compile Include="_Extensions\BitmapExtensions.cs" />
+    <Compile Include="_Extensions\DelayedNotification.cs" />
+    <Compile Include="_Extensions\DependencyObjectExtensions.cs" />
+    <Compile Include="_Extensions\DispatcherExtensions.cs" />
+    <Compile Include="_Extensions\FrameworkElementExtensions.cs" />
+    <Compile Include="_Extensions\GridViewComposition.cs" />
+    <Compile Include="_Extensions\GridViewSorting.cs" />
+    <Compile Include="_Extensions\TreeViewExtensions.cs" />
+    <Compile Include="_Extensions\TreeViewSelectedItemBehaviour.cs" />
+    <Compile Include="CustomWindowManager.cs" />
+    <Compile Include="_ViewModels\ViewModelManager.cs" />
+    <Compile Include="ViewsManager.cs" />
+    <Compile Include="SmartDispatcher.cs" />
+    <Compile Include="_Views\_Internal\GridViewBuilder.cs" />
+    <Compile Include="_Views\_Internal\GridViewItem.cs" />
+    <Compile Include="_Views\_Internal\TabViewControlDataContext.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <None Include="Properties\StrongName.snk" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\CustomWindow\Close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CustomWindow\Maximize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CustomWindow\Minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CustomWindow\Restore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Close.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

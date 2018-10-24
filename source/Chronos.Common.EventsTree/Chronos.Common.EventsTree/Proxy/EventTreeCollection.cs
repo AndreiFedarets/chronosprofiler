@@ -68,8 +68,7 @@ namespace Chronos.Common.EventsTree.Proxy
         public void OnRemoteCollectionUpdated(object sender, EventTreeEventArgs e)
         {
             UpdateCollection(e.Collection);
-            Action action = () => _collectionUpdatedEvent.Raise(this, e);
-            DispatcherHolder.BeginInvoke(action);
+            _collectionUpdatedEvent.Raise(this, e);
         }
 
         private void UpdateCollection(List<ISingleEventTree> collection)

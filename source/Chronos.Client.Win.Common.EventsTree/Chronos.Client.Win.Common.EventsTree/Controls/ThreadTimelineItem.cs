@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Adenium;
 using Chronos.Client.Win.Converters;
 using Chronos.Common.EventsTree;
 

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Adenium;
 using Caliburn.Micro;
 using Chronos.Extensibility;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
-    public sealed class ProfilingTypeViewModel : PropertyChangedBase, Contracts.Dialog.IContractSource
+    public sealed class ProfilingTypeViewModel : PropertyChangedBase, IDialogContractSource
     {
         private readonly ProfilingTypeSettingsCollection _profilingTypesSettings;
         private readonly List<ProfilingTypeViewModel> _profilingTypes;

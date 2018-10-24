@@ -41,9 +41,6 @@
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\..\..\externals\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Windows.Shell">
-      <HintPath>..\..\..\externals\Microsoft.Windows.Shell.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -52,36 +49,20 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\externals\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.XML" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alignment.cs" />
     <Compile Include="ApplicationExtensionAdapter.cs" />
     <Compile Include="ChronosApplicationLauncher.cs" />
-    <Compile Include="Container.cs" />
-    <Compile Include="Contracts\ContractBase.cs" />
-    <Compile Include="Contracts\ContractCollection.cs" />
-    <Compile Include="Contracts\ContractProxyObjectChangedEventArgs.cs" />
-    <Compile Include="Contracts\Dialog\Contract.cs" />
-    <Compile Include="Contracts\Dialog\IContractConsumer.cs" />
-    <Compile Include="Contracts\Dialog\IContractSource.cs" />
-    <Compile Include="Contracts\EnableContractAttribute.cs" />
-    <Compile Include="Contracts\IContract.cs" />
-    <Compile Include="Contracts\IContractConsumer.cs" />
-    <Compile Include="Contracts\IContractProxy.cs" />
-    <Compile Include="Contracts\IContractSource.cs" />
-    <Compile Include="Controls\_Generic\BindingForward.cs" />
-    <Compile Include="Controls\_Generic\ImageButton.cs" />
-    <Compile Include="Controls\_Menu\ContextMenu.cs" />
-    <Compile Include="Converters\InvertBoolToVisibilityConverter.cs" />
-    <Compile Include="Menu\Specialized\ProfilingMenuItemBase.cs" />
-    <Compile Include="Menu\Specialized\UnitsMenuItemBase.cs" />
+    <Compile Include="Menu\Specialized\ProfilingMenuItemBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menu\Specialized\UnitsMenuItemBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\IUnitsTreeModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -94,91 +75,32 @@
     </Compile>
     <Compile Include="ViewModels\Common\PrerequisitesValidationResultViewModel.cs" />
     <Compile Include="ViewModels\Home\SessionInformation.cs" />
-    <Compile Include="ViewModels\IContainerViewModel.cs" />
-    <Compile Include="ViewModels\IViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelContext.cs" />
+    <Compile Include="ViewModels\UnitsTreeViewModel.cs" />
     <Compile Include="ViewModels\Start\ProfilingTargetSettingsBaseViewModel.cs" />
     <Compile Include="Views\Common\PrerequisitesValidationResultView.xaml.cs">
       <DependentUpon>PrerequisitesValidationResultView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ContentViewBehaviorExtension.cs" />
-    <Compile Include="Views\GridViewBehaviorExtension.cs" />
-    <Compile Include="Views\IViewBehaviorExtension.cs" />
-    <Compile Include="IContainer.cs" />
     <Compile Include="IFrameworkAdapter.cs" />
     <Compile Include="IProfilingTargetAdapter.cs" />
     <Compile Include="IProfilingTypeAdapter.cs" />
-    <Compile Include="Models\IUnitsModel.cs" />
-    <Compile Include="ViewModels\PlaceholderContent.cs" />
-    <Compile Include="ViewModels\PlaceholderViewModel.cs" />
+    <Compile Include="Models\IUnitsListModel.cs" />
     <Compile Include="IHostApplicationSelector.cs" />
     <Compile Include="IMainApplication.cs" />
     <Compile Include="IProfilingApplication.cs" />
-    <Compile Include="Controls\_Menu\Menu.cs" />
-    <Compile Include="Controls\_Menu\MenuControlConverter.cs" />
-    <Compile Include="Controls\_Menu\MenuItem.cs" />
-    <Compile Include="Converters\IconToBitmapSourceConverter.cs" />
-    <Compile Include="ViewModels\IViewModelManager.cs" />
-    <Compile Include="Menu\IAction.cs" />
-    <Compile Include="Menu\IControlStub.cs" />
-    <Compile Include="Menu\IMenu.cs" />
-    <Compile Include="Menu\IControl.cs" />
-    <Compile Include="Menu\IControlCollection.cs" />
-    <Compile Include="Menu\IMenuItem.cs" />
-    <Compile Include="Menu\Menu.cs" />
-    <Compile Include="Menu\ControlStub.cs" />
-    <Compile Include="Menu\MenuReader.cs" />
-    <Compile Include="Menu\Control.cs" />
-    <Compile Include="Menu\ControlCollection.cs" />
-    <Compile Include="Menu\MenuItem.cs" />
-    <Compile Include="Menu\_Internal\CompositeAggregator.cs" />
-    <Compile Include="Menu\_Internal\CompositeControl.cs" />
-    <Compile Include="Menu\_Internal\CompositeControlCollection.cs" />
-    <Compile Include="Menu\_Internal\CompositeControlFactory.cs" />
-    <Compile Include="Menu\_Internal\CompositeMenu.cs" />
-    <Compile Include="Menu\_Internal\CompositeMenuItem.cs" />
-    <Compile Include="Menu\_Internal\ICompositeControl.cs" />
-    <Compile Include="Menu\_Internal\ICompositeControlCollection.cs" />
-    <Compile Include="Menu\_Internal\MenuBuilder.cs" />
-    <Compile Include="Menu\_Internal\MenuReaderInternal.cs" />
-    <Compile Include="Position.cs" />
-    <Compile Include="ResolutionDependencies.cs" />
     <Compile Include="ApplicationManager.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Converters\UriToBitmapSourceConverter.cs" />
-    <Compile Include="Converters\InvertBoolConverter.cs" />
     <Compile Include="IOpenFileDialog.cs" />
-    <Compile Include="Commands\CommandCollectionBase.cs" />
-    <Compile Include="Commands\ControlClickCommandBehavior.cs" />
-    <Compile Include="Commands\ControlDoubleClickCommandBehavior.cs" />
-    <Compile Include="Commands\ControlEventCommandBehavior.cs" />
-    <Compile Include="Commands\Event.cs" />
-    <Compile Include="Commands\ExtendedCommandBase.cs" />
-    <Compile Include="Commands\ICommandCollection.cs" />
-    <Compile Include="Commands\IExtendedCommand.cs" />
-    <Compile Include="Commands\SyncCommandBase.cs" />
-    <Compile Include="Commands\SyncNonParameterizedCommand.cs" />
-    <Compile Include="Commands\SyncParameterizedCommand.cs" />
-    <Compile Include="ViewModels\TabItemViewModel.cs" />
-    <Compile Include="Views\TabItemView.cs" />
-    <Compile Include="Views\PlaceholderView.cs">
-      <SubType>Code</SubType>
+    <Compile Include="Views\UnitsTreeView.xaml.cs">
+      <DependentUpon>UnitsTreeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlaceholderViewBehaviorExtension.cs" />
-    <Compile Include="Views\TabViewBehaviorExtension.cs" />
-    <Compile Include="Views\UnitsView.xaml.cs">
-      <DependentUpon>UnitsView.xaml</DependentUpon>
+    <Compile Include="Views\UnitsListView.xaml.cs">
+      <DependentUpon>UnitsListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\View.cs" />
-    <Compile Include="ViewModels\ViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelEventArgs.cs" />
-    <Compile Include="ViewModels\GridViewModel.cs" />
     <Compile Include="ViewModels\Common\OpenFileViewModel.cs" />
     <Compile Include="ViewModels\Home\ActiveSessionsViewModel.cs" />
     <Compile Include="ViewModels\Home\HomePageViewModel.cs" />
     <Compile Include="ViewModels\Home\ProfilingTargetsViewModel.cs" />
     <Compile Include="ViewModels\Home\RecentSessionsViewModel.cs" />
-    <Compile Include="ViewModels\TabViewModel.cs" />
     <Compile Include="ViewModels\Profiling\ProfilingViewModel.cs" />
     <Compile Include="ViewModels\Start\FrameworkViewModel.cs" />
     <Compile Include="ViewModels\Start\HostApplicationSelectViewModel.cs" />
@@ -186,7 +108,7 @@
     <Compile Include="ViewModels\Start\ProfilingTypesViewModel.cs" />
     <Compile Include="ViewModels\Start\ProfilingTypeViewModel.cs" />
     <Compile Include="ViewModels\Start\StartPageViewModel.cs" />
-    <Compile Include="ViewModels\UnitsViewModel.cs" />
+    <Compile Include="ViewModels\UnitsListViewModel.cs" />
     <Compile Include="Views\Common\OpenFileView.xaml.cs">
       <DependentUpon>OpenFileView.xaml</DependentUpon>
     </Compile>
@@ -216,49 +138,23 @@
       <DependentUpon>StartPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Extensions\AdapterResolver.cs" />
-    <Compile Include="_Extensions\DelayedNotification.cs" />
-    <Compile Include="_Extensions\ObjectExtensions.cs" />
-    <Compile Include="_Extensions\TreeViewExtensions.cs" />
-    <Compile Include="_Extensions\TreeViewSelectedItemBehaviour.cs" />
-    <Compile Include="Controls\_Generic\BlurlessImage.cs" />
-    <Compile Include="Controls\_Generic\BrowseFile.cs" />
-    <Compile Include="Controls\_Generic\ColorImage.cs" />
-    <Compile Include="Controls\_Generic\CustomWindow.cs" />
-    <Compile Include="Controls\_Generic\ResizeBorderThicknessToCaptionMarginConverter.cs" />
-    <Compile Include="Controls\_Generic\TileButton.cs" />
-    <Compile Include="Converters\BitmapToBitmapSourceConverter.cs" />
-    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="Converters\PercentsToColorConverter.cs" />
     <Compile Include="_Extensions\AppDomainExtensions.cs" />
     <Compile Include="_Internal\Bootstrapper.cs" />
     <Compile Include="_Internal\ChronosCoreLocator.cs" />
     <Compile Include="_Internal\HostApplicationExtensionAdapter.cs" />
     <Compile Include="_Internal\ClientMessageBus.cs" />
-    <Compile Include="_Internal\ViewsManager.cs" />
+    <Compile Include="_Internal\MenuBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="_Internal\ProfilingApplication.cs" />
-    <Compile Include="_Internal\CustomWindowManager.cs" />
-    <Compile Include="_Extensions\GridViewComposition.cs" />
-    <Compile Include="_Extensions\GridViewSorting.cs" />
-    <Compile Include="_Extensions\BitmapExtensions.cs" />
-    <Compile Include="_Extensions\DispatcherExtensions.cs" />
-    <Compile Include="_Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="IApplicationBase.cs" />
-    <Compile Include="Themes\FontsAndColors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Internal\ApplicationBase.cs" />
     <Compile Include="_Internal\HostApplicationSelector.cs" />
     <Compile Include="_Internal\IApplicationStrategy.cs" />
     <Compile Include="_Internal\MainApplication.cs" />
-    <Compile Include="_Internal\OpenFileDialog.cs" />
-    <Compile Include="_Internal\PropertyChangedBase.cs" />
-    <Compile Include="_Internal\ViewModelManager.cs" />
-    <Compile Include="_Internal\WindowsDispatcher.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Common\PrerequisitesValidationResultView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -299,19 +195,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UnitsView.xaml">
+    <Page Include="Views\UnitsTreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\CustomWindow\Close.png" />
-    <Resource Include="Images\CustomWindow\Maximize.png" />
-    <Resource Include="Images\CustomWindow\Minimize.png" />
-    <Resource Include="Images\CustomWindow\Restore.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\CloseTab.png" />
+    <Page Include="Views\UnitsListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -324,6 +215,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Adenuim\Adenium\Adenium.csproj">
+      <Project>{8abfd019-e257-4896-a31c-cf180936d329}</Project>
+      <Name>Adenium</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Chronos\Chronos\Chronos.csproj">
       <Project>{75ba0099-4ad5-4a8e-8ca4-4ecb842e169c}</Project>
       <Name>Chronos</Name>
@@ -331,6 +226,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ProfilingViewModel.layout" />
+    <EmbeddedResource Include="HomePageViewModel.layout" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

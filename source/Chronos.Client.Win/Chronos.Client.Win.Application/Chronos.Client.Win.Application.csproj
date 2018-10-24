@@ -73,6 +73,11 @@
     <None Include="SplashScreen.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Adenuim\Adenium\Adenium.csproj">
+      <Project>{8abfd019-e257-4896-a31c-cf180936d329}</Project>
+      <Name>Adenium</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\Chronos\Chronos\Chronos.csproj">
       <Project>{75ba0099-4ad5-4a8e-8ca4-4ecb842e169c}</Project>
       <Name>Chronos</Name>

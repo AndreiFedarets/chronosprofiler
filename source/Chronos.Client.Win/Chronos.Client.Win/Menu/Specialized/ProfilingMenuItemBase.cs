@@ -1,5 +1,6 @@
 ﻿using System;
-using Chronos.Client.Win.ViewModels;
+using Adenium;
+using Adenium.Menu;
 
 namespace Chronos.Client.Win.Menu.Specialized
 {

@@ -1,6 +1,7 @@
-﻿using Chronos.Client.Win.Controls.Common.EventsTree;
+﻿using System.Collections.Generic;
+using Adenium;
+using Chronos.Client.Win.Controls.Common.EventsTree;
 using Chronos.Common.EventsTree;
-using System.Collections.Generic;
 
 namespace Chronos.Client.Win.ViewModels.Common.EventsTree
 {
@@ -8,15 +9,14 @@ namespace Chronos.Client.Win.ViewModels.Common.EventsTree
     {
         private readonly EventTreeMerger _eventTreeMerger;
         private readonly IEventTreeCollection _eventTrees;
-        private IEnumerable<IEventTree> _mergedEventTrees;
         private EventTreeMergeType _selectedMergeType;
-        private EventTreeSortType _selectedSortType;
 
         public EventsTreeViewModel(IEventTreeCollection eventTrees, IEventMessageBuilder eventMessageBuilder)
         {
             _eventTrees = eventTrees;
+            View = new EventsTreeView();
+            View.EventMessageBuilder = eventMessageBuilder;
             _eventTrees.CollectionUpdated += OnEventTreesCollectionUpdated;
-            EventMessageBuilder = eventMessageBuilder;
             _eventTreeMerger = new EventTreeMerger();
             AvailableMergeTypes = new List<EventTreeMergeType> { EventTreeMergeType.None, EventTreeMergeType.Root, EventTreeMergeType.Thread };
             SelectedMergeType = EventTreeMergeType.Root;
@@ -24,9 +24,16 @@ namespace Chronos.Client.Win.ViewModels.Common.EventsTree
             SelectedSortType = EventTreeSortType.Time;
         }
 
+        public override string DisplayName
+        {
+            get { return "Events Tree"; }
+        }
+
         public IEnumerable<EventTreeMergeType> AvailableMergeTypes { get; private set; }
 
         public IEnumerable<EventTreeSortType> AvailableSortTypes { get; private set; }
+
+        public EventsTreeView View { get; private set; }
 
         public EventTreeMergeType SelectedMergeType
         {
@@ -45,34 +52,18 @@ namespace Chronos.Client.Win.ViewModels.Common.EventsTree
 
         public EventTreeSortType SelectedSortType
         {
-            get { return _selectedSortType; }
+            get { return View.EventsSortType; }
             set
             {
-                _selectedSortType = value;
+                View.EventsSortType = value;
                 NotifyOfPropertyChange(() => SelectedSortType);
             }
         }
 
         public IEnumerable<IEventTree> Events
         {
-            get { return _mergedEventTrees; }
-            private set
-            {
-                _mergedEventTrees = null;
-                NotifyOfPropertyChange(() => Events);
-                if (value != null)
-                {
-                    _mergedEventTrees = value;
-                    NotifyOfPropertyChange(() => Events);
-                }
-            }
-        }
-
-        public IEventMessageBuilder EventMessageBuilder { get; private set; }
-
-        public override string DisplayName
-        {
-            get { return "Events Tree"; }
+            get { return View.Events; }
+            private set { View.Events = value; }
         }
 
         private void OnEventTreesCollectionUpdated(object sender, EventTreeEventArgs e)

@@ -1,7 +1,11 @@
 ﻿using System;
+using Adenium;
+using Adenium.Menu;
+using Chronos.Client.Win.Menu;
 using Chronos.Client.Win.Menu.Common.FindReference;
 using Chronos.Client.Win.ViewModels;
 using Chronos.Client.Win.ViewModels.Common.EventsTree;
+using Chronos.Client.Win.ViewModels.DotNet.FindReference;
 using Chronos.DotNet.BasicProfiler;
 using Chronos.Messaging;
 
@@ -27,7 +31,7 @@ namespace Chronos.Client.Win.DotNet.FindReference
             {
                 return;
             }
-            if (!_application.ProfilingTypes.Contains(EventTreeUid) || !_application.ProfilingTypes.Contains(BasicProfilerUid))
+            if (!_application.ProfilingTypes.Contains(EventTreeUid))
             {
                 return;
             }
@@ -37,27 +41,52 @@ namespace Chronos.Client.Win.DotNet.FindReference
 
         private void OnViewModelAttached(object sender, ViewModelEventArgs e)
         {
-            UnitsViewModel unitsViewModel = e.ViewModel as UnitsViewModel;
-            if (unitsViewModel == null)
+            UnitsListViewModel unitsViewModel = e.ViewModel as UnitsListViewModel;
+            if (unitsViewModel != null)
             {
-                return;
+                InitializeUnitContextMenu(unitsViewModel);
             }
+            EventsTreeViewModel eventsTreeViewModel = e.ViewModel as EventsTreeViewModel;
+            if (eventsTreeViewModel != null)
+            {
+                InitializeFindReferenceViewModel(eventsTreeViewModel);
+            }
+        }
+
+        private void InitializeUnitContextMenu(UnitsListViewModel unitsViewModel)
+        {
+            MenuItem menuItem = null;
             if (unitsViewModel.UnitType == typeof(AssemblyInfo))
             {
-                unitsViewModel.ContextMenu.Add(new AssemblyReferenceMenuItem(unitsViewModel, _eventsTreeViewModels));
+                menuItem = new AssemblyReferenceMenuItem(unitsViewModel, _eventsTreeViewModels);
             }
             if (unitsViewModel.UnitType == typeof(ModuleInfo))
             {
-                unitsViewModel.ContextMenu.Add(new ModuleReferenceMenuItem(unitsViewModel, _eventsTreeViewModels));
+                menuItem = new ModuleReferenceMenuItem(unitsViewModel, _eventsTreeViewModels);
             }
             if (unitsViewModel.UnitType == typeof(ClassInfo))
             {
-                unitsViewModel.ContextMenu.Add(new ClassReferenceMenuItem(unitsViewModel, _eventsTreeViewModels));
+                menuItem = new ClassReferenceMenuItem(unitsViewModel, _eventsTreeViewModels);
             }
             if (unitsViewModel.UnitType == typeof(FunctionInfo))
             {
-                unitsViewModel.ContextMenu.Add(new FunctionReferenceMenuItem(unitsViewModel, _eventsTreeViewModels));
+                menuItem = new FunctionReferenceMenuItem(unitsViewModel, _eventsTreeViewModels);
             }
+            if (menuItem != null)
+            {
+                unitsViewModel.Menus[Constants.Menus.ItemContextMenu].Add(menuItem);
+            }
+        }
+
+        private void InitializeFindReferenceViewModel(EventsTreeViewModel eventsTreeViewModel)
+        {
+            IContainerViewModel parentViewModel = eventsTreeViewModel.Parent;
+            if (parentViewModel == null)
+            {
+                return;
+            }
+            FindReferenceViewModel findReferenceViewModel = new FindReferenceViewModel(eventsTreeViewModel);
+            parentViewModel.ActivateItem(findReferenceViewModel);
         }
 
         void IServiceConsumer.ExportServices(IServiceContainer container)

@@ -1,4 +1,5 @@
-﻿using Chronos.Client.Win.Common.Properties;
+﻿using Adenium.Menu;
+using Chronos.Client.Win.Common.Properties;
 
 namespace Chronos.Client.Win.Menu.Common
 {

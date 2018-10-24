@@ -12,8 +12,7 @@ namespace Chronos.Client
 
         public ObservableDictionary()
         {
-            _collection = DispatcherHolder.Invoke(() => new ObservableCollection<TValue>());
-            _collection.CollectionChanged += OnItemsCollectionChanged;
+            _collection = new ObservableCollection<TValue>();
             _dictionary = new Dictionary<TKey, TValue>();
         }
 
@@ -34,7 +33,11 @@ namespace Chronos.Client
             }
         }
 
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event NotifyCollectionChangedEventHandler CollectionChanged
+        {
+            add { _collection.CollectionChanged += value; }
+            remove { _collection.CollectionChanged -= value; }
+        }
 
         public IEnumerator<TValue> GetEnumerator()
         {
@@ -89,15 +92,6 @@ namespace Chronos.Client
         {
             _dictionary.Clear();
             _collection.Clear();
-        }
-
-        private void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            NotifyCollectionChangedEventHandler handler = CollectionChanged;
-            if (handler != null)
-            {
-                DispatcherHolder.BeginInvoke(() => handler(this, e));
-            }
         }
 
         public override void Dispose()

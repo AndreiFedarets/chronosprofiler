@@ -1,4 +1,5 @@
-﻿using Chronos.Client.Win.Common.EventsTree.Properties;
+﻿using Adenium;
+using Chronos.Client.Win.Common.EventsTree.Properties;
 using Chronos.Client.Win.Menu.Specialized;
 using Chronos.Client.Win.ViewModels;
 using Chronos.Client.Win.ViewModels.Common.EventsTree;
@@ -21,7 +22,7 @@ namespace Chronos.Client.Win.Menu.Common.EventsTree
         protected override IViewModel GetViewModel()
         {
             IEventTreeCollection eventTrees = Application.ServiceContainer.Resolve<IEventTreeCollection>();
-            IProfilingTimer profilingTimer = Application.ServiceContainer.Resolve<IProfilingTimer>();
+            IProfilingTimer profilingTimer = Application.ProfilingTimer;
             IEventMessageBuilder messageBuilder = Application.ServiceContainer.Resolve<IEventMessageBuilder>();
             IEventsTreeViewModelCollection eventsTreeViewModels = Application.ServiceContainer.Resolve<IEventsTreeViewModelCollection>();
             return new TimelineViewModel(eventTrees, profilingTimer, messageBuilder, eventsTreeViewModels);

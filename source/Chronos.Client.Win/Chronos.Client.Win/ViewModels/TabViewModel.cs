@@ -32,9 +32,9 @@ namespace Chronos.Client.Win.ViewModels
             get { return base.Parent as IContainerViewModel; }
         }
 
-        public IMenu ContextMenu
+        public IMenuCollection Menus
         {
-            get { return _context.ContextMenu; }
+            get { return _context.Menus; }
         }
 
         protected ContractCollection Contracts
@@ -114,6 +114,18 @@ namespace Chronos.Client.Win.ViewModels
             {
                 ViewModelEventArgs.RaiseEvent(ViewModelDeattached, this, tabItemViewModel);   
             }
+        }
+
+        public T FindFirstChild<T>() where T : IViewModel
+        {
+            foreach (IViewModel viewModel in Items)
+            {
+                if (viewModel is T)
+                {
+                    return (T)viewModel;
+                }
+            }
+            return default(T);
         }
 
         public IEnumerator<IViewModel> GetEnumerator()

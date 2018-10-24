@@ -19,7 +19,7 @@ namespace Chronos.Client.Win.Menu.DotNet.SqlProfiler
             protected set { }
         }
 
-        protected override IUnitsModel GetModel()
+        protected override IUnitsListModel GetModel()
         {
             ISqlQueryCollection collection = Application.ServiceContainer.Resolve<ISqlQueryCollection>();
             SqlQueriesModel model = new SqlQueriesModel(collection);

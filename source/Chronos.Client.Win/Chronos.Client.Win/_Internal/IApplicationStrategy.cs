@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Practices.Unity;
+using Adenium;
 
 namespace Chronos.Client.Win
 {

@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using Chronos.Client.Win.Commands;
+using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Home
 {
@@ -66,7 +66,7 @@ namespace Chronos.Client.Win.ViewModels.Home
                 if (sessionInformation == null && eventArgs.Session.IsActive)
                 {
                     sessionInformation = new SessionInformation(eventArgs.Session);
-                    DispatcherHolder.Invoke(() => _collection.Add(sessionInformation));
+                    SmartDispatcher.Main.Invoke(() => _collection.Add(sessionInformation));
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace Chronos.Client.Win.ViewModels.Home
             lock (_collection)
             {
                 SessionInformation sessionInformation = _collection.FirstOrDefault(x => Equals(x.Session, eventArgs.Session));
-                DispatcherHolder.Invoke(() => _collection.Remove(sessionInformation));
+                SmartDispatcher.Main.Invoke(() => _collection.Remove(sessionInformation));
             }
         }
 
@@ -90,15 +90,15 @@ namespace Chronos.Client.Win.ViewModels.Home
                 if (sessionInformation == null && isActive)
                 {
                     sessionInformation = new SessionInformation(eventArgs.Session);
-                    DispatcherHolder.Invoke(() => _collection.Add(sessionInformation));
+                    SmartDispatcher.Main.Invoke(() => _collection.Add(sessionInformation));
                 }
                 else if (sessionInformation != null && !isActive)
                 {
-                    DispatcherHolder.Invoke(() => _collection.Remove(sessionInformation));
+                    SmartDispatcher.Main.Invoke(() => _collection.Remove(sessionInformation));
                 }
                 else if (sessionInformation != null)
                 {
-                    DispatcherHolder.Invoke(() => sessionInformation.NotifyChanged());
+                    SmartDispatcher.Main.Invoke(() => sessionInformation.NotifyChanged());
                 }
             }
         }

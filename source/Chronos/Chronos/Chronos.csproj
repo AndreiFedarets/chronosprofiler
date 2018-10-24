@@ -89,8 +89,6 @@
     <Compile Include="Agent\_Internal\AgentResolver.cs" />
     <Compile Include="Client\AdapterResolver.cs" />
     <Compile Include="Client\ApplicationBase.cs" />
-    <Compile Include="Client\DispatcherHolder.cs" />
-    <Compile Include="Client\IDispatcher.cs" />
     <Compile Include="Client\IFramework.cs" />
     <Compile Include="Client\IFrameworkAdapter.cs" />
     <Compile Include="Client\IFrameworkCollection.cs" />
@@ -102,7 +100,6 @@
     <Compile Include="Client\IProfilingTypeCollection.cs" />
     <Compile Include="Client\_Internal\CollectionChangedBase.cs" />
     <Compile Include="Client\_Internal\ConfigurationCollection.cs" />
-    <Compile Include="Client\_Internal\DefaultDispatcher.cs" />
     <Compile Include="Client\_Internal\ObservableDictionary.cs" />
     <Compile Include="Client\_Internal\Framework.cs" />
     <Compile Include="Client\_Internal\FrameworkCollection.cs" />
@@ -110,7 +107,6 @@
     <Compile Include="Client\_Internal\ProfilingTargetCollection.cs" />
     <Compile Include="Client\_Internal\ProfilingType.cs" />
     <Compile Include="Client\_Internal\ProfilingTypeCollection.cs" />
-    <Compile Include="Client\_Internal\PropertyChangedBase.cs" />
     <Compile Include="Client\_Internal\SessionCollection.cs" />
     <Compile Include="Extensibility\ApplicationExtensionDefinition.cs" />
     <Compile Include="Extensibility\ApplicationExtensionDefinitionCollection.cs" />

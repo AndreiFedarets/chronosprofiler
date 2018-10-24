@@ -1,7 +1,6 @@
-﻿using Caliburn.Micro;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using Chronos.Client.Win.Controls;
+using Caliburn.Micro;
 
 namespace Chronos.Client.Win
 {

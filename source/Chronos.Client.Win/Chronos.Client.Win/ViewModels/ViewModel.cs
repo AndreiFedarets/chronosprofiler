@@ -18,10 +18,9 @@ namespace Chronos.Client.Win.ViewModels
             get { return _context.TypeId; }
         }
 
-        //TODO: I don't like it here
-        public IMenu ContextMenu
+        public IMenuCollection Menus
         {
-            get { return _context.ContextMenu; }
+            get { return _context.Menus; }
         }
 
         public virtual Guid InstanceId

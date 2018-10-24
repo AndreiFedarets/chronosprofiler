@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Adenium;
 using Chronos.Client.Win.ViewModels.Common;
 
 namespace Chronos.Client.Win.ViewModels.Start
@@ -28,14 +29,14 @@ namespace Chronos.Client.Win.ViewModels.Start
             get { return "Application Settings"; }
         }
 
-        public override ViewModel CreateViewModel()
+        public override IViewModel CreateViewModel()
         {
             Host.IApplication application = _applicationSelector.SelectedApplication;
             if (application == null)
             {
                 return null;
             }
-            ViewModel viewModel = null;
+            IViewModel viewModel = null;
             Chronos.IProfilingTarget profilingTarget = application.ProfilingTargets[_profilingTarget.Definition.Uid];
             List<PrerequisiteValidationResult> validationResults = profilingTarget.Prerequisites.Validate(true);
             if (validationResults.Any())

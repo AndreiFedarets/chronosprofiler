@@ -1,8 +1,9 @@
 ﻿using System;
+using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
-    public abstract class ProfilingTargetSettingsBaseViewModel : ViewModel, Contracts.Dialog.IContractSource
+    public abstract class ProfilingTargetSettingsBaseViewModel : ViewModel, IDialogContractSource
     {
         private readonly ProfilingTargetSettings _profilingTargetSettings;
         private readonly IHostApplicationSelector _applicationSelector;

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Menu>
   <Control Id="Chronos.Client.Win.Menu.DotNet.DotNetMenuItem">
+    <Control Type="Chronos.Client.Win.Menu.DotNet.BasicProfiler.CodeViewMenuItem, Chronos.Client.Win.DotNet.BasicProfiler" />
     <Control Type="Chronos.Client.Win.Menu.DotNet.BasicProfiler.AppDomainsMenuItem, Chronos.Client.Win.DotNet.BasicProfiler" />
     <Control Type="Chronos.Client.Win.Menu.DotNet.BasicProfiler.AssembliesMenuItem, Chronos.Client.Win.DotNet.BasicProfiler" />
     <Control Type="Chronos.Client.Win.Menu.DotNet.BasicProfiler.ModulesMenuItem, Chronos.Client.Win.DotNet.BasicProfiler" />

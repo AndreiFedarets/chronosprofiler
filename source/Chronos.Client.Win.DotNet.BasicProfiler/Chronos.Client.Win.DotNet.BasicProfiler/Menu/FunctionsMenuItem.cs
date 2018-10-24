@@ -19,7 +19,7 @@ namespace Chronos.Client.Win.Menu.DotNet.BasicProfiler
             protected set { }
         }
 
-        protected override IUnitsModel GetModel()
+        protected override IUnitsListModel GetModel()
         {
             IFunctionCollection collection = Application.ServiceContainer.Resolve<IFunctionCollection>();
             FunctionsModel model = new FunctionsModel(collection);

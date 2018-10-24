@@ -126,6 +126,9 @@
   <data name="ClassesMenuItem_Text" xml:space="preserve">
     <value>Classes</value>
   </data>
+  <data name="CodeViewMenuItem_Text" xml:space="preserve">
+    <value>Code View</value>
+  </data>
   <data name="FunctionsMenuItem_Text" xml:space="preserve">
     <value>Functions</value>
   </data>

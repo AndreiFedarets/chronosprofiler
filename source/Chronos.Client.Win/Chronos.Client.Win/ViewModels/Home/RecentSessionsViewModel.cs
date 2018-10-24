@@ -1,4 +1,6 @@
-﻿namespace Chronos.Client.Win.ViewModels.Home
+﻿using Adenium;
+
+namespace Chronos.Client.Win.ViewModels.Home
 {
     public class RecentSessionsViewModel : ViewModel
     {

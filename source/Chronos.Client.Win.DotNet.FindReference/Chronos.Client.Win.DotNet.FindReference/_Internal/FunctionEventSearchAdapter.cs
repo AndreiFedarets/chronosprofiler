@@ -13,8 +13,14 @@ namespace Chronos.Client.Win.DotNet.FindReference
             _functionInfo = functionInfo;
         }
 
-        public bool Match(IEvent @event)
+        public string SearchText
         {
+            get { return _functionInfo.FullName; }
+        }
+
+        public bool Match(EventTreeItem item)
+        {
+            IEvent @event = item.Event;
             return @event.EventType == Chronos.DotNet.TracingProfiler.Constants.EventType.ManagedFunctionCall &&
                    @event.Unit == _functionInfo.Uid;
         }

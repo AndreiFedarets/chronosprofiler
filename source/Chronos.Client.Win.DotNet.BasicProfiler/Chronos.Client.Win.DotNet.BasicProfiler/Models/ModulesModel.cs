@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using Chronos.DotNet.BasicProfiler;
 using Chronos.Model;
 using System;
+using Adenium;
 
 namespace Chronos.Client.Win.Models.DotNet.BasicProfiler
 {
-    public class ModulesModel : IUnitsModel
+    public class ModulesModel : IUnitsListModel
     {
         public ModulesModel(IModuleCollection units)
         {

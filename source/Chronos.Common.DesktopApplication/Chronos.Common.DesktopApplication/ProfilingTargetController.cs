@@ -38,9 +38,8 @@ namespace Chronos.Common.DesktopApplication
             _process.Refresh();
             if (_process.MainWindowHandle != IntPtr.Zero)
             {
-                Action action = () => _process.CloseMainWindow();
-                IAsyncResult asyncResult = action.BeginInvoke(null, null);
-                asyncResult.AsyncWaitHandle.WaitOne(ProcessWindowClosingTimeout);
+                _process.CloseMainWindow();
+                _process.WaitForExit(ProcessWindowClosingTimeout);
             }
             if (IsActive)
             {
