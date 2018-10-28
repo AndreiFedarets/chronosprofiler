@@ -1,7 +1,6 @@
 ﻿using Adenium;
 using Chronos.Client.Win.Common.EventsTree.Properties;
 using Chronos.Client.Win.Menu.Specialized;
-using Chronos.Client.Win.ViewModels;
 
 namespace Chronos.Client.Win.Menu.Common.EventsTree
 {
@@ -12,9 +11,9 @@ namespace Chronos.Client.Win.Menu.Common.EventsTree
         {
         }
 
-        public override string Text
+        public override string GetText()
         {
-            get { return Resources.PerformanceMenuItem_Text; }
+            return Resources.PerformanceMenuItem_Text;
         }
 
         protected override IViewModel GetViewModel()

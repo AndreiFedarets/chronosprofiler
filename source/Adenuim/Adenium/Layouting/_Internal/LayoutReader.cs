@@ -16,23 +16,23 @@ namespace Adenium.Layouting
         private const string ModeAttributeName = "Mode";
         private const string ActivationAttributeName = "Activation";
 
-        public ViewModelLayout Read(string content, ILayoutProvider provider)
+        public ViewModelLayout Read(string content, IActivator activator)
         {
             using (StringReader stringReader = new StringReader(content))
             {
-                return Read(stringReader, provider);
+                return Read(stringReader, activator);
             }
         }
 
-        public ViewModelLayout Read(TextReader reader, ILayoutProvider provider)
+        public ViewModelLayout Read(TextReader reader, IActivator activator)
         {
             using (XmlReader xmlReader = new XmlTextReader(reader))
             {
-                return Read(xmlReader, provider);
+                return Read(xmlReader, activator);
             }
         }
 
-        public ViewModelLayout Read(XmlReader reader, ILayoutProvider provider)
+        public ViewModelLayout Read(XmlReader reader, IActivator activator)
         {
             //Move to <Layout> element
             MoveToElement(reader, LayoutElementName);
@@ -58,22 +58,24 @@ namespace Adenium.Layouting
                         viewModels.Add(viewModel);
                         break;
                     case MenuElementName:
-                        Menu menu = ReadMenu(reader);
+                        Menu menu = ReadMenu(reader, activator);
                         menus.Add(menu);
                         break;
                 }
             }
 
-            ViewModelLayout layout = new ViewModelLayout(viewModels, menus, provider.Activator);
+            ViewModelLayout layout = new ViewModelLayout(viewModels, menus, activator);
             return layout;
         }
 
-        private Menu ReadMenu(XmlReader reader)
+        private Menu ReadMenu(XmlReader reader, IActivator activator)
         {
             //Move to <Menu> element
             MoveToElement(reader, MenuElementName);
 
             string id = string.Empty;
+            Type controlHandlerType = null;
+
             //Read <Menu> attributes
             while (reader.MoveToNextAttribute())
             {
@@ -82,10 +84,18 @@ namespace Adenium.Layouting
                     case IdAttributeName:
                         id = reader.ReadContentAsString();
                         break;
+                    case TypeAttributeName:
+                        string type = reader.ReadContentAsString();
+                        controlHandlerType = Type.GetType(type);
+                        break;
                 }
             }
 
-            Menu menu = new Menu(id);
+            Menu control = new Menu(id);
+
+            IMenuControlHandler controlHandler = new MenuControlHandlerLazy(controlHandlerType, activator);
+            control.AttachHandler(controlHandler);
+
             //Read <Menu> element content
             while (reader.Read())
             {
@@ -100,21 +110,23 @@ namespace Adenium.Layouting
                 switch (reader.Name)
                 {
                     case MenuItemElementName:
-                        MenuItem menuItem = ReadMenuItem(reader);
-                        menu.Add(menuItem);
+                        MenuItem menuItem = ReadMenuItem(reader, activator);
+                        control.Add(menuItem);
                         break;
                 }
             }
 
-            return menu;
+            return control;
         }
 
-        private MenuItem ReadMenuItem(XmlReader reader)
+        private MenuItem ReadMenuItem(XmlReader reader, IActivator activator)
         {
             //Move to <MenuItem> element
             MoveToElement(reader, MenuElementName);
 
             string id = string.Empty;
+            Type controlHandlerType = null;
+
             //Read <MenuItem> attributes
             while (reader.MoveToNextAttribute())
             {
@@ -123,10 +135,17 @@ namespace Adenium.Layouting
                     case IdAttributeName:
                         id = reader.ReadContentAsString();
                         break;
+                    case TypeAttributeName:
+                        string type = reader.ReadContentAsString();
+                        controlHandlerType = Type.GetType(type);
+                        break;
                 }
             }
 
-            MenuItem item = new MenuItem(id);
+            MenuItem control = new MenuItem(id);
+            IMenuControlHandler controlHandler = new MenuControlHandlerLazy(controlHandlerType, activator);
+            control.AttachHandler(controlHandler);
+
             //Read <MenuItem> element content
             while (reader.Read())
             {
@@ -141,13 +160,13 @@ namespace Adenium.Layouting
                 switch (reader.Name)
                 {
                     case MenuItemElementName:
-                        MenuItem menuItem = ReadMenuItem(reader);
-                        item.Add(menuItem);
+                        MenuItem menuItem = ReadMenuItem(reader, activator);
+                        control.Add(menuItem);
                         break;
                 }
             }
 
-            return item;
+            return control;
         }
 
         private ViewModelReference ReadViewModelReference(XmlReader reader)

@@ -6,11 +6,13 @@ namespace Adenium.Layouting
     {
         private static readonly List<ILayoutProvider> Providers;
         private static readonly LayoutReader Reader;
+        private static readonly LayoutBuilder Builder;
 
         static CompositeLayoutProvider()
         {
             Providers = new List<ILayoutProvider>();
             Reader = new LayoutReader();
+            Builder = new LayoutBuilder();
         }
 
         public static void Register(ILayoutProvider provider)
@@ -34,7 +36,8 @@ namespace Adenium.Layouting
                     string layoutString = provider.GetLayout(viewModel);
                     if (!string.IsNullOrWhiteSpace(layoutString))
                     {
-                        ViewModelLayout layout = Reader.Read(layoutString, provider);
+                        IActivator activator = provider.Activator;
+                        ViewModelLayout layout = Reader.Read(layoutString, activator);
                         layouts.Add(layout);
                     }
                 }
@@ -44,7 +47,9 @@ namespace Adenium.Layouting
 
         internal static ViewModelLayout GetLayout(IViewModel viewModel)
         {
-            Dictionary<ILayoutProvider, string> rawLayouts GetLayouts(viewModel)
+            List<ViewModelLayout> layouts = GetLayouts(viewModel);
+            ViewModelLayout layout = Builder.BuildLayout(layouts);
+            return layout;
         }
     }
 }

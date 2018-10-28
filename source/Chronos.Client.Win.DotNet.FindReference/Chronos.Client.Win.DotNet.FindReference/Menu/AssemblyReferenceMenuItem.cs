@@ -1,4 +1,4 @@
-﻿using Adenium.Menu;
+﻿using Adenium.Layouting;
 using Chronos.Client.Win.DotNet.FindReference.Properties;
 using Chronos.Client.Win.ViewModels;
 using Chronos.Client.Win.ViewModels.Common.EventsTree;
@@ -6,7 +6,7 @@ using Chronos.DotNet.BasicProfiler;
 
 namespace Chronos.Client.Win.Menu.Common.FindReference
 {
-    internal sealed class AssemblyReferenceMenuItem : MenuItem
+    internal sealed class AssemblyReferenceMenuItem : MenuControlHandlerBase
     {
         private readonly IEventsTreeViewModelCollection _eventsTreeViewModels;
         private readonly UnitsListViewModel _unitsViewModel;
@@ -17,9 +17,9 @@ namespace Chronos.Client.Win.Menu.Common.FindReference
             _eventsTreeViewModels = eventsTreeViewModels;
         }
 
-        public override string Text
+        public override string GetText()
         {
-            get { return Resources.AssemblyReferenceMenuItem_Text; }
+            return Resources.AssemblyReferenceMenuItem_Text;
         }
 
         public override void OnAction()

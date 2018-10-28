@@ -54,6 +54,7 @@
         internal virtual void NotifyControlAttached()
         {
             Handler.OnControlAttached(this);
+            Invalidate();
         }
     }
 }

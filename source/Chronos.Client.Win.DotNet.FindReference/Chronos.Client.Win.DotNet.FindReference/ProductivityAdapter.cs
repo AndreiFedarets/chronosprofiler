@@ -1,7 +1,5 @@
 ﻿using System;
 using Adenium;
-using Adenium.Menu;
-using Chronos.Client.Win.Menu;
 using Chronos.Client.Win.Menu.Common.FindReference;
 using Chronos.Client.Win.ViewModels;
 using Chronos.Client.Win.ViewModels.Common.EventsTree;
@@ -36,47 +34,47 @@ namespace Chronos.Client.Win.DotNet.FindReference
                 return;
             }
             _application.MessageBus.Subscribe(this);
-            _application.MainViewModel.ViewModelAttached += OnViewModelAttached;
+            //_application.MainViewModel.ViewModelAttached += OnViewModelAttached;
         }
 
-        private void OnViewModelAttached(object sender, ViewModelEventArgs e)
-        {
-            UnitsListViewModel unitsViewModel = e.ViewModel as UnitsListViewModel;
-            if (unitsViewModel != null)
-            {
-                InitializeUnitContextMenu(unitsViewModel);
-            }
-            EventsTreeViewModel eventsTreeViewModel = e.ViewModel as EventsTreeViewModel;
-            if (eventsTreeViewModel != null)
-            {
-                InitializeFindReferenceViewModel(eventsTreeViewModel);
-            }
-        }
+        //private void OnViewModelAttached(object sender, ViewModelEventArgs e)
+        //{
+        //    UnitsListViewModel unitsViewModel = e.ViewModel as UnitsListViewModel;
+        //    if (unitsViewModel != null)
+        //    {
+        //        InitializeUnitContextMenu(unitsViewModel);
+        //    }
+        //    EventsTreeViewModel eventsTreeViewModel = e.ViewModel as EventsTreeViewModel;
+        //    if (eventsTreeViewModel != null)
+        //    {
+        //        InitializeFindReferenceViewModel(eventsTreeViewModel);
+        //    }
+        //}
 
-        private void InitializeUnitContextMenu(UnitsListViewModel unitsViewModel)
-        {
-            MenuItem menuItem = null;
-            if (unitsViewModel.UnitType == typeof(AssemblyInfo))
-            {
-                menuItem = new AssemblyReferenceMenuItem(unitsViewModel, _eventsTreeViewModels);
-            }
-            if (unitsViewModel.UnitType == typeof(ModuleInfo))
-            {
-                menuItem = new ModuleReferenceMenuItem(unitsViewModel, _eventsTreeViewModels);
-            }
-            if (unitsViewModel.UnitType == typeof(ClassInfo))
-            {
-                menuItem = new ClassReferenceMenuItem(unitsViewModel, _eventsTreeViewModels);
-            }
-            if (unitsViewModel.UnitType == typeof(FunctionInfo))
-            {
-                menuItem = new FunctionReferenceMenuItem(unitsViewModel, _eventsTreeViewModels);
-            }
-            if (menuItem != null)
-            {
-                unitsViewModel.Menus[Constants.Menus.ItemContextMenu].Add(menuItem);
-            }
-        }
+        //private void InitializeUnitContextMenu(UnitsListViewModel unitsViewModel)
+        //{
+        //    MenuItem menuItem = null;
+        //    if (unitsViewModel.UnitType == typeof(AssemblyInfo))
+        //    {
+        //        menuItem = new AssemblyReferenceMenuItem(unitsViewModel, _eventsTreeViewModels);
+        //    }
+        //    if (unitsViewModel.UnitType == typeof(ModuleInfo))
+        //    {
+        //        menuItem = new ModuleReferenceMenuItem(unitsViewModel, _eventsTreeViewModels);
+        //    }
+        //    if (unitsViewModel.UnitType == typeof(ClassInfo))
+        //    {
+        //        menuItem = new ClassReferenceMenuItem(unitsViewModel, _eventsTreeViewModels);
+        //    }
+        //    if (unitsViewModel.UnitType == typeof(FunctionInfo))
+        //    {
+        //        menuItem = new FunctionReferenceMenuItem(unitsViewModel, _eventsTreeViewModels);
+        //    }
+        //    if (menuItem != null)
+        //    {
+        //        unitsViewModel.Menus[Constants.Menus.ItemContextMenu].Add(menuItem);
+        //    }
+        //}
 
         private void InitializeFindReferenceViewModel(EventsTreeViewModel eventsTreeViewModel)
         {

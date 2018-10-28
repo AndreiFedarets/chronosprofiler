@@ -13,10 +13,9 @@ namespace Chronos.Client.Win.Menu.DotNet.BasicProfiler
         {
         }
         
-        public override string Text
+        public override string GetText()
         {
-            get { return Resources.CodeViewMenuItem_Text; }
-            protected set { }
+            return Resources.CodeViewMenuItem_Text;
         }
 
         protected override IViewModel GetViewModel()

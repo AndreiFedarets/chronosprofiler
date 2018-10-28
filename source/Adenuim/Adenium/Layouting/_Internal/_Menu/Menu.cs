@@ -5,7 +5,6 @@
         public Menu(string id)
             : base(id)
         {
-            
         }
     }
 }

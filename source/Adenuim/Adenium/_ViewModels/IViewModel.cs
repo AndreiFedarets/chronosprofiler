@@ -1,5 +1,5 @@
 ﻿using System;
-using Adenium.Menu;
+using Adenium.Layouting;
 
 namespace Adenium
 {

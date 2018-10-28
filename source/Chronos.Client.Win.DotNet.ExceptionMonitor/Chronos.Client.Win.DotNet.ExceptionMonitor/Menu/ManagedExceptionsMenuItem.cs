@@ -13,10 +13,9 @@ namespace Chronos.Client.Win.Menu.DotNet.ExceptionMonitor
         {
         }
 
-        public override string Text
+        public override string GetText()
         {
-            get { return Resources.ManagedExceptionsMenuItem_Text; }
-            protected set { }
+            return Resources.ManagedExceptionsMenuItem_Text;
         }
 
         protected override IUnitsListModel GetModel()

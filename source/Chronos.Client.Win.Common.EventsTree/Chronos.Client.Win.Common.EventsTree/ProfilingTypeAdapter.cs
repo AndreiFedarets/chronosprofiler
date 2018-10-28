@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using Adenium;
-using Adenium.Menu;
-using Chronos.Client.Win.Common.EventsTree.Properties;
-using Chronos.Client.Win.ViewModels.Common.EventsTree;
+﻿using Chronos.Client.Win.ViewModels.Common.EventsTree;
 using Chronos.Messaging;
 
 namespace Chronos.Client.Win.Common.EventsTree
@@ -42,15 +38,15 @@ namespace Chronos.Client.Win.Common.EventsTree
 
         //}
 
-        [MessageHandler(Win.Constants.Message.BuildProfilingViewMenu)]
-        internal void BuildProfilingViewMenu(IContainerViewModel viewModel, List<IMenu> menus)
-        {
-            Container container = new Container();
-            container.RegisterInstance(_application);
-            MenuReader reader = new MenuReader();
-            IMenu menu = reader.ReadMenu(Resources.Menu, container);
-            menus.Add(menu);
-        }
+        //[MessageHandler(Win.Constants.Message.BuildProfilingViewMenu)]
+        //internal void BuildProfilingViewMenu(IContainerViewModel viewModel, List<IMenu> menus)
+        //{
+        //    Container container = new Container();
+        //    container.RegisterInstance(_application);
+        //    MenuReader reader = new MenuReader();
+        //    IMenu menu = reader.ReadMenu(Resources.Menu, container);
+        //    menus.Add(menu);
+        //}
 
         void IServiceConsumer.ExportServices(IServiceContainer container)
         {

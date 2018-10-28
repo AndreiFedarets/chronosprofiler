@@ -38,9 +38,6 @@
     <Reference Include="Caliburn.Micro.Platform">
       <HintPath>..\..\..\externals\Caliburn.Micro.Platform.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\..\..\externals\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -143,9 +140,6 @@
     <Compile Include="_Internal\ChronosCoreLocator.cs" />
     <Compile Include="_Internal\HostApplicationExtensionAdapter.cs" />
     <Compile Include="_Internal\ClientMessageBus.cs" />
-    <Compile Include="_Internal\MenuBuilder.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="_Internal\ProfilingApplication.cs" />
     <Compile Include="IApplicationBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

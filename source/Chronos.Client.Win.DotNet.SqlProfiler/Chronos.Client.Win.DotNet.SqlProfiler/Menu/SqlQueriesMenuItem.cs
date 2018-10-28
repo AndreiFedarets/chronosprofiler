@@ -13,10 +13,9 @@ namespace Chronos.Client.Win.Menu.DotNet.SqlProfiler
         {
         }
 
-        public override string Text
+        public override string GetText()
         {
-            get { return Resources.SqlQueriesMenuItem_Text; }
-            protected set { }
+            return Resources.SqlQueriesMenuItem_Text;
         }
 
         protected override IUnitsListModel GetModel()

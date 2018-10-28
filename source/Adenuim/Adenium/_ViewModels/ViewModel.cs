@@ -1,5 +1,5 @@
 ﻿using System;
-using Adenium.Menu;
+using Adenium.Layouting;
 using Caliburn.Micro;
 
 namespace Adenium
@@ -37,5 +37,10 @@ namespace Adenium
         {
             _context.Dispose();
         }
+
+        //protected virtual void BuildLayout()
+        //{
+        //    ViewModelBuilder.Build(this);
+        //}
     }
 }

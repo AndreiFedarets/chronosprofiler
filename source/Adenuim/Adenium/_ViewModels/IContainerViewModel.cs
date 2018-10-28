@@ -6,8 +6,6 @@ namespace Adenium
 {
     public interface IContainerViewModel : IViewModel, IEnumerable<IViewModel>, INotifyCollectionChanged
     {
-        IContainer Container { get; }
-
         event EventHandler<ViewModelEventArgs> ViewModelAttached;
 
         event EventHandler<ViewModelEventArgs> ViewModelDeattached;

@@ -1,7 +1,6 @@
 ﻿using Adenium;
 using Chronos.Client.Win.Common.EventsTree.Properties;
 using Chronos.Client.Win.Menu.Specialized;
-using Chronos.Client.Win.ViewModels;
 using Chronos.Client.Win.ViewModels.Common.EventsTree;
 using Chronos.Common.EventsTree;
 
@@ -14,9 +13,9 @@ namespace Chronos.Client.Win.Menu.Common.EventsTree
         {
         }
 
-        public override string Text
+        public override string GetText()
         {
-            get { return Resources.TimelineMenuItem_Text; }
+            return Resources.TimelineMenuItem_Text;
         }
 
         protected override IViewModel GetViewModel()

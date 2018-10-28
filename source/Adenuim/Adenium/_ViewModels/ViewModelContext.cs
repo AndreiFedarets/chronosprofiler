@@ -1,5 +1,5 @@
 ﻿using System;
-using Adenium.Menu;
+using Adenium.Layouting;
 
 namespace Adenium
 {
@@ -26,10 +26,9 @@ namespace Adenium
 
         public IMenuCollection Menus { get; private set; }
 
-        public ContainerViewModelLayout GetViewModelLayout()
+        public ViewModelLayout GetViewModelLayout()
         {
-            Type viewModelType = _viewModel.GetType();
-            ContainerViewModelLayout layout = LayoutProvider.Current.GetViewModelLayout(viewModelType);
+            ViewModelLayout layout = CompositeLayoutProvider.GetLayout(_viewModel);
             return layout;
         }
 
@@ -56,7 +55,7 @@ namespace Adenium
 
         public void Dispose()
         {
-            Menus.Dispose();
+            ((IDisposable)Menus).Dispose();
         }
     }
 }

@@ -79,11 +79,12 @@
     <Compile Include="Layouting\CompositeLayoutProvider.cs" />
     <Compile Include="Layouting\ILayoutProvider.cs" />
     <Compile Include="Layouting\_Internal\CompositeMenuControlHandler.cs" />
+    <Compile Include="Layouting\_Internal\_Menu\MenuControlHandlerLazy.cs" />
     <Compile Include="Layouting\_Menu\MenuControlHandlerBase.cs" />
     <Compile Include="Layouting\_Menu\IMenuControlHandler.cs" />
     <Compile Include="_Extensions\_Internal\XmlReaderExtension.cs" />
     <Compile Include="Layouting\_Internal\_ViewModel\ViewModelLayout.cs" />
-    <Compile Include="Layouting\_Internal\LayoutProvider.cs" />
+    <Compile Include="Layouting\_Internal\LayoutBuilder.cs" />
     <Compile Include="Layouting\_Internal\ViewModelBuilder.cs" />
     <Compile Include="IContainer.cs" />
     <Compile Include="IDispatcher.cs" />
@@ -138,14 +139,6 @@
     <Compile Include="Layouting\_Menu\IMenuCollection.cs" />
     <Compile Include="Layouting\_Internal\_Menu\Menu.cs" />
     <Compile Include="Layouting\_Internal\_Menu\MenuItem.cs" />
-    <Compile Include="Layouting\_Internal\_Menu\_Internal\CompositeAggregator.cs" />
-    <Compile Include="Layouting\_Internal\_Menu\_Internal\CompositeControl.cs" />
-    <Compile Include="Layouting\_Internal\_Menu\_Internal\CompositeControlCollection.cs" />
-    <Compile Include="Layouting\_Internal\_Menu\_Internal\CompositeControlFactory.cs" />
-    <Compile Include="Layouting\_Internal\_Menu\_Internal\CompositeMenu.cs" />
-    <Compile Include="Layouting\_Internal\_Menu\_Internal\CompositeMenuItem.cs" />
-    <Compile Include="Layouting\_Internal\_Menu\_Internal\ICompositeControl.cs" />
-    <Compile Include="Layouting\_Internal\_Menu\_Internal\ICompositeControlCollection.cs" />
     <Compile Include="Layouting\_Internal\_Menu\MenuCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

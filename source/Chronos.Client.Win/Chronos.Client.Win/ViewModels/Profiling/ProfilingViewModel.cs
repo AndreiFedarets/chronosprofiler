@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Adenium;
-using Adenium.Menu;
+using Adenium.Layouting;
 
 namespace Chronos.Client.Win.ViewModels.Profiling
 {
@@ -52,12 +52,6 @@ namespace Chronos.Client.Win.ViewModels.Profiling
             Task.Factory.StartNew(() => _application.FlushData()).ContinueWith(t => IsEnabled = true);
         }
 
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-            BuildMenu();
-        }
-
         private void OnApplicationStateChanged(object sender, ApplicationStateEventArgs e)
         {
             if (e.CurrentState == ApplicationState.Started)
@@ -69,12 +63,6 @@ namespace Chronos.Client.Win.ViewModels.Profiling
         private void OnSessionStateChanged(object sender, SessionStateEventArgs e)
         {
             //NotifyOfPropertyChange(() => IsProfilingActive);
-        }
-
-        private void BuildMenu()
-        {
-            MenuBuilder builder = new MenuBuilder();
-            Menu = builder.BuildProfilingViewMenu(this);
         }
     }
 }

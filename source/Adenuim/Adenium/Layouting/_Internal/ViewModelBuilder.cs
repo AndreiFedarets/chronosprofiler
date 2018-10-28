@@ -9,14 +9,15 @@ namespace Adenium.Layouting
             foreach (ViewModelReference reference in layout.ViewModels)
             {
                 Type childViewModelType = reference.Type;
-                IViewModel childViewModel = (IViewModel)viewModel.Container.Resolve(childViewModelType);
+                IActivator activator = layout.Activator;
+                IViewModel childViewModel = (IViewModel)activator.Resolve(childViewModelType);
                 viewModel.ActivateItem(childViewModel);
             }
         }
 
         public static void Build(IContainerViewModel viewModel)
         {
-            ViewModelLayout layout = LayoutProvider.GetViewModelLayout(viewModel);
+            ViewModelLayout layout = CompositeLayoutProvider.GetLayout(viewModel);
             if (layout != null)
             {
                 Build(viewModel, layout);   

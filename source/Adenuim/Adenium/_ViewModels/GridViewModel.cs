@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using Adenium.Menu;
+using Adenium.Layouting;
 using Caliburn.Micro;
 
 namespace Adenium
@@ -106,6 +106,11 @@ namespace Adenium
         public void Dispose()
         {
             _context.Dispose();
+        }
+
+        protected virtual void BuildLayout()
+        {
+            ViewModelBuilder.Build(this);
         }
 
         private void OnChildViewModelActivated(object sender, ViewModelEventArgs e)

@@ -1,10 +1,10 @@
-﻿using Adenium.Menu;
+﻿using Adenium.Layouting;
 using Chronos.Client.Win.Common.EventsTree.Properties;
 using Chronos.Client.Win.ViewModels.Common.EventsTree;
 
 namespace Chronos.Client.Win.Menu.Common.EventsTree
 {
-    internal sealed class EventsTreeMenuItem : MenuItem
+    internal sealed class EventsTreeMenuItem : MenuControlHandlerBase
     {
         private readonly IProfilingApplication _application;
 
@@ -13,9 +13,9 @@ namespace Chronos.Client.Win.Menu.Common.EventsTree
             _application = application;
         }
 
-        public override string Text
+        public override string GetText()
         {
-            get { return Resources.EventsTreeMenuItem_Text; }
+            return Resources.EventsTreeMenuItem_Text;
         }
 
         public override void OnAction()

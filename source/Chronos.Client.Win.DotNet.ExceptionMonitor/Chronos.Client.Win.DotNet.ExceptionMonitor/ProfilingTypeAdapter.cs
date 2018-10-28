@@ -1,11 +1,4 @@
-﻿using System.Collections.Generic;
-using Adenium;
-using Adenium.Menu;
-using Chronos.Client.Win.DotNet.ExceptionMonitor.Properties;
-using Chronos.Client.Win.Menu;
-using Chronos.Client.Win.ViewModels;
-using Chronos.Client.Win.ViewModels.Profiling;
-using Chronos.Messaging;
+﻿using Chronos.Messaging;
 
 namespace Chronos.Client.Win.DotNet.ExceptionMonitor
 {
@@ -27,14 +20,14 @@ namespace Chronos.Client.Win.DotNet.ExceptionMonitor
             }
         }
 
-        [MessageHandler(Win.Constants.Message.BuildProfilingViewMenu)]
-        internal void BuildProfilingViewMenu(IContainerViewModel viewModel, List<IMenu> menus)
-        {
-            Container container = new Container();
-            container.RegisterInstance(_application);
-            MenuReader reader = new MenuReader();
-            IMenu menu = reader.ReadMenu(Resources.Menu, container);
-            menus.Add(menu);
-        }
+        //[MessageHandler(Win.Constants.Message.BuildProfilingViewMenu)]
+        //internal void BuildProfilingViewMenu(IContainerViewModel viewModel, List<IMenu> menus)
+        //{
+        //    Container container = new Container();
+        //    container.RegisterInstance(_application);
+        //    MenuReader reader = new MenuReader();
+        //    IMenu menu = reader.ReadMenu(Resources.Menu, container);
+        //    menus.Add(menu);
+        //}
     }
 }

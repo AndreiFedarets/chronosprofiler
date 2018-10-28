@@ -9,7 +9,7 @@
             get { return _control; }
         }
 
-        public void OnControlAttached(IMenuControl control)
+        public virtual void OnControlAttached(IMenuControl control)
         {
             _control = control;
         }
@@ -29,7 +29,7 @@
             return true;
         }
 
-        public string GetText()
+        public virtual string GetText()
         {
             return string.Empty;
         }

@@ -1,10 +1,10 @@
 ﻿using System;
 using Adenium;
-using Adenium.Menu;
+using Adenium.Layouting;
 
 namespace Chronos.Client.Win.Menu.Specialized
 {
-    public abstract class ProfilingMenuItemBase : MenuItem
+    public abstract class ProfilingMenuItemBase : MenuControlHandlerBase
     {
         protected IProfilingApplication Application;
         private readonly Lazy<IViewModel> _viewModel;

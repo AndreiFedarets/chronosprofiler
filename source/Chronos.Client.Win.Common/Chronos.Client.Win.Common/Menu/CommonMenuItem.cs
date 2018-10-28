@@ -1,13 +1,13 @@
-﻿using Adenium.Menu;
+﻿using Adenium.Layouting;
 using Chronos.Client.Win.Common.Properties;
 
 namespace Chronos.Client.Win.Menu.Common
 {
-    internal sealed class CommonMenuItem : MenuItem
+    internal sealed class CommonMenuItem : MenuControlHandlerBase
     {
-        public override string Text
+        public override string GetText()
         {
-            get { return Resources.CommonMenuItem_Text; }
+            return Resources.CommonMenuItem_Text;
         }
     }
 }

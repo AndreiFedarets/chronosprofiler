@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using Adenium;
-using Adenium.Menu;
 using Chronos.Client.Win.Models;
 using Chronos.Model;
 
@@ -26,7 +25,6 @@ namespace Chronos.Client.Win.ViewModels
                 column.AttachCollectionView(collectionView);
             }
             SelectedColumn = Columns.FirstOrDefault();
-            Menus.Add(new CompositeMenu(Constants.Menus.ItemContextMenu));
         }
 
         public override string DisplayName

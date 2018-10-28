@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using Adenium.Menu;
+using Adenium.Layouting;
 using Caliburn.Micro;
 
 namespace Adenium
@@ -35,6 +35,8 @@ namespace Adenium
         {
             get { return _context.Menus; }
         }
+
+        public IContainer Container { get; private set; }
 
         protected ContractCollection Contracts
         {

@@ -1,18 +1,17 @@
 ﻿using System.Windows;
-using Adenium.Menu;
 
 namespace Adenium.Controls
 {
     internal sealed class MenuItem : System.Windows.Controls.MenuItem
     {
-        private readonly IMenuItem _viewModel;
+        private readonly Layouting.MenuItem _viewModel;
 
         static MenuItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MenuItem), new FrameworkPropertyMetadata(typeof(System.Windows.Controls.MenuItem)));
         }
 
-        internal MenuItem(IMenuItem viewModel)
+        internal MenuItem(Layouting.MenuItem viewModel)
         {
             _viewModel = viewModel;
             BindViewModel();

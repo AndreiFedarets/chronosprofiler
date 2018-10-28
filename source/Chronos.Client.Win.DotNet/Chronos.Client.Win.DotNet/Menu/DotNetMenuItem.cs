@@ -1,14 +1,13 @@
-﻿using Adenium.Menu;
+﻿using Adenium.Layouting;
 using Chronos.Client.Win.DotNet.Properties;
 
 namespace Chronos.Client.Win.Menu.DotNet
 {
-    internal sealed class DotNetMenuItem : MenuItem
+    internal sealed class DotNetMenuItem : MenuControlHandlerBase
     {
-        public override string Text
+        public override string GetText()
         {
-            get { return Resources.DotNetMenuItem_Text; }
-            protected set { }
+            return Resources.DotNetMenuItem_Text;
         }
     }
 }

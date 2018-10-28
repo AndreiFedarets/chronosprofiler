@@ -1,5 +1,5 @@
 ﻿using System;
-using Adenium.Menu;
+using Adenium.Layouting;
 
 namespace Adenium.Controls
 {
@@ -7,9 +7,9 @@ namespace Adenium.Controls
     {
         public static System.Windows.Controls.Control Convert(IMenuControl viewModel)
         {
-            if (viewModel is IMenuItem)
+            if (viewModel is Layouting.MenuItem)
             {
-                return new MenuItem((IMenuItem) viewModel);
+                return new MenuItem((Layouting.MenuItem)viewModel);
             }
             throw new Exception(string.Format("{0} is unknown control type", viewModel));
         }
