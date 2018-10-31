@@ -2,7 +2,7 @@
 {
     internal abstract class MenuControl : PropertyChangedBaseEx, IMenuControl
     {
-        protected CompositeMenuControlHandler Handler;
+        protected readonly CompositeMenuControlHandler Handler;
         private bool _isEnabled;
         private bool _isVisible;
 
@@ -55,6 +55,11 @@
         {
             Handler.OnControlAttached(this);
             Invalidate();
+        }
+
+        internal virtual void Merge(MenuControl control)
+        {
+            Handler.AttachHandler(control.Handler);
         }
     }
 }

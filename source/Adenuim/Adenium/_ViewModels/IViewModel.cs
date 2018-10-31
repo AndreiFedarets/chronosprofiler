@@ -5,7 +5,7 @@ namespace Adenium
 {
     public interface IViewModel : IDisposable
     {
-        Guid TypeId { get; }
+        string ViewModelUid { get; }
 
         Guid InstanceId { get; }
 

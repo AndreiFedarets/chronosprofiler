@@ -1,33 +1,17 @@
-﻿using Chronos.Messaging;
+﻿using Adenium;
+using Adenium.Layouting;
 
 namespace Chronos.Client.Win.DotNet.SqlProfiler
 {
-    public sealed class ProfilingTypeAdapter : IProfilingTypeAdapter, IInitializable, IMessageBusHandler
+    public sealed class ProfilingTypeAdapter : IProfilingTypeAdapter, ILayoutProvider
     {
-        private IProfilingApplication _application;
-
-        public object CreateSettingsPresentation(ProfilingTypeSettings profilingTypeSettings)
+        void ILayoutProvider.ConfigureContainer(IContainer container)
         {
-            return null;
         }
 
-        void IInitializable.Initialize(IChronosApplication applicationObject)
+        string ILayoutProvider.GetLayout(IViewModel viewModel)
         {
-            _application = applicationObject as IProfilingApplication;
-            if (_application != null)
-            {
-                _application.MessageBus.Subscribe(this);
-            }
+            return LayoutFileReader.ReadViewModelLayout(viewModel);
         }
-
-        //[MessageHandler(Win.Constants.Message.BuildProfilingViewMenu)]
-        //internal void BuildProfilingViewMenu(IContainerViewModel viewModel, List<IMenu> menus)
-        //{
-        //    Container container = new Container();
-        //    container.RegisterInstance(_application);
-        //    MenuReader reader = new MenuReader();
-        //    IMenu menu = reader.ReadMenu(Resources.Menu, container);
-        //    menus.Add(menu);
-        //}
     }
 }

@@ -1,9 +1,9 @@
-﻿
-using Adenium;
+﻿using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
     [EnableContract(typeof(DialogContract))]
+    [ViewModelAttribute("Home.StartPageViewModel")]
     public class StartPageViewModel : GridViewModel, IDialogContractConsumer
     {
         private bool _startProfilingImmediately;
@@ -37,10 +37,13 @@ namespace Chronos.Client.Win.ViewModels.Start
 
         public IMainApplication Application { get; private set; }
 
+        [ViewModelExport]
         public ConfigurationSettings ConfigurationSettings { get; private set; }
 
+        [ViewModelExport]
         public IHostApplicationSelector HostApplicationSelector { get; private set; }
 
+        [ViewModelExport]
         public IProfilingTarget ProfilingTarget { get; private set; }
         
         public bool StartProfilingImmediately
@@ -67,9 +70,9 @@ namespace Chronos.Client.Win.ViewModels.Start
         protected override void OnInitialize()
         {
             base.OnInitialize();
-            ActivateItem(new HostApplicationSelectViewModel(HostApplicationSelector));
-            ActivateItem(new PlaceholderViewModel(new ProfilingTargetContent(ProfilingTarget, this, HostApplicationSelector)));
-            ActivateItem(new ProfilingTypesViewModel(Application, ConfigurationSettings));
+            //ActivateItem(new HostApplicationSelectViewModel(HostApplicationSelector));
+            //ActivateItem(new PlaceholderViewModel(new ProfilingTargetContent(ProfilingTarget, this, HostApplicationSelector)));
+            //ActivateItem(new ProfilingTypesViewModel(Application, ConfigurationSettings));
         }
 
         void IDialogContractConsumer.OnReadyChanged(bool ready)

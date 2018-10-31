@@ -32,19 +32,19 @@ namespace Adenium
                 get { return View.ViewPosition; }
             }
 
-            public Guid AttachTo
+            public string AttachTo
             {
                 get { return View.AttachTo; }
             }
 
-            public Guid TypeId
+            public string ViewModelUid
             {
-                get { return _viewModel.TypeId; }
+                get { return _viewModel.ViewModelUid; }
             }
 
             public bool IsRoot
             {
-                get { return AttachTo == Guid.Empty; }
+                get { return string.IsNullOrEmpty(AttachTo); }
             }
 
             public int Row

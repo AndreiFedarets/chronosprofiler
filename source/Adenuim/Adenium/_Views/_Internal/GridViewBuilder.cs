@@ -7,7 +7,7 @@ namespace Adenium
 {
     internal sealed class GridViewBuilder : IEnumerable<GridViewItem>
     {
-        private readonly Dictionary<Guid, GridViewItem> _items;
+        private readonly Dictionary<string, GridViewItem> _items;
         private List<GridViewItem> _processedItems;
         private List<GridViewItem> _remainingItems;
         private GridViewItem _firstLayoutItem;
@@ -15,7 +15,7 @@ namespace Adenium
         public GridViewBuilder(IEnumerable<IViewModel> viewModels)
         {
             IEnumerable<GridViewItem> cells = viewModels.Select(x => new GridViewItem(x));
-            _items = cells.ToDictionary(x => x.TypeId, x => x);
+            _items = cells.ToDictionary(x => x.ViewModelUid, x => x);
         }
 
         public int Columns
@@ -99,7 +99,7 @@ namespace Adenium
                 InsertUsualItem(insertingItem);
             }
             _processedItems.Add(insertingItem);
-            List<GridViewItem> items = TakeRemainingItems(x => insertingItem.TypeId == x.AttachTo);
+            List<GridViewItem> items = TakeRemainingItems(x => string.Equals(insertingItem.ViewModelUid, x.AttachTo, StringComparison.OrdinalIgnoreCase));
             foreach (GridViewItem item in items)
             {
                 InsertItem(item);

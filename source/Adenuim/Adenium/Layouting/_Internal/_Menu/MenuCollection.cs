@@ -32,9 +32,12 @@ namespace Adenium.Layouting
             Menu existingMenu = (Menu)this[menu.Id];
             if (existingMenu != null)
             {
-                _collection.Remove(existingMenu);
+                existingMenu.Merge(menu);
             }
-            _collection.Add(menu);
+            else
+            {
+                _collection.Add(menu);
+            }
         }
 
         public IEnumerator<IMenu> GetEnumerator()

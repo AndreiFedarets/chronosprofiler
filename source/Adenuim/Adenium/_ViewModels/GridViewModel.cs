@@ -16,9 +16,9 @@ namespace Adenium
             _context = new ViewModelContext(this);
         }
 
-        public Guid TypeId
+        public string ViewModelUid
         {
-            get { return _context.TypeId; }
+            get { return _context.ViewModelUid; }
         }
 
         public Guid InstanceId
@@ -60,14 +60,14 @@ namespace Adenium
                 IContainerViewModel containerViewModel = viewModel as IContainerViewModel;
                 if (containerViewModel != null)
                 {
-                    containerViewModel.ViewModelAttached += OnChildViewModelActivated;
-                    containerViewModel.ViewModelDeattached += OnChildViewModelDeactivated;
+                    containerViewModel.ViewModelAttached += OnChildViewModelAttached;
+                    containerViewModel.ViewModelDeattached += OnChildViewModelDeattached;
                 }
             }
             base.ActivateItem(viewModel);
             if (!contains)
             {
-                ViewModelEventArgs.RaiseEvent(ViewModelAttached, this, viewModel);
+                OnViewModelAttached(viewModel);
             }
         }
 
@@ -81,10 +81,19 @@ namespace Adenium
                 IContainerViewModel containerViewModel = viewModel as IContainerViewModel;
                 if (containerViewModel != null)
                 {
-                    containerViewModel.ViewModelAttached -= OnChildViewModelActivated;
-                    containerViewModel.ViewModelDeattached -= OnChildViewModelDeactivated;
+                    containerViewModel.ViewModelAttached -= OnChildViewModelAttached;
+                    containerViewModel.ViewModelDeattached -= OnChildViewModelDeattached;
                 }
-                ViewModelEventArgs.RaiseEvent(ViewModelDeattached, this, viewModel);
+                OnViewModelDeattached(viewModel);
+            }
+        }
+
+        public void RemoveItems()
+        {
+            List<IViewModel> viewModels = new List<IViewModel>(Items);
+            foreach (IViewModel viewModel in viewModels)
+            {
+                DeactivateItem(viewModel, true);
             }
         }
 
@@ -108,17 +117,22 @@ namespace Adenium
             _context.Dispose();
         }
 
-        protected virtual void BuildLayout()
+        private void OnViewModelAttached(IViewModel viewModel)
         {
-            ViewModelBuilder.Build(this);
+            ViewModelEventArgs.RaiseEvent(ViewModelAttached, this, viewModel);
         }
 
-        private void OnChildViewModelActivated(object sender, ViewModelEventArgs e)
+        private void OnViewModelDeattached(IViewModel viewModel)
+        {
+            ViewModelEventArgs.RaiseEvent(ViewModelDeattached, this, viewModel);
+        }
+
+        private void OnChildViewModelAttached(object sender, ViewModelEventArgs e)
         {
             ViewModelEventArgs.RaiseEvent(ViewModelAttached, sender, e);
         }
 
-        private void OnChildViewModelDeactivated(object sender, ViewModelEventArgs e)
+        private void OnChildViewModelDeattached(object sender, ViewModelEventArgs e)
         {
             ViewModelEventArgs.RaiseEvent(ViewModelDeattached, sender, e);
         }

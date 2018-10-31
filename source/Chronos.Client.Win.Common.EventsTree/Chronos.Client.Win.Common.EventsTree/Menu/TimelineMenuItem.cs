@@ -4,7 +4,7 @@ using Chronos.Client.Win.Menu.Specialized;
 using Chronos.Client.Win.ViewModels.Common.EventsTree;
 using Chronos.Common.EventsTree;
 
-namespace Chronos.Client.Win.Menu.Common.EventsTree
+namespace Chronos.Client.Win.Common.EventsTree.Menu
 {
     internal sealed class TimelineMenuItem : ProfilingMenuItemBase
     {

@@ -35,6 +35,11 @@ namespace Adenium.Layouting
             _handler.Value.OnAction();
         }
 
+        public override string GetText()
+        {
+            return _handler.Value.GetText();
+        }
+
         public override void Dispose()
         {
             base.Dispose();

@@ -1,18 +1,17 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Adenium.Layouting;
-using Menu = System.Windows.Controls.Menu;
 
 namespace Adenium.Controls
 {
-    public class MenuControl : System.Windows.Controls.Menu
+    public class Menu : System.Windows.Controls.Menu
     {
         public static readonly DependencyProperty SourceProperty;
 
-        static MenuControl()
+        static Menu()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(MenuControl), new FrameworkPropertyMetadata(typeof(System.Windows.Controls.Menu)));
-            SourceProperty = DependencyProperty.Register("Source", typeof(IMenu), typeof(MenuControl), new PropertyMetadata(SourcePropertyChanged));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Menu), new FrameworkPropertyMetadata(typeof(System.Windows.Controls.Menu)));
+            SourceProperty = DependencyProperty.Register("Source", typeof(IMenu), typeof(Menu), new PropertyMetadata(SourcePropertyChanged));
         }
 
         public IMenu Source
@@ -28,6 +27,7 @@ namespace Adenium.Controls
             {
                 return;
             }
+            Source.Invalidate();
             Visibility = Visibility.Collapsed;
             foreach (IMenuControl viewModel in Source)
             {
@@ -58,7 +58,7 @@ namespace Adenium.Controls
 
         private static void SourcePropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
-            MenuControl menu = (MenuControl)source;
+            Menu menu = (Menu)source;
             menu.BindViewModel();
         }
     }

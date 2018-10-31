@@ -1,40 +1,57 @@
 ﻿using System;
 using Adenium;
-using Chronos.Client.Win.Menu.Common.FindReference;
-using Chronos.Client.Win.ViewModels;
+using Adenium.Layouting;
 using Chronos.Client.Win.ViewModels.Common.EventsTree;
-using Chronos.Client.Win.ViewModels.DotNet.FindReference;
-using Chronos.DotNet.BasicProfiler;
-using Chronos.Messaging;
 
 namespace Chronos.Client.Win.DotNet.FindReference
 {
-    public class ProductivityAdapter : IProductivityAdapter, IInitializable, IMessageBusHandler, IServiceConsumer
+    public class ProductivityAdapter : IProductivityAdapter, IInitializable, ILayoutProvider, IServiceConsumer
     {
-        private static readonly Guid BasicProfilerUid;
         private static readonly Guid EventTreeUid;
-        private IProfilingApplication _application;
         private IEventsTreeViewModelCollection _eventsTreeViewModels;
+        private bool _initialized;
 
         static ProductivityAdapter()
         {
-            BasicProfilerUid = new Guid("{3F6FCEF6-8A28-4F44-8F39-51DA5A804724}");
             EventTreeUid = new Guid("{B3352C62-FCAB-45CA-8EEB-EA296E8C3122}");
         }
 
-        public void Initialize(IChronosApplication applicationObject)
+        void IInitializable.Initialize(IChronosApplication applicationObject)
         {
-            _application = applicationObject as IProfilingApplication;
-            if (_application == null)
+            IProfilingApplication application = applicationObject as IProfilingApplication;
+            if (application == null)
             {
                 return;
             }
-            if (!_application.ProfilingTypes.Contains(EventTreeUid))
+            if (!application.ProfilingTypes.Contains(EventTreeUid))
             {
                 return;
             }
-            _application.MessageBus.Subscribe(this);
-            //_application.MainViewModel.ViewModelAttached += OnViewModelAttached;
+            _initialized = true;
+        }
+
+        void ILayoutProvider.ConfigureContainer(IContainer container)
+        {
+            container.RegisterInstance(_eventsTreeViewModels);
+        }
+
+        string ILayoutProvider.GetLayout(IViewModel viewModel)
+        {
+            if (!_initialized)
+            {
+                return string.Empty;
+            }
+            return LayoutFileReader.ReadViewModelLayout(viewModel);
+        }
+
+        void IServiceConsumer.ExportServices(IServiceContainer container)
+        {
+
+        }
+
+        void IServiceConsumer.ImportServices(IServiceContainer container)
+        {
+            _eventsTreeViewModels = container.Resolve<IEventsTreeViewModelCollection>();
         }
 
         //private void OnViewModelAttached(object sender, ViewModelEventArgs e)
@@ -76,25 +93,15 @@ namespace Chronos.Client.Win.DotNet.FindReference
         //    }
         //}
 
-        private void InitializeFindReferenceViewModel(EventsTreeViewModel eventsTreeViewModel)
-        {
-            IContainerViewModel parentViewModel = eventsTreeViewModel.Parent;
-            if (parentViewModel == null)
-            {
-                return;
-            }
-            FindReferenceViewModel findReferenceViewModel = new FindReferenceViewModel(eventsTreeViewModel);
-            parentViewModel.ActivateItem(findReferenceViewModel);
-        }
-
-        void IServiceConsumer.ExportServices(IServiceContainer container)
-        {
-
-        }
-
-        void IServiceConsumer.ImportServices(IServiceContainer container)
-        {
-            _eventsTreeViewModels = container.Resolve<IEventsTreeViewModelCollection>();
-        }
+        //private void InitializeFindReferenceViewModel(EventsTreeViewModel eventsTreeViewModel)
+        //{
+        //    IContainerViewModel parentViewModel = eventsTreeViewModel.Parent;
+        //    if (parentViewModel == null)
+        //    {
+        //        return;
+        //    }
+        //    FindReferenceViewModel findReferenceViewModel = new FindReferenceViewModel(eventsTreeViewModel);
+        //    parentViewModel.ActivateItem(findReferenceViewModel);
+        //}
     }
 }

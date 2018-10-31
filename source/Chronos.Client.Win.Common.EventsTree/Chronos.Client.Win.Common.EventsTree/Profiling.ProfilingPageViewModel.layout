@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Layout>
+  <Menu Id="Profiling">
+    <MenuItem Id="Profiling.Common">
+      <MenuItem Id="Profiling.Common.EventsTreeMenuItem" Type="Chronos.Client.Win.Common.EventsTree.Menu.EventsTreeMenuItem, Chronos.Client.Win.Common.EventsTree"></MenuItem>
+      <MenuItem Id="Profiling.Common.TimelineMenuItem" Type="Chronos.Client.Win.Common.EventsTree.Menu.TimelineMenuItem, Chronos.Client.Win.Common.EventsTree"></MenuItem>
+    </MenuItem>
+  </Menu>
+</Layout>

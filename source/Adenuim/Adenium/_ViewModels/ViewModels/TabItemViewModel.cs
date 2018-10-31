@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace Adenium
+namespace Adenium.ViewModels
 {
     public sealed class TabItemViewModel : GridViewModel
     {

@@ -1,9 +1,9 @@
-﻿using Chronos.Client.Win.ViewModels;
-using Chronos.Client.Win.ViewModels.Profiling;
-using Chronos.Extensibility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Adenium;
+using Adenium.Layouting;
+using Chronos.Client.Win.ViewModels.Profiling;
+using Chronos.Extensibility;
 
 namespace Chronos.Client.Win
 {
@@ -22,6 +22,7 @@ namespace Chronos.Client.Win
         public ProfilingApplication(Guid sessionUid, bool processOwner)
             : base(sessionUid.ReverseBits(), processOwner)
         {
+            System.Diagnostics.Debugger.Launch();
             _sessionUid = sessionUid;
         }
 
@@ -44,7 +45,7 @@ namespace Chronos.Client.Win
 
         protected override IContainerViewModel BuildMainViewModel()
         {
-            return new ProfilingViewModel(this);
+            return Container.Resolve<ProfilingPageViewModel>();
         }
 
         protected override void ConfigureContainer(IContainer container)
@@ -56,9 +57,28 @@ namespace Chronos.Client.Win
         protected override void RunInternal()
         {
             base.RunInternal();
+            RunProfilingTarget();
             RunFrameworks();
             RunProfilingTypes();
             RunProductivities();
+        }
+
+        private void RunProfilingTarget()
+        {
+            ProfilingTargetSettings profilingTargetSettings = _configurationSettings.ProfilingTargetSettings;
+            IProfilingTarget profilingTarget = ProfilingTargets[profilingTargetSettings.Uid];
+            IProfilingTargetAdapter adapter = profilingTarget.GetWinAdapter();
+            IServiceConsumer serviceConsumer = adapter as IServiceConsumer;
+            if (serviceConsumer != null)
+            {
+                serviceConsumer.ExportServices(_session.ServiceContainer);
+                serviceConsumer.ImportServices(_session.ServiceContainer);
+            }
+            ILayoutProvider layoutProvider = adapter as ILayoutProvider;
+            if (layoutProvider != null)
+            {
+                CompositeLayoutProvider.Register(layoutProvider);
+            }
         }
 
         private void RunFrameworks()
@@ -85,6 +105,14 @@ namespace Chronos.Client.Win
                 if (serviceConsumer != null)
                 {
                     serviceConsumer.ImportServices(_session.ServiceContainer);
+                }
+            }
+            foreach (IFrameworkAdapter adapter in adapters)
+            {
+                ILayoutProvider layoutProvider = adapter as ILayoutProvider;
+                if (layoutProvider != null)
+                {
+                    CompositeLayoutProvider.Register(layoutProvider);
                 }
             }
         }
@@ -115,6 +143,14 @@ namespace Chronos.Client.Win
                     serviceConsumer.ImportServices(_session.ServiceContainer);
                 }
             }
+            foreach (IProfilingTypeAdapter adapter in adapters)
+            {
+                ILayoutProvider layoutProvider = adapter as ILayoutProvider;
+                if (layoutProvider != null)
+                {
+                    CompositeLayoutProvider.Register(layoutProvider);
+                }
+            }
         }
 
         private void RunProductivities()
@@ -139,6 +175,14 @@ namespace Chronos.Client.Win
                 if (serviceConsumer != null)
                 {
                     serviceConsumer.ImportServices(_session.ServiceContainer);
+                }
+            }
+            foreach (IProductivityAdapter adapter in adapters)
+            {
+                ILayoutProvider layoutProvider = adapter as ILayoutProvider;
+                if (layoutProvider != null)
+                {
+                    CompositeLayoutProvider.Register(layoutProvider);
                 }
             }
         }

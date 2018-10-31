@@ -1,25 +1,23 @@
-﻿using System;
-
-namespace Adenium.Layouting
+﻿namespace Adenium.Layouting
 {
     internal sealed class ViewModelReference
     {
-        public ViewModelReference(string typeName, ViewModelMode mode, ViewModelActivation activation)
+        private readonly IViewModelFactory _factory;
+
+        public ViewModelReference(ViewModelActivation activation, int order, IViewModelFactory factory)
         {
-            TypeName = typeName;
-            Model = mode;
             Activation = activation;
+            Order = order;
+            _factory = factory;
         }
-
-        public Type Type
-        {
-            get { return Type.GetType(TypeName); }
-        }
-
-        public string TypeName { get; private set; }
-
-        public ViewModelMode Model { get; private set; }
 
         public ViewModelActivation Activation { get; private set;  }
+
+        public int Order { get; private set; }
+
+        public IViewModel CreateViewModel()
+        {
+            return _factory.CreateViewModel();
+        }
     }
 }

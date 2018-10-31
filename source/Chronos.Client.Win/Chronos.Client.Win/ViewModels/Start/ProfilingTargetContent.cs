@@ -11,11 +11,11 @@ namespace Chronos.Client.Win.ViewModels.Start
         private readonly IProfilingTarget _profilingTarget;
         private readonly IHostApplicationSelector _applicationSelector;
 
-        public ProfilingTargetContent(IProfilingTarget profilingTarget, StartPageViewModel page, IHostApplicationSelector applicationSelector)
+        public ProfilingTargetContent(IProfilingTarget profilingTarget, StartPageViewModel page)
         {
             _profilingTarget = profilingTarget;
             _pageViewModel = page;
-            _applicationSelector = applicationSelector;
+            _applicationSelector = page.HostApplicationSelector;
             _applicationSelector.SelectionChanged += OnApplicationSelectorSelectionChanged;
         }
 

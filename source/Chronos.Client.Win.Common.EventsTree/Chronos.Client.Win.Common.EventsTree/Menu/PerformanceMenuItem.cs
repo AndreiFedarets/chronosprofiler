@@ -2,7 +2,7 @@
 using Chronos.Client.Win.Common.EventsTree.Properties;
 using Chronos.Client.Win.Menu.Specialized;
 
-namespace Chronos.Client.Win.Menu.Common.EventsTree
+namespace Chronos.Client.Win.Common.EventsTree.Menu
 {
     internal class PerformanceMenuItem : ProfilingMenuItemBase
     {

@@ -1,26 +1,17 @@
-﻿using Chronos.Messaging;
+﻿using Adenium;
+using Adenium.Layouting;
 
 namespace Chronos.Client.Win.Common
 {
-    public class FrameworkAdapter : IFrameworkAdapter, IInitializable, IMessageBusHandler
+    public class FrameworkAdapter : IFrameworkAdapter, ILayoutProvider
     {
-        private IProfilingApplication _application;
-
-        void IInitializable.Initialize(IChronosApplication applicationObject)
+        void ILayoutProvider.ConfigureContainer(IContainer container)
         {
-            _application = applicationObject as IProfilingApplication;
-            if (_application != null)
-            {
-                _application.MessageBus.Subscribe(this);
-            }
         }
 
-        //[MessageHandler(Win.Constants.Message.BuildProfilingViewMenu)]
-        //internal void BuildProfilingViewMenu(IContainerViewModel viewModel, List<IMenu> menus)
-        //{
-        //    MenuReader reader = new MenuReader();
-        //    IMenu menu = reader.ReadMenu(Resources.Menu, new Container());
-        //    menus.Add(menu);
-        //}
+        string ILayoutProvider.GetLayout(IViewModel viewModel)
+        {
+            return LayoutFileReader.ReadViewModelLayout(viewModel);
+        }
     }
 }

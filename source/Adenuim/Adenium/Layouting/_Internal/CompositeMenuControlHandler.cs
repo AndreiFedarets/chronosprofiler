@@ -47,7 +47,15 @@ namespace Adenium.Layouting
 
         internal void AttachHandler(IMenuControlHandler handler)
         {
-            _handlers.Add(handler);
+            CompositeMenuControlHandler compositeHandler =  handler as CompositeMenuControlHandler;
+            if (compositeHandler != null)
+            {
+                _handlers.AddRange(compositeHandler._handlers);
+            }
+            else
+            {
+                _handlers.Add(handler);
+            }
         }
 
         public virtual void Dispose()

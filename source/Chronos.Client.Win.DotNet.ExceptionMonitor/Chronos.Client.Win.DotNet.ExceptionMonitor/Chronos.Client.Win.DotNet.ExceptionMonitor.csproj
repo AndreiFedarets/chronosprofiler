@@ -50,7 +50,7 @@
     <Compile Include="Models\ManagedExceptionsModel.cs" />
     <Compile Include="ProfilingTypeAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Menu\ManagedExceptionsMenuItem.cs" />
+    <Compile Include="Menu\ExceptionsMenuItem.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -64,18 +64,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Profiling.ProfilingPageViewModel.layout">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Menu\Menu.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Adenuim\Adenium\Adenium.csproj">
       <Project>{8abfd019-e257-4896-a31c-cf180936d329}</Project>
       <Name>Adenium</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Chronos.Client.Win.DotNet.BasicProfiler\Chronos.Client.Win.DotNet.BasicProfiler\Chronos.Client.Win.DotNet.BasicProfiler.csproj">
       <Project>{1e668793-1dea-4f66-b583-7c39fc670219}</Project>

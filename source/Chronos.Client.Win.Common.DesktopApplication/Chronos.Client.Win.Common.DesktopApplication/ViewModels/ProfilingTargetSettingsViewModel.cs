@@ -1,4 +1,5 @@
-﻿using Chronos.Accessibility.IO;
+﻿using Adenium;
+using Chronos.Accessibility.IO;
 using Chronos.Client.Win.ViewModels.Start;
 
 namespace Chronos.Client.Win.ViewModels.Common.DesktopApplication
@@ -6,13 +7,19 @@ namespace Chronos.Client.Win.ViewModels.Common.DesktopApplication
     public class ProfilingTargetSettingsViewModel : ProfilingTargetSettingsBaseViewModel
     {
         private readonly Chronos.Common.DesktopApplication.ProfilingTargetSettings _profilingTargetSettings;
-        private readonly IApplicationBase _application;
+        private readonly IWindowsManager _windowsManager;
 
-        public ProfilingTargetSettingsViewModel(IApplicationBase application, ConfigurationSettings configurationSettings, IHostApplicationSelector applicationSelector)
+        public ProfilingTargetSettingsViewModel(IWindowsManager windowsManager, ConfigurationSettings configurationSettings, IHostApplicationSelector applicationSelector)
             : base(configurationSettings, applicationSelector)
         {
             _profilingTargetSettings = new Chronos.Common.DesktopApplication.ProfilingTargetSettings(configurationSettings.ProfilingTargetSettings);
-            _application = application;
+            _windowsManager = windowsManager;
+        }
+
+        public override string DisplayName
+        {
+            get { return "Target Executable"; }
+            set { }
         }
 
         public override bool DialogReady
@@ -62,7 +69,7 @@ namespace Chronos.Client.Win.ViewModels.Common.DesktopApplication
                 viewModel.FileName = System.IO.Path.GetFileName(FileFullName);
             }
             viewModel.Filter = "Executable (*.exe)|*.exe";
-            bool? result = _application.ViewModelManager.ShowDialog(viewModel);
+            bool? result = _windowsManager.ShowDialog(viewModel);
             if (result.HasValue && result.Value)
             {
                 FileFullName = viewModel.FileName;

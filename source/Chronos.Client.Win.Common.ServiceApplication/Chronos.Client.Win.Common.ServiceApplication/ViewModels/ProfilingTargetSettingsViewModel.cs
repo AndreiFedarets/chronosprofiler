@@ -19,6 +19,12 @@ namespace Chronos.Client.Win.ViewModels.Common.ServiceApplication
             InitializeWindowsServices();
         }
 
+        public override string DisplayName
+        {
+            get { return "Target Service"; }
+            set { }
+        }
+
         public override bool DialogReady
         {
             get { return SelectedWindowsService != null; }

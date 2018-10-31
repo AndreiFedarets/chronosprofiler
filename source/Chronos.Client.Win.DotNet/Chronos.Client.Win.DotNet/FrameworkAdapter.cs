@@ -3,32 +3,15 @@ using Adenium.Layouting;
 
 namespace Chronos.Client.Win.DotNet
 {
-    public class FrameworkAdapter : IFrameworkAdapter, IInitializable, ILayoutProvider
+    public class FrameworkAdapter : IFrameworkAdapter, ILayoutProvider
     {
-        private readonly IContainer _container;
-
-        public FrameworkAdapter()
+        void ILayoutProvider.ConfigureContainer(IContainer container)
         {
-            _container = new Container();
         }
 
-        void IInitializable.Initialize(IChronosApplication applicationObject)
+        string ILayoutProvider.GetLayout(IViewModel viewModel)
         {
-            IProfilingApplication application = applicationObject as IProfilingApplication;
-            if (application != null)
-            {
-                _container.RegisterInstance(application);
-            }
-        }
-
-        public IActivator Activator
-        {
-            get { return _container; }
-        }
-
-        public string GetLayout(IViewModel viewModel)
-        {
-            
+            return LayoutFileReader.ReadViewModelLayout(viewModel);
         }
     }
 }

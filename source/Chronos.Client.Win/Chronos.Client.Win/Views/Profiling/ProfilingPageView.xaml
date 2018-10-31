@@ -1,4 +1,4 @@
-﻿<adenium:View x:Class="Chronos.Client.Win.Views.Profiling.ProfilingView"
+﻿<adenium:View x:Class="Chronos.Client.Win.Views.Profiling.ProfilingPageView"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:adenium="clr-namespace:Adenium;assembly=Adenium"
@@ -14,7 +14,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <controls:MenuControl Grid.Row="0" Source="{Binding Menu}" />
+        <controls:Menu Grid.Row="0" Source="{Binding Menus[Profiling]}" />
         <ContentControl Grid.Row="1" x:Name="ViewContent" />
         <Button Grid.Row="2" x:Name="ReloadSnapshot" Content="Reload" Visibility="{Binding IsProfilingActive, Converter={StaticResource BoolToVisibilityConverter}}" />
         <TextBlock Grid.Row="3" HorizontalAlignment="Left" Text="{Binding StartupTime, StringFormat='Startup time: {0} sec'}" />

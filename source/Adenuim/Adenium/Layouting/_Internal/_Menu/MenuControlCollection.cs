@@ -33,9 +33,12 @@ namespace Adenium.Layouting
             MenuControl existingControl = (MenuControl)this[control.Id];
             if (existingControl != null)
             {
-                _collection.Remove(existingControl);
+                existingControl.Merge(control);
             }
-            _collection.Add(control);
+            else
+            {
+                _collection.Add(control);
+            }
         }
 
         public IEnumerator<IMenuControl> GetEnumerator()
@@ -46,6 +49,15 @@ namespace Adenium.Layouting
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public override void Invalidate()
+        {
+            base.Invalidate();
+            foreach (MenuControl control in _collection)
+            {
+                control.Invalidate();
+            }
         }
 
         public override void Dispose()
@@ -64,6 +76,19 @@ namespace Adenium.Layouting
             foreach (MenuControl control in _collection)
             {
                 control.NotifyControlAttached();
+            }
+        }
+
+        internal override void Merge(MenuControl control)
+        {
+            base.Merge(control);
+            MenuControlCollection controlCollection = control as MenuControlCollection;
+            if (controlCollection != null)
+            {
+                foreach (MenuControl childControl in controlCollection.Cast<MenuControl>())
+                {
+                    Add(childControl);
+                }
             }
         }
     }

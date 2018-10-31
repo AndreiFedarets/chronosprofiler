@@ -1,12 +1,11 @@
 ﻿using Adenium.Layouting;
-using Chronos.Client.Win.DotNet.FindReference;
 using Chronos.Client.Win.DotNet.FindReference.Properties;
 using Chronos.Client.Win.ViewModels;
 using Chronos.Client.Win.ViewModels.Common.EventsTree;
 using Chronos.Client.Win.ViewModels.DotNet.FindReference;
 using Chronos.DotNet.BasicProfiler;
 
-namespace Chronos.Client.Win.Menu.Common.FindReference
+namespace Chronos.Client.Win.DotNet.FindReference.Menu
 {
     internal sealed class FunctionReferenceMenuItem : MenuControlHandlerBase
     {

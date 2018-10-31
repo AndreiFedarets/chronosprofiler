@@ -1,32 +1,44 @@
-﻿using Chronos.Client.Win.ViewModels.Common.EventsTree;
-using Chronos.Messaging;
+﻿using Adenium;
+using Adenium.Layouting;
+using Chronos.Client.Win.ViewModels.Common.EventsTree;
 
 namespace Chronos.Client.Win.Common.EventsTree
 {
-    public class ProfilingTypeAdapter : IProfilingTypeAdapter, IInitializable, IMessageBusHandler, IServiceConsumer
+    public class ProfilingTypeAdapter : IProfilingTypeAdapter, IInitializable, ILayoutProvider, IServiceConsumer
     {
         private readonly EventsTreeViewModelCollection _eventsTreeViewModels;
-        private IProfilingApplication _application;
 
         public ProfilingTypeAdapter()
         {
             _eventsTreeViewModels = new EventsTreeViewModelCollection();
         }
 
-        public object CreateSettingsPresentation(ProfilingTypeSettings profilingTypeSettings)
-        {
-            return null;
-        }
-
         void IInitializable.Initialize(IChronosApplication applicationObject)
         {
-            _application = applicationObject as IProfilingApplication;
-            if (_application != null)
+            IProfilingApplication application = applicationObject as IProfilingApplication;
+            if (application != null)
             {
-                _application.MessageBus.Subscribe(this);
-                //BuildMenu();
+                _eventsTreeViewModels.Initialize(application);
             }
-            _eventsTreeViewModels.Initialize(_application);
+        }
+
+        void ILayoutProvider.ConfigureContainer(IContainer container)
+        {
+        }
+
+        string ILayoutProvider.GetLayout(IViewModel viewModel)
+        {
+            return LayoutFileReader.ReadViewModelLayout(viewModel);
+        }
+
+        void IServiceConsumer.ExportServices(IServiceContainer container)
+        {
+            container.Register(_eventsTreeViewModels);
+        }
+
+        void IServiceConsumer.ImportServices(IServiceContainer container)
+        {
+
         }
 
         //private void BuildMenu()
@@ -47,15 +59,5 @@ namespace Chronos.Client.Win.Common.EventsTree
         //    IMenu menu = reader.ReadMenu(Resources.Menu, container);
         //    menus.Add(menu);
         //}
-
-        void IServiceConsumer.ExportServices(IServiceContainer container)
-        {
-            container.Register(_eventsTreeViewModels);
-        }
-
-        void IServiceConsumer.ImportServices(IServiceContainer container)
-        {
-
-        }
     }
 }

@@ -80,11 +80,15 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Home.StartPageViewModel.layout">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Adenuim\Adenium\Adenium.csproj">
       <Project>{8abfd019-e257-4896-a31c-cf180936d329}</Project>
       <Name>Adenium</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Chronos.Client.Win\Chronos.Client.Win\Chronos.Client.Win.csproj">
       <Project>{6db0686c-3f7a-4156-a4bb-3709bc048454}</Project>

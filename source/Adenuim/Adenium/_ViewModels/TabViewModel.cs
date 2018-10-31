@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using Adenium.Layouting;
+using Adenium.ViewModels;
 using Caliburn.Micro;
 
 namespace Adenium
@@ -16,9 +17,9 @@ namespace Adenium
             _context = new ViewModelContext(this);
         }
 
-        public Guid TypeId
+        public string ViewModelUid
         {
-            get { return _context.TypeId; }
+            get { return _context.ViewModelUid; }
         }
 
         public Guid InstanceId
@@ -35,8 +36,6 @@ namespace Adenium
         {
             get { return _context.Menus; }
         }
-
-        public IContainer Container { get; private set; }
 
         protected ContractCollection Contracts
         {
@@ -79,7 +78,7 @@ namespace Adenium
             base.ActivateItem(tabItemViewModel);
             if (!contains)
             {
-                ViewModelEventArgs.RaiseEvent(ViewModelAttached, this, tabItemViewModel);
+                OnViewModelAttached(tabItemViewModel);
                 //Activate viewModel on TabItemViewModel level
                 tabItemViewModel.ActivateMainViewModel();
             }
@@ -117,7 +116,15 @@ namespace Adenium
             }
             if (close)
             {
-                ViewModelEventArgs.RaiseEvent(ViewModelDeattached, this, tabItemViewModel);   
+                OnViewModelDeattached(tabItemViewModel);
+            }
+        }
+
+        public void RemoveItems()
+        {
+            foreach (IViewModel viewModel in Items)
+            {
+                DeactivateItem(viewModel, true);
             }
         }
 
@@ -136,14 +143,19 @@ namespace Adenium
             return GetEnumerator();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _context.Dispose();
         }
 
-        protected virtual void BuildLayout()
+        private void OnViewModelAttached(IViewModel viewModel)
         {
-            ViewModelBuilder.Build(this);
+            ViewModelEventArgs.RaiseEvent(ViewModelAttached, this, viewModel);
+        }
+
+        private void OnViewModelDeattached(IViewModel viewModel)
+        {
+            ViewModelEventArgs.RaiseEvent(ViewModelDeattached, this, viewModel);
         }
 
         private void OnChildViewModelActivated(object sender, ViewModelEventArgs e)

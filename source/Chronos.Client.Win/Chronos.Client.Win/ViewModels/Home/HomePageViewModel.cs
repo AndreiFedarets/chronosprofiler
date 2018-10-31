@@ -3,6 +3,7 @@ using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Home
 {
+    [ViewModelAttribute("Home.HomePageViewModel")]
     public class HomePageViewModel : GridViewModel
     {
         private readonly IMainApplication _application;
@@ -22,14 +23,6 @@ namespace Chronos.Client.Win.ViewModels.Home
         {
             get { return "Chronos Profiler"; }
             set { }
-        }
-
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-            ActivateItem(new ProfilingTargetsViewModel(_application));
-            ActivateItem(new ActiveSessionsViewModel(_application));
-            ActivateItem(new RecentSessionsViewModel(_application));
         }
 
         private void OnApplicationStateChanged(object sender, ApplicationStateEventArgs e)

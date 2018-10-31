@@ -2,9 +2,6 @@
 {
     public class ProfilingTypeAdapter : IProfilingTypeAdapter
     {
-        public object CreateSettingsPresentation(ProfilingTypeSettings profilingTypeSettings)
-        {
-            return null;
-        }
+
     }
 }

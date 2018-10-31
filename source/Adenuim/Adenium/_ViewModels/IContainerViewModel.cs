@@ -14,6 +14,8 @@ namespace Adenium
 
         void DeactivateItem(IViewModel viewModel, bool close);
 
+        void RemoveItems();
+
         T FindFirstChild<T>(Func<T, bool> condition = null) where T : IViewModel;
     }
 }

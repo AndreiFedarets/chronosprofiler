@@ -515,7 +515,7 @@
     <Style x:Key="CloseButtonStyle" TargetType="{x:Type controls:ImageButton}" BasedOn="{StaticResource {x:Type controls:ImageButton}}">
         <Setter Property="Height" Value="20" />
         <Setter Property="Width" Value="20" />
-        <Setter Property="Source" Value="pack://application:,,,/Chronos.Client.Win;component/Images/Close.png" />
+        <Setter Property="Source" Value="pack://application:,,,/Adenium;component/Images/Close.png" />
     </Style>
 
     <!-- PanelContentControl ================================================================================================= -->

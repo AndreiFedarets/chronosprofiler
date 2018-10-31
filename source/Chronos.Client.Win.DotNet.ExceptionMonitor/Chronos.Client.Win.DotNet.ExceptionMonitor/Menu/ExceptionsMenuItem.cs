@@ -4,11 +4,11 @@ using Chronos.Client.Win.Models;
 using Chronos.Client.Win.Models.DotNet.ExceptionMonitor;
 using Chronos.DotNet.ExceptionMonitor;
 
-namespace Chronos.Client.Win.Menu.DotNet.ExceptionMonitor
+namespace Chronos.Client.Win.DotNet.ExceptionMonitor.Menu
 {
-    internal sealed class ManagedExceptionsMenuItem : UnitsMenuItemBase
+    internal sealed class ExceptionsMenuItem : UnitsMenuItemBase
     {
-        public ManagedExceptionsMenuItem(IProfilingApplication application)
+        public ExceptionsMenuItem(IProfilingApplication application)
             : base(application)
         {
         }

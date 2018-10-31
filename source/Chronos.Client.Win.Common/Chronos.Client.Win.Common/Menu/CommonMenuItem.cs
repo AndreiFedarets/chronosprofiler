@@ -1,7 +1,7 @@
 ﻿using Adenium.Layouting;
 using Chronos.Client.Win.Common.Properties;
 
-namespace Chronos.Client.Win.Menu.Common
+namespace Chronos.Client.Win.Common.Menu
 {
     internal sealed class CommonMenuItem : MenuControlHandlerBase
     {

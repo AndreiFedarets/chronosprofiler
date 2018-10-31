@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Reflection;
 using Adenium;
+using Adenium.Layouting;
 using Caliburn.Micro;
-using Chronos.Messaging;
 using Chronos.Settings;
 using Chronos.Win32;
 
@@ -11,8 +10,8 @@ namespace Chronos.Client.Win
 {
     internal abstract class ApplicationBase : Client.ApplicationBase, IApplicationBase
     {
+        protected readonly IContainer Container;
         private readonly Bootstrapper _bootstrapper;
-        private readonly IContainer _container;
         private readonly Guid _uid;
 
         protected ApplicationBase(Guid uid)
@@ -24,8 +23,8 @@ namespace Chronos.Client.Win
             : base(processOwner)
         {
             _uid = uid;
-            _container = new Container();
-            _bootstrapper = new Bootstrapper(_container);
+            Container = new Container();
+            _bootstrapper = new Bootstrapper(Container);
         }
 
         public override Guid Uid
@@ -40,9 +39,7 @@ namespace Chronos.Client.Win
 
         public IContainerViewModel MainViewModel { get; private set; }
 
-        public IViewModelManager ViewModelManager { get; private set; }
-
-        public IMessageBus MessageBus { get; private set; }
+        public IWindowsManager WindowsManager { get; private set; }
 
         public void Activate()
         {
@@ -55,9 +52,8 @@ namespace Chronos.Client.Win
         protected override void RunInternal()
         {
             base.RunInternal();
-            ConfigureContainer(_container);
+            ConfigureContainer(Container);
             _bootstrapper.Initialize();
-            AssemblyResolver.AssemblyLoaded += OnExtensionAssemblyLoaded;
             MainViewModel = BuildMainViewModel();
         }
 
@@ -71,32 +67,23 @@ namespace Chronos.Client.Win
 
         private void ShowMainWindow()
         {
-            ViewModelManager.ShowWindow(MainViewModel);
+            WindowsManager.ShowWindow(MainViewModel);
         }
 
         protected virtual void ConfigureContainer(IContainer container)
         {
             container.RegisterInstance<IApplicationBase>(this);
             container.RegisterInstance<IApplicationSettings>(ApplicationSettings);
-            container.RegisterType<IViewModelManager, ViewModelManager>(true);
-            container.RegisterType<IWindowManager, CustomWindowManager>(true);
-            container.RegisterInstance(ClientMessageBus.Current);
-            ViewModelManager = container.Resolve<IViewModelManager>();
-            MessageBus = ClientMessageBus.Current;
-        }
-
-        private void OnExtensionAssemblyLoaded(object sender, AssemblyLoadEventArgs e)
-        {
-            Assembly assembly = e.LoadedAssembly;
-            if (assembly.IsWPFAssembly())
-            {
-                AssemblySource.Instance.Add(e.LoadedAssembly);
-            }
+            WindowsManager = container.Resolve<CustomWindowManager>();
+            container.RegisterInstance<IWindowsManager>(WindowsManager);
+            container.RegisterInstance<IWindowManager>((IWindowManager)WindowsManager);
+            ILayoutProvider layoutProvider = container.Resolve<ClientLayoutProvider>();
+            CompositeLayoutProvider.Initialize(container);
+            CompositeLayoutProvider.Register(layoutProvider);
         }
 
         public override void Dispose()
         {
-            AssemblyResolver.AssemblyLoaded -= OnExtensionAssemblyLoaded;
             MainViewModel.Dispose();
             Properties.Settings.Default.Save();
             base.Dispose();

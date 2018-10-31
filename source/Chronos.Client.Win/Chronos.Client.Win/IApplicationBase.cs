@@ -1,5 +1,4 @@
 ﻿using Adenium;
-using Chronos.Messaging;
 
 namespace Chronos.Client.Win
 {
@@ -15,9 +14,7 @@ namespace Chronos.Client.Win
 
         IProductivityCollection Productivities { get; }
 
-        IViewModelManager ViewModelManager { get; }
-
-        IMessageBus MessageBus { get; }
+        IWindowsManager WindowsManager { get; }
 
         void Activate();
     }

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Adenium;
-using Adenium.Layouting;
 
 namespace Chronos.Client.Win.ViewModels.Profiling
 {
-    public class ProfilingViewModel : TabViewModel
+    [ViewModelAttribute("Profiling.ProfilingPageViewModel")]
+    public class ProfilingPageViewModel : TabViewModel
     {
         private bool _isEnabled;
         private readonly IProfilingApplication _application;
 
-        public ProfilingViewModel(IProfilingApplication application)
+        public ProfilingPageViewModel(IProfilingApplication application)
         {
             _application = application;
             _application.ApplicationStateChanged += OnApplicationStateChanged;
@@ -33,8 +33,6 @@ namespace Chronos.Client.Win.ViewModels.Profiling
             get { return _application.SessionState == SessionState.Profiling; }
         }
 
-        public IMenu Menu { get; private set; }
-
         public double StartupTime
         {
             get { return Math.Round(_application.StartupTime.TotalSeconds, 3); }
@@ -50,6 +48,13 @@ namespace Chronos.Client.Win.ViewModels.Profiling
         {
             IsEnabled = false;
             Task.Factory.StartNew(() => _application.FlushData()).ContinueWith(t => IsEnabled = true);
+        }
+
+        public override void Dispose()
+        {
+            _application.ApplicationStateChanged -= OnApplicationStateChanged;
+            _application.SessionStateChanged -= OnSessionStateChanged;
+            base.Dispose();
         }
 
         private void OnApplicationStateChanged(object sender, ApplicationStateEventArgs e)

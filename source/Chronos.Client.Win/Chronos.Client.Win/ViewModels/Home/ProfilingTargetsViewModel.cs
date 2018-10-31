@@ -25,7 +25,7 @@ namespace Chronos.Client.Win.ViewModels.Home
         public void CreateConfiguration(IProfilingTarget profilingTarget)
         {
             Start.StartPageViewModel startPageViewModel = new Start.StartPageViewModel(_application, profilingTarget);
-            _application.ViewModelManager.ShowDialog(startPageViewModel);
+            _application.WindowsManager.ShowDialog(startPageViewModel);
         }
 
         public bool CanCreateConfiguration(IProfilingTarget profilingTarget)

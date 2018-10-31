@@ -72,6 +72,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Profiling.ProfilingPageViewModel.layout">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -82,6 +85,7 @@
     <ProjectReference Include="..\..\Adenuim\Adenium\Adenium.csproj">
       <Project>{8abfd019-e257-4896-a31c-cf180936d329}</Project>
       <Name>Adenium</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Chronos.Client.Win\Chronos.Client.Win\Chronos.Client.Win.csproj">
       <Project>{6db0686c-3f7a-4156-a4bb-3709bc048454}</Project>
@@ -98,11 +102,6 @@
       <Name>Chronos</Name>
       <Private>False</Private>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Menu\Menu.xml">
-      <SubType>Designer</SubType>
-    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

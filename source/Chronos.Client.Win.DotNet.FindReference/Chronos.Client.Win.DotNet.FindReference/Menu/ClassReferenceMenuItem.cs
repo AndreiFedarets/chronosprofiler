@@ -4,7 +4,7 @@ using Chronos.Client.Win.ViewModels;
 using Chronos.Client.Win.ViewModels.Common.EventsTree;
 using Chronos.DotNet.BasicProfiler;
 
-namespace Chronos.Client.Win.Menu.Common.FindReference
+namespace Chronos.Client.Win.DotNet.FindReference.Menu
 {
     internal sealed class ClassReferenceMenuItem : MenuControlHandlerBase
     {

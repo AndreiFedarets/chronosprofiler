@@ -16,6 +16,7 @@ namespace Adenium
         private Container(IUnityContainer container, IContainer parent)
         {
             _container = container;
+            _container.RegisterInstance<IContainer>(this);
             Parent = parent;
         }
 

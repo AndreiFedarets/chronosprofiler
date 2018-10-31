@@ -4,7 +4,7 @@ using Chronos.Client.Win.Models;
 using Chronos.Client.Win.Models.DotNet.SqlProfiler;
 using Chronos.DotNet.SqlProfiler;
 
-namespace Chronos.Client.Win.Menu.DotNet.SqlProfiler
+namespace Chronos.Client.Win.DotNet.SqlProfiler.Menu
 {
     internal sealed class SqlQueriesMenuItem : UnitsMenuItemBase
     {

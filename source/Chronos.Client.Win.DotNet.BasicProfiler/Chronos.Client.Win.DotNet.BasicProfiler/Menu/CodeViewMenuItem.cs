@@ -4,7 +4,7 @@ using Chronos.Client.Win.DotNet.BasicProfiler.Properties;
 using Chronos.Client.Win.Menu.Specialized;
 using Chronos.Client.Win.ViewModels;
 
-namespace Chronos.Client.Win.Menu.DotNet.BasicProfiler
+namespace Chronos.Client.Win.DotNet.BasicProfiler.Menu
 {
     internal sealed class CodeViewMenuItem : ProfilingMenuItemBase
     {

@@ -2,7 +2,7 @@
 {
     public interface ILayoutProvider
     {
-        IActivator Activator { get; }
+        void ConfigureContainer(IContainer container);
 
         string GetLayout(IViewModel viewModel);
     }

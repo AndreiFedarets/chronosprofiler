@@ -15,29 +15,30 @@ namespace Adenium.Layouting
         private const string TypeAttributeName = "Type";
         private const string ModeAttributeName = "Mode";
         private const string ActivationAttributeName = "Activation";
+        private const string OrderAttributeName = "Order";
 
-        public ViewModelLayout Read(string content, IActivator activator)
+        public ViewModelLayout Read(string content, IContainerViewModel viewModel, IContainer container)
         {
             using (StringReader stringReader = new StringReader(content))
             {
-                return Read(stringReader, activator);
+                return Read(stringReader, viewModel, container);
             }
         }
 
-        public ViewModelLayout Read(TextReader reader, IActivator activator)
+        public ViewModelLayout Read(TextReader reader, IContainerViewModel viewModel, IContainer container)
         {
             using (XmlReader xmlReader = new XmlTextReader(reader))
             {
-                return Read(xmlReader, activator);
+                return Read(xmlReader, viewModel, container);
             }
         }
 
-        public ViewModelLayout Read(XmlReader reader, IActivator activator)
+        public ViewModelLayout Read(XmlReader reader, IContainerViewModel viewModel, IContainer container)
         {
             //Move to <Layout> element
             MoveToElement(reader, LayoutElementName);
 
-            List<ViewModelReference> viewModels = new List<ViewModelReference>();
+            List<ViewModelReference> viewModelReferences = new List<ViewModelReference>();
             MenuCollection menus = new MenuCollection();
 
             //Read <Layout> element content
@@ -54,27 +55,27 @@ namespace Adenium.Layouting
                 switch (reader.Name)
                 {
                     case ViewModelElementName:
-                        ViewModelReference viewModel = ReadViewModelReference(reader);
-                        viewModels.Add(viewModel);
+                        ViewModelReference viewModelReference = ReadViewModelReference(reader, viewModel, container);
+                        viewModelReferences.Add(viewModelReference);
                         break;
                     case MenuElementName:
-                        Menu menu = ReadMenu(reader, activator);
+                        Menu menu = ReadMenu(reader, container);
                         menus.Add(menu);
                         break;
                 }
             }
 
-            ViewModelLayout layout = new ViewModelLayout(viewModels, menus, activator);
+            ViewModelLayout layout = new ViewModelLayout(viewModelReferences, menus);
             return layout;
         }
 
-        private Menu ReadMenu(XmlReader reader, IActivator activator)
+        private Menu ReadMenu(XmlReader reader, IContainer container)
         {
             //Move to <Menu> element
             MoveToElement(reader, MenuElementName);
 
             string id = string.Empty;
-            Type controlHandlerType = null;
+            Type controlHandlerType = typeof(MenuControlHandlerDefault);
 
             //Read <Menu> attributes
             while (reader.MoveToNextAttribute())
@@ -93,7 +94,7 @@ namespace Adenium.Layouting
 
             Menu control = new Menu(id);
 
-            IMenuControlHandler controlHandler = new MenuControlHandlerLazy(controlHandlerType, activator);
+            IMenuControlHandler controlHandler = new MenuControlHandlerLazy(controlHandlerType, container);
             control.AttachHandler(controlHandler);
 
             //Read <Menu> element content
@@ -110,7 +111,7 @@ namespace Adenium.Layouting
                 switch (reader.Name)
                 {
                     case MenuItemElementName:
-                        MenuItem menuItem = ReadMenuItem(reader, activator);
+                        MenuItem menuItem = ReadMenuItem(reader, container);
                         control.Add(menuItem);
                         break;
                 }
@@ -119,13 +120,13 @@ namespace Adenium.Layouting
             return control;
         }
 
-        private MenuItem ReadMenuItem(XmlReader reader, IActivator activator)
+        private MenuItem ReadMenuItem(XmlReader reader, IContainer container)
         {
             //Move to <MenuItem> element
-            MoveToElement(reader, MenuElementName);
+            MoveToElement(reader, MenuItemElementName);
 
             string id = string.Empty;
-            Type controlHandlerType = null;
+            Type controlHandlerType = typeof(MenuControlHandlerDefault);
 
             //Read <MenuItem> attributes
             while (reader.MoveToNextAttribute())
@@ -143,7 +144,7 @@ namespace Adenium.Layouting
             }
 
             MenuItem control = new MenuItem(id);
-            IMenuControlHandler controlHandler = new MenuControlHandlerLazy(controlHandlerType, activator);
+            IMenuControlHandler controlHandler = new MenuControlHandlerLazy(controlHandlerType, container);
             control.AttachHandler(controlHandler);
 
             //Read <MenuItem> element content
@@ -160,7 +161,7 @@ namespace Adenium.Layouting
                 switch (reader.Name)
                 {
                     case MenuItemElementName:
-                        MenuItem menuItem = ReadMenuItem(reader, activator);
+                        MenuItem menuItem = ReadMenuItem(reader, container);
                         control.Add(menuItem);
                         break;
                 }
@@ -169,7 +170,7 @@ namespace Adenium.Layouting
             return control;
         }
 
-        private ViewModelReference ReadViewModelReference(XmlReader reader)
+        private ViewModelReference ReadViewModelReference(XmlReader reader, IContainerViewModel viewModel, IContainer container)
         {
             //Move to <ViewModel> element
             MoveToElement(reader, ViewModelElementName);
@@ -177,6 +178,7 @@ namespace Adenium.Layouting
             string typeName = string.Empty;
             ViewModelMode mode = ViewModelMode.Multiple;
             ViewModelActivation activation = ViewModelActivation.OnStartup;
+            int order = 0;
 
             //Read <ViewModel> attributes
             while (reader.MoveToNextAttribute())
@@ -192,10 +194,29 @@ namespace Adenium.Layouting
                     case ActivationAttributeName:
                         activation = reader.ReadContentAsEnum<ViewModelActivation>();
                         break;
+                    case OrderAttributeName:
+                        order = reader.ReadContentAsInt();
+                        break;
                 }
             }
 
-            return new ViewModelReference(typeName, mode, activation);
+            IViewModelFactory viewModelFactory = CreateViewModelFactory(viewModel, typeName, mode, container);
+
+            return new ViewModelReference(activation, order, viewModelFactory);
+        }
+
+        private IViewModelFactory CreateViewModelFactory(IContainerViewModel viewModel, string typeName, ViewModelMode mode, IContainer container)
+        {
+            IViewModelFactory factory;
+            if (mode == ViewModelMode.Single)
+            {
+                factory = new SingleViewModelFactory(viewModel, typeName, container);
+            }
+            else
+            {
+                factory = new MultiViewModelFactory(viewModel, typeName, container);
+            }
+            return factory;
         }
 
         private void MoveToElement(XmlReader reader, string elementName)

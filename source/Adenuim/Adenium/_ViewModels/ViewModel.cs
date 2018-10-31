@@ -13,14 +13,9 @@ namespace Adenium
             _context = new ViewModelContext(this);
         }
 
-        public virtual Guid TypeId
+        public virtual string ViewModelUid
         {
-            get { return _context.TypeId; }
-        }
-
-        public IMenuCollection Menus
-        {
-            get { return _context.Menus; }
+            get { return _context.ViewModelUid; }
         }
 
         public virtual Guid InstanceId
@@ -33,14 +28,14 @@ namespace Adenium
             get { return base.Parent as IContainerViewModel; }
         }
 
+        public IMenuCollection Menus
+        {
+            get { return _context.Menus; }
+        }
+
         public virtual void Dispose()
         {
             _context.Dispose();
         }
-
-        //protected virtual void BuildLayout()
-        //{
-        //    ViewModelBuilder.Build(this);
-        //}
     }
 }

@@ -15,9 +15,22 @@ namespace Adenium
             Contracts = new ContractCollection(viewModel);
         }
 
-        public Guid TypeId
+        public string ViewModelUid
         {
-            get { return _viewModel.GetType().GUID; }
+            get
+            {
+                string viewModelUid;
+                ViewModelAttribute attribute = ViewModelAttribute.GetAttribute(_viewModel);
+                if (attribute != null)
+                {
+                    viewModelUid = attribute.ViewModelUid;
+                }
+                else
+                {
+                    viewModelUid = _viewModel.GetType().FullName;
+                }
+                return viewModelUid.ToLowerInvariant();
+            }
         }
 
         public Guid InstanceId { get; private set; }
@@ -25,12 +38,6 @@ namespace Adenium
         public ContractCollection Contracts { get; private set; }
 
         public IMenuCollection Menus { get; private set; }
-
-        public ViewModelLayout GetViewModelLayout()
-        {
-            ViewModelLayout layout = CompositeLayoutProvider.GetLayout(_viewModel);
-            return layout;
-        }
 
         public T FindFirstChild<T>(Func<T, bool> condition) where T : IViewModel
         {

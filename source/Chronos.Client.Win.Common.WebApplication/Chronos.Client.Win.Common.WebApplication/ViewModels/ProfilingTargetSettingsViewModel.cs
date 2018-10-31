@@ -16,6 +16,12 @@ namespace Chronos.Client.Win.ViewModels.Common.WebApplication
             InitializeApplicationPools();
         }
 
+        public override string DisplayName
+        {
+            get { return "Target AppPool"; }
+            set { }
+        }
+
         public override bool DialogReady
         {
             get { return !string.IsNullOrWhiteSpace(SelectedApplicationPool); }

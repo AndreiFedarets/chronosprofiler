@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using Adenium.ViewModels;
 
 namespace Adenium
 {
@@ -22,7 +23,7 @@ namespace Adenium
             DefaultStyleKeyProperty.OverrideMetadata(typeof(View), new FrameworkPropertyMetadata(typeof(View)));
             DisplayPanelProperty = DependencyProperty.Register("DisplayPanel", typeof(bool), typeof(View), new FrameworkPropertyMetadata(false));
             ViewPositionProperty = DependencyProperty.Register("ViewPosition", typeof(Position), typeof(View), new FrameworkPropertyMetadata(Position.Default));
-            AttachToProperty = DependencyProperty.Register("AttachTo", typeof(Guid), typeof(View), new FrameworkPropertyMetadata(Guid.Empty));
+            AttachToProperty = DependencyProperty.Register("AttachTo", typeof(string), typeof(View), new FrameworkPropertyMetadata(string.Empty));
 
             ContentMinHeightProperty = DependencyProperty.Register("ContentMinHeight", typeof(double), typeof(View), new FrameworkPropertyMetadata(double.NaN));
             ContentHeightProperty = DependencyProperty.Register("ContentHeight", typeof(double), typeof(View), new FrameworkPropertyMetadata(double.NaN));
@@ -59,9 +60,9 @@ namespace Adenium
             set { SetValue(ViewPositionProperty, value); }
         }
 
-        public Guid AttachTo
+        public string AttachTo
         {
-            get { return (Guid)GetValue(AttachToProperty); }
+            get { return (string)GetValue(AttachToProperty); }
             set { SetValue(AttachToProperty, value); }
         }
 

@@ -98,10 +98,9 @@
     <Compile Include="ViewModels\Home\HomePageViewModel.cs" />
     <Compile Include="ViewModels\Home\ProfilingTargetsViewModel.cs" />
     <Compile Include="ViewModels\Home\RecentSessionsViewModel.cs" />
-    <Compile Include="ViewModels\Profiling\ProfilingViewModel.cs" />
+    <Compile Include="ViewModels\Profiling\ProfilingPageViewModel.cs" />
     <Compile Include="ViewModels\Start\FrameworkViewModel.cs" />
     <Compile Include="ViewModels\Start\HostApplicationSelectViewModel.cs" />
-    <Compile Include="ViewModels\Start\ProfilingTargetContent.cs" />
     <Compile Include="ViewModels\Start\ProfilingTypesViewModel.cs" />
     <Compile Include="ViewModels\Start\ProfilingTypeViewModel.cs" />
     <Compile Include="ViewModels\Start\StartPageViewModel.cs" />
@@ -121,8 +120,8 @@
     <Compile Include="Views\Home\RecentSessionsView.xaml.cs">
       <DependentUpon>RecentSessionsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Profiling\ProfilingView.xaml.cs">
-      <DependentUpon>ProfilingView.xaml</DependentUpon>
+    <Compile Include="Views\Profiling\ProfilingPageView.xaml.cs">
+      <DependentUpon>ProfilingPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Start\HostApplicationSelectView.xaml.cs">
       <DependentUpon>HostApplicationSelectView.xaml</DependentUpon>
@@ -138,6 +137,7 @@
     <Compile Include="_Extensions\AppDomainExtensions.cs" />
     <Compile Include="_Internal\Bootstrapper.cs" />
     <Compile Include="_Internal\ChronosCoreLocator.cs" />
+    <Compile Include="_Internal\ClientLayoutProvider.cs" />
     <Compile Include="_Internal\HostApplicationExtensionAdapter.cs" />
     <Compile Include="_Internal\ClientMessageBus.cs" />
     <Compile Include="_Internal\ProfilingApplication.cs" />
@@ -173,7 +173,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Profiling\ProfilingView.xaml">
+    <Page Include="Views\Profiling\ProfilingPageView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -220,8 +220,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ProfilingViewModel.layout" />
-    <EmbeddedResource Include="HomePageViewModel.layout" />
+    <None Include="Profiling.ProfilingPageViewModel.layout">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Home.HomePageViewModel.layout">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Home.StartPageViewModel.layout">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
