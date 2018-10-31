@@ -100,7 +100,7 @@ namespace Adenium.Layouting
             //Read <Menu> element content
             while (reader.Read())
             {
-                if (reader.NodeType == XmlNodeType.EndElement && string.Equals(LayoutElementName, reader.Name))
+                if (reader.NodeType == XmlNodeType.EndElement && string.Equals(MenuElementName, reader.Name))
                 {
                     break;
                 }
@@ -150,7 +150,7 @@ namespace Adenium.Layouting
             //Read <MenuItem> element content
             while (reader.Read())
             {
-                if (reader.NodeType == XmlNodeType.EndElement && string.Equals(LayoutElementName, reader.Name))
+                if (reader.NodeType == XmlNodeType.EndElement && string.Equals(MenuItemElementName, reader.Name))
                 {
                     break;
                 }
@@ -165,7 +165,7 @@ namespace Adenium.Layouting
                         control.Add(menuItem);
                         break;
                 }
-            }
+            }   
 
             return control;
         }

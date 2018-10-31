@@ -11,13 +11,11 @@ namespace Chronos.Client.Win
         public MainApplication()
             : base(Guid.NewGuid())
         {
-            System.Diagnostics.Debugger.Launch();
         }
 
         public MainApplication(bool processOwner)
             : base(Guid.NewGuid(), processOwner)
         {
-            System.Diagnostics.Debugger.Launch();
         }
 
         protected override IContainerViewModel BuildMainViewModel()

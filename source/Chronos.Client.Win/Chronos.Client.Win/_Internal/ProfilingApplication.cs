@@ -22,7 +22,6 @@ namespace Chronos.Client.Win
         public ProfilingApplication(Guid sessionUid, bool processOwner)
             : base(sessionUid.ReverseBits(), processOwner)
         {
-            System.Diagnostics.Debugger.Launch();
             _sessionUid = sessionUid;
         }
 
