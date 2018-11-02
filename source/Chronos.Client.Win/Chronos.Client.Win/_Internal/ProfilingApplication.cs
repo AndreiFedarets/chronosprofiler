@@ -243,6 +243,16 @@ namespace Chronos.Client.Win
             return true;
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            IDisposable disposable = _session as IDisposable;
+            if (disposable != null)
+            {
+                disposable.Dispose();   
+            }
+        }
+
         internal static Guid GenerateApplicationUid(Guid sessionUid)
         {
             return sessionUid.ReverseBits();

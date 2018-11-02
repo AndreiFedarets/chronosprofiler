@@ -1,31 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Adenium;
-using Chronos.Client.Win.Common.EventsTree.ViewModels;
+using Adenium.Layouting;
 using Chronos.Client.Win.Controls.Common.EventsTree;
 
 namespace Chronos.Client.Win.DotNet.FindReference.ViewModels
 {
     [ViewModelAttribute(Constants.ViewModels.FindReferenceViewModel)]
-    public sealed class FindReferenceViewModel : ViewModel
+    public sealed class FindReferenceViewModel : ViewModel, IAttachmentViewModel
     {
-        private readonly EventsTreeViewModel _eventsTreeViewModel;
+        private EventsTreeView _eventsTreeView;
         private IEventSearch _currentEventSearch;
         private string _searchText;
         private bool _searchTextEditable;
         private bool _findPreviousAvailable;
         private bool _findNextAvailable;
-
-        public FindReferenceViewModel()
-        {
-            //_eventsTreeViewModel = eventsTreeViewModel;
-            //_eventsTreeViewModel.View.ChildrenUpdated += OnViewChildrenUpdated;
-            //FindPreviousCommand = new SyncCommand(FindPrevious);
-            //FindNextCommand = new SyncCommand(FindNext);
-            //StopSearchCommand = new SyncCommand(StopSearch);
-            //_searchTextEditable = true;
-            //UpdateBindings();
-        }
 
         public override string DisplayName
         {
@@ -82,7 +71,7 @@ namespace Chronos.Client.Win.DotNet.FindReference.ViewModels
 
         public override void Dispose()
         {
-            _eventsTreeViewModel.View.ChildrenUpdated -= OnViewChildrenUpdated;
+            _eventsTreeView.ChildrenUpdated -= OnViewChildrenUpdated;
             base.Dispose();
         }
 
@@ -90,9 +79,9 @@ namespace Chronos.Client.Win.DotNet.FindReference.ViewModels
         {
             SearchText = adapter.SearchText;
             SearchTextEditable = false;
-            IEnumerator<EventTreeItem> enumerator = _eventsTreeViewModel.View.GetEnumerator();
+            IEnumerator<EventTreeItem> enumerator = _eventsTreeView.GetEnumerator();
             _currentEventSearch = new EventSearch(adapter, enumerator);
-            FindNext();
+            //FindNext();
         }
 
         private void FindPrevious()
@@ -110,7 +99,7 @@ namespace Chronos.Client.Win.DotNet.FindReference.ViewModels
             if (_currentEventSearch == null)
             {
                 EventTextSearchAdapter searchAdapter = new EventTextSearchAdapter(_searchText);
-                IEnumerator<EventTreeItem> enumerator = _eventsTreeViewModel.View.GetEnumerator();
+                IEnumerator<EventTreeItem> enumerator = _eventsTreeView.GetEnumerator();
                 _currentEventSearch = new EventSearch(searchAdapter, enumerator);
             }
             _currentEventSearch.FindNext();
@@ -142,6 +131,18 @@ namespace Chronos.Client.Win.DotNet.FindReference.ViewModels
         private void OnViewChildrenUpdated(object sender, System.EventArgs e)
         {
             _currentEventSearch = null;
+            UpdateBindings();
+        }
+
+        void IAttachmentViewModel.OnAttached(IViewModel targetViewModel)
+        {
+            dynamic temp = targetViewModel;
+            _eventsTreeView = temp.View;
+            _eventsTreeView.ChildrenUpdated += OnViewChildrenUpdated;
+            FindPreviousCommand = new SyncCommand(FindPrevious);
+            FindNextCommand = new SyncCommand(FindNext);
+            StopSearchCommand = new SyncCommand(StopSearch);
+            _searchTextEditable = true;
             UpdateBindings();
         }
     }

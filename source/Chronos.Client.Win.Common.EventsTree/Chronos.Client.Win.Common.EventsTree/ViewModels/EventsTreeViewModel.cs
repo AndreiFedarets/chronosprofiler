@@ -64,7 +64,13 @@ namespace Chronos.Client.Win.Common.EventsTree.ViewModels
         public IEnumerable<IEventTree> Events
         {
             get { return View.Events; }
-            private set { View.Events = value; }
+            private set
+            {
+                SmartDispatcher.Main.BeginInvoke(() =>
+                {
+                    View.Events = value;
+                });
+            }
         }
 
         public override void Dispose()

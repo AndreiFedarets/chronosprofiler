@@ -59,8 +59,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="_Internal\ClassEventSearchAdapter.cs" />
+    <Compile Include="_Internal\ModuleEventSearchAdapter.cs" />
     <Compile Include="_Internal\EventSearch.cs" />
     <Compile Include="_Internal\EventTextSearchAdapter.cs" />
+    <Compile Include="_Internal\AssemblyEventSearchAdapter.cs" />
     <Compile Include="_Internal\IEventSearch.cs" />
     <Compile Include="_Internal\IEventSearchAdapter.cs" />
     <Compile Include="Views\FindReferenceView.xaml.cs">

@@ -1,11 +1,13 @@
 ﻿using System;
 using Adenium;
 using Adenium.Layouting;
+using Chronos.DotNet.BasicProfiler;
 
 namespace Chronos.Client.Win.DotNet.FindReference
 {
     public class ProductivityAdapter : IProductivityAdapter, IInitializable, ILayoutProvider, IServiceConsumer
     {
+        private IFunctionCollection _functions;
         private static readonly Guid EventTreeUid;
         private bool _initialized;
 
@@ -30,6 +32,7 @@ namespace Chronos.Client.Win.DotNet.FindReference
 
         void ILayoutProvider.ConfigureContainer(IViewModel targetViewModel, IContainer container)
         {
+            container.RegisterInstance(_functions);
         }
 
         string ILayoutProvider.GetLayout(IViewModel targetViewModel)
@@ -48,7 +51,7 @@ namespace Chronos.Client.Win.DotNet.FindReference
 
         void IServiceConsumer.ImportServices(IServiceContainer container)
         {
-            
+            _functions = container.Resolve<IFunctionCollection>();
         }
     }
 }

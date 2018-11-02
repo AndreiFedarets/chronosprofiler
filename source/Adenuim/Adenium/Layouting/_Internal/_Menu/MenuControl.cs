@@ -36,7 +36,7 @@
 
         public virtual void Invalidate()
         {
-            Dispatcher.Invoke(() =>
+            SmartDispatcher.Main.Invoke(() =>
             {
                 IsVisible = Handler.GetVisible();
                 if (IsVisible)

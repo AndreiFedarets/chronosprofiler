@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Container.cs" />
     <Compile Include="IActivator.cs" />
+    <Compile Include="Layouting\IAttachmentViewModel.cs" />
     <Compile Include="Layouting\_Internal\IHaveScope.cs" />
     <Compile Include="Layouting\_Internal\IHaveLayout.cs" />
     <Compile Include="Layouting\ILayoutProvider.cs" />

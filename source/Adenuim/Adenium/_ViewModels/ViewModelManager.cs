@@ -108,6 +108,10 @@ namespace Adenium
                         {
                             IViewModel childViewModel = attachment.CreateViewModel();
                             containerViewModel.ActivateItem(childViewModel);
+                            if (!Equals(containerViewModel, viewModel) && childViewModel is IAttachmentViewModel)
+                            {
+                                ((IAttachmentViewModel)childViewModel).OnAttached(viewModel);
+                            }
                         }
                     }
                 }

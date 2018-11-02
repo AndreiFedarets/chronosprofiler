@@ -21,8 +21,11 @@ namespace Chronos.Client.Win.DotNet.FindReference
         public bool Match(EventTreeItem item)
         {
             IEvent @event = item.Event;
-            return @event.EventType == Chronos.DotNet.TracingProfiler.Constants.EventType.ManagedFunctionCall &&
-                   @event.Unit == _functionInfo.Uid;
+            if (@event.EventType != Chronos.DotNet.TracingProfiler.Constants.EventType.ManagedFunctionCall)
+            {
+                return false;
+            }
+            return  @event.Unit == _functionInfo.Uid;
         }
     }
 }

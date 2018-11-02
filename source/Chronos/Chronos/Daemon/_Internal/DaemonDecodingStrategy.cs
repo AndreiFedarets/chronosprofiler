@@ -42,7 +42,6 @@ namespace Chronos.Daemon
         
         public void StartDecoding()
         {
-            throw new NotImplementedException();
         }
 
         public void StopProfiling()
@@ -57,7 +56,6 @@ namespace Chronos.Daemon
 
         public void RemoveSession()
         {
-            throw new NotImplementedException();
         }
     }
 }

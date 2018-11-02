@@ -107,7 +107,15 @@ namespace Chronos.Proxy
         {
             ExecuteDispose(() =>
             {
-                _serviceContainer.Dispose();
+                if (_serviceContainer.IsValueCreated)
+                {
+                    _serviceContainer.Value.Dispose();
+                }
+                if (_profilingTimer.IsValueCreated)
+                {
+                    _serviceContainer.Value.Dispose();
+                }
+                _sessionStateChangedEventSink.Dispose();
             });
             base.Dispose();
         }
