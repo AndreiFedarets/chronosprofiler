@@ -149,8 +149,6 @@
     <Compile Include="Proxy\IProxyObject.cs" />
     <Compile Include="Proxy\_Internal\Accessibility\IO\FileSystemAccessor.cs" />
     <Compile Include="Proxy\ServiceProxyInitializationMethodAttribute.cs" />
-    <Compile Include="Proxy\Model\UnitCollectionBase.cs" />
-    <Compile Include="Model\UnitBase.cs" />
     <Compile Include="Host\IApplicationCollection.cs" />
     <Compile Include="Host\ApplicationCollection.cs" />
     <Compile Include="Communication\Native\_Internal\ManagedDataHandlerRouter.cs" />
@@ -166,13 +164,6 @@
     <Compile Include="Extensibility\LoadBehavior.cs" />
     <Compile Include="Host\ApplicationEventArgs.cs" />
     <Compile Include="EnvironmentInformation.cs" />
-    <Compile Include="Model\IUnifiedDataStorage.cs" />
-    <Compile Include="Model\IUnitCollection.cs" />
-    <Compile Include="Model\IUnitCollectionStorage.cs" />
-    <Compile Include="Model\NativeUnitBase.cs" />
-    <Compile Include="Model\UnitCollectionBase.cs" />
-    <Compile Include="Model\UnitCollectionEventArgs.cs" />
-    <Compile Include="Model\NativeUnitMarshaler.cs" />
     <Compile Include="Registry\RegistryRoot.cs" />
     <Compile Include="Registry\RegistryKey.cs" />
     <Compile Include="Registry\RegistryKeyCollection.cs" />

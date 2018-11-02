@@ -69,9 +69,19 @@
       <Name>Adenium</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\Chronos.Client.Win.Common\Chronos.Client.Win.Common\Chronos.Client.Win.Common.csproj">
+      <Project>{bf873565-c1b6-4286-9fa3-fe24a60a695e}</Project>
+      <Name>Chronos.Client.Win.Common</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\Chronos.Client.Win\Chronos.Client.Win\Chronos.Client.Win.csproj">
       <Project>{6db0686c-3f7a-4156-a4bb-3709bc048454}</Project>
       <Name>Chronos.Client.Win</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Chronos.Common\Chronos.Common\Chronos.Common.csproj">
+      <Project>{3ff82557-b745-4c8a-b691-d1323c08ea12}</Project>
+      <Name>Chronos.Common</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Chronos.DotNet.SqlProfiler\Chronos.DotNet.SqlProfiler\Chronos.DotNet.SqlProfiler.csproj">

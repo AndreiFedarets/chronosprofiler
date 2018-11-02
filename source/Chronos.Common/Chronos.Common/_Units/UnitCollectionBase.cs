@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using Chronos.Storage;
 
-namespace Chronos.Model
+namespace Chronos.Common
 {
     public abstract class UnitCollectionBase<TUnit, TNativeUnit> : RemoteBaseObject, IUnitCollection<TUnit>
         where TUnit : UnitBase

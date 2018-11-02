@@ -1,8 +1,8 @@
-﻿using Chronos.Model;
+﻿using Chronos.Common;
 
 namespace Chronos.DotNet.BasicProfiler
 {
-    [PublicService(typeof(Proxy.Model.DotNet.BasicProfiler.ThreadCollection))]
+    [PublicService(typeof(Proxy.ThreadCollection))]
     public interface IThreadCollection : IUnitCollection<ThreadInfo>
     {
 

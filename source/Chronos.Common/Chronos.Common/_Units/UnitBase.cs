@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chronos.Model
+namespace Chronos.Common
 {
     [Serializable]
     public abstract class UnitBase

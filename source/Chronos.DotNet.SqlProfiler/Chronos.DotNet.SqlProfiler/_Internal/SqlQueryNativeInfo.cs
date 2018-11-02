@@ -1,5 +1,5 @@
 ﻿using System;
-using Chronos.Model;
+using Chronos.Common;
 using Chronos.Storage;
 
 namespace Chronos.DotNet.SqlProfiler

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Windows.Data;
 using Adenium;
 using Adenium.Layouting;
-using Chronos.Model;
+using Chronos.Common;
 
-namespace Chronos.Client.Win.ViewModels
+namespace Chronos.Client.Win.Common.ViewModels
 {
     public abstract class UnitsListViewModel<T> : ViewModel where T : UnitBase
     {

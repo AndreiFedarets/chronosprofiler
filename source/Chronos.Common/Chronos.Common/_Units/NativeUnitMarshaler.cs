@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Chronos.Marshaling;
 
-namespace Chronos.Model
+namespace Chronos.Common
 {
     public abstract class NativeUnitMarshaler<T> : GenericMarshaler<T> where T : NativeUnitBase, new()
     {

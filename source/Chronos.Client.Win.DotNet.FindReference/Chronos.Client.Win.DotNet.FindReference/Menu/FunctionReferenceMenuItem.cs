@@ -1,7 +1,7 @@
 ﻿using Adenium;
 using Adenium.Layouting;
+using Chronos.Client.Win.Common.ViewModels;
 using Chronos.Client.Win.DotNet.FindReference.Properties;
-using Chronos.Client.Win.ViewModels;
 using Chronos.DotNet.BasicProfiler;
 
 namespace Chronos.Client.Win.DotNet.FindReference.Menu

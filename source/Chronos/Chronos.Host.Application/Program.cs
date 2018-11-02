@@ -15,6 +15,7 @@ namespace Chronos.Host.Application
         [STAThread]
         private static void Main()
         {
+            System.Diagnostics.Debugger.Launch();
             using (Process process = Process.GetCurrentProcess())
             {
                 try

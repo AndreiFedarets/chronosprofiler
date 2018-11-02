@@ -1,5 +1,5 @@
-﻿using Chronos.DotNet.BasicProfiler;
-using Chronos.Model;
+﻿using Chronos.Common;
+using Chronos.DotNet.BasicProfiler;
 
 namespace Chronos.DotNet.ExceptionMonitor
 {

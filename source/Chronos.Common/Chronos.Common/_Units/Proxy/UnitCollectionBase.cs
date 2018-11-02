@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using Chronos.Client;
-using Chronos.Model;
+using Chronos.Proxy;
 
-namespace Chronos.Proxy.Model
+namespace Chronos.Common.Proxy
 {
     public abstract class UnitCollectionProxyBase<T> : ProxyBaseObject<IUnitCollection<T>>, IUnitCollection<T>, INotifyCollectionChanged
         where T : UnitBase

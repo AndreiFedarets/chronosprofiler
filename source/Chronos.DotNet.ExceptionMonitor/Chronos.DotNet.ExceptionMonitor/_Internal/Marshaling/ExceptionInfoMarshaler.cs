@@ -1,10 +1,10 @@
 ﻿using System.IO;
+using Chronos.Common;
 using Chronos.Marshaling;
-using Chronos.Model;
 
 namespace Chronos.DotNet.ExceptionMonitor.Marshaling
 {
-    internal class ExceptionInfoMarshaler : NativeUnitMarshaler<ExceptionNativeInfo>
+    internal sealed class ExceptionInfoMarshaler : NativeUnitMarshaler<ExceptionNativeInfo>
     {
         protected override void MarshalInternal(ExceptionNativeInfo value, Stream stream)
         {

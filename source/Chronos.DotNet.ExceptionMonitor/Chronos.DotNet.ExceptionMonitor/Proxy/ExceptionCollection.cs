@@ -1,7 +1,7 @@
-﻿using Chronos.DotNet.BasicProfiler;
-using Chronos.Model;
+﻿using Chronos.Common;
+using Chronos.Common.Proxy;
+using Chronos.DotNet.BasicProfiler;
 using Chronos.Proxy;
-using Chronos.Proxy.Model;
 
 namespace Chronos.DotNet.ExceptionMonitor.Proxy
 {

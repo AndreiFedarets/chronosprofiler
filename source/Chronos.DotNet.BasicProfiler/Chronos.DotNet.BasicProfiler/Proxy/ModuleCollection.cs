@@ -1,7 +1,8 @@
-﻿using Chronos.DotNet.BasicProfiler;
-using Chronos.Model;
+﻿using Chronos.Common;
+using Chronos.Common.Proxy;
+using Chronos.Proxy;
 
-namespace Chronos.Proxy.Model.DotNet.BasicProfiler
+namespace Chronos.DotNet.BasicProfiler.Proxy
 {
     internal sealed class ModuleCollection : UnitCollectionProxyBase<ModuleInfo>, IModuleCollection
     {

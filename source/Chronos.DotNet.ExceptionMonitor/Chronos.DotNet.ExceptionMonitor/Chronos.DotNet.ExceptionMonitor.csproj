@@ -65,6 +65,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Chronos.Common\Chronos.Common\Chronos.Common.csproj">
+      <Project>{3ff82557-b745-4c8a-b691-d1323c08ea12}</Project>
+      <Name>Chronos.Common</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\Chronos.DotNet.BasicProfiler\Chronos.DotNet.BasicProfiler\Chronos.DotNet.BasicProfiler.csproj">
       <Project>{e4a7a762-8703-4c4d-a609-3915b0a1dfe4}</Project>
       <Name>Chronos.DotNet.BasicProfiler</Name>

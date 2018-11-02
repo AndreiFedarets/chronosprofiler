@@ -36,10 +36,14 @@
       <HintPath>..\..\..\externals\Caliburn.Micro.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.XML" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FrameworkAdapter.cs" />
@@ -49,6 +53,10 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\UnitsListViewModel.cs" />
+    <Compile Include="Views\UnitsListView.xaml.cs">
+      <DependentUpon>UnitsListView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -76,11 +84,23 @@
       <Name>Chronos.Client.Win</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\Chronos.Common\Chronos.Common\Chronos.Common.csproj">
+      <Project>{3ff82557-b745-4c8a-b691-d1323c08ea12}</Project>
+      <Name>Chronos.Common</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\Chronos\Chronos\Chronos.csproj">
       <Project>{75ba0099-4ad5-4a8e-8ca4-4ecb842e169c}</Project>
       <Name>Chronos</Name>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Views\UnitsListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

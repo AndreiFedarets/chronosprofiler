@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chronos.Model
+namespace Chronos.Common
 {
     [Serializable]
     public sealed class UnitCollectionEventArgs<T> : EventArgs where T : UnitBase

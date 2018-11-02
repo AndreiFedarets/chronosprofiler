@@ -1,8 +1,8 @@
-﻿using Chronos.Model;
+﻿using Chronos.Common;
 
 namespace Chronos.DotNet.BasicProfiler
 {
-    [PublicService(typeof(Proxy.Model.DotNet.BasicProfiler.AssemblyCollection))]
+    [PublicService(typeof(Proxy.AssemblyCollection))]
     public interface IAssemblyCollection : IUnitCollection<AssemblyInfo>
     {
 

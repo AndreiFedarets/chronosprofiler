@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Chronos.Model
+namespace Chronos.Common
 {
     public interface IUnitCollection : IEnumerable
     {

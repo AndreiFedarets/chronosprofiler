@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Adenium;
-using Chronos.Client.Win.ViewModels;
+using Chronos.Client.Win.Common.ViewModels;
+using Chronos.Common;
 using Chronos.DotNet.SqlProfiler;
-using Chronos.Model;
 
 namespace Chronos.Client.Win.DotNet.SqlProfiler.ViewModels
 {

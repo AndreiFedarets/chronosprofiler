@@ -1,5 +1,4 @@
-﻿using Chronos.Model;
-using Chronos.Proxy;
+﻿using Chronos.Common;
 
 namespace Chronos.DotNet.BasicProfiler
 {

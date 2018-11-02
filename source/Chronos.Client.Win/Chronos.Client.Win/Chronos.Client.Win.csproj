@@ -79,9 +79,6 @@
     <Compile Include="ApplicationManager.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="IOpenFileDialog.cs" />
-    <Compile Include="Views\UnitsListView.xaml.cs">
-      <DependentUpon>UnitsListView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\Common\OpenFileViewModel.cs" />
     <Compile Include="ViewModels\Home\ActiveSessionsViewModel.cs" />
     <Compile Include="ViewModels\Home\HomePageViewModel.cs" />
@@ -93,7 +90,6 @@
     <Compile Include="ViewModels\Start\ProfilingTypesViewModel.cs" />
     <Compile Include="ViewModels\Start\ProfilingTypeViewModel.cs" />
     <Compile Include="ViewModels\Start\StartPageViewModel.cs" />
-    <Compile Include="ViewModels\UnitsListViewModel.cs" />
     <Compile Include="Views\Common\OpenFileView.xaml.cs">
       <DependentUpon>OpenFileView.xaml</DependentUpon>
     </Compile>
@@ -175,10 +171,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Start\StartPageView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\UnitsListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

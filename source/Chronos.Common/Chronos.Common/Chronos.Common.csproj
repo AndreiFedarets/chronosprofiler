@@ -40,6 +40,13 @@
     <Compile Include="Constants.cs" />
     <Compile Include="FrameworkAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_Units\IUnitCollection.cs" />
+    <Compile Include="_Units\NativeUnitBase.cs" />
+    <Compile Include="_Units\NativeUnitMarshaler.cs" />
+    <Compile Include="_Units\Proxy\UnitCollectionBase.cs" />
+    <Compile Include="_Units\UnitBase.cs" />
+    <Compile Include="_Units\UnitCollectionBase.cs" />
+    <Compile Include="_Units\UnitCollectionEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Chronos.Common.xchronex">

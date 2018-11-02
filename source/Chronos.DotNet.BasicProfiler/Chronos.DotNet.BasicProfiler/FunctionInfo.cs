@@ -1,5 +1,5 @@
-﻿using Chronos.Model;
-using System;
+﻿using System;
+using Chronos.Common;
 
 namespace Chronos.DotNet.BasicProfiler
 {

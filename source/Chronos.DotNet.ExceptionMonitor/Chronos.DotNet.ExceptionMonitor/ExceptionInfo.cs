@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Chronos.Common;
 using Chronos.DotNet.BasicProfiler;
-using Chronos.Model;
 
 namespace Chronos.DotNet.ExceptionMonitor
 {

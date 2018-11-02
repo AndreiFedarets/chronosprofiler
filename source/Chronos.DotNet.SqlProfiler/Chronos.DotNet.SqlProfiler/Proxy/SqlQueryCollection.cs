@@ -1,6 +1,6 @@
-﻿using Chronos.Model;
+﻿using Chronos.Common;
+using Chronos.Common.Proxy;
 using Chronos.Proxy;
-using Chronos.Proxy.Model;
 
 namespace Chronos.DotNet.SqlProfiler.Proxy
 {

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using Adenium.Layouting;
 
-namespace Chronos.Client.Win.Views
+namespace Chronos.Client.Win.Common.Views
 {
     public partial class UnitsListView
     {

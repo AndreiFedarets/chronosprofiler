@@ -9,7 +9,7 @@
 
         public static class Views
         {
-            public const string UnitsListView = "Chronos.Client.Win.Views.UnitsListView, Chronos.Client.Win";
+            public const string UnitsListView = "Chronos.Client.Win.Common.Views.UnitsListView, Chronos.Client.Win.Common";
         }
 
         public static class Menus

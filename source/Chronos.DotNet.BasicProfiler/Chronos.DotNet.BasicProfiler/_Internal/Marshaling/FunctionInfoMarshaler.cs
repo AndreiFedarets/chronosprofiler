@@ -1,6 +1,6 @@
 ﻿using System.IO;
+using Chronos.Common;
 using Chronos.Marshaling;
-using Chronos.Model;
 
 namespace Chronos.DotNet.BasicProfiler.Marshaling
 {
