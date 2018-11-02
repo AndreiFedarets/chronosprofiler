@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using Adenium;
 using Chronos.Client.Win.Controls.Common.EventsTree;
 using Chronos.Common.EventsTree;
@@ -68,6 +69,8 @@ namespace Chronos.Client.Win.Common.EventsTree.ViewModels
             {
                 SmartDispatcher.Main.BeginInvoke(() =>
                 {
+                    //This Thread.Sleep is hotfix of issue when EventsTree is loaded earlier than Units
+                    Thread.Sleep(500);
                     View.Events = value;
                 });
             }

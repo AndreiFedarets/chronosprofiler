@@ -177,7 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Chronos.Client.Win.xchronex">
+    <None Include="Chronos.Client.Win.__xchronex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">
