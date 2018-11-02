@@ -411,7 +411,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:CustomWindow}">
                     <ControlTemplate.Resources>
-                        <controls:ResizeBorderThicknessToCaptionMarginConverter x:Key="ResizeBorderThicknessToCaptionMarginConverter" />
+                        <local:ResizeBorderThicknessToCaptionMarginConverter x:Key="ResizeBorderThicknessToCaptionMarginConverter" />
                         <Style x:Key="CustomWindowControlButtonStyle" TargetType="{x:Type Button}">
                             <Setter Property="SnapsToDevicePixels" Value="True" />
                             <Setter Property="HorizontalAlignment" Value="Center"/>

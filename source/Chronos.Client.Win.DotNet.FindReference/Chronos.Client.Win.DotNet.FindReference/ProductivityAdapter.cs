@@ -30,7 +30,6 @@ namespace Chronos.Client.Win.DotNet.FindReference
 
         void ILayoutProvider.ConfigureContainer(IViewModel targetViewModel, IContainer container)
         {
-            
         }
 
         string ILayoutProvider.GetLayout(IViewModel targetViewModel)

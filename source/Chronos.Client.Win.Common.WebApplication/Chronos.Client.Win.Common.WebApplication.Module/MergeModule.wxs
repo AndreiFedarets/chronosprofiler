@@ -12,7 +12,7 @@
           </Component>
           <Directory Id="Chronos_Client_Win_Common_WebApplication_Layouts_Directory" Name="$(var.LayoutsDir)">
             <Component Id="Chronos_Client_Win_Common_WebApplication_Layouts_Component" Guid="68af34e7-c327-48d8-977d-5e7bd6971b3d">
-              <File Id="StartPageViewModel_layout" Name="StartPageViewModel.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\StartPageViewModel.layout" />
+              <File Id="Start_Page_layout" Name="Start.Page.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Start.Page.layout" />
             </Component>
           </Directory>
         </Directory>

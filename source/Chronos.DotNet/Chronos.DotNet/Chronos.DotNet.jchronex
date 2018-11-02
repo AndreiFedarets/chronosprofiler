@@ -6,7 +6,7 @@
             "name": "Microsoft.NET (4.0+)",
             "description": "Profiling applications based on Microsoft.NET 4.0 and higher"
         }
-    ]
+    ],
     "framework": {
         "uid": "{6711F85A-3CD1-4E76-8502-C3D4404E47C8}",
         "version": "0.1",
@@ -18,10 +18,10 @@
             {
                 "application": "agent",
                 "entryPoint32": "Chronos.DotNet.Agent.EntryPoint.dll",
-                "entryPoint32": "x64\Chronos.DotNet.Agent.EntryPoint.dll",
+                "entryPoint64": "x64\\Chronos.DotNet.Agent.EntryPoint.dll",
                 "methodName": "CreateDotNetFramework"
             }
-        ]
+        ],
         "localizations":[
             {
                 "culture": "en-US",

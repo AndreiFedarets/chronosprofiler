@@ -12,7 +12,12 @@
           </Component>
           <Directory Id="Chronos_Client_Win_DotNet_FindReference_Layouts_Directory" Name="$(var.LayoutsDir)">
             <Component Id="Chronos_Client_Win_DotNet_FindReference_Layouts_Component" Guid="98f52727-db46-4019-ae82-0f87092bc161">
-              <!--<File Id="Profiling_Page_layout" Name="Profiling.Page.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Profiling.Page.layout" />-->
+              <File Id="Profiling_Common_EventsTree_EventsTree_layout" Name="Profiling.Common.EventsTree.EventsTree.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Profiling.Common.EventsTree.EventsTree.layout" />
+              <File Id="Profiling_Common_EventsTree_EventTree_layout" Name="Profiling.Common.EventsTree.EventTree.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Profiling.Common.EventsTree.EventTree.layout" />
+              <File Id="Profiling_DotNet_BasicProfiler_Assemblies_layout" Name="Profiling.DotNet.BasicProfiler.Assemblies.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Profiling.DotNet.BasicProfiler.Assemblies.layout" />
+              <File Id="Profiling_DotNet_BasicProfiler_Classes_layout" Name="Profiling.DotNet.BasicProfiler.Classes.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Profiling.DotNet.BasicProfiler.Classes.layout" />
+              <File Id="Profiling_DotNet_BasicProfiler_Functions_layout" Name="Profiling.DotNet.BasicProfiler.Functions.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Profiling.DotNet.BasicProfiler.Functions.layout" />
+              <File Id="Profiling_DotNet_BasicProfiler_Modules_layout" Name="Profiling.DotNet.BasicProfiler.Modules.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Profiling.DotNet.BasicProfiler.Modules.layout" />
             </Component>
           </Directory>
         </Directory>

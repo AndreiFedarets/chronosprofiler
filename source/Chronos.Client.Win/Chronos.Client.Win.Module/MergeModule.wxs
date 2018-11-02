@@ -19,9 +19,9 @@
           </Component>
           <Directory Id="Chronos_Client_Win_Layouts_Directory" Name="$(var.LayoutsDir)">
             <Component Id="Chronos_Client_Win_Layouts_Component" Guid="28d78ce2-7b4b-49c9-bdeb-009fc97ae913">
-              <File Id="HomePageViewModel_layout" Name="HomePageViewModel.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\HomePageViewModel.layout" />
-              <File Id="ProfilingPageViewModel_layout" Name="ProfilingPageViewModel.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\ProfilingPageViewModel.layout" />
-              <File Id="StartPageViewModel_layout" Name="StartPageViewModel.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\StartPageViewModel.layout" />
+              <File Id="Home_Page_layout" Name="Home.Page.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Home.Page.layout" />
+              <File Id="Profiling_Page_layout" Name="Profiling.Page.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Profiling.Page.layout" />
+              <File Id="Start_Page_layout" Name="Start.Page.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Start.Page.layout" />
             </Component>
           </Directory>
         </Directory>

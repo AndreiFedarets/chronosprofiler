@@ -12,7 +12,8 @@
           </Component>
           <Directory Id="Chronos_Client_Win_DotNet_ExceptionMonitor_Layouts_Directory" Name="$(var.LayoutsDir)">
             <Component Id="Chronos_Client_Win_DotNet_ExceptionMonitor_Layouts_Component" Guid="4633b56c-edbb-40c9-9971-54b0f8b587e7">
-              <File Id="ProfilingPageViewModel_layout" Name="ProfilingPageViewModel.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\ProfilingPageViewModel.layout" />
+              <File Id="Profiling_DotNet_ExceptionMonitor_Exceptions_layout" Name="Profiling.DotNet.ExceptionMonitor.Exceptions.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Profiling.DotNet.ExceptionMonitor.Exceptions.layout" />
+              <File Id="Profiling_Page_layout" Name="Profiling.Page.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Profiling.Page.layout" />
             </Component>
           </Directory>
         </Directory>

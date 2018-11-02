@@ -85,7 +85,10 @@
     <Compile Include="Layouting\ILayoutProvider.cs" />
     <Compile Include="Layouting\LayoutFileReader.cs" />
     <Compile Include="Layouting\_Internal\CompositeMenuControlHandler.cs" />
+    <Compile Include="Layouting\_Internal\ILayoutReader.cs" />
+    <Compile Include="Layouting\_Internal\JsonLayoutReader.cs" />
     <Compile Include="Layouting\_Internal\MenuControlHandlerDefault.cs" />
+    <Compile Include="Layouting\_Internal\SmartLayoutReader.cs" />
     <Compile Include="Layouting\_Internal\_Menu\MenuControlHandlerLazy.cs" />
     <Compile Include="Layouting\_Internal\_ViewModel\IViewModelFactory.cs" />
     <Compile Include="Layouting\_Internal\_ViewModel\MultiViewModelFactory.cs" />
@@ -127,7 +130,7 @@
     <Compile Include="Controls\_Generic\ColorImage.cs" />
     <Compile Include="Controls\_Generic\CustomWindow.cs" />
     <Compile Include="Controls\_Generic\ImageButton.cs" />
-    <Compile Include="Controls\_Generic\ResizeBorderThicknessToCaptionMarginConverter.cs" />
+    <Compile Include="_Converters\ResizeBorderThicknessToCaptionMarginConverter.cs" />
     <Compile Include="Controls\_Generic\TileButton.cs" />
     <Compile Include="Controls\_Menu\ContextMenu.cs" />
     <Compile Include="Controls\_Menu\Menu.cs" />
@@ -163,7 +166,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Layouting\_Internal\LayoutReader.cs" />
+    <Compile Include="Layouting\_Internal\XmlLayoutReader.cs" />
     <Compile Include="Layouting\_Internal\_ViewModel\ViewModelActivation.cs" />
     <Compile Include="Layouting\_Internal\_ViewModel\ViewModelMode.cs" />
     <Compile Include="Layouting\_Internal\_ViewModel\ViewModelAttachment.cs" />

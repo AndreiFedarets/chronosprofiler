@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 
-namespace Adenium.Controls
+namespace Adenium
 {
     public class ResizeBorderThicknessToCaptionMarginConverter : IMultiValueConverter
     {

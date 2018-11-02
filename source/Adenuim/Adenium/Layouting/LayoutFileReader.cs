@@ -7,10 +7,11 @@ namespace Adenium.Layouting
     {
         private static readonly string[] SearchDirectories;
         public const string LayoutFileExtension = ".layout";
+        public const string LayoutsDirectoryName = "Layouts";
 
         static LayoutFileReader()
         {
-            SearchDirectories = new[] {"", "Layouts"};
+            SearchDirectories = new[] { string.Empty, LayoutsDirectoryName };
         }
 
         public static string ReadViewModelLayout(IViewModel viewModel)
@@ -27,7 +28,9 @@ namespace Adenium.Layouting
             {
                 string layoutFileFullName = Path.Combine(assemblyFilePath, searchDirectory, viewModelUid);
                 layoutFileFullName += LayoutFileExtension;
-                if (File.Exists(layoutFileFullName))
+                FileInfo fileInfo = new FileInfo(layoutFileFullName);
+                //TODO: check size of file to prevent loading of huge files
+                if (fileInfo.Exists)
                 {
                     viewModelLayout = File.ReadAllText(layoutFileFullName);
                     return viewModelLayout;

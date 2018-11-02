@@ -132,10 +132,6 @@
   <data name="FunctionsMenuItem_Text" xml:space="preserve">
     <value>Functions</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Menu" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Menu\Menu.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="ModulesMenuItem_Text" xml:space="preserve">
     <value>Modules</value>
   </data>

@@ -205,15 +205,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Layouts\Profiling.Page.layout">
+    <EmbeddedResource Include="Layouts\Profiling.Page.layout">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Layouts\Home.Page.layout">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layouts\Home.Page.layout">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Layouts\Start.Page.layout">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layouts\Start.Page.layout">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Adenium.Layouting
 {
-    internal sealed class LayoutReader
+    internal sealed class XmlLayoutReader : ILayoutReader
     {
         private const string LayoutElementName = "Layout";
         private const string ViewModelElementName = "ViewModel";
@@ -18,23 +18,29 @@ namespace Adenium.Layouting
         private const string ActivationAttributeName = "Activation";
         private const string OrderAttributeName = "Order";
 
-        public ViewModelLayout Read(string content, IViewModel viewModel, IContainer container)
+        public bool SupportsContentType(string layoutContent)
         {
-            using (StringReader stringReader = new StringReader(content))
+            //Dummy check - we just make sure content starts with "<" that's most probably xml
+            return !string.IsNullOrEmpty(layoutContent) && layoutContent.TrimStart().StartsWith("<");
+        }
+
+        public ViewModelLayout Read(string layoutContent, IViewModel targetViewModel, IContainer scopeContainer)
+        {
+            using (StringReader stringReader = new StringReader(layoutContent))
             {
-                return Read(stringReader, viewModel, container);
+                return Read(stringReader, targetViewModel, scopeContainer);
             }
         }
 
-        public ViewModelLayout Read(TextReader reader, IViewModel viewModel, IContainer container)
+        public ViewModelLayout Read(TextReader reader, IViewModel targetViewModel, IContainer scopeContainer)
         {
             using (XmlReader xmlReader = new XmlTextReader(reader))
             {
-                return Read(xmlReader, viewModel, container);
+                return Read(xmlReader, targetViewModel, scopeContainer);
             }
         }
 
-        public ViewModelLayout Read(XmlReader reader, IViewModel viewModel, IContainer container)
+        public ViewModelLayout Read(XmlReader reader, IViewModel targetViewModel, IContainer scopeContainer)
         {
             //Move to <Layout> element
             MoveToElement(reader, LayoutElementName);
@@ -56,11 +62,11 @@ namespace Adenium.Layouting
                 switch (reader.Name)
                 {
                     case ViewModelElementName:
-                        ViewModelAttachment attachment = ReadViewModelAttachment(reader, viewModel);
+                        ViewModelAttachment attachment = ReadViewModelAttachment(reader, targetViewModel);
                         attachments.Add(attachment);
                         break;
                     case MenuElementName:
-                        Menu menu = ReadMenu(reader, container);
+                        Menu menu = ReadMenu(reader, scopeContainer);
                         menus.Add(menu);
                         break;
                 }
@@ -171,7 +177,7 @@ namespace Adenium.Layouting
             return control;
         }
 
-        private ViewModelAttachment ReadViewModelAttachment(XmlReader reader, IViewModel viewModel)
+        private ViewModelAttachment ReadViewModelAttachment(XmlReader reader, IViewModel targetViewModel)
         {
             //Move to <ViewModel> element
             MoveToElement(reader, ViewModelElementName);
@@ -209,21 +215,21 @@ namespace Adenium.Layouting
                 }
             }
 
-            IViewModelFactory viewModelFactory = CreateViewModelFactory(viewModel, typeName, mode);
+            IViewModelFactory viewModelFactory = CreateViewModelFactory(targetViewModel, typeName, mode);
 
             return new ViewModelAttachment(id, activation, order, viewType, viewModelFactory);
         }
 
-        private IViewModelFactory CreateViewModelFactory(IViewModel viewModel, string typeName, ViewModelMode mode)
+        private IViewModelFactory CreateViewModelFactory(IViewModel targetViewModel, string typeName, ViewModelMode mode)
         {
             IViewModelFactory factory;
             if (mode == ViewModelMode.Single)
             {
-                factory = new SingleViewModelFactory(viewModel, typeName);
+                factory = new SingleViewModelFactory(targetViewModel, typeName);
             }
             else
             {
-                factory = new MultiViewModelFactory(viewModel, typeName);
+                factory = new MultiViewModelFactory(targetViewModel, typeName);
             }
             return factory;
         }

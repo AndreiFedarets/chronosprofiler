@@ -8,7 +8,7 @@ namespace Adenium
 {
     public class ViewModelManager : IViewModelManager
     {
-        private readonly LayoutReader _layoutReader;
+        private readonly ILayoutReader _layoutReader;
         private readonly List<ILayoutProvider> _layoutProviders;
         private readonly IWindowManager _windowManager;
         private readonly IContainer _mainContainer;
@@ -18,7 +18,7 @@ namespace Adenium
             _windowManager = windowManager;
             _mainContainer = container;
             _layoutProviders = new List<ILayoutProvider>();
-            _layoutReader = new LayoutReader();
+            _layoutReader = new SmartLayoutReader();
             Instance = this;
         }
 

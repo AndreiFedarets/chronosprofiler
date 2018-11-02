@@ -12,7 +12,7 @@
           </Component>
           <Directory Id="Chronos_Client_Win_DotNet_Layouts_Directory" Name="$(var.LayoutsDir)">
             <Component Id="Chronos_Client_Win_DotNet_Layouts_Component" Guid="e7b9c54f-1b6c-49e9-b101-4a3de0398b69">
-              <File Id="ProfilingPageViewModel_layout" Name="ProfilingPageViewModel.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\ProfilingPageViewModel.layout" />
+              <File Id="Profiling_Page_layout" Name="Profiling.Page.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Profiling.Page.layout" />
             </Component>
           </Directory>
         </Directory>

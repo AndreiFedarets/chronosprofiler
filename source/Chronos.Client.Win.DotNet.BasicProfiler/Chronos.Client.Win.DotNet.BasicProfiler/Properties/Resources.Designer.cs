@@ -106,21 +106,6 @@ namespace Chronos.Client.Win.DotNet.BasicProfiler.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-        ///&lt;Menu&gt;
-        ///  &lt;Control Id=&quot;Chronos.Client.Win.Menu.DotNet.DotNetMenuItem&quot;&gt;
-        ///    &lt;Control Type=&quot;Chronos.Client.Win.Menu.DotNet.BasicProfiler.AppDomainsMenuItem, Chronos.Client.Win.DotNet.BasicProfiler&quot; /&gt;
-        ///    &lt;Control Type=&quot;Chronos.Client.Win.Menu.DotNet.BasicProfiler.AssembliesMenuItem, Chronos.Client.Win.DotNet.BasicProfiler&quot; /&gt;
-        ///    &lt;Control Type=&quot;Chronos.Client.Win.Menu.DotNet.BasicProfiler.ModulesMenuItem, Chronos.Client.Win.DotNet.BasicProfiler&quot; /&gt;
-        ///    &lt;Control Ty [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Menu {
-            get {
-                return ResourceManager.GetString("Menu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Modules.
         /// </summary>
         internal static string ModulesMenuItem_Text {

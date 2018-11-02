@@ -513,7 +513,6 @@
   <ItemGroup>
     <Folder Include="Communication\Managed\Http\" />
     <Folder Include="Proxy\_Internal\Prerequisites\" />
-    <Folder Include="Registry\_Internal\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extensibility\catalog.xml">
