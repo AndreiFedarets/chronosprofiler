@@ -3,9 +3,10 @@ using Adenium;
 using Chronos.Client.Win.Controls.Common.EventsTree;
 using Chronos.Common.EventsTree;
 
-namespace Chronos.Client.Win.ViewModels.Common.EventsTree
+namespace Chronos.Client.Win.Common.EventsTree.ViewModels
 {
-    public sealed class EventsTreeViewModel : ViewModel, IEventsTreeViewModel
+    [ViewModelAttribute(Constants.ViewModels.EventsTreeViewModel)]
+    public sealed class EventsTreeViewModel : ViewModel
     {
         private readonly EventTreeMerger _eventTreeMerger;
         private readonly IEventTreeCollection _eventTrees;
@@ -64,6 +65,12 @@ namespace Chronos.Client.Win.ViewModels.Common.EventsTree
         {
             get { return View.Events; }
             private set { View.Events = value; }
+        }
+
+        public override void Dispose()
+        {
+            _eventTrees.CollectionUpdated -= OnEventTreesCollectionUpdated;
+            base.Dispose();
         }
 
         private void OnEventTreesCollectionUpdated(object sender, EventTreeEventArgs e)

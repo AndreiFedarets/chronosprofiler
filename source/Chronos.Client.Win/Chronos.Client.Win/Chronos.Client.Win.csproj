@@ -53,13 +53,6 @@
   <ItemGroup>
     <Compile Include="ApplicationExtensionAdapter.cs" />
     <Compile Include="ChronosApplicationLauncher.cs" />
-    <Compile Include="Menu\Specialized\ProfilingMenuItemBase.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Menu\Specialized\UnitsMenuItemBase.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\IUnitsTreeModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -70,9 +63,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Common\OpenFileViewModelSettings.cs" />
     <Compile Include="ViewModels\Common\PrerequisitesValidationResultViewModel.cs" />
     <Compile Include="ViewModels\Home\SessionInformation.cs" />
-    <Compile Include="ViewModels\UnitsTreeViewModel.cs" />
     <Compile Include="ViewModels\Start\ProfilingTargetSettingsBaseViewModel.cs" />
     <Compile Include="Views\Common\PrerequisitesValidationResultView.xaml.cs">
       <DependentUpon>PrerequisitesValidationResultView.xaml</DependentUpon>
@@ -80,16 +73,12 @@
     <Compile Include="IFrameworkAdapter.cs" />
     <Compile Include="IProfilingTargetAdapter.cs" />
     <Compile Include="IProfilingTypeAdapter.cs" />
-    <Compile Include="Models\IUnitsListModel.cs" />
     <Compile Include="IHostApplicationSelector.cs" />
     <Compile Include="IMainApplication.cs" />
     <Compile Include="IProfilingApplication.cs" />
     <Compile Include="ApplicationManager.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="IOpenFileDialog.cs" />
-    <Compile Include="Views\UnitsTreeView.xaml.cs">
-      <DependentUpon>UnitsTreeView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\UnitsListView.xaml.cs">
       <DependentUpon>UnitsListView.xaml</DependentUpon>
     </Compile>
@@ -189,10 +178,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UnitsTreeView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\UnitsListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -220,13 +205,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Profiling.ProfilingPageViewModel.layout">
+    <None Include="Layouts\Profiling.Page.layout">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Home.HomePageViewModel.layout">
+    <None Include="Layouts\Home.Page.layout">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Home.StartPageViewModel.layout">
+    <None Include="Layouts\Start.Page.layout">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <EmbeddedResource Include="Properties\Resources.resx">

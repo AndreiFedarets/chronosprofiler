@@ -2,9 +2,9 @@
 {
     public static class Constants
     {
-        public static class ViewModelId
+        public static class ViewModels
         {
-            //public const string ProfilingTarget = "16DFD98D-405A-4DB7-ADC7-6B034871CF33";
+            public const string ProfilingTargetSettings = "Start.Common.DesktopApplication.ProfilingTargetSettings";
         }
     }
 }

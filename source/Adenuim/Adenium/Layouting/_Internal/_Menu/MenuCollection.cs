@@ -58,5 +58,13 @@ namespace Adenium.Layouting
             }
             _collection.Clear();
         }
+
+        internal void Initialize(IViewModel ownerViewModel)
+        {
+            foreach (Menu menu in _collection)
+            {
+                menu.Initialize(ownerViewModel);
+            }
+        }
     }
 }

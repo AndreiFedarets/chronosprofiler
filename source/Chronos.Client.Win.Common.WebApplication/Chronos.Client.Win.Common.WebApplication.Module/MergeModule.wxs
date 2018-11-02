@@ -10,6 +10,11 @@
             <File Id="Chronos_Client_Win_Common_WebApplication_dll" Name="Chronos.Client.Win.Common.WebApplication.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.Common.WebApplication.dll" />
             <File Id="Chronos_Client_Win_Common_WebApplication_xchronex" Name="Chronos.Client.Win.Common.WebApplication.xchronex" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.Common.WebApplication.xchronex" />
           </Component>
+          <Directory Id="Chronos_Client_Win_Common_WebApplication_Layouts_Directory" Name="$(var.LayoutsDir)">
+            <Component Id="Chronos_Client_Win_Common_WebApplication_Layouts_Component" Guid="68af34e7-c327-48d8-977d-5e7bd6971b3d">
+              <File Id="StartPageViewModel_layout" Name="StartPageViewModel.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\StartPageViewModel.layout" />
+            </Component>
+          </Directory>
         </Directory>
       </Directory>
     </Directory>

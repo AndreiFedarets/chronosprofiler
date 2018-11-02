@@ -90,11 +90,7 @@ namespace Chronos.Common.EventsTree
                     UpdateMinMaxTime(eventTree);
                 }
             }
-            EventHandler<EventTreeEventArgs> handler = CollectionUpdated;
-            if (handler != null)
-            {
-                handler(this, new EventTreeEventArgs(collector));
-            }
+            EventTreeEventArgs.RaiseEvent(CollectionUpdated, this, collector);
         }
 
         private void UpdateMinMaxTime(ISingleEventTree eventTree)

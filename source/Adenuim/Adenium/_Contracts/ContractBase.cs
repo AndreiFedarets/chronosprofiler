@@ -18,13 +18,6 @@ namespace Adenium
 
         public void Register(object item)
         {
-            if (item is IContractProxy)
-            {
-                IContractProxy proxy = (IContractProxy) item;
-                object underlyingObject = proxy.UnderlyingObject;
-                Register(underlyingObject);   
-                proxy.UnderlyingObjectChanged += OnProxyUnderlyingObjectChanged;
-            }
             if (item is TSource)
             {
                 RegisterSource((TSource)item);
@@ -35,29 +28,8 @@ namespace Adenium
             }
         }
 
-        private void OnProxyUnderlyingObjectChanged(object sender, ContractProxyObjectChangedEventArgs e)
-        {
-            object oldObject = e.OldObject;
-            if (oldObject != null)
-            {
-                Unregister(oldObject);
-            }
-            object newObject = e.NewObject;
-            if (newObject != null)
-            {
-                Register(newObject);
-            }
-        }
-
         public void Unregister(object item)
         {
-            if (item is IContractProxy)
-            {
-                IContractProxy proxy = (IContractProxy)item;
-                proxy.UnderlyingObjectChanged -= OnProxyUnderlyingObjectChanged;
-                object underlyingObject = proxy.UnderlyingObject; 
-                Unregister(underlyingObject);   
-            }
             if (item is TSource)
             {
                 UnregisterSource((TSource)item);

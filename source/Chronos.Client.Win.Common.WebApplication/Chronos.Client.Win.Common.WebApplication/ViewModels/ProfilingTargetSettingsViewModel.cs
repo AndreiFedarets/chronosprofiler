@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Adenium;
 using Chronos.Accessibility.IIS;
 using Chronos.Client.Win.ViewModels.Start;
 
-namespace Chronos.Client.Win.ViewModels.Common.WebApplication
+namespace Chronos.Client.Win.Common.WebApplication.ViewModels
 {
+    [ViewModelAttribute(Constants.ViewModels.ProfilingTargetSettings)]
     public class ProfilingTargetSettingsViewModel : ProfilingTargetSettingsBaseViewModel
     {
         private readonly Chronos.Common.WebApplication.ProfilingTargetSettings _profilingTargetSettings;

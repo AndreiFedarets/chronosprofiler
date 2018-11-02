@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Layout>
+  <Menu Id="Profiling">
+    <MenuItem Id="Profiling.DotNet">
+      <!--<MenuItem Id="Profiling.DotNet.BasicProfiler.CodeView" Type="Chronos.Client.Win.DotNet.BasicProfiler.Menu.CodeViewMenuItem, Chronos.Client.Win.DotNet.BasicProfiler"></MenuItem>-->
+      <MenuItem Id="Profiling.DotNet.BasicProfiler.AppDomains" Type="Chronos.Client.Win.DotNet.BasicProfiler.Menu.AppDomainsMenuItem, Chronos.Client.Win.DotNet.BasicProfiler"></MenuItem>
+      <MenuItem Id="Profiling.DotNet.BasicProfiler.Assemblies" Type="Chronos.Client.Win.DotNet.BasicProfiler.Menu.AssembliesMenuItem, Chronos.Client.Win.DotNet.BasicProfiler"></MenuItem>
+      <MenuItem Id="Profiling.DotNet.BasicProfiler.Modules" Type="Chronos.Client.Win.DotNet.BasicProfiler.Menu.ModulesMenuItem, Chronos.Client.Win.DotNet.BasicProfiler"></MenuItem>
+      <MenuItem Id="Profiling.DotNet.BasicProfiler.Classes" Type="Chronos.Client.Win.DotNet.BasicProfiler.Menu.ClassesMenuItem, Chronos.Client.Win.DotNet.BasicProfiler"></MenuItem>
+      <MenuItem Id="Profiling.DotNet.BasicProfiler.Functions" Type="Chronos.Client.Win.DotNet.BasicProfiler.Menu.FunctionsMenuItem, Chronos.Client.Win.DotNet.BasicProfiler"></MenuItem>
+      <MenuItem Id="Profiling.DotNet.BasicProfiler.Threads" Type="Chronos.Client.Win.DotNet.BasicProfiler.Menu.ThreadsMenuItem, Chronos.Client.Win.DotNet.BasicProfiler"></MenuItem>
+    </MenuItem>
+  </Menu>
+  <ViewModel Id="Profiling.DotNet.BasicProfiler.AppDomains" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.AppDomainsViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />
+  <ViewModel Id="Profiling.DotNet.BasicProfiler.Assemblies" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.AssembliesViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />
+  <ViewModel Id="Profiling.DotNet.BasicProfiler.Modules" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.ModulesViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />
+  <ViewModel Id="Profiling.DotNet.BasicProfiler.Classes" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.ClassesViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />
+  <ViewModel Id="Profiling.DotNet.BasicProfiler.Functions" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.FunctionsViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />
+  <ViewModel Id="Profiling.DotNet.BasicProfiler.Threads" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.ThreadsViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />
+</Layout>

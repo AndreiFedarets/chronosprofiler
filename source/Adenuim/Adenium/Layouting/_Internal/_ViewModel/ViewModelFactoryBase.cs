@@ -1,49 +1,30 @@
 ﻿using System;
-using System.Reflection;
 
 namespace Adenium.Layouting
 {
     internal abstract class ViewModelFactoryBase : IViewModelFactory
     {
-        private readonly IContainerViewModel _parentViewModel;
-        private readonly IContainer _container;
+        private readonly IViewModel _targetViewModel;
         private readonly string _typeName;
 
-        protected ViewModelFactoryBase(IContainerViewModel parentViewModel, string typeName, IContainer container)
+        protected ViewModelFactoryBase(IViewModel targetViewModel, string typeName)
         {
-            _parentViewModel = parentViewModel;
+            _targetViewModel = targetViewModel;
             _typeName = typeName;
-            _container = container;
         }
 
-        public abstract IViewModel CreateViewModel();
+        public abstract IViewModel CreateViewModel<T1, T2, T3>(T1 dependency1, T2 dependency2, T3 dependency3);
 
-        protected IViewModel CreateViewModelInternal()
+        protected IViewModel CreateViewModelInternal<T1, T2, T3>(T1 dependency1, T2 dependency2, T3 dependency3)
         {
             Type viewModelType = Type.GetType(_typeName);
-            IContainer container = _container.CreateChildContainer();
-            ConfigureContainer(container, _parentViewModel);
-            return (IViewModel)container.Resolve(viewModelType);
-        }
-
-        private void ConfigureContainer(IContainer container, IContainerViewModel parentViewModel)
-        {
+            IContainerViewModel parentViewModel = _targetViewModel as IContainerViewModel;
             if (parentViewModel == null)
             {
-                return;
+                parentViewModel = _targetViewModel.Parent;
             }
-            Type parentViewModelType = parentViewModel.GetType();
-            foreach (PropertyInfo propertyInfo in parentViewModelType.GetProperties())
-            {
-                object[] attributes = propertyInfo.GetCustomAttributes(typeof(ViewModelExportAttribute), true);
-                if (attributes.Length > 0)
-                {
-                    Type exportType = propertyInfo.PropertyType;
-                    object exportValue = propertyInfo.GetValue(parentViewModel, null);
-                    container.RegisterInstance(exportType, exportValue);
-                }
-            }
-            ConfigureContainer(container, parentViewModel.Parent);
+            IViewModel viewModel = ViewModelManager.Instance.CreateViewModel(viewModelType, parentViewModel, dependency1, dependency2, dependency3);
+            return viewModel;
         }
     }
 }

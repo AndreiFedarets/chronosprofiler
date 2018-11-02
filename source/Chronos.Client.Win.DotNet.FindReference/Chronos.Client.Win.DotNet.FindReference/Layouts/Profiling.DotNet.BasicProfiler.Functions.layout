@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Layout>
+  <Menu Id="Profiling.DotNet.BasicProfiler.Functions.ItemContextMenu">
+    <MenuItem Id="Profiling.DotNet.FindReference.FunctionReference" Type="Chronos.Client.Win.DotNet.FindReference.Menu.FunctionReferenceMenuItem, Chronos.Client.Win.DotNet.FindReference"></MenuItem>
+  </Menu>
+</Layout>

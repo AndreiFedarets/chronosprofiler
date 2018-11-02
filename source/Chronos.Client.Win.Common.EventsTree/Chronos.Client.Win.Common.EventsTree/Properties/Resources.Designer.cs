@@ -70,21 +70,6 @@ namespace Chronos.Client.Win.Common.EventsTree.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-        ///&lt;Menu&gt;
-        ///  &lt;Control Id=&quot;Chronos.Client.Win.Menu.Common.CommonMenuItem&quot;&gt;
-        ///    &lt;Control Type=&quot;Chronos.Client.Win.Menu.Common.EventsTree.EventsTreeMenuItem, Chronos.Client.Win.Common.EventsTree&quot; /&gt;
-        ///    &lt;Control Type=&quot;Chronos.Client.Win.Menu.Common.EventsTree.TimelineMenuItem, Chronos.Client.Win.Common.EventsTree&quot; /&gt;
-        ///  &lt;/Control&gt;
-        ///&lt;/Menu&gt;.
-        /// </summary>
-        internal static string Menu {
-            get {
-                return ResourceManager.GetString("Menu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Performance.
         /// </summary>
         internal static string PerformanceMenuItem_Text {

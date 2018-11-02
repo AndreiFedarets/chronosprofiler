@@ -2,6 +2,6 @@
 {
     internal enum UnitType
     {
-        ManagedException = 15,
+        Exception = 15,
     }
 }

@@ -2,19 +2,18 @@
 using Adenium;
 using Chronos.Common.EventsTree;
 
-namespace Chronos.Client.Win.ViewModels.Common.EventsTree
+namespace Chronos.Client.Win.Common.EventsTree.ViewModels
 {
+    [ViewModelAttribute(Constants.ViewModels.TimelineViewModel)]
     public sealed class TimelineViewModel : ViewModel
     {
-        private readonly IEventsTreeViewModelCollection _eventsTreeViewModel;
         private IEventTreeCollection _eventTrees;
 
-        public TimelineViewModel(IEventTreeCollection eventTrees, IProfilingTimer profilingTimer, IEventMessageBuilder eventMessageBuilder, IEventsTreeViewModelCollection eventsTreeViewModel)
+        public TimelineViewModel(IEventTreeCollection eventTrees, IProfilingTimer profilingTimer, IEventMessageBuilder eventMessageBuilder)
         {
             _eventTrees = eventTrees;
             ProfilingTimer = profilingTimer;
             EventMessageBuilder = eventMessageBuilder;
-            _eventsTreeViewModel = eventsTreeViewModel;
             OpenEventTreeCommand = new SyncCommand<ISingleEventTree>(OpenEventTree);
             _eventTrees.CollectionUpdated += OnEventTreesCollectionUpdated;
         }
@@ -52,8 +51,13 @@ namespace Chronos.Client.Win.ViewModels.Common.EventsTree
 
         private void OpenEventTree(ISingleEventTree eventTree)
         {
-            IEventTreeCollection collection = new StaticEventTreeCollection(eventTree);
-            _eventsTreeViewModel.Open(collection);
+            LogicalParent.ActivateItem(Constants.ViewModels.EventTreeViewModel, eventTree);
+        }
+
+        public override void Dispose()
+        {
+            _eventTrees.CollectionUpdated -= OnEventTreesCollectionUpdated;
+            base.Dispose();
         }
     }
 }

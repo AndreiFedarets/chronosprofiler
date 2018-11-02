@@ -1,7 +1,0 @@
-﻿<views:View x:Class="Chronos.Client.Win.Views.Common.EventsTree.ThreadTreeCollectionView"
-            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:controls="clr-namespace:Chronos.Client.Win.Controls.Common.EventsTree"
-            xmlns:views="clr-namespace:Chronos.Client.Win.Views;assembly=Chronos.Client.Win">
-    <controls:EventsTreeView Grid.Row="0" Events="{Binding Events}" EventMessageBuilder="{Binding EventMessageBuilder}"/>
-</views:View>

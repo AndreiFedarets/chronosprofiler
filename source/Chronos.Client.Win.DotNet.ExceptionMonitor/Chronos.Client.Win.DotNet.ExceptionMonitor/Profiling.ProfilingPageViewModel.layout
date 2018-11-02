@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
-<Layout>
-  <Menu Id="Profiling">
-    <MenuItem Id="Profiling.DotNet">
-      <MenuItem Id="Profiling.DotNet.ManagedExceptionsMenuItem" Type="Chronos.Client.Win.DotNet.ExceptionMonitor.Menu.ManagedExceptionsMenuItem, Chronos.Client.Win.DotNet.ExceptionMonitor" />
-    </MenuItem>
-  </Menu>
-</Layout>

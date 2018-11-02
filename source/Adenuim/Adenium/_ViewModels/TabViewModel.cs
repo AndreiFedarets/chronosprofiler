@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using Adenium.Layouting;
-using Adenium.ViewModels;
 using Caliburn.Micro;
 
 namespace Adenium
 {
-    public class TabViewModel : Conductor<IViewModel>.Collection.OneActive, IContainerViewModel
+    public class TabViewModel : Conductor<IViewModel>.Collection.OneActive, IContainerViewModel, IHaveLayout, IHaveScope
     {
         private readonly ViewModelContext _context;
 
@@ -32,6 +31,11 @@ namespace Adenium
             get { return base.Parent as IContainerViewModel; }
         }
 
+        public IContainerViewModel LogicalParent
+        {
+            get { return _context.LogicalParent; }
+        }
+
         public IMenuCollection Menus
         {
             get { return _context.Menus; }
@@ -48,12 +52,16 @@ namespace Adenium
             remove { Items.CollectionChanged -= value; }
         }
 
-        public event EventHandler<ViewModelEventArgs> ViewModelAttached;
+        public event EventHandler<ViewModelEventArgs> ItemAttached;
 
-        public event EventHandler<ViewModelEventArgs> ViewModelDeattached;
+        public event EventHandler<ViewModelEventArgs> ItemDeattached;
 
         public override void ActivateItem(IViewModel viewModel)
         {
+            if (viewModel == null)
+            {
+                return;
+            }
             TabItemViewModel tabItemViewModel = viewModel as TabItemViewModel;
             bool contains;
             if (tabItemViewModel != null)
@@ -68,9 +76,9 @@ namespace Adenium
             }
             if (!contains)
             {
-                tabItemViewModel = new TabItemViewModel(viewModel);
-                tabItemViewModel.ViewModelAttached += OnChildViewModelActivated;
-                tabItemViewModel.ViewModelDeattached += OnChildViewModelDeactivated;
+                tabItemViewModel = ViewModelManager.Instance.CreateViewModel<TabItemViewModel, IViewModel>(this, viewModel);
+                tabItemViewModel.ItemAttached += OnChildViewModelActivated;
+                tabItemViewModel.ItemDeattached += OnChildViewModelDeactivated;
                 //Register viewModel in TabViewModel contracts scope
                 //It will also be registered in scope of TabItemViewModel automatically, later
                 Contracts.RegisterItem(viewModel);
@@ -78,7 +86,7 @@ namespace Adenium
             base.ActivateItem(tabItemViewModel);
             if (!contains)
             {
-                OnViewModelAttached(tabItemViewModel);
+                OnItemAttached(tabItemViewModel);
                 //Activate viewModel on TabItemViewModel level
                 tabItemViewModel.ActivateMainViewModel();
             }
@@ -86,6 +94,10 @@ namespace Adenium
 
         public override void DeactivateItem(IViewModel viewModel, bool close)
         {
+            if (viewModel == null)
+            {
+                return;
+            }
             TabItemViewModel tabItemViewModel = viewModel as TabItemViewModel;
             bool contains;
             if (tabItemViewModel != null)
@@ -110,13 +122,13 @@ namespace Adenium
             base.DeactivateItem(tabItemViewModel, close);
             if (close)
             {
-                tabItemViewModel.ViewModelAttached -= OnChildViewModelActivated;
-                tabItemViewModel.ViewModelDeattached -= OnChildViewModelDeactivated;
+                tabItemViewModel.ItemAttached -= OnChildViewModelActivated;
+                tabItemViewModel.ItemDeattached -= OnChildViewModelDeactivated;
                 Contracts.UnregisterItem(viewModel);
             }
             if (close)
             {
-                OnViewModelDeattached(tabItemViewModel);
+                OnItemDeattached(tabItemViewModel);
             }
         }
 
@@ -148,24 +160,52 @@ namespace Adenium
             _context.Dispose();
         }
 
-        private void OnViewModelAttached(IViewModel viewModel)
+        private void OnItemAttached(IViewModel viewModel)
         {
-            ViewModelEventArgs.RaiseEvent(ViewModelAttached, this, viewModel);
+            ViewModelManager.Instance.BuildViewModelLayout(viewModel);
+            ViewModelEventArgs.RaiseEvent(ItemAttached, this, viewModel);
         }
 
-        private void OnViewModelDeattached(IViewModel viewModel)
+        private void OnItemDeattached(IViewModel viewModel)
         {
-            ViewModelEventArgs.RaiseEvent(ViewModelDeattached, this, viewModel);
+            ViewModelManager.Instance.ResetViewModelLayout(viewModel);
+            ViewModelEventArgs.RaiseEvent(ItemDeattached, this, viewModel);
         }
 
         private void OnChildViewModelActivated(object sender, ViewModelEventArgs e)
         {
-            ViewModelEventArgs.RaiseEvent(ViewModelAttached, sender, e);
+            ViewModelEventArgs.RaiseEvent(ItemAttached, sender, e);
         }
 
         private void OnChildViewModelDeactivated(object sender, ViewModelEventArgs e)
         {
-            ViewModelEventArgs.RaiseEvent(ViewModelDeattached, sender, e);
+            ViewModelEventArgs.RaiseEvent(ItemDeattached, sender, e);
+        }
+
+        ViewModelLayout IHaveLayout.Layout
+        {
+            get { return _context.Layout; }
+        }
+
+        void IHaveLayout.AssignLayout(ViewModelLayout layout)
+        {
+            _context.AssignLayout(layout);
+        }
+
+        IContainer IHaveScope.ScopeContainer
+        {
+            get { return _context.ScopeContainer; }
+        }
+
+        void IHaveScope.AssignScopeContainer(IContainer container)
+        {
+            ConfigureScopeContainer(container);
+            _context.AssignScopeContainer(container);
+        }
+
+        protected virtual void ConfigureScopeContainer(IContainer container)
+        {
+
         }
     }
 }

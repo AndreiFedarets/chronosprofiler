@@ -17,6 +17,11 @@ namespace Adenium.Layouting
             _handlers.ForEach(x => x.OnControlAttached(control));
         }
 
+        public void OnViewModelAttached(IViewModel ownerViewModel)
+        {
+            _handlers.ForEach(x => x.OnViewModelAttached(ownerViewModel));
+        }
+
         public virtual void OnAction()
         {
             _handlers.ForEach(x => x.OnAction());

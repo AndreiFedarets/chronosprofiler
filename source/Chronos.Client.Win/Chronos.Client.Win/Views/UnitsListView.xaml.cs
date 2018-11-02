@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using Adenium.Layouting;
 
 namespace Chronos.Client.Win.Views
 {
@@ -30,7 +31,12 @@ namespace Chronos.Client.Win.Views
                     ListViewItem listViewItem = (ListViewItem)UnitsList.ItemContainerGenerator.ContainerFromItem(item);
                     if (listViewItem != null)
                     {
-                        listViewItem.ContextMenu = new Adenium.Controls.ContextMenu { Source = ViewModel.Menus[Constants.Menus.ItemContextMenu] };   
+                        dynamic viewModel = ViewModel;
+                        IMenu menu = viewModel.ItemContextMenu;
+                        if (menu != null)
+                        {
+                            listViewItem.ContextMenu = new Adenium.Controls.ContextMenu { Source = menu };      
+                        }
                     }
                 }
             }

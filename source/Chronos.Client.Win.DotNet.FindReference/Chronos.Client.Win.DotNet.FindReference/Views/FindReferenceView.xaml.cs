@@ -1,4 +1,4 @@
-﻿namespace Chronos.Client.Win.Views.DotNet.FindReference
+﻿namespace Chronos.Client.Win.DotNet.FindReference.Views
 {
     public partial class FindReferenceView
     {

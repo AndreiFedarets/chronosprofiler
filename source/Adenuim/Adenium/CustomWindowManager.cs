@@ -1,12 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Adenium.Controls;
-using Adenium.Layouting;
 using Caliburn.Micro;
 
 namespace Adenium
 {
-    public sealed class CustomWindowManager : WindowManager, IWindowsManager
+    public sealed class CustomWindowManager : WindowManager
     {
         public CustomWindowManager()
         {
@@ -98,24 +97,6 @@ namespace Adenium
                 window = new Window();
             }
             return window;
-        }
-
-        public void ShowWindow(IViewModel viewModel)
-        {
-            ViewModelBuilder.Build(viewModel);
-            base.ShowWindow(viewModel);
-        }
-
-        public bool? ShowDialog(IViewModel viewModel)
-        {
-            ViewModelBuilder.Build(viewModel);
-            return base.ShowDialog(viewModel);
-        }
-
-        public void ShowPopup(IViewModel viewModel)
-        {
-            ViewModelBuilder.Build(viewModel);
-            base.ShowPopup(viewModel);
         }
     }
 }

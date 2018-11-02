@@ -59,9 +59,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="_Internal\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Chronos.Client.Win\Chronos.Client.Win\Chronos.Client.Win.csproj">
       <Project>{6db0686c-3f7a-4156-a4bb-3709bc048454}</Project>

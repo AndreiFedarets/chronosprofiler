@@ -3,7 +3,7 @@ using Adenium.Layouting;
 
 namespace Adenium
 {
-    internal sealed class ViewModelContext : IDisposable
+    internal sealed class ViewModelContext : IDisposable, IHaveLayout, IHaveScope
     {
         private readonly IViewModel _viewModel;
 
@@ -39,6 +39,24 @@ namespace Adenium
 
         public IMenuCollection Menus { get; private set; }
 
+        public ViewModelLayout Layout { get; private set; }
+
+        public IContainerViewModel LogicalParent
+        {
+            get
+            {
+                IContainerViewModel logicalParent = _viewModel.Parent;
+                TabItemViewModel tabItemViewModel = logicalParent as TabItemViewModel;
+                if (tabItemViewModel != null)
+                {
+                    logicalParent = tabItemViewModel.Parent;
+                }
+                return logicalParent;
+            }
+        }
+
+        public IContainer ScopeContainer { get; private set; }
+
         public T FindFirstChild<T>(Func<T, bool> condition) where T : IViewModel
         {
             IContainerViewModel containerViewModel = _viewModel as IContainerViewModel;
@@ -64,5 +82,16 @@ namespace Adenium
         {
             ((IDisposable)Menus).Dispose();
         }
+
+        public void AssignLayout(ViewModelLayout layout)
+        {
+            Layout = layout;
+        }
+
+        public void AssignScopeContainer(IContainer container)
+        {
+            ScopeContainer = container;
+        }
+
     }
 }

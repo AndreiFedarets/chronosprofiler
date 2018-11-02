@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using Adenium.ViewModels;
 
 namespace Adenium
 {
@@ -116,10 +115,10 @@ namespace Adenium
             {
                 _behaviorExtension = new GridViewBehaviorExtension(this, (GridViewModel)DataContext);
             }
-            else if (DataContext is PlaceholderViewModel)
-            {
-                _behaviorExtension = new PlaceholderViewBehaviorExtension(this, (PlaceholderViewModel) DataContext);
-            }
+            //else if (DataContext is PlaceholderViewModel)
+            //{
+            //    _behaviorExtension = new PlaceholderViewBehaviorExtension(this, (PlaceholderViewModel) DataContext);
+            //}
             else if (DataContext is ViewModel)
             {
                 _behaviorExtension = new ContentViewBehaviorExtension();

@@ -6,11 +6,19 @@ namespace Adenium
     public sealed class ViewModelAttribute : Attribute
     {
         public ViewModelAttribute(string viewModelUid)
+            : this(viewModelUid, string.Empty)
+        {
+        }
+
+        public ViewModelAttribute(string viewModelUid, string viewType)
         {
             ViewModelUid = viewModelUid;
+            ViewType = viewType;
         }
 
         public string ViewModelUid { get; private set; }
+
+        public string ViewType { get; private set; }
 
         public static ViewModelAttribute GetAttribute(IViewModel viewModel)
         {

@@ -10,6 +10,11 @@
             <File Id="Chronos_Client_Win_DotNet_FindReference_dll" Name="Chronos.Client.Win.DotNet.FindReference.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.FindReference.dll" />
             <File Id="Chronos_Client_Win_DotNet_FindReference_xchronex" Name="Chronos.Client.Win.DotNet.FindReference.xchronex" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.FindReference.xchronex" />
           </Component>
+          <Directory Id="Chronos_Client_Win_DotNet_FindReference_Layouts_Directory" Name="$(var.LayoutsDir)">
+            <Component Id="Chronos_Client_Win_DotNet_FindReference_Layouts_Component" Guid="98f52727-db46-4019-ae82-0f87092bc161">
+              <!--<File Id="Profiling_Page_layout" Name="Profiling.Page.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\Profiling.Page.layout" />-->
+            </Component>
+          </Directory>
         </Directory>
       </Directory>
     </Directory>

@@ -1,4 +1,4 @@
-﻿namespace Chronos.Client.Win.Views.Common.DesktopApplication
+﻿namespace Chronos.Client.Win.Common.DesktopApplication.Views
 {
     public partial class ProfilingTargetSettingsView
     {

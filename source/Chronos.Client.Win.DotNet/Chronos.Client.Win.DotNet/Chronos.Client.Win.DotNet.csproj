@@ -57,7 +57,7 @@
     <Compile Include="Menu\DotNetMenuItem.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Profiling.ProfilingPageViewModel.layout">
+    <None Include="Layouts\Profiling.Page.layout">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <EmbeddedResource Include="Properties\Resources.resx">

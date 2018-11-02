@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Layout>
+  <Menu Id="Profiling">
+    <MenuItem Id="Profiling.DotNet">
+      <MenuItem Id="Profiling.DotNet.ExceptionMonitor.Exceptions" Type="Chronos.Client.Win.DotNet.ExceptionMonitor.Menu.ExceptionsMenuItem, Chronos.Client.Win.DotNet.ExceptionMonitor"></MenuItem>
+    </MenuItem>
+  </Menu>
+  <ViewModel Id="Profiling.DotNet.ExceptionMonitor.Exceptions" Type="Chronos.Client.Win.DotNet.ExceptionMonitor.ViewModels.ExceptionsViewModel, Chronos.Client.Win.DotNet.ExceptionMonitor" Mode="Single" Activation="OnDemand" />
+</Layout>

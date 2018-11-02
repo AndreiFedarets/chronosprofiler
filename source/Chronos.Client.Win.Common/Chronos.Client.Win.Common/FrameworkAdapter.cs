@@ -5,13 +5,13 @@ namespace Chronos.Client.Win.Common
 {
     public class FrameworkAdapter : IFrameworkAdapter, ILayoutProvider
     {
-        void ILayoutProvider.ConfigureContainer(IContainer container)
+        void ILayoutProvider.ConfigureContainer(IViewModel targetViewModel, IContainer container)
         {
         }
 
-        string ILayoutProvider.GetLayout(IViewModel viewModel)
+        string ILayoutProvider.GetLayout(IViewModel targetViewModel)
         {
-            return LayoutFileReader.ReadViewModelLayout(viewModel);
+            return LayoutFileReader.ReadViewModelLayout(targetViewModel);
         }
     }
 }

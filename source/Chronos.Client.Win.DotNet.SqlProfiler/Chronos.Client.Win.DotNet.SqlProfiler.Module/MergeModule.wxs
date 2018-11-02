@@ -10,6 +10,11 @@
             <File Id="Chronos_Client_Win_DotNet_SqlProfiler_dll" Name="Chronos.Client.Win.DotNet.SqlProfiler.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.SqlProfiler.dll" />
             <File Id="Chronos_Client_Win_DotNet_SqlProfiler_xchronex" Name="Chronos.Client.Win.DotNet.SqlProfiler.xchronex" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.SqlProfiler.xchronex" />
           </Component>
+          <Directory Id="Chronos_Client_Win_DotNet_SqlProfiler_Layouts_Directory" Name="$(var.LayoutsDir)">
+            <Component Id="Chronos_Client_Win_DotNet_SqlProfiler_Layouts_Component" Guid="ee53dd58-a506-46fd-b560-f5adb3da6729">
+              <File Id="ProfilingPageViewModel_layout" Name="ProfilingPageViewModel.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\ProfilingPageViewModel.layout" />
+            </Component>
+          </Directory>
         </Directory>
       </Directory>
     </Directory>

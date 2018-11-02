@@ -61,20 +61,6 @@ namespace Chronos.Client.Win.DotNet.SqlProfiler.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-        ///&lt;Menu&gt;
-        ///  &lt;Control Id=&quot;Chronos.Client.Win.Menu.DotNet.DotNetMenuItem&quot;&gt;
-        ///    &lt;Control Type=&quot;Chronos.Client.Win.DotNet.SqlProfiler.SqlQueriesMenuItem, Chronos.Client.Win.DotNet.SqlProfiler&quot; /&gt;
-        ///  &lt;/Control&gt;
-        ///&lt;/Menu&gt;.
-        /// </summary>
-        internal static string Menu {
-            get {
-                return ResourceManager.GetString("Menu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to SQL Queries.
         /// </summary>
         internal static string SqlQueriesMenuItem_Text {

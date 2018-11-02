@@ -3,7 +3,7 @@ using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Home
 {
-    [ViewModelAttribute("Home.HomePageViewModel")]
+    [ViewModelAttribute("Home.Page")]
     public class HomePageViewModel : GridViewModel
     {
         private readonly IMainApplication _application;

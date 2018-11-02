@@ -4,7 +4,7 @@ using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Profiling
 {
-    [ViewModelAttribute("Profiling.ProfilingPageViewModel")]
+    [ViewModelAttribute("Profiling.Page")]
     public class ProfilingPageViewModel : TabViewModel
     {
         private bool _isEnabled;

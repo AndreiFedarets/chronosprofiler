@@ -1,17 +1,30 @@
 ﻿using Adenium;
 using Adenium.Layouting;
+using Chronos.DotNet.ExceptionMonitor;
 
 namespace Chronos.Client.Win.DotNet.ExceptionMonitor
 {
-    public class ProfilingTypeAdapter : IProfilingTypeAdapter, ILayoutProvider
+    public class ProfilingTypeAdapter : IProfilingTypeAdapter, ILayoutProvider, IServiceConsumer
     {
-        void ILayoutProvider.ConfigureContainer(IContainer container)
+        private IExceptionCollection _exceptions;
+
+        void ILayoutProvider.ConfigureContainer(IViewModel targetViewModel, IContainer container)
+        {
+            container.RegisterInstance(_exceptions);
+        }
+
+        string ILayoutProvider.GetLayout(IViewModel targetViewModel)
+        {
+            return LayoutFileReader.ReadViewModelLayout(targetViewModel);
+        }
+
+        void IServiceConsumer.ExportServices(IServiceContainer container)
         {
         }
 
-        string ILayoutProvider.GetLayout(IViewModel viewModel)
+        void IServiceConsumer.ImportServices(IServiceContainer container)
         {
-            return LayoutFileReader.ReadViewModelLayout(viewModel);
+            _exceptions = container.Resolve<IExceptionCollection>();
         }
     }
 }

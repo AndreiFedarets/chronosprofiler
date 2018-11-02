@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Layout>
+  <ViewModel Id="Profiling.DotNet.FindReference.FindReference" Type="Chronos.Client.Win.DotNet.FindReference.ViewModels.FindReferenceViewModel, Chronos.Client.Win.DotNet.FindReference" Mode="Single" Activation="OnStartup" />
+</Layout>

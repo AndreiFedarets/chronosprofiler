@@ -3,15 +3,26 @@
     public class MenuControlHandlerBase : IMenuControlHandler
     {
         private IMenuControl _control;
+        private IViewModel _ownerViewModel;
 
         protected IMenuControl Control
         {
             get { return _control; }
         }
 
+        protected IViewModel OwnerViewModel
+        {
+            get { return _ownerViewModel; }
+        }
+
         public virtual void OnControlAttached(IMenuControl control)
         {
             _control = control;
+        }
+
+        public virtual void OnViewModelAttached(IViewModel ownerViewModel)
+        {
+            _ownerViewModel = ownerViewModel;
         }
 
         public virtual void OnAction()

@@ -4,7 +4,7 @@ using Caliburn.Micro;
 
 namespace Adenium
 {
-    public abstract class ViewModel : Screen, IViewModel
+    public abstract class ViewModel : Screen, IViewModel, IHaveLayout, IHaveScope
     {
         private readonly ViewModelContext _context;
 
@@ -28,6 +28,11 @@ namespace Adenium
             get { return base.Parent as IContainerViewModel; }
         }
 
+        public IContainerViewModel LogicalParent
+        {
+            get { return _context.LogicalParent; }
+        }
+
         public IMenuCollection Menus
         {
             get { return _context.Menus; }
@@ -36,6 +41,32 @@ namespace Adenium
         public virtual void Dispose()
         {
             _context.Dispose();
+        }
+
+        ViewModelLayout IHaveLayout.Layout
+        {
+            get { return _context.Layout; }
+        }
+
+        void IHaveLayout.AssignLayout(ViewModelLayout layout)
+        {
+            _context.AssignLayout(layout);
+        }
+
+        IContainer IHaveScope.ScopeContainer
+        {
+            get { return _context.ScopeContainer; }
+        }
+
+        void IHaveScope.AssignScopeContainer(IContainer container)
+        {
+            ConfigureScopeContainer(container);
+            _context.AssignScopeContainer(container);
+        }
+
+        protected virtual void ConfigureScopeContainer(IContainer container)
+        {
+
         }
     }
 }

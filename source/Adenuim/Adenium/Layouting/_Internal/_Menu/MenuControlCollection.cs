@@ -70,12 +70,12 @@ namespace Adenium.Layouting
             base.Dispose();
         }
 
-        internal override void NotifyControlAttached()
+        internal override void Initialize(IViewModel ownerViewModel)
         {
-            base.NotifyControlAttached();
+            base.Initialize(ownerViewModel);
             foreach (MenuControl control in _collection)
             {
-                control.NotifyControlAttached();
+                control.Initialize(ownerViewModel);
             }
         }
 

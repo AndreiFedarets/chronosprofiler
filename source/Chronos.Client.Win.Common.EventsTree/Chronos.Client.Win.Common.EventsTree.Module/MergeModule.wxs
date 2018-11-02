@@ -10,6 +10,11 @@
             <File Id="Chronos_Client_Win_Common_EventsTree_dll" Name="Chronos.Client.Win.Common.EventsTree.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.Common.EventsTree.dll" />
             <File Id="Chronos_Client_Win_Common_EventsTree_xchronex" Name="Chronos.Client.Win.Common.EventsTree.xchronex" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.Common.EventsTree.xchronex" />
           </Component>
+          <Directory Id="Chronos_Client_Win_Common_EventsTree_Layouts_Directory" Name="$(var.LayoutsDir)">
+            <Component Id="Chronos_Client_Win_Common_EventsTree_Layouts_Component" Guid="8bb08132-6666-45ea-9876-79b75ed35787">
+              <File Id="ProfilingPageViewModel_layout" Name="ProfilingPageViewModel.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\ProfilingPageViewModel.layout" />
+            </Component>
+          </Directory>
         </Directory>
       </Directory>
     </Directory>

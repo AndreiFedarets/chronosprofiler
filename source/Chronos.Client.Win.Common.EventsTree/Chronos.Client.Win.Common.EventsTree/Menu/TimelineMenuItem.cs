@@ -1,30 +1,21 @@
 ﻿using Adenium;
+using Adenium.Layouting;
 using Chronos.Client.Win.Common.EventsTree.Properties;
-using Chronos.Client.Win.Menu.Specialized;
-using Chronos.Client.Win.ViewModels.Common.EventsTree;
-using Chronos.Common.EventsTree;
 
 namespace Chronos.Client.Win.Common.EventsTree.Menu
 {
-    internal sealed class TimelineMenuItem : ProfilingMenuItemBase
+    internal sealed class TimelineMenuItem : MenuControlHandlerBase
     {
-        public TimelineMenuItem(IProfilingApplication application)
-            : base(application)
-        {
-        }
-
         public override string GetText()
         {
             return Resources.TimelineMenuItem_Text;
         }
 
-        protected override IViewModel GetViewModel()
+        public override void OnAction()
         {
-            IEventTreeCollection eventTrees = Application.ServiceContainer.Resolve<IEventTreeCollection>();
-            IProfilingTimer profilingTimer = Application.ProfilingTimer;
-            IEventMessageBuilder messageBuilder = Application.ServiceContainer.Resolve<IEventMessageBuilder>();
-            IEventsTreeViewModelCollection eventsTreeViewModels = Application.ServiceContainer.Resolve<IEventsTreeViewModelCollection>();
-            return new TimelineViewModel(eventTrees, profilingTimer, messageBuilder, eventsTreeViewModels);
+            IContainerViewModel viewModel = (IContainerViewModel)OwnerViewModel;
+            viewModel.ActivateItem(Constants.ViewModels.TimelineViewModel);
+            base.OnAction();
         }
     }
 }

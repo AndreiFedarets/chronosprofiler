@@ -51,9 +51,10 @@
             Handler.AttachHandler(handler);
         }
 
-        internal virtual void NotifyControlAttached()
+        internal virtual void Initialize(IViewModel ownerViewModel)
         {
             Handler.OnControlAttached(this);
+            Handler.OnViewModelAttached(ownerViewModel);
             Invalidate();
         }
 

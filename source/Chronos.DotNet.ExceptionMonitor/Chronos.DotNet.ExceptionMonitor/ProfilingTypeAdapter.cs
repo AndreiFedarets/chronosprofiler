@@ -7,17 +7,17 @@ namespace Chronos.DotNet.ExceptionMonitor
 {
     public class ProfilingTypeAdapter : IProfilingTypeAdapter, IManagedDataHandler
     {
-        private readonly ManagedExceptionCollection _exceptions;
+        private readonly ExceptionCollection _exceptions;
         private IDataStorage _storage;
 
         static ProfilingTypeAdapter()
         {
-            MarshalingManager.RegisterMarshaler(new Marshaling.ManagedExceptionInfoMarshaler());
+            MarshalingManager.RegisterMarshaler(new Marshaling.ExceptionInfoMarshaler());
         }
 
         public ProfilingTypeAdapter()
         {
-            _exceptions = new ManagedExceptionCollection();
+            _exceptions = new ExceptionCollection();
         }
 
         public void LoadData()
@@ -65,8 +65,8 @@ namespace Chronos.DotNet.ExceptionMonitor
                     UnitType unitType = (UnitType) Int32Marshaler.Demarshal(stream);
                     switch (unitType)
                     {
-                        case UnitType.ManagedException:
-                            ManagedExceptionNativeInfo[] exceptions = MarshalingManager.Demarshal<ManagedExceptionNativeInfo[]>(stream);
+                        case UnitType.Exception:
+                            ExceptionNativeInfo[] exceptions = MarshalingManager.Demarshal<ExceptionNativeInfo[]>(stream);
                             _exceptions.Update(exceptions);
                             break;
                         default:

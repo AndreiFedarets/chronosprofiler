@@ -4,7 +4,7 @@
     <PackageSourceDir>..\..\..\package\</PackageSourceDir>
   </PropertyGroup>
   <PropertyGroup>
-    <DefineConstants>PackageSourceDir=$(PackageSourceDir);ModuleSourceDir=..\..\..\build\$(ChronosModuleName);ModuleTargetDir=$(ChronosModuleName);ModuleDir64=x64;($DefineConstants)</DefineConstants>
+    <DefineConstants>PackageSourceDir=$(PackageSourceDir);ModuleSourceDir=..\..\..\build\$(ChronosModuleName);ModuleTargetDir=$(ChronosModuleName);ModuleDir64=x64;LayoutsDir=Layouts;($DefineConstants)</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>$(PackageSourceDir)</OutputPath>

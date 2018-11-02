@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Adenium;
+using Chronos.Client.Win.Common.EventsTree.ViewModels;
 using Chronos.Client.Win.Controls.Common.EventsTree;
-using Chronos.Client.Win.DotNet.FindReference;
-using Chronos.Client.Win.ViewModels.Common.EventsTree;
 
-namespace Chronos.Client.Win.ViewModels.DotNet.FindReference
+namespace Chronos.Client.Win.DotNet.FindReference.ViewModels
 {
+    [ViewModelAttribute(Constants.ViewModels.FindReferenceViewModel)]
     public sealed class FindReferenceViewModel : ViewModel
     {
         private readonly EventsTreeViewModel _eventsTreeViewModel;
@@ -16,15 +16,15 @@ namespace Chronos.Client.Win.ViewModels.DotNet.FindReference
         private bool _findPreviousAvailable;
         private bool _findNextAvailable;
 
-        public FindReferenceViewModel(EventsTreeViewModel eventsTreeViewModel)
+        public FindReferenceViewModel()
         {
-            _eventsTreeViewModel = eventsTreeViewModel;
-            _eventsTreeViewModel.View.ChildrenUpdated += OnViewChildrenUpdated;
-            FindPreviousCommand = new SyncCommand(FindPrevious);
-            FindNextCommand = new SyncCommand(FindNext);
-            StopSearchCommand = new SyncCommand(StopSearch);
-            _searchTextEditable = true;
-            UpdateBindings();
+            //_eventsTreeViewModel = eventsTreeViewModel;
+            //_eventsTreeViewModel.View.ChildrenUpdated += OnViewChildrenUpdated;
+            //FindPreviousCommand = new SyncCommand(FindPrevious);
+            //FindNextCommand = new SyncCommand(FindNext);
+            //StopSearchCommand = new SyncCommand(StopSearch);
+            //_searchTextEditable = true;
+            //UpdateBindings();
         }
 
         public override string DisplayName

@@ -20,6 +20,11 @@ namespace Adenium.Layouting
             _handler.Value.OnControlAttached(control);
         }
 
+        public override void OnViewModelAttached(IViewModel ownerViewModel)
+        {
+            _handler.Value.OnViewModelAttached(ownerViewModel);
+        }
+
         public override bool GetVisible()
         {
             return _handler.Value.GetVisible();

@@ -1,17 +1,30 @@
 ﻿using Adenium;
 using Adenium.Layouting;
+using Chronos.DotNet.SqlProfiler;
 
 namespace Chronos.Client.Win.DotNet.SqlProfiler
 {
-    public sealed class ProfilingTypeAdapter : IProfilingTypeAdapter, ILayoutProvider
+    public sealed class ProfilingTypeAdapter : IProfilingTypeAdapter, ILayoutProvider, IServiceConsumer
     {
-        void ILayoutProvider.ConfigureContainer(IContainer container)
+        private ISqlQueryCollection _sqlQueries;
+
+        void ILayoutProvider.ConfigureContainer(IViewModel targetViewModel, IContainer container)
+        {
+            container.RegisterInstance(_sqlQueries);
+        }
+
+        string ILayoutProvider.GetLayout(IViewModel targetViewModel)
+        {
+            return LayoutFileReader.ReadViewModelLayout(targetViewModel);
+        }
+
+        void IServiceConsumer.ExportServices(IServiceContainer container)
         {
         }
 
-        string ILayoutProvider.GetLayout(IViewModel viewModel)
+        void IServiceConsumer.ImportServices(IServiceContainer container)
         {
-            return LayoutFileReader.ReadViewModelLayout(viewModel);
+            _sqlQueries = container.Resolve<ISqlQueryCollection>();
         }
     }
 }

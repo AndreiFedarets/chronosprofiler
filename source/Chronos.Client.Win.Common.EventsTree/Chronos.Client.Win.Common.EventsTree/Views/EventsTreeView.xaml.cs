@@ -1,4 +1,4 @@
-﻿namespace Chronos.Client.Win.Views.Common.EventsTree
+﻿namespace Chronos.Client.Win.Common.EventsTree.Views
 {
     public partial class EventsTreeView
     {

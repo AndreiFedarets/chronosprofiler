@@ -13,18 +13,14 @@ namespace Chronos.Client.Win
         protected readonly IContainer Container;
         private readonly Bootstrapper _bootstrapper;
         private readonly Guid _uid;
-
-        protected ApplicationBase(Guid uid)
-            : this(uid, true)
-        {
-        }
-
+        
         protected ApplicationBase(Guid uid, bool processOwner)
             : base(processOwner)
         {
             _uid = uid;
             Container = new Container();
             _bootstrapper = new Bootstrapper(Container);
+            //Debugger.Launch();
         }
 
         public override Guid Uid
@@ -39,7 +35,7 @@ namespace Chronos.Client.Win
 
         public IContainerViewModel MainViewModel { get; private set; }
 
-        public IWindowsManager WindowsManager { get; private set; }
+        public IViewModelManager ViewModelManager { get; private set; }
 
         public void Activate()
         {
@@ -67,19 +63,18 @@ namespace Chronos.Client.Win
 
         private void ShowMainWindow()
         {
-            WindowsManager.ShowWindow(MainViewModel);
+            ViewModelManager.ShowWindow(MainViewModel);
         }
 
         protected virtual void ConfigureContainer(IContainer container)
         {
             container.RegisterInstance<IApplicationBase>(this);
             container.RegisterInstance<IApplicationSettings>(ApplicationSettings);
-            WindowsManager = container.Resolve<CustomWindowManager>();
-            container.RegisterInstance<IWindowsManager>(WindowsManager);
-            container.RegisterInstance<IWindowManager>((IWindowManager)WindowsManager);
+            container.RegisterType<IWindowManager, CustomWindowManager>();
+            container.RegisterType<IViewModelManager, ViewModelManager>();
+            ViewModelManager = container.Resolve<IViewModelManager>();
             ILayoutProvider layoutProvider = container.Resolve<ClientLayoutProvider>();
-            CompositeLayoutProvider.Initialize(container);
-            CompositeLayoutProvider.Register(layoutProvider);
+            ViewModelManager.RegisterLayoutProvider(layoutProvider);
         }
 
         public override void Dispose()

@@ -1,19 +1,21 @@
 ﻿using Adenium;
 using Chronos.Accessibility.IO;
+using Chronos.Client.Win.ViewModels.Common;
 using Chronos.Client.Win.ViewModels.Start;
 
-namespace Chronos.Client.Win.ViewModels.Common.DesktopApplication
+namespace Chronos.Client.Win.Common.DesktopApplication.ViewModels
 {
+    [ViewModelAttribute(Constants.ViewModels.ProfilingTargetSettings)]
     public class ProfilingTargetSettingsViewModel : ProfilingTargetSettingsBaseViewModel
     {
         private readonly Chronos.Common.DesktopApplication.ProfilingTargetSettings _profilingTargetSettings;
-        private readonly IWindowsManager _windowsManager;
+        private readonly IViewModelManager _viewModelManager;
 
-        public ProfilingTargetSettingsViewModel(IWindowsManager windowsManager, ConfigurationSettings configurationSettings, IHostApplicationSelector applicationSelector)
+        public ProfilingTargetSettingsViewModel(IViewModelManager viewModelManager, ConfigurationSettings configurationSettings, IHostApplicationSelector applicationSelector)
             : base(configurationSettings, applicationSelector)
         {
             _profilingTargetSettings = new Chronos.Common.DesktopApplication.ProfilingTargetSettings(configurationSettings.ProfilingTargetSettings);
-            _windowsManager = windowsManager;
+            _viewModelManager = viewModelManager;
         }
 
         public override string DisplayName
@@ -62,17 +64,17 @@ namespace Chronos.Client.Win.ViewModels.Common.DesktopApplication
         public void BrowseFileFullName()
         {
             IFileSystemAccessor accessor = SelectedApplication.ServiceContainer.Resolve<IFileSystemAccessor>();
-            OpenFileViewModel viewModel = new OpenFileViewModel(accessor);
+            OpenFileViewModelSettings settings = new OpenFileViewModelSettings(accessor);
             if (!string.IsNullOrEmpty(FileFullName))
             {
-                viewModel.InitialDirectory = System.IO.Path.GetDirectoryName(FileFullName);
-                viewModel.FileName = System.IO.Path.GetFileName(FileFullName);
+                settings.InitialDirectory = System.IO.Path.GetDirectoryName(FileFullName);
+                settings.FileName = System.IO.Path.GetFileName(FileFullName);
             }
-            viewModel.Filter = "Executable (*.exe)|*.exe";
-            bool? result = _windowsManager.ShowDialog(viewModel);
+            settings.Filters.Add("Executable (*.exe)|*.exe");
+            bool? result = _viewModelManager.ShowDialog<OpenFileViewModel, OpenFileViewModelSettings>(null, settings);
             if (result.HasValue && result.Value)
             {
-                FileFullName = viewModel.FileName;
+                FileFullName = settings.FileName;
             }
         }
     }

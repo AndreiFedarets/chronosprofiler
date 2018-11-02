@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Menu>
-  <Control Id="Chronos.Client.Win.Menu.DotNet.DotNetMenuItem">
-    <Control Type="Chronos.Client.Win.Menu.DotNet.SqlProfiler.SqlQueriesMenuItem, Chronos.Client.Win.DotNet.SqlProfiler" />
-  </Control>
-</Menu>

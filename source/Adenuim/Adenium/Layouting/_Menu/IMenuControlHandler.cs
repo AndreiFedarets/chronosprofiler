@@ -6,6 +6,8 @@ namespace Adenium.Layouting
     {
         void OnControlAttached(IMenuControl control);
 
+        void OnViewModelAttached(IViewModel ownerViewModel);
+
         void OnAction();
 
         bool GetEnabled();

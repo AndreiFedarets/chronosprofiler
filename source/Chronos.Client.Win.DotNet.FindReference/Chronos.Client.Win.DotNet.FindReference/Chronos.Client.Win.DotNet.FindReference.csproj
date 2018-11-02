@@ -45,6 +45,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Menu\AssemblyReferenceMenuItem.cs" />
     <Compile Include="Menu\ModuleReferenceMenuItem.cs" />
     <Compile Include="Menu\ClassReferenceMenuItem.cs" />
@@ -116,7 +117,22 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Profiling.ProfilingPageViewModel.layout">
+    <None Include="Layouts\Profiling.DotNet.BasicProfiler.Assemblies.layout">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Layouts\Profiling.DotNet.BasicProfiler.Classes.layout">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Layouts\Profiling.DotNet.BasicProfiler.Modules.layout">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Layouts\Profiling.DotNet.BasicProfiler.Functions.layout">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Layouts\Profiling.Common.EventsTree.EventsTree.layout">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Layouts\Profiling.Common.EventsTree.EventTree.layout">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <EmbeddedResource Include="Properties\Resources.resx">

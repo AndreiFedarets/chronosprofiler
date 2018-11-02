@@ -14,7 +14,7 @@ namespace Chronos.Client.Win
 
         IProductivityCollection Productivities { get; }
 
-        IWindowsManager WindowsManager { get; }
+        IViewModelManager ViewModelManager { get; }
 
         void Activate();
     }

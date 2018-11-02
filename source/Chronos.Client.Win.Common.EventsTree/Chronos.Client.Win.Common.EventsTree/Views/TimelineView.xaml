@@ -1,4 +1,4 @@
-﻿<adenium:View x:Class="Chronos.Client.Win.Views.Common.EventsTree.TimelineView"
+﻿<adenium:View x:Class="Chronos.Client.Win.Common.EventsTree.Views.TimelineView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:controls="clr-namespace:Chronos.Client.Win.Controls.Common.EventsTree"

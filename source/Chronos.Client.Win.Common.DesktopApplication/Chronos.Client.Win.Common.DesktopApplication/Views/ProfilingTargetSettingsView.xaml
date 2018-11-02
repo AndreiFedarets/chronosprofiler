@@ -1,4 +1,4 @@
-﻿<adenium:View x:Class="Chronos.Client.Win.Views.Common.DesktopApplication.ProfilingTargetSettingsView"
+﻿<adenium:View x:Class="Chronos.Client.Win.Common.DesktopApplication.Views.ProfilingTargetSettingsView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:adenium="clr-namespace:Adenium;assembly=Adenium"

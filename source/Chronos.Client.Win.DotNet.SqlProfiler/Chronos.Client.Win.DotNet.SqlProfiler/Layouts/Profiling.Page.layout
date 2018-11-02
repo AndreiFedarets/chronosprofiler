@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Layout>
+  <Menu Id="Profiling">
+    <MenuItem Id="Profiling.DotNet">
+      <MenuItem Id="Profiling.DotNet.SqlProfiler.SqlQueries" Type="Chronos.Client.Win.DotNet.SqlProfiler.Menu.SqlQueriesMenuItem, Chronos.Client.Win.DotNet.SqlProfiler"></MenuItem>
+    </MenuItem>
+  </Menu>
+  <ViewModel Id="Profiling.DotNet.SqlProfiler.SqlQueries" Type="Chronos.Client.Win.DotNet.SqlProfiler.ViewModels.SqlQueriesViewModel, Chronos.Client.Win.DotNet.SqlProfiler" Mode="Single" Activation="OnDemand" />
+</Layout>

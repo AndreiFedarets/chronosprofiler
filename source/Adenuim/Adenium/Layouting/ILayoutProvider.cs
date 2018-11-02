@@ -2,8 +2,8 @@
 {
     public interface ILayoutProvider
     {
-        void ConfigureContainer(IContainer container);
+        void ConfigureContainer(IViewModel targetViewModel, IContainer container);
 
-        string GetLayout(IViewModel viewModel);
+        string GetLayout(IViewModel targetViewModel);
     }
 }

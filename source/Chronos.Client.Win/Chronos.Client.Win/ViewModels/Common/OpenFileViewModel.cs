@@ -18,16 +18,29 @@ namespace Chronos.Client.Win.ViewModels.Common
         private DirectoryInfo _selectedDrive;
         private object _selectedFileSystemInfo;
         private string _currentDirectoryPath;
-        private string _filter;
+        private readonly OpenFileViewModelSettings _settings;
 
-        public OpenFileViewModel(IFileSystemAccessor accessor)
+        public OpenFileViewModel(OpenFileViewModelSettings settings)
         {
-            _accessor = new FilteredFileSystemAccessor(accessor);
+            _settings = settings;
+            _accessor = new FilteredFileSystemAccessor(_settings.FileSystemAccessor);
             _parentDirectory = new ParentDirectoryInfo();
             _fileSystemInfos = new ObservableCollection<object>();
             Drives = _accessor.GetLogicalDrives();
             SelectedDrive = Drives.FirstOrDefault();
-            InitialDirectory = Properties.Settings.Default.OpenFileViewLastUsedPath;
+            if (!string.IsNullOrWhiteSpace(_settings.InitialDirectory))
+            {
+                InitialDirectory = _settings.InitialDirectory;
+            }
+            else
+            {
+                InitialDirectory = Properties.Settings.Default.OpenFileViewLastUsedPath;
+            }
+            foreach (string filter in _settings.Filters)
+            {
+                _accessor.Filter.Setup(filter);
+            }
+            SelectedFilter = _accessor.Filter.Entries.FirstOrDefault();
         }
 
         public override string DisplayName
@@ -141,25 +154,17 @@ namespace Chronos.Client.Win.ViewModels.Common
             }
         }
 
-        public string Filter
+        public string InitialDirectory { get; private set; }
+
+        public string FileName
         {
-            get { return _filter; }
-            set
-            {
-                _filter = value;
-                _accessor.Filter.Setup(_filter);
-                NotifyOfPropertyChange(() => Filters);
-                NotifyOfPropertyChange(() => SelectedFilter);
-            }
+            get { return _settings.FileName; }
+            set { _settings.FileName = value; }
         }
-
-        public string InitialDirectory { get; set; }
-
-        public string FileName { get; set; }
 
         internal void OpenParentFileSystemInfo()
         {
-            if (SelectedFileSystemInfo == SelectedDrive)
+            if (Equals(SelectedFileSystemInfo, SelectedDrive))
             {
                 return;
             }

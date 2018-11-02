@@ -1,20 +1,29 @@
-﻿using System;
-
-namespace Adenium.Layouting
+﻿namespace Adenium.Layouting
 {
     internal sealed class SingleViewModelFactory : ViewModelFactoryBase
     {
-        private readonly Lazy<IViewModel> _viewModel;
+        private readonly object _lock;
+        private IViewModel _viewModel;
 
-        public SingleViewModelFactory(IContainerViewModel parentViewModel, string typeName, IContainer container)
-            : base(parentViewModel, typeName, container)
+        public SingleViewModelFactory(IViewModel targetViewModel, string typeName)
+            : base(targetViewModel, typeName)
         {
-            _viewModel = new Lazy<IViewModel>(CreateViewModelInternal);
+            _lock = new object();
         }
 
-        public override IViewModel CreateViewModel()
+        public override IViewModel CreateViewModel<T1, T2, T3>(T1 dependency1, T2 dependency2, T3 dependency3)
         {
-            return _viewModel.Value;
+            if (_viewModel == null)
+            {
+                lock (_lock)
+                {
+                    if (_viewModel == null)
+                    {
+                        _viewModel = CreateViewModelInternal(dependency1, dependency2, dependency3);
+                    }
+                }
+            }
+            return _viewModel;
         }
     }
 }

@@ -1,0 +1,9 @@
+﻿<adenium:View x:Class="Chronos.Client.Win.DotNet.BasicProfiler.Views.AppDomainsView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:adenium="clr-namespace:Adenium;assembly=Adenium">
+    <Grid>
+        
+    </Grid>
+</adenium:View>
+

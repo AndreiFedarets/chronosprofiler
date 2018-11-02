@@ -14,9 +14,16 @@
             <File Id="Chronos_Client_Win_Application_exe" Name="Chronos.Client.Win.Application.exe" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.Application.exe" />
             <File Id="Chronos_Client_Win_Application_exe_config" Name="Chronos.Client.Win.Application.exe.config" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.Application.exe.config" />
             <File Id="Microsoft_Practices_Unity_dll" Name="Microsoft.Practices.Unity.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Microsoft.Practices.Unity.dll" />
-            <File Id="Microsoft_Windows_Shell_dll" Name="Microsoft.Windows.Shell.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Microsoft.Windows.Shell.dll" />
+            <!--<File Id="Microsoft_Windows_Shell_dll" Name="Microsoft.Windows.Shell.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Microsoft.Windows.Shell.dll" />-->
             <File Id="System_Windows_Interactivity_dll" Name="System.Windows.Interactivity.dll" DiskId="1" Source="$(var.ModuleSourceDir)\System.Windows.Interactivity.dll" />
           </Component>
+          <Directory Id="Chronos_Client_Win_Layouts_Directory" Name="$(var.LayoutsDir)">
+            <Component Id="Chronos_Client_Win_Layouts_Component" Guid="28d78ce2-7b4b-49c9-bdeb-009fc97ae913">
+              <File Id="HomePageViewModel_layout" Name="HomePageViewModel.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\HomePageViewModel.layout" />
+              <File Id="ProfilingPageViewModel_layout" Name="ProfilingPageViewModel.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\ProfilingPageViewModel.layout" />
+              <File Id="StartPageViewModel_layout" Name="StartPageViewModel.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\StartPageViewModel.layout" />
+            </Component>
+          </Directory>
         </Directory>
       </Directory>
       <Directory Id="ProgramMenuFolder">

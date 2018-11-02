@@ -10,6 +10,11 @@
             <File Id="Chronos_Client_Win_DotNet_ExceptionMonitor_dll" Name="Chronos.Client.Win.DotNet.ExceptionMonitor.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.ExceptionMonitor.dll" />
             <File Id="Chronos_Client_Win_DotNet_ExceptionMonitor_xchronex" Name="Chronos.Client.Win.DotNet.ExceptionMonitor.xchronex" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.Client.Win.DotNet.ExceptionMonitor.xchronex" />
           </Component>
+          <Directory Id="Chronos_Client_Win_DotNet_ExceptionMonitor_Layouts_Directory" Name="$(var.LayoutsDir)">
+            <Component Id="Chronos_Client_Win_DotNet_ExceptionMonitor_Layouts_Component" Guid="4633b56c-edbb-40c9-9971-54b0f8b587e7">
+              <File Id="ProfilingPageViewModel_layout" Name="ProfilingPageViewModel.layout" DiskId="1" Source="$(var.ModuleSourceDir)\$(var.LayoutsDir)\ProfilingPageViewModel.layout" />
+            </Component>
+          </Directory>
         </Directory>
       </Directory>
     </Directory>

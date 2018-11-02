@@ -1,25 +1,26 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using Adenium;
-using Chronos.Client.Win.Models;
+using Adenium.Layouting;
 using Chronos.Model;
 
 namespace Chronos.Client.Win.ViewModels
 {
-    public class UnitsListViewModel : ViewModel
+    public abstract class UnitsListViewModel<T> : ViewModel where T : UnitBase
     {
         private GridViewDynamicColumn _selectedColumn;
-        private readonly IUnitsListModel _model;
+        private T _selectedUnit;
+        private readonly string _itemContextMenuId;
 
-        public UnitsListViewModel(IUnitsListModel model)
+        protected UnitsListViewModel(IEnumerable<T> units, IEnumerable<GridViewDynamicColumn> columns, string itemContextMenuId)
         {
-            _model = model;
+            Units = units;
+            _itemContextMenuId = itemContextMenuId;
+            Columns = new ObservableCollection<GridViewDynamicColumn>(columns);
             ICollectionView collectionView = CollectionViewSource.GetDefaultView(Units);
-            Columns = new ObservableCollection<GridViewDynamicColumn>(_model.Columns);
             foreach (GridViewDynamicColumn column in Columns)
             {
                 column.AttachCollectionView(collectionView);
@@ -27,23 +28,14 @@ namespace Chronos.Client.Win.ViewModels
             SelectedColumn = Columns.FirstOrDefault();
         }
 
-        public override string DisplayName
+        public IMenu ItemContextMenu
         {
-            get { return _model.DisplayName; }
-            set { }
+            get { return Menus[_itemContextMenuId]; }
         }
-
-        public IEnumerable Units
-        {
-            get { return _model.Units; }
-        }
-
-        public Type UnitType
-        {
-            get { return _model.UnitType; }
-        }
-
+        
         public ObservableCollection<GridViewDynamicColumn> Columns { get; private set; }
+
+        public IEnumerable<T> Units { get; private set; }
 
         public GridViewDynamicColumn SelectedColumn
         {
@@ -55,12 +47,12 @@ namespace Chronos.Client.Win.ViewModels
             }
         }
 
-        public UnitBase SelectedUnit
+        public T SelectedUnit
         {
-            get { return _model.SelectedUnit; }
+            get { return _selectedUnit; }
             set
             {
-                _model.SelectedUnit = value;
+                _selectedUnit = value;
                 NotifyOfPropertyChange(() => SelectedUnit);
             }
         }

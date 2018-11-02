@@ -13,6 +13,8 @@ namespace Adenium
 
         IContainerViewModel Parent { get; }
 
+        IContainerViewModel LogicalParent { get; }
+
         IMenuCollection Menus { get; }
     }
 }

@@ -6,16 +6,16 @@ namespace Chronos.Client.Win.Common.ServiceApplication
 {
     public class ProfilingTargetAdapter : IProfilingTargetAdapter, ILayoutProvider
     {
-        void ILayoutProvider.ConfigureContainer(IContainer container)
+        void ILayoutProvider.ConfigureContainer(IViewModel targetViewModel, IContainer container)
         {
         }
 
-        string ILayoutProvider.GetLayout(IViewModel viewModel)
+        string ILayoutProvider.GetLayout(IViewModel targetViewModel)
         {
-            StartPageViewModel startPageViewModel = viewModel as StartPageViewModel;
+            StartPageViewModel startPageViewModel = targetViewModel as StartPageViewModel;
             if (startPageViewModel != null && startPageViewModel.ProfilingTarget.GetWinAdapter() == this)
             {
-                return LayoutFileReader.ReadViewModelLayout(viewModel);
+                return LayoutFileReader.ReadViewModelLayout(targetViewModel);
             }
             return string.Empty;
         }

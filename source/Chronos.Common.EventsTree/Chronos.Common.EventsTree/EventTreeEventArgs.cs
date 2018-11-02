@@ -12,5 +12,13 @@ namespace Chronos.Common.EventsTree
         }
 
         public List<ISingleEventTree> Collection { get; private set; }
+
+        internal static void RaiseEvent(EventHandler<EventTreeEventArgs> handler, object sender, List<ISingleEventTree> collection)
+        {
+            if (handler != null)
+            {
+                handler(sender, new EventTreeEventArgs(collection));
+            }
+        }
     }
 }

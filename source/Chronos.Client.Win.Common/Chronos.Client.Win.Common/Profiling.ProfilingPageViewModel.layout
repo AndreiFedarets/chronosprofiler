@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
-<Layout>
-  <Menu Id="Profiling">
-    <MenuItem Id="Profiling.Common" Type="Chronos.Client.Win.Common.Menu.CommonMenuItem, Chronos.Client.Win.Common" />
-  </Menu>
-</Layout>

@@ -72,12 +72,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="_Views\_Internal\ErrorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Container.cs" />
     <Compile Include="IActivator.cs" />
-    <Compile Include="IWindowsManager.cs" />
-    <Compile Include="Layouting\CompositeLayoutProvider.cs" />
+    <Compile Include="Layouting\_Internal\IHaveScope.cs" />
+    <Compile Include="Layouting\_Internal\IHaveLayout.cs" />
     <Compile Include="Layouting\ILayoutProvider.cs" />
     <Compile Include="Layouting\LayoutFileReader.cs" />
     <Compile Include="Layouting\_Internal\CompositeMenuControlHandler.cs" />
@@ -93,8 +97,6 @@
     <Compile Include="_Extensions\_Internal\EventExtensions.cs" />
     <Compile Include="_Extensions\_Internal\XmlReaderExtension.cs" />
     <Compile Include="Layouting\_Internal\_ViewModel\ViewModelLayout.cs" />
-    <Compile Include="Layouting\_Internal\LayoutBuilder.cs" />
-    <Compile Include="Layouting\_Internal\ViewModelBuilder.cs" />
     <Compile Include="IContainer.cs" />
     <Compile Include="IDispatcher.cs" />
     <Compile Include="PropertyChangedBase.cs">
@@ -119,7 +121,6 @@
     <Compile Include="_Contracts\EnableContractAttribute.cs" />
     <Compile Include="_Contracts\IContract.cs" />
     <Compile Include="_Contracts\IContractConsumer.cs" />
-    <Compile Include="_Contracts\IContractProxy.cs" />
     <Compile Include="_Contracts\IContractSource.cs" />
     <Compile Include="Controls\_Generic\BindingRouter.cs" />
     <Compile Include="Controls\_Generic\BlurlessImage.cs" />
@@ -165,26 +166,26 @@
     <Compile Include="Layouting\_Internal\LayoutReader.cs" />
     <Compile Include="Layouting\_Internal\_ViewModel\ViewModelActivation.cs" />
     <Compile Include="Layouting\_Internal\_ViewModel\ViewModelMode.cs" />
-    <Compile Include="Layouting\_Internal\_ViewModel\ViewModelReference.cs" />
+    <Compile Include="Layouting\_Internal\_ViewModel\ViewModelAttachment.cs" />
     <Compile Include="_ViewModels\GridViewModel.cs" />
     <Compile Include="_ViewModels\IContainerViewModel.cs" />
     <Compile Include="_ViewModels\IViewModel.cs" />
+    <Compile Include="_ViewModels\IViewModelManager.cs" />
     <Compile Include="_ViewModels\PlaceholderContent.cs" />
-    <Compile Include="_ViewModels\ViewModelExportAttribute.cs" />
-    <Compile Include="_ViewModels\ViewModels\PlaceholderViewModel.cs" />
-    <Compile Include="_ViewModels\ViewModels\TabItemViewModel.cs" />
+    <Compile Include="_ViewModels\ViewModelAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_ViewModels\ViewModelManager.cs" />
+    <Compile Include="_ViewModels\TabItemViewModel.cs" />
     <Compile Include="_ViewModels\TabViewModel.cs" />
     <Compile Include="_ViewModels\ViewModel.cs" />
-    <Compile Include="_ViewModels\ViewModelAttribute.cs" />
     <Compile Include="_ViewModels\ViewModelContext.cs" />
     <Compile Include="_ViewModels\ViewModelEventArgs.cs" />
     <Compile Include="_Views\ContentViewBehaviorExtension.cs" />
     <Compile Include="_Views\GridViewBehaviorExtension.cs" />
     <Compile Include="_Views\IViewBehaviorExtension.cs" />
-    <Compile Include="_Views\Views\PlaceholderView.cs" />
-    <Compile Include="_Views\PlaceholderViewBehaviorExtension.cs" />
     <Compile Include="_Views\Position.cs" />
-    <Compile Include="_Views\Views\TabItemView.cs" />
+    <Compile Include="_Views\TabItemView.cs" />
     <Compile Include="_Views\TabViewBehaviorExtension.cs" />
     <Compile Include="_Views\View.cs" />
     <Compile Include="_Extensions\BitmapExtensions.cs" />
@@ -199,6 +200,9 @@
     <Compile Include="CustomWindowManager.cs" />
     <Compile Include="_Views\ViewsManager.cs" />
     <Compile Include="SmartDispatcher.cs" />
+    <Compile Include="_Views\_Internal\ErrorView.xaml.cs">
+      <DependentUpon>ErrorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="_Views\_Internal\GridViewBuilder.cs" />
     <Compile Include="_Views\_Internal\GridViewItem.cs" />
     <Compile Include="_Views\_Internal\TabViewControlDataContext.cs" />

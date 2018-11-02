@@ -8,11 +8,6 @@ namespace Chronos.Client.Win
 {
     internal sealed class MainApplication : ApplicationBase, IMainApplication
     {
-        public MainApplication()
-            : base(Guid.NewGuid())
-        {
-        }
-
         public MainApplication(bool processOwner)
             : base(Guid.NewGuid(), processOwner)
         {
@@ -20,7 +15,7 @@ namespace Chronos.Client.Win
 
         protected override IContainerViewModel BuildMainViewModel()
         {
-            return Container.Resolve<HomePageViewModel>();
+            return ViewModelManager.CreateViewModel<HomePageViewModel>();
         }
 
         protected override void ConfigureContainer(IContainer container)
@@ -54,7 +49,7 @@ namespace Chronos.Client.Win
                 ILayoutProvider layoutProvider = adapter as ILayoutProvider;
                 if (layoutProvider != null)
                 {
-                    CompositeLayoutProvider.Register(layoutProvider);
+                    ViewModelManager.RegisterLayoutProvider(layoutProvider);
                 }
             }
         }
@@ -72,7 +67,7 @@ namespace Chronos.Client.Win
                 ILayoutProvider layoutProvider = adapter as ILayoutProvider;
                 if (layoutProvider != null)
                 {
-                    CompositeLayoutProvider.Register(layoutProvider);
+                    ViewModelManager.RegisterLayoutProvider(layoutProvider);
                 }
             }
         }
@@ -90,7 +85,7 @@ namespace Chronos.Client.Win
                 ILayoutProvider layoutProvider = adapter as ILayoutProvider;
                 if (layoutProvider != null)
                 {
-                    CompositeLayoutProvider.Register(layoutProvider);
+                    ViewModelManager.RegisterLayoutProvider(layoutProvider);
                 }
             }
         }
@@ -108,7 +103,7 @@ namespace Chronos.Client.Win
                 ILayoutProvider layoutProvider = adapter as ILayoutProvider;
                 if (layoutProvider != null)
                 {
-                    CompositeLayoutProvider.Register(layoutProvider);
+                    ViewModelManager.RegisterLayoutProvider(layoutProvider);
                 }
             }
         }

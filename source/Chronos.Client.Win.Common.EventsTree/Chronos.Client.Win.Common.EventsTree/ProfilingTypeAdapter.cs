@@ -1,63 +1,34 @@
 ﻿using Adenium;
 using Adenium.Layouting;
-using Chronos.Client.Win.ViewModels.Common.EventsTree;
+using Chronos.Common.EventsTree;
 
 namespace Chronos.Client.Win.Common.EventsTree
 {
-    public class ProfilingTypeAdapter : IProfilingTypeAdapter, IInitializable, ILayoutProvider, IServiceConsumer
+    public class ProfilingTypeAdapter : IProfilingTypeAdapter, ILayoutProvider, IServiceConsumer
     {
-        private readonly EventsTreeViewModelCollection _eventsTreeViewModels;
+        private IEventTreeCollection _eventTrees;
+        private IEventMessageBuilder _eventMessageBuilder;
 
-        public ProfilingTypeAdapter()
+        void ILayoutProvider.ConfigureContainer(IViewModel targetViewModel, IContainer container)
         {
-            _eventsTreeViewModels = new EventsTreeViewModelCollection();
+            container.RegisterInstance(_eventTrees);
+            container.RegisterInstance(_eventMessageBuilder);
+            container.RegisterInstance(_eventMessageBuilder);
         }
 
-        void IInitializable.Initialize(IChronosApplication applicationObject)
+        string ILayoutProvider.GetLayout(IViewModel targetViewModel)
         {
-            IProfilingApplication application = applicationObject as IProfilingApplication;
-            if (application != null)
-            {
-                _eventsTreeViewModels.Initialize(application);
-            }
-        }
-
-        void ILayoutProvider.ConfigureContainer(IContainer container)
-        {
-        }
-
-        string ILayoutProvider.GetLayout(IViewModel viewModel)
-        {
-            return LayoutFileReader.ReadViewModelLayout(viewModel);
+            return LayoutFileReader.ReadViewModelLayout(targetViewModel);
         }
 
         void IServiceConsumer.ExportServices(IServiceContainer container)
         {
-            container.Register(_eventsTreeViewModels);
         }
 
         void IServiceConsumer.ImportServices(IServiceContainer container)
         {
-
+            _eventTrees = container.Resolve<IEventTreeCollection>();
+            _eventMessageBuilder = container.Resolve<IEventMessageBuilder>();
         }
-
-        //private void BuildMenu()
-        //{
-        //    ResolutionDependencies dependencies = new ResolutionDependencies();
-        //    dependencies.Register(_application);
-        //    IMenu menu = MenuReader.ReadMenu(Resources.Menu, dependencies);
-        //    _application.MainViewModel.Menus[Constants.Menus.MainMenu].Merge(menu);
-
-        //}
-
-        //[MessageHandler(Win.Constants.Message.BuildProfilingViewMenu)]
-        //internal void BuildProfilingViewMenu(IContainerViewModel viewModel, List<IMenu> menus)
-        //{
-        //    Container container = new Container();
-        //    container.RegisterInstance(_application);
-        //    MenuReader reader = new MenuReader();
-        //    IMenu menu = reader.ReadMenu(Resources.Menu, container);
-        //    menus.Add(menu);
-        //}
     }
 }

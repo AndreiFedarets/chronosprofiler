@@ -13,12 +13,6 @@ namespace Chronos.Client.Win
         private ConfigurationSettings _configurationSettings;
         private readonly Guid _sessionUid;
 
-        //public ProfilingApplication(Guid sessionUid)
-        //    : base(GenerateApplicationUid(sessionUid))
-        //{
-        //    _sessionUid = sessionUid;
-        //}
-
         public ProfilingApplication(Guid sessionUid, bool processOwner)
             : base(sessionUid.ReverseBits(), processOwner)
         {
@@ -44,12 +38,13 @@ namespace Chronos.Client.Win
 
         protected override IContainerViewModel BuildMainViewModel()
         {
-            return Container.Resolve<ProfilingPageViewModel>();
+            return ViewModelManager.CreateViewModel<ProfilingPageViewModel>();
         }
 
         protected override void ConfigureContainer(IContainer container)
         {
             container.RegisterInstance<IProfilingApplication>(this);
+            container.RegisterInstance(ProfilingTimer);
             base.ConfigureContainer(container);
         }
 
@@ -76,7 +71,7 @@ namespace Chronos.Client.Win
             ILayoutProvider layoutProvider = adapter as ILayoutProvider;
             if (layoutProvider != null)
             {
-                CompositeLayoutProvider.Register(layoutProvider);
+                ViewModelManager.RegisterLayoutProvider(layoutProvider);
             }
         }
 
@@ -111,7 +106,7 @@ namespace Chronos.Client.Win
                 ILayoutProvider layoutProvider = adapter as ILayoutProvider;
                 if (layoutProvider != null)
                 {
-                    CompositeLayoutProvider.Register(layoutProvider);
+                    ViewModelManager.RegisterLayoutProvider(layoutProvider);
                 }
             }
         }
@@ -147,7 +142,7 @@ namespace Chronos.Client.Win
                 ILayoutProvider layoutProvider = adapter as ILayoutProvider;
                 if (layoutProvider != null)
                 {
-                    CompositeLayoutProvider.Register(layoutProvider);
+                    ViewModelManager.RegisterLayoutProvider(layoutProvider);
                 }
             }
         }
@@ -181,7 +176,7 @@ namespace Chronos.Client.Win
                 ILayoutProvider layoutProvider = adapter as ILayoutProvider;
                 if (layoutProvider != null)
                 {
-                    CompositeLayoutProvider.Register(layoutProvider);
+                    ViewModelManager.RegisterLayoutProvider(layoutProvider);
                 }
             }
         }

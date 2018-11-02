@@ -63,6 +63,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\EventTreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\TimelineView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,12 +75,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\FindEventsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Controls\EventsTreeViewEnumerator.cs" />
     <Compile Include="Controls\EventTreeItemCollection.cs" />
     <Compile Include="Controls\Timeline.cs" />
@@ -96,29 +97,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\EventTreeViewModel.cs" />
     <Compile Include="ViewModels\EventsTreeViewModel.cs" />
-    <Compile Include="ViewModels\FindEventsViewModel.cs" />
-    <Compile Include="ViewModels\IEventsTreeViewModel.cs" />
-    <Compile Include="ViewModels\IEventsTreeViewModelCollection.cs" />
     <Compile Include="ViewModels\TimelineViewModel.cs" />
+    <Compile Include="Views\EventTreeView.xaml.cs">
+      <DependentUpon>EventTreeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TimelineView.xaml.cs">
       <DependentUpon>TimelineView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EventsTreeView.xaml.cs">
       <DependentUpon>EventsTreeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FindEventsView.xaml.cs">
-      <DependentUpon>FindEventsView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Menu\EventsTreeMenuItem.cs" />
     <Compile Include="Menu\PerformanceMenuItem.cs" />
-    <Compile Include="ViewModels\_Internal\EventsTreeViewModelCollection.cs" />
-    <None Include="Profiling.ProfilingPageViewModel.layout">
+    <None Include="Layouts\Profiling.Page.layout">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Chronos.Client.Win.Common.EventsTree.xchronex">
       <SubType>Designer</SubType>
@@ -148,9 +147,7 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Proxy\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
