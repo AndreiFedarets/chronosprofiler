@@ -163,6 +163,7 @@
     <ClCompile Include="FieldMetadata.cpp" />
     <ClCompile Include="FrameworkAdapter.cpp" />
     <ClCompile Include="FunctionsJitEvents.cpp" />
+    <ClCompile Include="MethodInjector.cpp" />
     <ClCompile Include="MethodMetaData.cpp" />
     <ClCompile Include="ModuleMetaData.cpp" />
     <ClCompile Include="ParameterMetaData.cpp" />

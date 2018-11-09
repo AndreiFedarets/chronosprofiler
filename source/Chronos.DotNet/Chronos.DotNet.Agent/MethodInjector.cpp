@@ -11,7 +11,6 @@ namespace Chronos
 			MethodInjector::MethodInjector(ICorProfilerInfo2* corProfilerInfo2)
 			{
 				_corProfilerInfo2 = corProfilerInfo2;
-				
 			}
 
 			MethodInjector::~MethodInjector()
@@ -118,12 +117,12 @@ namespace Chronos
 					#include <poppack.h>
 
 					prologCode.call = 0x28;
-					prologCode.method_token = _epilogMethod; //_prologMethod
+					prologCode.method_token = _prologMethod; //_prologMethod
 					
 					epilogCode.call = 0x28;
 					epilogCode.method_token = _epilogMethod; //_prologMethod
 
-					DWORD injectedCodeSize = sizeof(prologCode);// + sizeof(epilogCode);
+					DWORD injectedCodeSize = sizeof(prologCode) + sizeof(epilogCode);
 
 					COR_ILMETHOD_FAT* fatImage = (COR_ILMETHOD_FAT*)&((IMAGE_COR_ILMETHOD*)methodHeader)->Fat;
 					IMAGE_COR_ILMETHOD* newMethod = (IMAGE_COR_ILMETHOD*) _methodAlloc->Alloc(methodSize + injectedCodeSize);
