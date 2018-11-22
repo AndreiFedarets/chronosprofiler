@@ -160,12 +160,17 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="ExceptionHandlerManager.cpp" />
     <ClCompile Include="FieldMetadata.cpp" />
     <ClCompile Include="FrameworkAdapter.cpp" />
-    <ClCompile Include="FunctionsJitEvents.cpp" />
+    <ClCompile Include="FunctionJitEvent.cpp" />
+    <ClCompile Include="ILHelper.cpp" />
+    <ClCompile Include="InstructionManager.cpp" />
     <ClCompile Include="MethodInjector.cpp" />
+    <ClCompile Include="MethodManager.cpp" />
     <ClCompile Include="MethodMetaData.cpp" />
     <ClCompile Include="ModuleMetaData.cpp" />
+    <ClCompile Include="OpCodes.cpp" />
     <ClCompile Include="ParameterMetaData.cpp" />
     <ClCompile Include="RuntimeMetaDataProvider.cpp" />
     <ClCompile Include="RuntimeProfilingEvents.cpp" />

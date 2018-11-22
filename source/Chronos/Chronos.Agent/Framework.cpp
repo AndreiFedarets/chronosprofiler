@@ -79,5 +79,23 @@ namespace Chronos
 			}
 			return S_OK;
 		}
+
+		HRESULT Framework::SubscribeEvents()
+		{
+			if (_adapter != null)
+			{
+				return _adapter->SubscribeEvents();
+			}
+			return S_OK;
+		}
+
+		HRESULT Framework::FlushData()
+		{
+			if (_adapter != null)
+			{
+				return _adapter->FlushData();
+			}
+			return S_OK;
+		}
 	}
 }

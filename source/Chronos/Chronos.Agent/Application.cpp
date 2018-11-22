@@ -93,6 +93,7 @@ namespace Chronos
 			//but we are doing suspend of this thread. As result writing in this handle may have unexpected behavoiur.
 			GatewayClientSettings::DisableSyncClient();
 			_runtimeController->SuspendRuntime();
+			_frameworks->FlushData();
 			_profilingTypes->FlushData();
 			_gatewayClient->WaitWhileSending();
 			//Now we can unlock sync gatewayClient, all data was send via async gatewayClient
@@ -190,6 +191,7 @@ namespace Chronos
 			__RETURN_IF_FAILED( _frameworks->ExportServices() );
 			__RETURN_IF_FAILED( _frameworks->ImportServices() );
 			__RETURN_IF_FAILED( _frameworks->EndInitialize() );
+			__RETURN_IF_FAILED( _frameworks->SubscribeEvents() );
 			
 			//Load and initialize Profiling Types
 			__RETURN_IF_FAILED(_profilingTypes->Initialize(profilingTypesSettings, Container));

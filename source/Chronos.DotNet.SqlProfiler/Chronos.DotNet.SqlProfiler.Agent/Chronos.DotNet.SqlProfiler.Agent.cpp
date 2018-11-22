@@ -10,3 +10,12 @@ EXTERN_C __declspec(dllexport) void CreateChronosProfilingType(Chronos::Agent::I
 }
 
 
+EXTERN_C __declspec(dllexport) void BeginSqlQuery()
+{
+}
+
+
+EXTERN_C __declspec(dllexport) void EndSqlQuery()
+{
+}
+

@@ -11,6 +11,7 @@ namespace Chronos
 			{
 				RuntimeMetadataProvider::RuntimeMetadataProvider()
 				{
+					_runtimeInfo = null;
 					_corProfilerInfo3 = null;
 					_corProfilerInfo2 = null;
 					_appDomain = new MetadataCollection<AppDomainMetadata>();
@@ -138,6 +139,53 @@ namespace Chronos
 				{
 					return new ObjectMetadata(GetCorProfilerInfo2(), this, objectId);
 				}*/
+
+				HRESULT RuntimeMetadataProvider::GetRuntimeInfo(ICLRRuntimeInfo** runtimeInfo)
+				{
+					HRESULT result = S_OK;
+					if (_runtimeInfo == null)
+					{
+						HANDLE processHandle = Chronos::Agent::CurrentProcess::GetProcessHandle();
+						if (processHandle == null)
+						{
+							return E_FAIL;
+						}
+						ICLRMetaHost * metaHost = null;
+						HMODULE module = LoadLibrary(L"mscoree.dll");
+						if (module == null)
+						{
+							return E_FAIL;
+						}
+						CLRCreateInstanceFnPtr clrCreateInstance = (CLRCreateInstanceFnPtr)GetProcAddress(module, "CLRCreateInstance");
+						if (clrCreateInstance != null)
+						{
+							result = (*clrCreateInstance)(CLSID_CLRMetaHost, IID_ICLRMetaHost, (LPVOID*)&metaHost);
+							if (SUCCEEDED(result))
+							{
+								IEnumUnknown* enumerator = null;
+								result = metaHost->EnumerateLoadedRuntimes(processHandle, &enumerator);
+								if (SUCCEEDED(result))
+								{
+									IUnknown* item;
+									while (enumerator->Next(1, &item, NULL) == S_OK)
+									{
+										result = item->QueryInterface(IID_ICLRRuntimeInfo, (LPVOID*)&_runtimeInfo);
+										if (SUCCEEDED(result))
+										{
+											break;
+										}
+										item->Release();
+									}
+									enumerator->Release();
+								}
+								metaHost->Release();
+							}
+							FreeLibrary(module);
+						}
+					}
+					*runtimeInfo = _runtimeInfo;
+					return result;
+				}
 
 				HRESULT RuntimeMetadataProvider::GetCorProfilerInfo2(ICorProfilerInfo2** profilerInfo)
 				{

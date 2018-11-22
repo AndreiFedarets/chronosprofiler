@@ -7,6 +7,8 @@
 	#define __ASSERT(expression, message) { }
 #endif
 #define __RETURN_IF_FAILED(action) { { HRESULT __resultValue__ = action; if (FAILED(__resultValue__)) { return __resultValue__; } } }
+#define __RETURN_VOID_IF_FAILED(action) { { HRESULT __resultValue__ = action; if (FAILED(__resultValue__)) { return; } } }
+
 //#define __ASSERT(expression, message) { }
 #define __RESOLVE_SERVICE(CONTAINER, TYPE, INSTANCE) { if (!CONTAINER->ResolveService(TYPE::ServiceToken, (void**)&INSTANCE)) { return E_FAIL; } }
 #define __WEAK_RESOLVE_SERVICE(CONTAINER, TYPE, INSTANCE) { if (!CONTAINER->ResolveService(Chronos::Agent::Converter::ConvertStringToGuid(TYPE ## ServiceToken), (void**)&INSTANCE)) { return E_FAIL; } }
@@ -810,6 +812,8 @@ namespace Chronos
 			virtual HRESULT ExportServices(ServiceContainer* container) = 0;
 			virtual HRESULT ImportServices(ServiceContainer* container) = 0;
 			virtual HRESULT EndInitialize() = 0;
+			virtual HRESULT SubscribeEvents() = 0;
+			virtual HRESULT FlushData() = 0;
 		};
 
 		typedef void (__cdecl* CREATE_CHRONOS_FRAMEWORK)(IFrameworkAdapter** adapter);
@@ -825,6 +829,8 @@ namespace Chronos
 				HRESULT ExportServices(ServiceContainer* container);
 				HRESULT ImportServices(ServiceContainer* container);
 				HRESULT EndInitialize();
+				HRESULT SubscribeEvents();
+				HRESULT FlushData();
 			private:
 				IFrameworkAdapter* _adapter;
 				FrameworkSettings* _frameworkSettings;
@@ -844,6 +850,8 @@ namespace Chronos
 				HRESULT ExportServices();
 				HRESULT ImportServices();
 				HRESULT EndInitialize();
+				HRESULT SubscribeEvents();
+				HRESULT FlushData();
 			private:
 				FrameworkSettingsCollection* _frameworksSettings;
 				ProfilingTargetSettings* _profilingTargetSettings;

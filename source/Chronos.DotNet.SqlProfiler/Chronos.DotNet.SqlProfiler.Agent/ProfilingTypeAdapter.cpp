@@ -28,9 +28,9 @@ namespace Chronos
 					_msSqlQueries = new MsSqlQueryCollection();
 					//initialize jit hook
 					ICallback* jitCallback = new ThisCallback<ProfilingTypeAdapter>(this, &ProfilingTypeAdapter::OnJITCompilationStarted);
-					__vector<__string> functions;
-					functions.push_back(L"ExecuteReader");
-					_jitEvents = new FunctionsJitEvents(L"System.Data", L"System.Data.SqlClient.SqlCommand", functions, jitCallback);
+					__vector<__string> arguments;
+					//_jitEvents = new FunctionJitEvent(L"System.Data", L"System.Data.SqlClient.SqlCommand", L"ExecuteReader", arguments, jitCallback);
+					_jitEvents = new FunctionJitEvent(L"SqlConsole", L"SqlConsole.Program", L"Empty", arguments, jitCallback);
 					return S_OK;
 				}
 
@@ -60,8 +60,6 @@ namespace Chronos
 				HRESULT ProfilingTypeAdapter::SubscribeEvents()
 				{
 					//Subscribe SqlCommand functions JIT event
-					//ICallback* callback = new ThisCallback<ProfilingTypeAdapter>(this, &ProfilingTypeAdapter::OnSqlCommandFunctionJitting);
-					//_functions->SubscribeFunctionJitting(, L"ExecuteReader", callback);
 					_jitEvents->Subscribe();
 					return S_OK;
 				}
@@ -70,7 +68,6 @@ namespace Chronos
 				{
 					//Gateway has limit on package size (3mb), so we split data in 2 packages to minimize its size:
 
-					//Package#1. AppDomains, Assemblies, Modules, Classes, Threads
 					GatewayPackage* package = GatewayPackage::CreateDynamic(_dataMarker);
 
 					FlushMsSqlQueries(package);
@@ -95,8 +92,16 @@ namespace Chronos
 				void ProfilingTypeAdapter::OnJITCompilationStarted(void* eventArgs)
 				{
 					JITCompilationStartedEventArgs* temp = static_cast<JITCompilationStartedEventArgs*>(eventArgs);
-					//ICorProfilerInfo2* profilerInfo = null;
-					//_managedProvider->QueryInterface(__uuidof(ICorProfilerInfo2), (void**)&profilerInfo);
+					FunctionID functionId = temp->FunctionId;
+					Reflection::MethodMetadata* methodMetadata = null;
+					_metadataProvider->GetMethod(functionId, &methodMetadata);
+					ModuleID moduleId = methodMetadata->GetModuleId();
+
+					ICorProfilerInfo2* profilerInfo = null;
+					_metadataProvider->GetCorProfilerInfo2(&profilerInfo);
+					MethodInjector* injector = new MethodInjector(_metadataProvider);
+					injector->Initialize(moduleId, L"Chronos.DotNet.SqlProfiler.Agent.dll", L"SQLHOOK", L"BeginSqlQuery", L"EndSqlQuery");
+					injector->InjectById(temp->FunctionId);
 				}
 			}
 		}

@@ -1,0 +1,11 @@
+//CLR
+https://habr.com/post/263935/
+
+//Profiling
+https://github.com/dotnet/coreclr/blob/master/Documentation/botr/profiling.md
+https://blogs.msdn.microsoft.com/davbr/2010/08/25/profilers-in-process-side-by-side-clr-instances-and-a-free-test-harness/
+
+//IL rewriting
+https://blogs.msdn.microsoft.com/davbr/2005/10/13/sample-a-signature-blob-parser-for-your-profiler/
+https://blogs.msdn.microsoft.com/davbr/2007/03/06/creating-an-il-rewriting-profiler/
+http://www.debugthings.com/2015/09/16/rewriting-il-remotely-part1/

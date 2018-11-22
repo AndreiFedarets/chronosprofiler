@@ -105,5 +105,40 @@ namespace Chronos
 			}
 			return result;
 		}
+
+		HRESULT FrameworkCollection::SubscribeEvents()
+		{
+			HRESULT result = S_OK;
+			std::stack<Framework*> frameworks;
+			for (std::vector<Framework*>::iterator i = _frameworks->begin(); i != _frameworks->end(); ++i)
+			{
+				Framework* framework = *i;
+				frameworks.push(framework);
+			}
+			while (!frameworks.empty())
+			{
+				Framework* framework = frameworks.top();
+				frameworks.pop();
+				if (FAILED(framework->SubscribeEvents()))
+				{
+					result = E_FAIL;
+				}
+			}
+			return result;
+		}
+
+		HRESULT FrameworkCollection::FlushData()
+		{
+			HRESULT result = S_OK;
+			for (std::vector<Framework*>::iterator i = _frameworks->begin(); i != _frameworks->end(); ++i)
+			{
+				Framework* framework = *i;
+				if (FAILED(framework->FlushData()))
+				{
+					result = E_FAIL;
+				}
+			}
+			return result;
+		}
 	}
 }

@@ -51,6 +51,16 @@ namespace Chronos
 				return S_OK;
 			}
 
+			HRESULT FrameworkAdapter::SubscribeEvents()
+			{
+				return S_OK;
+			}
+
+			HRESULT FrameworkAdapter::FlushData()
+			{
+				return S_OK;
+			}
+
 			const __guid FrameworkAdapter::FrameworkUid = Converter::ConvertStringToGuid(L"{6711F85A-3CD1-4E76-8502-C3D4404E47C8}");
 		}
 	}

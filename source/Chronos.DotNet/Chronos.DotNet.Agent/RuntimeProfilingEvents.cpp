@@ -94,7 +94,7 @@ namespace Chronos
 					HookEvent(RuntimeProfilingEvents::JITFunctionPitched) ||
 					HookEvent(RuntimeProfilingEvents::JITInlining))
 				{
-					eventsMask = eventsMask | COR_PRF_MONITOR_JIT_COMPILATION;
+					eventsMask = eventsMask | COR_PRF_MONITOR_JIT_COMPILATION | COR_PRF_MONITOR_CACHE_SEARCHES;
 				}
 				if (HookEvent(RuntimeProfilingEvents::JITCachedFunctionSearchStarted) || HookEvent(RuntimeProfilingEvents::JITCachedFunctionSearchFinished))
 				{

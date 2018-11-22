@@ -1,6 +1,8 @@
 #pragma once
 #include <cor.h>
 #include <corprof.h>
+#include <corhlpr.h>
+#include <MetaHost.h>
 #include <Chronos/Chronos.Agent.h>
 
 #ifdef CHRONOS_DOTNET_EXPORT_API
@@ -235,6 +237,7 @@ namespace Chronos
 						HRESULT GetClassFromObject(ObjectID objectId, ClassID* classId);
 						//ObjectMetadata* GetObject(ObjectID objectId);
 
+						HRESULT GetRuntimeInfo(ICLRRuntimeInfo** runtimeInfo);
 						HRESULT GetCorProfilerInfo2(ICorProfilerInfo2** profilerInfo);
 						HRESULT GetCorProfilerInfo3(ICorProfilerInfo3** profilerInfo);
 						HRESULT SetEventMask(DWORD eventsMask);
@@ -242,7 +245,7 @@ namespace Chronos
 						HRESULT GetHandleFromThread(ThreadID threadId, HANDLE* threadHandle);
 						
 						const static __guid ServiceToken;
-
+						
 					private:
 						ICorProfilerInfo2* GetCorProfilerInfo2();
 						ICorProfilerInfo3* GetCorProfilerInfo3();
@@ -256,8 +259,409 @@ namespace Chronos
 						MetadataCollection<ThreadMetadata>* _threads;
 						ICorProfilerInfo2* _corProfilerInfo2;
 						ICorProfilerInfo3* _corProfilerInfo3;
+						ICLRRuntimeInfo* _runtimeInfo;
 						static IUnknown* ÑorProfilerInfoUnk;
 				};
+
+
+// ==================================================================================================================================================
+
+				namespace Emit
+				{
+					class CHRONOS_DOTNET_API ILHelper
+					{
+						public:
+							static IMAGE_COR_ILMETHOD* ConvertTinyMethodToFat(COR_ILMETHOD_TINY* sourceMethod, IMethodMalloc* methodMalloc);
+							static IMAGE_COR_ILMETHOD* ConvertTinyMethodToFat(COR_ILMETHOD_TINY* sourceMethod);
+
+							static IMAGE_COR_ILMETHOD* CloneFatMethod(COR_ILMETHOD_FAT* sourceMethod);
+							static IMAGE_COR_ILMETHOD* CloneFatMethod(COR_ILMETHOD_FAT* sourceMethod, IMethodMalloc* methodMalloc);
+							static void UpdateEHSectionsOffset(COR_ILMETHOD_FAT* method, int offsetDelta);
+						private:
+							static BYTE* GetMethodSectionsData(COR_ILMETHOD_FAT* method, unsigned long* dataSize);
+							static void CopyTinyToFat(COR_ILMETHOD_TINY* sourceMethod, COR_ILMETHOD_FAT* targetMethod);
+							static void CopyFatToFat(COR_ILMETHOD_FAT* sourceMethod, COR_ILMETHOD_FAT* targetMethod);
+							static unsigned long GetMethodFullSize(COR_ILMETHOD_TINY* method);
+							static unsigned long GetMethodFullSize(COR_ILMETHOD_FAT* method);
+					};
+
+					/*class CHRONOS_DOTNET_API MethodSection
+					{
+					public:
+					MethodSection(CorILMethodSect kind);
+					~MethodSection();
+					CorILMethodSect Kind;
+					__uint GetFullSize();
+					};*/
+
+					/*class CHRONOS_DOTNET_API MethodUnknownSection : public MethodSection
+					{
+					public:
+					MethodUnknownSection(COR_ILMETHOD_SECT* section);
+					~MethodUnknownSection();
+					};*/
+
+
+// ==================================================================================================================================================
+					typedef __byte (*GetOpCodeValueSize)(__byte* code);
+					struct CHRONOS_DOTNET_API OpCode
+					{
+						public:
+							char* Name;
+							__ushort Token;
+							__byte TokenSize;
+							__byte ValueSize;
+							GetOpCodeValueSize GetValueSize;
+					};
+
+// ==================================================================================================================================================
+					class CHRONOS_DOTNET_API OpCodes
+					{
+						public:
+							//0x0*
+							static OpCode* Nop;
+							static OpCode* Break;
+							static OpCode* Ldarg_0;
+							static OpCode* Ldarg_1;
+							static OpCode* Ldarg_2;
+							static OpCode* Ldarg_3;
+							static OpCode* Ldloc_0;
+							static OpCode* Ldloc_1;
+							static OpCode* Ldloc_2;
+							static OpCode* Ldloc_3;
+							static OpCode* Stloc_0;
+							static OpCode* Stloc_1;
+							static OpCode* Stloc_2;
+							static OpCode* Stloc_3;
+							static OpCode* Ldarg_S;
+							static OpCode* Ldarga_S;
+							//0x1*
+							static OpCode* Starg_S;
+							static OpCode* Ldloc_S;
+							static OpCode* Ldloca_S;
+							static OpCode* Stloc_S;
+							static OpCode* Ldnull;
+							static OpCode* Ldc_I4_M1;
+							static OpCode* Ldc_I4_0;
+							static OpCode* Ldc_I4_1;
+							static OpCode* Ldc_I4_2;
+							static OpCode* Ldc_I4_3;
+							static OpCode* Ldc_I4_4;
+							static OpCode* Ldc_I4_5;
+							static OpCode* Ldc_I4_6;
+							static OpCode* Ldc_I4_7;
+							static OpCode* Ldc_I4_8;
+							static OpCode* Ldc_I4_S;
+							//0x2*
+							static OpCode* Ldc_I4;
+							static OpCode* Ldc_I8;
+							static OpCode* Ldc_R4;
+							static OpCode* Ldc_R8;
+							static OpCode* Dup;
+							static OpCode* Pop;
+							static OpCode* Jmp;
+							static OpCode* Call;
+							static OpCode* Calli;
+							static OpCode* Ret;
+							static OpCode* Br_S;
+							static OpCode* Brfalse_S;
+							static OpCode* Brtrue_S;
+							static OpCode* Beq_S;
+							static OpCode* Bge_S;
+							//0x3*
+							static OpCode* Bgt_S;
+							static OpCode* Ble_S;
+							static OpCode* Blt_S;
+							static OpCode* Bne_Un_S;
+							static OpCode* Bge_Un_S;
+							static OpCode* Bgt_Un_S;
+							static OpCode* Ble_Un_S;
+							static OpCode* Blt_Un_S;
+							static OpCode* Br;
+							static OpCode* Brfalse;
+							static OpCode* Brtrue;
+							static OpCode* Beq;
+							static OpCode* Bge;
+							static OpCode* Bgt;
+							static OpCode* Ble;
+							static OpCode* Blt;
+							//0x4*
+							static OpCode* Bne_Un;
+							static OpCode* Bge_Un;
+							static OpCode* Bgt_Un;
+							static OpCode* Ble_Un;
+							static OpCode* Blt_Un;
+							static OpCode* Switch;
+							static OpCode* Ldind_I1;
+							static OpCode* Ldind_U1;
+							static OpCode* Ldind_I2;
+							static OpCode* Ldind_U2;
+							static OpCode* Ldind_I4;
+							static OpCode* Ldind_U4;
+							static OpCode* Ldind_I8;
+							static OpCode* Ldind_I;
+							static OpCode* Ldind_R4;
+							static OpCode* Ldind_R8;
+							//0x5*
+							static OpCode* Ldind_Ref;
+							static OpCode* Stind_Ref;
+							static OpCode* Stind_I1;
+							static OpCode* Stind_I2;
+							static OpCode* Stind_I4;
+							static OpCode* Stind_I8;
+							static OpCode* Stind_R4;
+							static OpCode* Stind_R8;
+							static OpCode* Add;
+							static OpCode* Sub;
+							static OpCode* Mul;
+							static OpCode* Div;
+							static OpCode* Div_Un;
+							static OpCode* Rem;
+							static OpCode* Rem_Un;
+							static OpCode* And;
+							//0x6*
+							static OpCode* Or;
+							static OpCode* Xor;
+							static OpCode* Shl;
+							static OpCode* Shr;
+							static OpCode* Shr_Un;
+							static OpCode* Neg;
+							static OpCode* Not;
+							static OpCode* Conv_I1;
+							static OpCode* Conv_I2;
+							static OpCode* Conv_I4;
+							static OpCode* Conv_I8;
+							static OpCode* Conv_R4;
+							static OpCode* Conv_R8;
+							static OpCode* Conv_U4;
+							static OpCode* Conv_U8;
+							static OpCode* Callvirt;
+							//0x7*
+							static OpCode* Cpobj;
+							static OpCode* Ldobj;
+							static OpCode* Ldstr;
+							static OpCode* Newobj;
+							static OpCode* Castclass;
+							static OpCode* Isinst;
+							static OpCode* Conv_R_Un;
+							static OpCode* Unbox;
+							static OpCode* Throw;
+							static OpCode* Ldfld;
+							static OpCode* Ldflda;
+							static OpCode* Stfld;
+							static OpCode* Ldsfld;
+							static OpCode* Ldsflda;
+							//0x8*
+							static OpCode* Stsfld;
+							static OpCode* Stobj;
+							static OpCode* Conv_Ovf_I1_Un;
+							static OpCode* Conv_Ovf_I2_Un;
+							static OpCode* Conv_Ovf_I4_Un;
+							static OpCode* Conv_Ovf_I8_Un;
+							static OpCode* Conv_Ovf_U1_Un;
+							static OpCode* Conv_Ovf_U2_Un;
+							static OpCode* Conv_Ovf_U4_Un;
+							static OpCode* Conv_Ovf_U8_Un;
+							static OpCode* Conv_Ovf_I_Un;
+							static OpCode* Conv_Ovf_U_Un;
+							static OpCode* Box;
+							static OpCode* Newarr;
+							static OpCode* Ldlen;
+							static OpCode* Ldelema;
+							//0x9*
+							static OpCode* Ldelem_I1;
+							static OpCode* Ldelem_U1;
+							static OpCode* Ldelem_I2;
+							static OpCode* Ldelem_U2;
+							static OpCode* Ldelem_I4;
+							static OpCode* Ldelem_U4;
+							static OpCode* Ldelem_I8;
+							static OpCode* Ldelem_I;
+							static OpCode* Ldelem_R4;
+							static OpCode* Ldelem_R8;
+							static OpCode* Ldelem_Ref;
+							static OpCode* Stelem_I;
+							static OpCode* Stelem_I1;
+							static OpCode* Stelem_I2;
+							static OpCode* Stelem_I4;
+							static OpCode* Stelem_I8;
+							//0xA*
+							static OpCode* Stelem_R4;
+							static OpCode* Stelem_R8;
+							static OpCode* Stelem_Ref;
+							static OpCode* Ldelem;
+							static OpCode* Stelem;
+							static OpCode* Unbox_Any;
+							//0xB*
+							static OpCode* Conv_Ovf_I1;
+							static OpCode* Conv_Ovf_U1;
+							static OpCode* Conv_Ovf_I2;
+							static OpCode* Conv_Ovf_U2;
+							static OpCode* Conv_Ovf_I4;
+							static OpCode* Conv_Ovf_U4;
+							static OpCode* Conv_Ovf_I8;
+							static OpCode* Conv_Ovf_U8;
+							//0xC*
+							static OpCode* Refanyval;
+							static OpCode* Ckfinite;
+							static OpCode* Mkrefany;
+							//0xD*
+							static OpCode* Ldtoken;
+							static OpCode* Conv_U2;
+							static OpCode* Conv_U1;
+							static OpCode* Conv_I;
+							static OpCode* Conv_Ovf_I;
+							static OpCode* Conv_Ovf_U;
+							static OpCode* Add_Ovf;
+							static OpCode* Add_Ovf_Un;
+							static OpCode* Mul_Ovf;
+							static OpCode* Mul_Ovf_Un;
+							static OpCode* Sub_Ovf;
+							static OpCode* Sub_Ovf_Un;
+							static OpCode* Endfinally;
+							static OpCode* Leave;
+							static OpCode* Leave_S;
+							static OpCode* Stind_I;
+							//0xE*
+							static OpCode* Conv_U;
+							//0xFE*
+							static	OpCode* Arglist;
+							static OpCode* Ceq;
+							static OpCode* Cgt;
+							static OpCode* Cgt_Un;
+							static OpCode* Clt;
+							static OpCode* Clt_Un;
+							static OpCode* Ldftn;
+							static OpCode* Ldvirtftn;
+							static OpCode* Ldarg;
+							static OpCode* Ldarga;
+							static OpCode* Starg;
+							static OpCode* Ldloc;
+							static OpCode* Ldloca;
+							static OpCode* Stloc;
+							static OpCode* Localloc;
+							static OpCode* Endfilter;
+							static OpCode* Unaligned;
+							static OpCode* Volatile;
+							static OpCode* Tailcall;
+							static OpCode* Initobj;
+							static OpCode* Constrained;
+							static OpCode* Cpblk;
+							static OpCode* Initblk;
+							static OpCode* Rethrow;
+							static OpCode* Sizeof;
+							static OpCode* Readonly;
+
+							static OpCode* Read(__byte* data);
+							
+							static OpCode* Define(char* name, __ushort token, __ushort tokenSize, __byte valueSize, GetOpCodeValueSize getValueSize);
+
+						private:
+							static __map<__ushort, OpCode*>* Items;
+					};
+
+// ==================================================================================================================================================
+					struct CHRONOS_DOTNET_API Instruction
+					{
+						OpCode* OpCode;
+						Instruction* Previous;
+						Instruction* Next;
+						__uint ValueSize;
+						union{
+							__byte ByteValue;
+							__ushort ShortValue;
+							__uint IntValue;
+							__ulong LongValue;
+							//just definition of array, it could have bigger size
+							__byte ArrayValue[8];
+						};
+					};
+					
+// ==================================================================================================================================================
+					struct CHRONOS_DOTNET_API ExceptionHandler
+					{
+						CorExceptionFlag Flags;
+						mdToken ClassToken;
+						Instruction* TryBegin;
+						Instruction* TryEnd;
+						Instruction* Filter;
+						Instruction* HandlerBegin;
+						Instruction* HandlerEnd;
+						ExceptionHandler* Next;
+					};
+
+// ==================================================================================================================================================
+					struct CHRONOS_DOTNET_API Method
+					{
+						__uint MaxStack;
+						__uint LocalVarSigTok;
+						Instruction* FrontInstruction;
+						ExceptionHandler* FrontHandler;
+					};
+										
+// ==================================================================================================================================================
+					class CHRONOS_DOTNET_API InstructionManager
+					{
+						public:
+							static Instruction* Alloc();
+							static Instruction* Alloc(__uint valueSize);
+							static void ReleaseChain(Instruction* chain);
+							static Instruction* ByOffset(Instruction* chain, __uint offset);
+							static Instruction* ByOffset(Instruction* chain, __uint offset, __uint length);
+							static __uint GetRangeSize(Instruction* instructionFrom, Instruction* instructionTo);
+							static Instruction* ReadChain(__byte* ilCode, __uint ilCodeSize);
+							static Instruction* Create(OpCode* opCode, __byte* valueData);
+							static Instruction* Create(OpCode* opCode);
+							static Instruction* Create(OpCode* opCode, __byte value);
+							static Instruction* Create(OpCode* opCode, __ushort value);
+							static Instruction* Create(OpCode* opCode, __uint value);
+							static Instruction* Create(OpCode* opCode, __ulong value);
+							static __uint GetChainSize(Instruction* instruction);
+							static __uint WriteTo(Instruction* instruction, __byte* data);
+							static __uint WriteChainTo(Instruction* instruction, __byte* data);
+							static __uint GetOffset(Instruction* instruction);
+							static Instruction* GetChainFront(Instruction* chain);
+							static Instruction* GetChainFinal(Instruction* instruction);
+							static Instruction* InsertChainBefore(Instruction* instruction, Instruction* chain);
+						private:
+							static void Release(Instruction* instruction);
+							static __uint GetSize(Instruction* instruction);
+							static Instruction* Read(__byte* ilCode);
+
+					};
+					class CHRONOS_DOTNET_API ExceptionHandlerManager
+					{
+						public:
+							static ExceptionHandler* Alloc();
+							static void Release(ExceptionHandler* handler);
+							static void ReleaseChain(ExceptionHandler* chain);
+							static ExceptionHandler* ReadChain(const COR_ILMETHOD_SECT* ilSection, Instruction* instructionChain);
+							static __uint GetChainSize(ExceptionHandler* chain);
+							static __uint GetChainCount(ExceptionHandler* chain);
+							static void WriteChainTo(ExceptionHandler* chain, __byte* ilSection);
+						private:
+							static ExceptionHandler* ReadChainSmall(COR_ILMETHOD_SECT_EH_SMALL* ilSection, Instruction* instructionChain);
+							static ExceptionHandler* ReadChainFat(COR_ILMETHOD_SECT_EH_FAT* ilSection, Instruction* instructionChain);
+							static ExceptionHandler* ReadSmall(IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL* ilClause, Instruction* instructionChain);
+							static ExceptionHandler* ReadFat(IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT* ilClause, Instruction* instructionChain);
+							static __uint WriteTo(ExceptionHandler* handler, __byte* ilClauseData);
+					};
+					class CHRONOS_DOTNET_API MethodManager
+					{
+						public:
+							static Method* Alloc();
+							static void Release(Method* method);
+							static Method* Read(IMAGE_COR_ILMETHOD* ilMethod);
+							static __uint GetSize(Method* method);
+							static void WriteTo(Method* method, BYTE* methodData);
+						private:
+							static Method* ReadTiny(COR_ILMETHOD_TINY* ilMethod);
+							static Method* ReadFat(COR_ILMETHOD_FAT* ilMethod);
+							static __uint AlignCodeSize(__uint size);
+							//void InsertBefore(Instruction* instruction, Instruction* chain);
+					};
+				}
+
 			}
 
 // APPLICATION DOMAIN EVENTS ------------------------------------------------------------------------------------------------------------------------
@@ -823,7 +1227,7 @@ namespace Chronos
 			};
 
 // ==================================================================================================================================================
-			class CHRONOS_DOTNET_API FunctionsJitEvents
+			class CHRONOS_DOTNET_API FunctionJitEvent
 			{
 				private:
 					class FunctionCollection
@@ -860,8 +1264,8 @@ namespace Chronos
 					};
 
 				public:
-					FunctionsJitEvents(__string assemblyName, __string className, __vector<__string> functions, ICallback* callback);
-					~FunctionsJitEvents();
+					FunctionJitEvent(__string assemblyName, __string className, __string functionName, __vector<__string> arguments, ICallback* callback);
+					~FunctionJitEvent();
 					void Initialize(RuntimeProfilingEvents* profilingEvents, Reflection::RuntimeMetadataProvider* metadataProvider);
 					void Subscribe();
 					
@@ -874,11 +1278,12 @@ namespace Chronos
 				private:
 					__string* _assemblyName;
 					__string* _className;
-					__vector<__string>* _functions;
+					__string* _functionName;
+					__vector<__string>* _arguments;
 					AssemblyCollection* _assemblies;
 					ICallback* _callback;
 					Reflection::RuntimeMetadataProvider* _metadataProvider;
-					ProfilingEventsSubscription<FunctionsJitEvents>* _subscription;
+					ProfilingEventsSubscription<FunctionJitEvent>* _subscription;
 			};
 
 // ==================================================================================================================================================
@@ -914,19 +1319,20 @@ namespace Chronos
 					HRESULT ExportServices(ServiceContainer* container);
 					HRESULT ImportServices(ServiceContainer* container);
 					HRESULT EndInitialize();
+					HRESULT SubscribeEvents();
+					HRESULT FlushData();
 					const static __guid FrameworkUid;
 				private:
 					Reflection::RuntimeMetadataProvider* _metadataProvider;
 					RuntimeProfilingEvents* _profilingEvents;
 					FrameworkSettings* _frameworkSettings;
 			};
-
-
+			
 // ==================================================================================================================================================
-			class MethodInjector
+			class CHRONOS_DOTNET_API MethodInjector
 			{
 				public:
-					MethodInjector(ICorProfilerInfo2* corProfilerInfo2);
+					MethodInjector(Reflection::RuntimeMetadataProvider* metadataProvider);
 					~MethodInjector();
 					HRESULT Initialize(ModuleID moduleId, std::wstring pinvokeModuleName, std::wstring injectedClassName, std::wstring prologMethodName, std::wstring epilogMethodName);
 					HRESULT InjectByToken(mdMethodDef methodToken);
@@ -934,7 +1340,7 @@ namespace Chronos
 				private:
 					mdMethodDef _prologMethod;
 					mdMethodDef _epilogMethod;
-					ICorProfilerInfo2* _corProfilerInfo2;
+					Reflection::RuntimeMetadataProvider* _metadataProvider;
 					IMethodMalloc* _methodAlloc;
 					ModuleID _moduleId;
 			};

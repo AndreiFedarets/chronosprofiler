@@ -67,7 +67,7 @@ namespace Chronos
 
 					private:
 						MsSqlQueryCollection* _msSqlQueries;
-						FunctionsJitEvents* _jitEvents;
+						FunctionJitEvent* _jitEvents;
 						ProfilingTimer* _profilingTimer;
 						Reflection::RuntimeMetadataProvider* _metadataProvider;
 						GatewayClient* _gatewayClient;

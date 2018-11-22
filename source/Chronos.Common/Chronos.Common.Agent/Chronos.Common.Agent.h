@@ -24,6 +24,8 @@ namespace Chronos
 					HRESULT ExportServices(ServiceContainer* container);
 					HRESULT ImportServices(ServiceContainer* container);
 					HRESULT EndInitialize();
+					HRESULT SubscribeEvents();
+					HRESULT FlushData();
 					const static __guid FrameworkUid;
 			};
 
