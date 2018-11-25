@@ -42,7 +42,7 @@ namespace Chronos
 
 					void InstructionManager::ReleaseChain(Instruction* instruction)
 					{
-						instruction = GetChainFront(instruction);
+						instruction = MoveToFront(instruction);
 						while (instruction != null)
 						{
 							Instruction* temp = instruction;
@@ -73,14 +73,14 @@ namespace Chronos
 						{
 							previous = current;
 							current = Read(ilCode);
-							ilCode += GetSize(current);
+							ilCode += current->GetSize();
 							current->Previous = previous;
 							if (previous != null)
 							{
 								previous->Next = current;
 							}
 						}
-						current = GetChainFront(current);
+						current = MoveToFront(current);
 						return current;
 					}
 
@@ -107,6 +107,12 @@ namespace Chronos
 						return Create(opCode, (__byte*)&value);
 					}
 
+					Instruction* InstructionManager::Create(OpCode* opCode)
+					{
+						__ulong dummy = 0;
+						return Create(opCode, (__byte*)&dummy);
+					}
+
 					Instruction* InstructionManager::Create(OpCode* opCode, __ushort value)
 					{
 						return Create(opCode, (__byte*)&value);
@@ -122,24 +128,34 @@ namespace Chronos
 						return Create(opCode, (__byte*)&value);
 					}
 
-					__uint InstructionManager::GetSize(Instruction* instruction)
+					/*__uint InstructionManager::GetSize(Instruction* instruction)
 					{
 						__uint size = instruction->OpCode->TokenSize + instruction->ValueSize;
-						return size;
-					}
+						return instruction->;
+					}*/
 
 					__uint InstructionManager::WriteTo(Instruction* instruction, __byte* data)
 					{
 						OpCode* opCode = instruction->OpCode;
-						memcpy(data, (__byte*)&opCode->Token, opCode->TokenSize);
-						data += opCode->TokenSize;
+						if (opCode->TokenSize == 1)
+						{
+							memcpy(data, (__byte*)&opCode->TokenData[0], sizeof(__byte));
+							data += sizeof(__byte);
+						}
+						else
+						{
+							memcpy(data, (__byte*)&opCode->TokenData[1], sizeof(__byte));
+							data += sizeof(__byte);
+							memcpy(data, (__byte*)&opCode->TokenData[0], sizeof(__byte));
+							data += sizeof(__byte);
+						}
 						memcpy(data, (__byte*)&instruction->ArrayValue, instruction->ValueSize);
-						return GetSize(instruction);
+						return instruction->GetSize();
 					}
 
 					__uint InstructionManager::WriteChainTo(Instruction* instruction, __byte* data)
 					{
-						__byte chainSize = 0;
+						__uint chainSize = 0;
 						while (instruction != null)
 						{
 							chainSize += WriteTo(instruction, data + chainSize);
@@ -158,7 +174,7 @@ namespace Chronos
 						while (instruction->Previous != null)
 						{
 							instruction = instruction->Previous;
-							offset += GetSize(instruction);
+							offset += instruction->GetSize();
 						}
 						return offset;
 					}
@@ -166,7 +182,7 @@ namespace Chronos
 					Instruction* InstructionManager::ByOffset(Instruction* chain, __uint offset)
 					{
 						Instruction* target = null;
-						Instruction* current = GetChainFront(chain);
+						Instruction* current = MoveToFront(chain);
 						while (current != null)
 						{
 							if (offset == 0)
@@ -174,7 +190,7 @@ namespace Chronos
 								target = current;
 								break;
 							}
-							offset -= GetSize(current);
+							offset -= current->GetSize();
 							current = current->Next;
 						}
 						return target;
@@ -184,10 +200,10 @@ namespace Chronos
 					{
 						offset += length;
 						Instruction* target = null;
-						Instruction* current = GetChainFront(chain);
+						Instruction* current = MoveToFront(chain);
 						while (current != null)
 						{
-							offset -= GetSize(current);
+							offset -= current->GetSize();
 							if (offset == 0)
 							{
 								target = current;
@@ -203,29 +219,29 @@ namespace Chronos
 						__uint size = 0;
 						while (instructionFrom != instructionTo && instructionFrom != null)
 						{
-							size += GetSize(instructionFrom);
+							size += instructionFrom->GetSize();
 							instructionFrom = instructionFrom->Next;
 						}
 						if (instructionFrom != null)
 						{
-							size += GetSize(instructionFrom);
+							size += instructionFrom->GetSize();
 						}
 						return size;
 					}
 
 					__uint InstructionManager::GetChainSize(Instruction* instruction)
 					{
-						instruction = GetChainFront(instruction);
+						instruction = MoveToFront(instruction);
 						__uint size = 0;
 						while (instruction != null)
 						{
-							size += GetSize(instruction);
+							size += instruction->GetSize();
 							instruction = instruction->Next;
 						}
 						return size;
 					}
 
-					Instruction* InstructionManager::GetChainFront(Instruction* instruction)
+					Instruction* InstructionManager::MoveToFront(Instruction* instruction)
 					{
 						if (instruction == null)
 						{
@@ -238,7 +254,7 @@ namespace Chronos
 						return instruction;
 					}
 
-					Instruction* InstructionManager::GetChainFinal(Instruction* instruction)
+					Instruction* InstructionManager::MoveToFinal(Instruction* instruction)
 					{
 						if (instruction == null)
 						{
@@ -253,8 +269,8 @@ namespace Chronos
 
 					Instruction* InstructionManager::InsertChainBefore(Instruction* instruction, Instruction* chain)
 					{
-						Instruction* chainFront = InstructionManager::GetChainFront(chain);
-						Instruction* chainFinal = InstructionManager::GetChainFinal(chain);
+						Instruction* chainFront = InstructionManager::MoveToFront(chain);
+						Instruction* chainFinal = InstructionManager::MoveToFinal(chain);
 
 						Instruction* instructionAfter = instruction->Previous;
 						Instruction* instructionBefore = instruction;
@@ -270,7 +286,49 @@ namespace Chronos
 							chainFinal->Next = instructionBefore;
 						}
 
-						return GetChainFront(chainFront);
+						return chainFront;
+					}
+
+					Instruction* InstructionManager::InsertChainAfter(Instruction* instruction, Instruction* chain)
+					{
+						Instruction* chainFront = InstructionManager::MoveToFront(chain);
+						Instruction* chainFinal = InstructionManager::MoveToFinal(chain);
+
+						Instruction* instructionAfter = instruction;
+						Instruction* instructionBefore = instruction->Next;
+
+						if (instructionAfter != null)
+						{
+							instructionAfter->Next = chainFront;
+							chainFront->Previous = instructionAfter;
+						}
+						if (instructionBefore != null)
+						{
+							instructionBefore->Previous = chainFinal;
+							chainFinal->Next = instructionBefore;
+						}
+
+						return chainFinal;
+					}
+
+					Instruction* InstructionManager::LookForward(Instruction* startFrom, OpCode* targetOpCode)
+					{
+						Instruction* current = startFrom;
+						while (current != null && current->OpCode != targetOpCode)
+						{
+							current = current->Next;
+						}
+						return current;
+					}
+
+					Instruction* InstructionManager::LookBackward(Instruction* startFrom, OpCode* targetOpCode)
+					{
+						Instruction* current = startFrom;
+						while (current != null && current->OpCode != targetOpCode)
+						{
+							current = current->Previous;
+						}
+						return current;
 					}
 				}
 			}

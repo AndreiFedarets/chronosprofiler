@@ -99,8 +99,8 @@ namespace Chronos
 
 					ICorProfilerInfo2* profilerInfo = null;
 					_metadataProvider->GetCorProfilerInfo2(&profilerInfo);
-					MethodInjector* injector = new MethodInjector(_metadataProvider);
-					injector->Initialize(moduleId, L"Chronos.DotNet.SqlProfiler.Agent.dll", L"SQLHOOK", L"BeginSqlQuery", L"EndSqlQuery");
+					MethodInjector* injector = new MethodInjector();
+					injector->Initialize(_metadataProvider, moduleId, L"Chronos.DotNet.SqlProfiler.Agent.dll", L"SQLHOOK", L"BeginSqlQuery", L"EndSqlQuery");
 					injector->InjectById(temp->FunctionId);
 				}
 			}

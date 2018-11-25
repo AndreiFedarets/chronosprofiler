@@ -28,6 +28,7 @@
 #define __guid GUID
 #define __uptr UINT_PTR
 #define __vector std::vector
+#define __map std::map
 #define null 0
 
 #pragma once
@@ -287,6 +288,8 @@ namespace Chronos
 				static __string ConvertGuidToString(__guid value);
 				static __string ConvertGuidToString(__guid value, __wchar code);
 				static __string ConvertIntToString(__int value);
+				static __string ConvertLongToString(__ulong value);
+				static std::string ConvertStringToStringA(__string value);
 		};
 
 // ==================================================================================================================================================

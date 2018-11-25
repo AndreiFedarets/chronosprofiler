@@ -9,8 +9,10 @@ namespace SqlConsole
 {
     class Program
     {
-        [DllImport("advapi32.dll")]
-        private static extern void Test22();
+        private static void Test22()
+        {
+            
+        }
 
         static void Main(string[] args)
         {
@@ -18,7 +20,7 @@ namespace SqlConsole
             Console.ReadKey();
             try
             {
-                Empty();
+               Empty();
                 //Test();
             }
             catch (Exception e)
@@ -47,30 +49,32 @@ namespace SqlConsole
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void Empty()
+        public static Exception Empty()
         {
-            //throw new Exception();
-            try
-            {
-                throw new NullReferenceException("Null-reference");
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-            finally
-            {
-                Console.WriteLine("Empty_finally");
-            }
-            //int i = 0;
-            //int j = 0;
-            //Random random = new Random(999);
-            //i = random.Next();
-            //j = random.Next();
-            //Console.WriteLine(i);
-            //Console.WriteLine(j);
-            //Test22();
-            //Console.WriteLine("Hello");
+            //try
+            //{
+            //    Test22();
+            int i = 0;
+                try
+                {
+                    throw new NullReferenceException("Null-reference");
+                }
+                catch (Exception e)
+                {
+                    i = 5;
+                    Console.WriteLine(e);
+                }
+                finally
+                {
+                    i = 10;
+                    Console.WriteLine("Empty_finally");
+                }
+            //}
+            //finally
+            //{
+            //    Test22();   
+            //}
+            return new Exception();
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]

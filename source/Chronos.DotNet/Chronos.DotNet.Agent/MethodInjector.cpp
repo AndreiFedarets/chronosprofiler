@@ -8,59 +8,63 @@ namespace Chronos
 	{
 		namespace DotNet
 		{
-			MethodInjector::MethodInjector(Reflection::RuntimeMetadataProvider* metadataProvider)
+			MethodInjector::MethodInjector()
 			{
-				_metadataProvider = metadataProvider;
+				_metadataEmit = null;
+				_metadataImport = null;
+				_methodAlloc = null;
+				_corProfilerInfo = null;
 			}
 
 			MethodInjector::~MethodInjector()
 			{
+				if (_metadataEmit != null)
+				{
+					_metadataEmit->Release();
+				}
+				if (_metadataImport != null)
+				{
+					_metadataImport->Release();
+				}
+				if (_methodAlloc != null)
+				{
+					_methodAlloc->Release();
+				}
 			}
 
-			HRESULT MethodInjector::Initialize(ModuleID moduleId, std::wstring pinvokeModuleName, std::wstring injectedClassName, std::wstring prologMethodName, std::wstring epilogMethodName)
+			HRESULT MethodInjector::Initialize(Reflection::RuntimeMetadataProvider* metadataProvider, ModuleID moduleId, std::wstring pinvokeModuleName, std::wstring injectedClassName, std::wstring prologMethodName, std::wstring epilogMethodName)
 			{
 				_moduleId = moduleId;
-				HRESULT result;
 
-				ICorProfilerInfo3* corProfilerInfo = null;
-				result = _metadataProvider->GetCorProfilerInfo3(&corProfilerInfo);
-				__RETURN_IF_FAILED(result);
+				__RETURN_IF_FAILED(_initializeResult = metadataProvider->GetCorProfilerInfo2(&_corProfilerInfo));
+				__RETURN_IF_FAILED(_initializeResult = _corProfilerInfo->GetILFunctionBodyAllocator(moduleId, &_methodAlloc));
+				__RETURN_IF_FAILED(_initializeResult = _corProfilerInfo->GetModuleMetaData(moduleId, ofRead | ofWrite, IID_IMetaDataEmit, (IUnknown**)&_metadataEmit));
+				__RETURN_IF_FAILED(_initializeResult = _corProfilerInfo->GetModuleMetaData(_moduleId, ofRead | ofWrite, IID_IMetaDataImport, (IUnknown **)&_metadataImport));
 
-				result = corProfilerInfo->GetILFunctionBodyAllocator(moduleId, &_methodAlloc);
-				__RETURN_IF_FAILED(result);
+				IMetaDataAssemblyEmit* assemblyEmit = null;
+				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->QueryInterface(IID_IMetaDataAssemblyEmit, (void**)&assemblyEmit));
 
-				IMetaDataEmit* metaEmit;
-				result = corProfilerInfo->GetModuleMetaData(moduleId, ofRead | ofWrite, IID_IMetaDataEmit, (IUnknown**)&metaEmit);
-				__RETURN_IF_FAILED(result);
-
-				IMetaDataAssemblyEmit* asmEmit;
-				result = metaEmit->QueryInterface(IID_IMetaDataAssemblyEmit, (void**)&asmEmit);
-				__RETURN_IF_FAILED(result);
-
+				IMetaDataAssemblyImport* assemblyImport = null;
+				__RETURN_IF_FAILED(_initializeResult = _corProfilerInfo->GetModuleMetaData(moduleId, ofRead, IID_IMetaDataAssemblyImport, (IUnknown**)&assemblyImport));
 
 				BYTE* publicKeyToken = null;
 				ULONG publicKeyTokenSize = 0;
 
-				IMetaDataAssemblyImport* assemblyImport = null;
-				corProfilerInfo->GetModuleMetaData(moduleId, ofRead, IID_IMetaDataAssemblyImport, (IUnknown**)&assemblyImport);
-
 				HCORENUM hEnumAssembly = NULL;
 				mdAssemblyRef rgAssemblyRefs[32]{ 0 };
 				ULONG numberOfTokens = 0;
-				result = assemblyImport->EnumAssemblyRefs(&hEnumAssembly, rgAssemblyRefs, _countof(rgAssemblyRefs),	&numberOfTokens);
-				__RETURN_IF_FAILED(result);
+				__RETURN_IF_FAILED(_initializeResult = assemblyImport->EnumAssemblyRefs(&hEnumAssembly, rgAssemblyRefs, _countof(rgAssemblyRefs), &numberOfTokens));
 
-
-				wchar_t assemblyRefNameBuffer[255] { 0 };
-				ULONG numChars = 0;
-				char* hashVal = NULL;
-				ULONG hashLen = 0;
-				DWORD flags = 0;
-				ASSEMBLYMETADATA amd2{ 0 };
 				for (size_t i = 0; i < numberOfTokens; i++)
 				{
-					result = assemblyImport->GetAssemblyRefProps(rgAssemblyRefs[i], (const void**)&publicKeyToken, &publicKeyTokenSize, assemblyRefNameBuffer, _countof(assemblyRefNameBuffer), &numChars, &amd2, (const void**)&hashVal, &hashLen, &flags);
-					if (SUCCEEDED(result) && __string(L"mscorlib").compare(assemblyRefNameBuffer) == 0)
+					wchar_t assemblyName[255] { 0 };
+					ULONG assemblyNameLength = 0;
+					char* hashValue = null;
+					ULONG hashLength = 0;
+					DWORD flags = 0;
+					ASSEMBLYMETADATA assemblyMetadata{ 0 };
+					HRESULT result = assemblyImport->GetAssemblyRefProps(rgAssemblyRefs[i], (const void**)&publicKeyToken, &publicKeyTokenSize, assemblyName, _countof(assemblyName), &assemblyNameLength, &assemblyMetadata, (const void**)&hashValue, &hashLength, &flags);
+					if (SUCCEEDED(result) && __string(L"mscorlib").compare(assemblyName) == 0)
 					{
 						break;
 					}
@@ -69,20 +73,16 @@ namespace Chronos
 
 				ASSEMBLYMETADATA amd = {0};
 				mdAssemblyRef mscorlibToken;
-				result = asmEmit->DefineAssemblyRef(publicKeyToken, publicKeyTokenSize, L"mscorlib", &amd, null, 0, 0, &mscorlibToken);
-				__RETURN_IF_FAILED(result);
+				__RETURN_IF_FAILED(_initializeResult = assemblyEmit->DefineAssemblyRef(publicKeyToken, publicKeyTokenSize, L"mscorlib", &amd, null, 0, 0, &mscorlibToken));
 
 				mdModuleRef pinvokeModule;
-				result = metaEmit->DefineModuleRef(pinvokeModuleName.c_str(), &pinvokeModule);
-				__RETURN_IF_FAILED(result);
+				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->DefineModuleRef(pinvokeModuleName.c_str(), &pinvokeModule));
 
 				mdTypeDef sysObjectToken;
-				result = metaEmit->DefineTypeRefByName(mscorlibToken, L"System.Object", &sysObjectToken);
-				__RETURN_IF_FAILED(result);
+				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->DefineTypeRefByName(mscorlibToken, L"System.Object", &sysObjectToken));
 
 				mdTypeDef injectedClassToken;
-				result = metaEmit->DefineTypeDef(injectedClassName.c_str(), tdAbstract|tdSealed, sysObjectToken, null, &injectedClassToken);
-				__RETURN_IF_FAILED(result);
+				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->DefineTypeDef(injectedClassName.c_str(), tdAbstract | tdSealed, sysObjectToken, null, &injectedClassToken));
 
 				//prologMethod ===============================================
 				//BYTE prologMethodSignature[] = {
@@ -96,12 +96,10 @@ namespace Chronos
 					0,                             // Argument count
 					ELEMENT_TYPE_VOID              // Return type
 				};
-				result = metaEmit->DefineMethod(injectedClassToken, prologMethodName.c_str(), mdPublic|mdStatic|mdPinvokeImpl, prologMethodSignature,
-					                           sizeof(prologMethodSignature), 0, miIL|miManaged|miPreserveSig, &_prologMethod);
-				__RETURN_IF_FAILED(result);
+				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->DefineMethod(injectedClassToken, prologMethodName.c_str(), mdPublic | mdStatic | mdPinvokeImpl, prologMethodSignature,
+					                           sizeof(prologMethodSignature), 0, miIL|miManaged|miPreserveSig, &_prologMethod));
 
-				result = metaEmit->DefinePinvokeMap(_prologMethod, 0, prologMethodName.c_str(), pinvokeModule);
-				__RETURN_IF_FAILED(result);
+				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->DefinePinvokeMap(_prologMethod, 0, prologMethodName.c_str(), pinvokeModule));
 
 				/*mdParamDef prologMethodParam;
 				result = metaEmit->DefineParam(_prologMethod, 1, L"arg0", pdIn|pdHasFieldMarshal, 0, NULL, 0, &prologMethodParam);
@@ -118,29 +116,19 @@ namespace Chronos
 					0,                             // Argument count
 					ELEMENT_TYPE_VOID              // Return type
 					};
-				result = metaEmit->DefineMethod(injectedClassToken, epilogMethodName.c_str(), mdPublic|mdStatic|mdPinvokeImpl, epilogMethodSignature,
-					                           sizeof(epilogMethodSignature), 0, miIL|miManaged|miPreserveSig, &_epilogMethod);
-				__RETURN_IF_FAILED(result);
+				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->DefineMethod(injectedClassToken, epilogMethodName.c_str(), mdPublic | mdStatic | mdPinvokeImpl, epilogMethodSignature,
+					                           sizeof(epilogMethodSignature), 0, miIL|miManaged|miPreserveSig, &_epilogMethod));
 
-				result = metaEmit->DefinePinvokeMap(_epilogMethod, 0, epilogMethodName.c_str(), pinvokeModule);
-				__RETURN_IF_FAILED(result);
+				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->DefinePinvokeMap(_epilogMethod, 0, epilogMethodName.c_str(), pinvokeModule));
 
 				return S_OK;
 			}
 
 			HRESULT MethodInjector::InjectById(FunctionID functionId)
 			{
-				HRESULT result;
-
-				ICorProfilerInfo3* corProfilerInfo = null;
-				result = _metadataProvider->GetCorProfilerInfo3(&corProfilerInfo);
-				__RETURN_IF_FAILED(result);
-
 				ModuleID moduleId;
 				mdMethodDef methodToken;
-				result = corProfilerInfo->GetFunctionInfo(functionId, 0, &moduleId, &methodToken);
-				__RETURN_IF_FAILED(result);
-
+				__RETURN_IF_FAILED(_corProfilerInfo->GetFunctionInfo(functionId, 0, &moduleId, &methodToken));
 				return InjectByToken(methodToken);
 			}
 
@@ -148,243 +136,60 @@ namespace Chronos
 			{
 				IMAGE_COR_ILMETHOD* originalMethod = null;
 				ULONG originalMethodSize = 0;
-				HRESULT result;
 
-				ICorProfilerInfo3* corProfilerInfo = null;
-				result = _metadataProvider->GetCorProfilerInfo3(&corProfilerInfo);
-				__RETURN_IF_FAILED(result);
+				__RETURN_IF_FAILED(_corProfilerInfo->GetILFunctionBody(_moduleId, methodToken, (LPCBYTE*)&originalMethod, &originalMethodSize));
 
-				result = corProfilerInfo->GetILFunctionBody(_moduleId, methodToken, (LPCBYTE*)&originalMethod, &originalMethodSize);
-				__RETURN_IF_FAILED(result);
-
+				PCCOR_SIGNATURE corSignature;
+				ULONG corSignatureSize;
+				__RETURN_IF_FAILED(_metadataImport->GetMethodProps(methodToken, 0, 0, 0, 0, 0, &corSignature, &corSignatureSize, 0, 0));
 				
 				Reflection::Emit::Method* method = Reflection::Emit::MethodManager::Read(originalMethod);
+				Reflection::Emit::Signature* argSignature = Reflection::Emit::SignatureManager::Read(corSignature);
+				Reflection::Emit::Signature* localSignature = Reflection::Emit::SignatureManager::Read(method->LocalVarSigTok, _metadataImport);
+				__byte localIndex = Reflection::Emit::SignatureManager::InsertElement(localSignature, argSignature->Front);
 
-				//Reflection::Emit::Instruction* prolog = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Call, _prologMethod);
-				//Reflection::Emit::Instruction* instruction = method->FrontInstruction;
-				//method->InsertBefore(instruction, prolog);
-				//Reflection::Emit::Instruction* epilog = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Call, _epilogMethod);
+				mdSignature localVarSigTok = Reflection::Emit::SignatureManager::Write(localSignature, _metadataEmit);
+				method->LocalVarSigTok = localVarSigTok;
+
+				//Reflection::Emit::MethodManager::WriteDebug(method);
+				//Insert prolog
+				{
+					Reflection::Emit::Instruction* prologCall = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Call, _prologMethod);
+					Reflection::Emit::MethodManager::InsertChainBefore(method, method->FrontInstruction, prologCall);
+				}
+				//Insert epilog
+				{
+					//NOTE: method could have many RET instructions (e.g. in SWITCH). TODO: handle this case
+					Reflection::Emit::Instruction* finalInstruction = Reflection::Emit::InstructionManager::MoveToFinal(method->FrontInstruction);
+					Reflection::Emit::Instruction* returnInstruction = Reflection::Emit::InstructionManager::LookBackward(finalInstruction, Reflection::Emit::OpCodes::Ret);
+					Reflection::Emit::Instruction* insertAfterInstruction = null;
+					if (returnInstruction == null)
+					{
+						returnInstruction = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Ret);
+						finalInstruction = Reflection::Emit::MethodManager::InsertChainAfter(method, finalInstruction, returnInstruction);
+					}
+					insertAfterInstruction = returnInstruction->Previous;
+
+					Reflection::Emit::Instruction* setLocalInstruction = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Stloc_S, localIndex);
+					insertAfterInstruction = Reflection::Emit::MethodManager::InsertChainAfter(method, insertAfterInstruction, setLocalInstruction);
+
+					Reflection::Emit::Instruction* epilogCall = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Call, _epilogMethod);
+					insertAfterInstruction = Reflection::Emit::MethodManager::InsertChainAfter(method, insertAfterInstruction, epilogCall);
+
+					Reflection::Emit::Instruction* loadLocalInstruction = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Ldloc_S, localIndex);
+					insertAfterInstruction = Reflection::Emit::MethodManager::InsertChainAfter(method, insertAfterInstruction, loadLocalInstruction);
+					
+					Reflection::Emit::ExceptionHandlerManager::DefineTryFinally(method, method->FrontInstruction, epilogCall->Previous, epilogCall, epilogCall);
+				}
+
+				//Reflection::Emit::MethodManager::WriteDebug(method);
 
 				__uint copyMethodSize = Reflection::Emit::MethodManager::GetSize(method);
 				BYTE* copyMethodData = (BYTE*)_methodAlloc->Alloc(copyMethodSize);
 				Reflection::Emit::MethodManager::WriteTo(method, copyMethodData);
-				corProfilerInfo->SetILFunctionBody(_moduleId, methodToken, copyMethodData);
+				__RETURN_IF_FAILED(_corProfilerInfo->SetILFunctionBody(_moduleId, methodToken, copyMethodData));
 
 				Reflection::Emit::MethodManager::Release(method);
-
-				//#include <pshpack1.h>
-				//struct { BYTE call; DWORD method_token; } prologCode;
-				//struct { BYTE leave_s; BYTE leave_s_delta; } preEpilogCode;
-				//struct { BYTE call; DWORD method_token; BYTE endfinally; } epilogCode;
-				//#include <poppack.h>
-
-				//prologCode.call = Reflection::Emit::OpCodes::Call->Token;
-				//prologCode.method_token = _prologMethod;
-
-				//preEpilogCode.leave_s = Reflection::Emit::OpCodes::Leave_S->Token;
-				//preEpilogCode.leave_s_delta = sizeof(epilogCode);
-
-				//epilogCode.call = Reflection::Emit::OpCodes::Call->Token;
-				//epilogCode.method_token = _epilogMethod;
-				//epilogCode.endfinally = Reflection::Emit::OpCodes::Endfinally->Token;
-
-				//method->InsertBegin((__byte*)&prologCode, sizeof(prologCode));
-				//method->InsertEnd((__byte*)&preEpilogCode, sizeof(preEpilogCode));
-				//method->InsertEnd((__byte*)&epilogCode, sizeof(epilogCode));
-
-				//Reflection::Emit::MethodExceptionSection* section = method->GetOrCreateExceptionSection();
-				//__byte lastOpCode = method->GetLastOpCode();
-				//__uint tryOffset = 0;
-				//__uint tryLength = method->CodeSize - sizeof(epilogCode);
-				//if (lastOpCode == Reflection::Emit::OpCodes::Ret->Token || lastOpCode == Reflection::Emit::OpCodes::Throw->Token)
-				//{
-				//	tryLength--;
-				//}
-				//__uint handlerOffset = tryOffset + tryLength;
-				//__uint handlerLength = sizeof(epilogCode);
-				//section->AddFinally(tryOffset, tryLength, handlerOffset, handlerLength);
-
-				//__uint copyMethodSize = method->GetFullSize();
-				//BYTE* copyMethodData = (BYTE*)_methodAlloc->Alloc(copyMethodSize);
-				//method->Copy(copyMethodData);
-				//corProfilerInfo->SetILFunctionBody(_moduleId, methodToken, copyMethodData);
-				
-
-
-
-
-
-
-
-				//IMAGE_COR_ILMETHOD* newMethod = (IMAGE_COR_ILMETHOD*) _methodAlloc->Alloc(methodSize + injectedCodeSize);
-				//if (newMethod == null)
-				//{
-				//	return E_FAIL;
-				//}
-				//COR_ILMETHOD_FAT* newFatImage = (COR_ILMETHOD_FAT*)&newMethod->Fat;
-				////Write header
-				//memcpy((BYTE*)newFatImage, (BYTE*)originalFatMethod, originalFatMethod->Size * sizeof(DWORD));
-				//	
-				//BYTE* code = newFatImage->GetCode();
-				////Write prolog code
-				//memcpy(code, (BYTE*)&prologCode, sizeof(prologCode));
-				//code += sizeof(prologCode);
-
-				////Write old code
-				//memcpy(code, originalFatMethod->GetCode(), originalFatMethod->CodeSize);
-				//code += originalFatMethod->CodeSize;
-
-				////Write epilog code
-				//memcpy(code, (BYTE*)&epilogCode, sizeof(epilogCode));
-				//code += sizeof(epilogCode);
-
-				//newFatImage->CodeSize += injectedCodeSize;
-
-				//_corProfilerInfo2->SetILFunctionBody(_moduleId, methodToken, (LPCBYTE)newMethod);
-				//-----------------------------------------------------------------------------------------------
-				//if (originalFatMethod->IsFat())
-				//{
-				//	IMAGE_COR_ILMETHOD* newMethod = (IMAGE_COR_ILMETHOD*) _methodAlloc->Alloc(methodSize + injectedCodeSize);
-				//	if (newMethod == null)
-				//	{
-				//		return E_FAIL;
-				//	}
-				//	COR_ILMETHOD_FAT* newFatImage = (COR_ILMETHOD_FAT*)&newMethod->Fat;
-				//	//Write header
-				//	memcpy((BYTE*)newFatImage, (BYTE*)originalFatMethod, originalFatMethod->Size * sizeof(DWORD));
-				//	
-				//	BYTE* code = newFatImage->GetCode();
-				//	//Write prolog code
-				//	memcpy(code, (BYTE*)&prologCode, sizeof(prologCode));
-				//	code += sizeof(prologCode);
-
-				//	//Write old code
-				//	memcpy(code, originalFatMethod->GetCode(), originalFatMethod->CodeSize);
-				//	code += originalFatMethod->CodeSize;
-
-				//	//Write epilog code
-				//	memcpy(code, (BYTE*)&epilogCode, sizeof(epilogCode));
-				//	code += sizeof(epilogCode);
-
-				//	newFatImage->CodeSize += injectedCodeSize;
- 
-				//	_corProfilerInfo2->SetILFunctionBody(_moduleId, methodToken, (LPCBYTE)newMethod);
-				//}
-				//else
-				//{
-				//	if (originalTinyMethod->GetCodeSize() + injectedCodeSize < 64)
-				//	{
-				//		IMAGE_COR_ILMETHOD* modifiedMethod = (IMAGE_COR_ILMETHOD*)_methodAlloc->Alloc(methodSize + sizeof(epilogCode) + sizeof(prologCode));
-				//		if (modifiedMethod == null)
-				//		{
-				//			return E_FAIL;
-				//		}
-				//		COR_ILMETHOD_TINY* modifiedTinyMethod = (COR_ILMETHOD_TINY*)&modifiedMethod->Tiny;
-
-				//		//Write header
-				//		memcpy((BYTE*)modifiedTinyMethod, (BYTE*)originalTinyMethod, sizeof(COR_ILMETHOD_TINY));
-
-				//		//Get code
-				//		BYTE* originalCode = originalTinyMethod->GetCode();
-				//		BYTE* modifiedCode = modifiedTinyMethod->GetCode();
-				//		__byte originalCodeSize = originalTinyMethod->GetCodeSize();
-				//		BYTE retCode = 0x2A;
-				//		__bool endsWithRet = (originalCode[originalCodeSize - 1] == retCode);
-
-				//		//Write prolog code
-				//		memcpy(modifiedCode, (BYTE*)&prologCode, sizeof(prologCode));
-				//		modifiedCode += sizeof(prologCode);
-
-				//		if (endsWithRet)
-				//		{
-				//			//Write old code (without last opcode RET)
-				//			memcpy(modifiedCode, originalCode, originalCodeSize - 1);
-				//			modifiedCode += originalCodeSize - 1;
-				//		}
-				//		else
-				//		{
-				//			//Write old code
-				//			memcpy(modifiedCode, originalCode, originalCodeSize);
-				//			modifiedCode += originalCodeSize;
-				//		}
-
-				//		//Write epilog code
-				//		memcpy(modifiedCode, (BYTE*)&epilogCode, sizeof(epilogCode));
-				//		modifiedCode += sizeof(epilogCode);
-
-				//		//Write RET code
-				//		memcpy(modifiedCode, (BYTE*)&retCode, sizeof(BYTE));
-				//		modifiedCode += sizeof(BYTE);
-
-				//		if (!endsWithRet)
-				//		{
-				//			originalCodeSize++;
-				//		}
-
-				//		__byte codeSize = originalCodeSize + sizeof(prologCode) + sizeof(epilogCode);
-				//		modifiedTinyMethod->Flags_CodeSize = (codeSize << (CorILMethod_FormatShift - 1)) | CorILMethod_TinyFormat;
-
-				//		_corProfilerInfo2->SetILFunctionBody(_moduleId, methodToken, (LPCBYTE)modifiedMethod);
-
-				//		//IMAGE_COR_ILMETHOD* newMethod = (IMAGE_COR_ILMETHOD*)_methodAlloc->Alloc(methodSize + injectedCodeSize);
-				//		//if (newMethod == null)
-				//		//{
-				//		//	return E_FAIL;
-				//		//}
-				//		//COR_ILMETHOD_TINY* newTinyImage = (COR_ILMETHOD_TINY*)&newMethod->Tiny;
-
-				//		////Write header
-				//		//memcpy((BYTE*)newTinyImage, (BYTE*)tinyImage, sizeof(COR_ILMETHOD_TINY));
-
-				//		//BYTE* code = newTinyImage->GetCode();
-				//		////Write prolog code
-				//		//memcpy(code, (BYTE*)&prologCode, sizeof(prologCode));
-				//		//code += sizeof(prologCode);
-
-				//		////Write old code
-				//		//memcpy(code, tinyImage->GetCode(), tinyImage->GetCodeSize());
-				//		//code += tinyImage->GetCodeSize();
-
-				//		////Write epilog code
-				//		//memcpy(code, (BYTE*)&epilogCode, sizeof(epilogCode));
-				//		//code += sizeof(epilogCode);
-
-				//		//int codeSize = tinyImage->GetCodeSize() + injectedCodeSize - sizeof(COR_ILMETHOD_TINY);
-				//		//((BYTE*)&newTinyImage)[0] = CorILMethod_TinyFormat1 | ((codeSize & 0xff) << 2);
-
-				//		//_corProfilerInfo2->SetILFunctionBody(_moduleId, methodToken, (LPCBYTE)newMethod);
-				//	}
-				//	else
-				//	{
-
-
-				//		//IMAGE_COR_ILMETHOD* newMethod = (IMAGE_COR_ILMETHOD*)_methodAlloc->Alloc(methodSize + injectedCodeSize);
-				//		//if (newMethod == null)
-				//		//{
-				//		//	return E_FAIL;
-				//		//}
-				//		//COR_ILMETHOD_FAT* newFatImage = (COR_ILMETHOD_FAT*)&newMethod->Fat;
-				//		////Write header
-				//		//memcpy((BYTE*)newFatImage, (BYTE*)tinyImage, tinyImage->GetCodeSize() * sizeof(DWORD));
-
-				//		//BYTE* code = newFatImage->GetCode();
-				//		////Write prolog code
-				//		//memcpy(code, (BYTE*)&prologCode, sizeof(prologCode));
-				//		//code += sizeof(prologCode);
-
-				//		////Write old code
-				//		//memcpy(code, tinyImage->GetCode(), tinyImage->CodeSize);
-				//		//code += fatImage->CodeSize;
-
-				//		////Write epilog code
-				//		//memcpy(code, (BYTE*)&epilogCode, sizeof(epilogCode));
-				//		//code += sizeof(epilogCode);
-
-				//		////newFatImage->CodeSize += injectedCodeSize;
-
-				//		////_corProfilerInfo2->SetILFunctionBody(_moduleId, methodToken, (LPCBYTE)newMethod);
-				//	}
-				//}
 				return S_OK;
 			}
 		}

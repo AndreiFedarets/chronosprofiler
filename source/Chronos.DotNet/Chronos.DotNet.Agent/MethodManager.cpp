@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Chronos.DotNet.Agent.h"
+#include <iostream>
+#include <sstream>
 
 namespace Chronos
 {
@@ -144,6 +146,112 @@ namespace Chronos
 						//set ExceptionSection
 						__byte* sectionData = (__byte*)ilFatMethod->GetSect();
 						ExceptionHandlerManager::WriteChainTo(method->FrontHandler, sectionData);
+					}
+
+					Instruction* MethodManager::InsertChainBefore(Method* method, Instruction* instruction, Instruction* chain)
+					{
+						Instruction* chainFront = InstructionManager::InsertChainBefore(instruction, chain);
+						method->FrontInstruction = InstructionManager::MoveToFront(chainFront);
+						return chainFront;
+					}
+
+					Instruction* MethodManager::InsertChainAfter(Method* method, Instruction* instruction, Instruction* chain)
+					{
+						Instruction* chainFinal = InstructionManager::InsertChainAfter(instruction, chain);
+						return chainFinal;
+					}
+
+					void MethodManager::WriteDebug(Method* method)
+					{
+						__byte level = 0;
+						Instruction* instruction = method->FrontInstruction;
+						while (instruction != null)
+						{
+							std::ostringstream stream; 
+							ExceptionHandler* handler = method->FrontHandler;
+							while (handler != null)
+							{
+								if (handler->TryBegin == instruction)
+								{
+									for (__byte i = 0; i < level; i++)
+									{
+										stream << "    ";
+									}
+									stream << "try {\r\n";
+									level++;
+								}
+								if (handler->HandlerBegin == instruction)
+								{
+									if (handler->Flags == CorExceptionFlag::COR_ILEXCEPTION_CLAUSE_FINALLY)
+									{
+										for (__byte i = 0; i < level; i++)
+										{
+											stream << "    ";
+										}
+										stream << "finally {\r\n";
+									}
+									else if (handler->Flags == CorExceptionFlag::COR_ILEXCEPTION_CLAUSE_NONE)
+									{
+										for (__byte i = 0; i < level; i++)
+										{
+											stream << "    ";
+										}
+										stream << "catch( ";
+										stream << Converter::ConvertStringToStringA(Converter::ConvertIntToString(handler->ClassToken)).c_str();
+										stream << ") {\r\n";
+									}
+									level++;
+								}
+								handler = handler->Next;
+							}
+							for (__byte i = 0; i < level; i++)
+							{
+								stream << "    ";
+							}
+							stream << instruction->OpCode->Name;
+							stream << " ";
+							switch (instruction->ValueSize)
+							{
+								case 0:
+									break;
+								case sizeof(__byte) :
+									stream << Converter::ConvertStringToStringA(Converter::ConvertIntToString(instruction->ByteValue)).c_str();
+									break;
+								case sizeof(__ushort) :
+									stream << Converter::ConvertStringToStringA(Converter::ConvertIntToString(instruction->ShortValue)).c_str();
+									break;
+								case sizeof(__uint) :
+									stream << Converter::ConvertStringToStringA(Converter::ConvertIntToString(instruction->IntValue)).c_str();
+									break;
+								case sizeof(__long) :
+									stream << Converter::ConvertStringToStringA(Converter::ConvertLongToString(instruction->LongValue)).c_str();
+									break;
+								default:
+									stream << "[Array]";
+									break;
+							}
+							stream << "\r\n";
+							handler = method->FrontHandler;
+							while (handler != null)
+							{
+								if (handler->TryEnd == instruction || handler->HandlerEnd == instruction)
+								{
+									level--;
+									for (__byte i = 0; i < level; i++)
+									{
+										stream << "    ";
+									}
+									stream << "}\r\n";
+								}
+								handler = handler->Next;
+							}
+							OutputDebugStringA(stream.str().c_str());
+							instruction = instruction->Next;
+						}
+
+						std::ostringstream stream;
+						stream << "-----------------------------------------------------------------------\r\n";
+						OutputDebugStringA(stream.str().c_str());
 					}
 				}
 			}

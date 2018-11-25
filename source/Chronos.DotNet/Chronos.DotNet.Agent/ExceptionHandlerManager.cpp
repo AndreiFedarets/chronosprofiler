@@ -137,7 +137,7 @@ namespace Chronos
 					__uint ExceptionHandlerManager::GetChainCount(ExceptionHandler* chain)
 					{
 						__uint count = 0;
-						while (chain->Next != null)
+						while (chain != null)
 						{
 							count++;
 							chain = chain->Next;
@@ -189,6 +189,54 @@ namespace Chronos
 						//set DataSize
 						__uint dataSize = COR_ILMETHOD_SECT_EH_FAT::Size(clausesCount);
 						ilSection->SetDataSize(dataSize);
+					}
+
+					ExceptionHandler* ExceptionHandlerManager::DefineTryFinally(Method* method, Instruction* tryBegin, Instruction* tryEnd, Instruction* handlerBegin, Instruction* handlerEnd)
+					{
+						//first of all we need to update Instructions according CLR rules
+						Instruction* endfinallyInstruction = InstructionManager::Create(OpCodes::Endfinally);
+						handlerEnd = MethodManager::InsertChainAfter(method, handlerEnd, endfinallyInstruction);
+
+						Instruction* leaveInstruction = InstructionManager::Create(OpCodes::Leave_S);
+						tryEnd = MethodManager::InsertChainAfter(method, tryEnd, leaveInstruction);
+						leaveInstruction->ByteValue = InstructionManager::GetRangeSize(tryEnd->Next, handlerEnd);
+						Instruction* offsetInstruction = InstructionManager::ByOffset(leaveInstruction, leaveInstruction->GetSize() + leaveInstruction->ByteValue);
+
+						//now create and apply handler
+						ExceptionHandler* handler = Alloc();
+						handler->Flags = CorExceptionFlag::COR_ILEXCEPTION_CLAUSE_FINALLY;
+						handler->TryBegin = tryBegin;
+						handler->TryEnd = tryEnd;
+						handler->HandlerBegin = handlerBegin;
+						handler->HandlerEnd = handlerEnd;
+						InsertHandler(method, handler);
+
+						return handler;
+					}
+
+					void ExceptionHandlerManager::InsertHandler(Method* method, ExceptionHandler* handler)
+					{
+						if (method->FrontHandler == null)
+						{
+							method->FrontHandler = handler;
+							return;
+						}
+						//if handler if finally - put it back, otherwise - put it on top
+						if (handler->Flags == CorExceptionFlag::COR_ILEXCEPTION_CLAUSE_FINALLY)
+						{
+							ExceptionHandler* current = method->FrontHandler;
+							while (current->Next != null)
+							{
+								current = current->Next;
+							}
+							current->Next = handler;
+						}
+						else
+						{
+							handler->Next = method->FrontHandler;
+							method->FrontHandler = handler;
+						}
+
 					}
 				}
 			}

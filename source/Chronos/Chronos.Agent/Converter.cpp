@@ -70,5 +70,18 @@ namespace Chronos
 			_itow_s(value, buffer, 10);
 			return __string(buffer);
 		}
+
+		__string Converter::ConvertLongToString(__ulong value)
+		{
+			__wchar buffer[30];
+			_ltow_s(value, buffer, 10);
+			return __string(buffer);
+		}
+
+		std::string Converter::ConvertStringToStringA(__string value)
+		{
+			std::string str(value.begin(), value.end());
+			return str;
+		}
 	}
 }

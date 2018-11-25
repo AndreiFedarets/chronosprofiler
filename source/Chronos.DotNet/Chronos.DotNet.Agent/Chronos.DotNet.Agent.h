@@ -268,7 +268,7 @@ namespace Chronos
 
 				namespace Emit
 				{
-					class CHRONOS_DOTNET_API ILHelper
+					/*class CHRONOS_DOTNET_API ILHelper
 					{
 						public:
 							static IMAGE_COR_ILMETHOD* ConvertTinyMethodToFat(COR_ILMETHOD_TINY* sourceMethod, IMethodMalloc* methodMalloc);
@@ -283,24 +283,7 @@ namespace Chronos
 							static void CopyFatToFat(COR_ILMETHOD_FAT* sourceMethod, COR_ILMETHOD_FAT* targetMethod);
 							static unsigned long GetMethodFullSize(COR_ILMETHOD_TINY* method);
 							static unsigned long GetMethodFullSize(COR_ILMETHOD_FAT* method);
-					};
-
-					/*class CHRONOS_DOTNET_API MethodSection
-					{
-					public:
-					MethodSection(CorILMethodSect kind);
-					~MethodSection();
-					CorILMethodSect Kind;
-					__uint GetFullSize();
 					};*/
-
-					/*class CHRONOS_DOTNET_API MethodUnknownSection : public MethodSection
-					{
-					public:
-					MethodUnknownSection(COR_ILMETHOD_SECT* section);
-					~MethodUnknownSection();
-					};*/
-
 
 // ==================================================================================================================================================
 					typedef __byte (*GetOpCodeValueSize)(__byte* code);
@@ -308,7 +291,11 @@ namespace Chronos
 					{
 						public:
 							char* Name;
-							__ushort Token;
+							union 
+							{
+								__ushort Token;
+								__byte TokenData[2];
+							};
 							__byte TokenSize;
 							__byte ValueSize;
 							GetOpCodeValueSize GetValueSize;
@@ -575,6 +562,7 @@ namespace Chronos
 							//just definition of array, it could have bigger size
 							__byte ArrayValue[8];
 						};
+						__uint GetSize() { return OpCode->TokenSize + ValueSize; }
 					};
 					
 // ==================================================================================================================================================
@@ -591,14 +579,31 @@ namespace Chronos
 					};
 
 // ==================================================================================================================================================
+					struct CHRONOS_DOTNET_API SignatureElement
+					{
+						CorElementType ElementType;
+						mdToken ClassToken;
+						SignatureElement* ChildElement;
+						SignatureElement* ArgumentElement;
+						SignatureElement* Next;
+					};
+
+// ==================================================================================================================================================
+					struct CHRONOS_DOTNET_API Signature
+					{
+						CorCallingConvention CallingConvention;
+						SignatureElement* Front;
+					};
+
+// ==================================================================================================================================================
 					struct CHRONOS_DOTNET_API Method
 					{
 						__uint MaxStack;
-						__uint LocalVarSigTok;
+						mdSignature LocalVarSigTok;
 						Instruction* FrontInstruction;
 						ExceptionHandler* FrontHandler;
 					};
-										
+					
 // ==================================================================================================================================================
 					class CHRONOS_DOTNET_API InstructionManager
 					{
@@ -620,12 +625,14 @@ namespace Chronos
 							static __uint WriteTo(Instruction* instruction, __byte* data);
 							static __uint WriteChainTo(Instruction* instruction, __byte* data);
 							static __uint GetOffset(Instruction* instruction);
-							static Instruction* GetChainFront(Instruction* chain);
-							static Instruction* GetChainFinal(Instruction* instruction);
+							static Instruction* MoveToFront(Instruction* chain);
+							static Instruction* MoveToFinal(Instruction* chain);
+							static Instruction* LookForward(Instruction* startFrom, OpCode* targetOpCode);
+							static Instruction* LookBackward(Instruction* startFrom, OpCode* targetOpCode);
 							static Instruction* InsertChainBefore(Instruction* instruction, Instruction* chain);
+							static Instruction* InsertChainAfter(Instruction* instruction, Instruction* chain);
 						private:
 							static void Release(Instruction* instruction);
-							static __uint GetSize(Instruction* instruction);
 							static Instruction* Read(__byte* ilCode);
 
 					};
@@ -639,12 +646,34 @@ namespace Chronos
 							static __uint GetChainSize(ExceptionHandler* chain);
 							static __uint GetChainCount(ExceptionHandler* chain);
 							static void WriteChainTo(ExceptionHandler* chain, __byte* ilSection);
+							static ExceptionHandler* DefineTryFinally(Method* method, Instruction* tryBegin, Instruction* tryEnd, Instruction* handlerBegin, Instruction* handlerEnd);
 						private:
 							static ExceptionHandler* ReadChainSmall(COR_ILMETHOD_SECT_EH_SMALL* ilSection, Instruction* instructionChain);
 							static ExceptionHandler* ReadChainFat(COR_ILMETHOD_SECT_EH_FAT* ilSection, Instruction* instructionChain);
 							static ExceptionHandler* ReadSmall(IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL* ilClause, Instruction* instructionChain);
 							static ExceptionHandler* ReadFat(IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT* ilClause, Instruction* instructionChain);
 							static __uint WriteTo(ExceptionHandler* handler, __byte* ilClauseData);
+							static void InsertHandler(Method* method, ExceptionHandler* handler);
+					};
+					class CHRONOS_DOTNET_API SignatureManager
+					{
+						public:
+							static Signature* Alloc();
+							static SignatureElement* AllocElement();
+							static void Release(Signature* signature);
+							static void ReleaseElement(SignatureElement* element);
+							static void ReleaseElementChain(SignatureElement* chain);
+							static Signature* Read(mdSignature corSignatureToken, IMetaDataImport* metadataImport);
+							static Signature* Read(PCCOR_SIGNATURE corSignature);
+							static mdSignature Write(Signature* signature, IMetaDataEmit* metadataEmit);
+							static __uint InsertElement(Signature* signature, SignatureElement* element);
+						private:
+							static __uint GetChainCount(SignatureElement* chain);
+							static __uint GetRawSize(Signature* signature);
+							static __uint GetRawSizeRecurcive(SignatureElement* element);
+							static SignatureElement* ReadElement(PCCOR_SIGNATURE* corSignatureRef);
+							static __byte* WriteElement(SignatureElement* element, __byte* corSignatureData);
+							//static PCCOR_SIGNATURE Parse(SignatureElement* element, PCCOR_SIGNATURE corSignature);
 					};
 					class CHRONOS_DOTNET_API MethodManager
 					{
@@ -654,11 +683,13 @@ namespace Chronos
 							static Method* Read(IMAGE_COR_ILMETHOD* ilMethod);
 							static __uint GetSize(Method* method);
 							static void WriteTo(Method* method, BYTE* methodData);
+							static Instruction* InsertChainBefore(Method* method, Instruction* instruction, Instruction* chain);
+							static Instruction* InsertChainAfter(Method* method, Instruction* instruction, Instruction* chain);
+							static void WriteDebug(Method* method);
 						private:
 							static Method* ReadTiny(COR_ILMETHOD_TINY* ilMethod);
 							static Method* ReadFat(COR_ILMETHOD_FAT* ilMethod);
 							static __uint AlignCodeSize(__uint size);
-							//void InsertBefore(Instruction* instruction, Instruction* chain);
 					};
 				}
 
@@ -1332,17 +1363,20 @@ namespace Chronos
 			class CHRONOS_DOTNET_API MethodInjector
 			{
 				public:
-					MethodInjector(Reflection::RuntimeMetadataProvider* metadataProvider);
+					MethodInjector();
 					~MethodInjector();
-					HRESULT Initialize(ModuleID moduleId, std::wstring pinvokeModuleName, std::wstring injectedClassName, std::wstring prologMethodName, std::wstring epilogMethodName);
+					HRESULT Initialize(Reflection::RuntimeMetadataProvider* metadataProvider, ModuleID moduleId, std::wstring pinvokeModuleName, std::wstring injectedClassName, std::wstring prologMethodName, std::wstring epilogMethodName);
 					HRESULT InjectByToken(mdMethodDef methodToken);
 					HRESULT InjectById(FunctionID functionId);
 				private:
 					mdMethodDef _prologMethod;
 					mdMethodDef _epilogMethod;
-					Reflection::RuntimeMetadataProvider* _metadataProvider;
+					IMetaDataEmit* _metadataEmit;
+					IMetaDataImport* _metadataImport;
 					IMethodMalloc* _methodAlloc;
+					ICorProfilerInfo2* _corProfilerInfo;
 					ModuleID _moduleId;
+					HRESULT _initializeResult;
 			};
 // ==================================================================================================================================================
 // ==================================================================================================================================================
