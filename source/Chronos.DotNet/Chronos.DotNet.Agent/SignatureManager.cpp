@@ -59,8 +59,7 @@ namespace Chronos
 					{
 						PCCOR_SIGNATURE corSignature = null;
 						ULONG corSignatureSize;
-						HRESULT result = metadataImport->GetSigFromToken(signatureToken, &corSignature, &corSignatureSize);
-						__RETURN_NULL_IF_FAILED(result);
+						__RETURN_NULL_IF_FAILED(metadataImport->GetSigFromToken(signatureToken, &corSignature, &corSignatureSize));
 						return Read(corSignature);
 					}
 
@@ -73,7 +72,8 @@ namespace Chronos
 
 						ULONG corElementsCount;
 						corSignature += CorSigUncompressData(corSignature, &corElementsCount);
-						if (callConvention == CorCallingConvention::IMAGE_CEE_CS_CALLCONV_DEFAULT)
+						if ((callConvention & CorCallingConvention::IMAGE_CEE_CS_CALLCONV_LOCAL_SIG) != CorCallingConvention::IMAGE_CEE_CS_CALLCONV_LOCAL_SIG &&
+							(callConvention & CorCallingConvention::IMAGE_CEE_CS_CALLCONV_FIELD) != CorCallingConvention::IMAGE_CEE_CS_CALLCONV_FIELD)
 						{
 							//add return type;
 							corElementsCount++;

@@ -10,12 +10,14 @@ EXTERN_C __declspec(dllexport) void CreateChronosProfilingType(Chronos::Agent::I
 }
 
 
-EXTERN_C __declspec(dllexport) void BeginSqlQuery()
+EXTERN_C __declspec(dllexport) void BeginSqlQuery(wchar_t* sqlQuery)
 {
+	Chronos::Agent::DotNet::SqlProfiler::ProfilingTypeAdapter::BeginExecuteQuery(new __string(sqlQuery));
 }
 
 
 EXTERN_C __declspec(dllexport) void EndSqlQuery()
 {
+	Chronos::Agent::DotNet::SqlProfiler::ProfilingTypeAdapter::EndExecuteQuery();
 }
 

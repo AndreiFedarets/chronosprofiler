@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Chronos.DotNet.SqlProfiler.Agent.h"
+#include "Chronos.DotNet.SqlProfiler.Agent.Internal.h"
 
 namespace Chronos
 {
@@ -15,6 +15,7 @@ namespace Chronos
 					//__debugbreak();
 					_jitEvents = null;
 					_msSqlQueries = null;
+					_current = this;
 				}
 
 				ProfilingTypeAdapter::~ProfilingTypeAdapter(void)
@@ -28,9 +29,7 @@ namespace Chronos
 					_msSqlQueries = new MsSqlQueryCollection();
 					//initialize jit hook
 					ICallback* jitCallback = new ThisCallback<ProfilingTypeAdapter>(this, &ProfilingTypeAdapter::OnJITCompilationStarted);
-					__vector<__string> arguments;
-					//_jitEvents = new FunctionJitEvent(L"System.Data", L"System.Data.SqlClient.SqlCommand", L"ExecuteReader", arguments, jitCallback);
-					_jitEvents = new FunctionJitEvent(L"SqlConsole", L"SqlConsole.Program", L"Empty", arguments, jitCallback);
+					_jitEvents = new FunctionJitEvent(L"System.Data", L"System.Data.SqlClient.SqlCommand", L"RunExecuteReader", 10, jitCallback);
 					return S_OK;
 				}
 
@@ -76,6 +75,16 @@ namespace Chronos
 					return S_OK;
 				}
 
+				void ProfilingTypeAdapter::BeginExecuteQuery(__string* query)
+				{
+					_current->OnBeginExecuteQuery(query);
+				}
+
+				void ProfilingTypeAdapter::EndExecuteQuery()
+				{
+					_current->OnEndExecuteQuery();
+				}
+
 				void ProfilingTypeAdapter::FlushMsSqlQueries(IStreamWriter* stream)
 				{
 					std::list<MsSqlQueryInfo*> updates;
@@ -101,8 +110,33 @@ namespace Chronos
 					_metadataProvider->GetCorProfilerInfo2(&profilerInfo);
 					MethodInjector* injector = new MethodInjector();
 					injector->Initialize(_metadataProvider, moduleId, L"Chronos.DotNet.SqlProfiler.Agent.dll", L"SQLHOOK", L"BeginSqlQuery", L"EndSqlQuery");
-					injector->InjectById(temp->FunctionId);
+					injector->Inject(temp->FunctionId);
 				}
+
+				void ProfilingTypeAdapter::OnBeginExecuteQuery(__string* queryText)
+				{
+					if (QueryContext::CurrentMsSqlQuery != null)
+					{
+						//why? recursion?
+						return;
+					}
+					MsSqlQueryInfo* query = _msSqlQueries->CreateUnit();
+					query->InitializeName(queryText);
+					QueryContext::CurrentMsSqlQuery = query;
+				}
+
+				void ProfilingTypeAdapter::OnEndExecuteQuery()
+				{
+					if (QueryContext::CurrentMsSqlQuery == null)
+					{
+						// not possible!
+						return;
+					}
+					_msSqlQueries->CloseUnit(QueryContext::CurrentMsSqlQuery->Id);
+					QueryContext::CurrentMsSqlQuery = null;
+				}
+
+				ProfilingTypeAdapter* ProfilingTypeAdapter::_current = null;
 			}
 		}
 	}

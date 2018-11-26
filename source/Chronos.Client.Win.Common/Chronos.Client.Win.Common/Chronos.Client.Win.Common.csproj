@@ -54,6 +54,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SyncronizedUnitsCollection.cs" />
     <Compile Include="ViewModels\UnitsListViewModel.cs" />
     <Compile Include="Views\UnitsListView.xaml.cs">
       <DependentUpon>UnitsListView.xaml</DependentUpon>

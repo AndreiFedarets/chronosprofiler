@@ -58,6 +58,25 @@ namespace Chronos
 				};
 
 // ==================================================================================================================================================
+				struct CHRONOS_DOTNET_API AssemblyReference
+				{
+					public:
+						AssemblyReference(mdAssemblyRef assemblyRef, IMetaDataAssemblyImport* assemblyImport);
+						~AssemblyReference();
+						mdAssemblyRef GetToken();
+						__string* GetName();
+						ASSEMBLYMETADATA GetMetadata();
+						Buffer* GetPublicKeyToken();
+					private:
+						void Initialize();
+						IMetaDataAssemblyImport* _assemblyImport;
+						mdAssemblyRef _assemblyRef;
+						__string* _assemblyName;
+						ASSEMBLYMETADATA _assemblyMetadata;
+						Buffer* _publicKeyToken;
+				};
+
+// ==================================================================================================================================================
 				struct CHRONOS_DOTNET_API AssemblyMetadata
 				{
 					public:
@@ -88,6 +107,8 @@ namespace Chronos
 						LPCBYTE GetBaseLoadAddress();
 						__string* GetName();
 						IMetaDataImport2* GetMetadataImport();
+						__vector<AssemblyReference*>* GetReferences();
+						AssemblyReference* FindReference(__string* name);
 					private:
 						void Initialize();
 						IMetaDataImport2* _metaDataImport;
@@ -97,8 +118,24 @@ namespace Chronos
 						AssemblyID _assemblyId;
 						LPCBYTE _baseLoadAddress;
 						__string* _name;
+						__vector<AssemblyReference*>* _references;
 				};
 
+
+// ==================================================================================================================================================
+				struct CHRONOS_DOTNET_API FieldMetadata
+				{
+					public:
+						FieldMetadata(IMetaDataImport2* metadataImport, mdFieldDef fieldToken);
+						~FieldMetadata();
+						mdFieldDef GetToken();
+						__string* GetName();
+					private:
+						void Initialize();
+						IMetaDataImport2* _metadataImport;
+						mdFieldDef _fieldToken;
+						__string* _name;
+				};
 // ==================================================================================================================================================
 				struct CHRONOS_DOTNET_API TypeMetadata
 				{
@@ -109,6 +146,8 @@ namespace Chronos
 						mdTypeDef GetTypeToken();
 						ModuleID GetModuleId();
 						__string* GetName();
+						__vector<FieldMetadata*>* GetFields();
+						FieldMetadata* FindField(__string* name);
 					private:
 						void Initialize();
 						ICorProfilerInfo2* _corProfilerInfo;
@@ -117,6 +156,7 @@ namespace Chronos
 						ModuleID _moduleId;
 						mdTypeDef _typeToken;
 						__string* _name;
+						__vector<FieldMetadata*>* _fields;
 				};
 			
 // ==================================================================================================================================================
@@ -164,20 +204,6 @@ namespace Chronos
 						__string* _name;
 						__vector<ParameterMetadata*>* _parameters;
 						ParameterMetadata* _returnParameter;
-				};
-
-// ==================================================================================================================================================
-				struct CHRONOS_DOTNET_API FieldMetadata
-				{
-					public:
-						FieldMetadata(ICorProfilerInfo2* corProfilerInfo, TypeMetadata* type, mdFieldDef fieldToken);
-						~FieldMetadata();
-						mdFieldDef GetFieldToken();
-					private:
-						ICorProfilerInfo2* _corProfilerInfo;
-						IMetaDataImport2* _metaDataImport;
-						TypeMetadata* _type;
-						mdFieldDef _fieldToken;
 				};
 
 // ==================================================================================================================================================
@@ -1295,7 +1321,7 @@ namespace Chronos
 					};
 
 				public:
-					FunctionJitEvent(__string assemblyName, __string className, __string functionName, __vector<__string> arguments, ICallback* callback);
+					FunctionJitEvent(__string assemblyName, __string className, __string functionName, __uint argumentsCount, ICallback* callback);
 					~FunctionJitEvent();
 					void Initialize(RuntimeProfilingEvents* profilingEvents, Reflection::RuntimeMetadataProvider* metadataProvider);
 					void Subscribe();
@@ -1305,12 +1331,13 @@ namespace Chronos
 					void OnAssemblyUnloadStarted(void* eventArgs);
 					void OnModuleAttachedToAssembly(void* eventArgs);
 					void OnJITCompilationStarted(void* eventArgs);
+					void OnJITCachedFunctionSearchStarted(void* eventArgs);
 
 				private:
 					__string* _assemblyName;
 					__string* _className;
 					__string* _functionName;
-					__vector<__string>* _arguments;
+					__uint _argumentsCount;
 					AssemblyCollection* _assemblies;
 					ICallback* _callback;
 					Reflection::RuntimeMetadataProvider* _metadataProvider;
@@ -1366,11 +1393,11 @@ namespace Chronos
 					MethodInjector();
 					~MethodInjector();
 					HRESULT Initialize(Reflection::RuntimeMetadataProvider* metadataProvider, ModuleID moduleId, std::wstring pinvokeModuleName, std::wstring injectedClassName, std::wstring prologMethodName, std::wstring epilogMethodName);
-					HRESULT InjectByToken(mdMethodDef methodToken);
-					HRESULT InjectById(FunctionID functionId);
+					HRESULT Inject(FunctionID functionId);
 				private:
 					mdMethodDef _prologMethod;
 					mdMethodDef _epilogMethod;
+					Reflection::RuntimeMetadataProvider* _metadataProvider;
 					IMetaDataEmit* _metadataEmit;
 					IMetaDataImport* _metadataImport;
 					IMethodMalloc* _methodAlloc;

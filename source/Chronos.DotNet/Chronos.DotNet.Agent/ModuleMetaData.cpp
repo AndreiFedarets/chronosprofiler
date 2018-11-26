@@ -18,6 +18,7 @@ namespace Chronos
 					_assemblyId = 0;
 					_baseLoadAddress = 0;
 					_name = null;
+					_references = null;
 				}
 
 				ModuleMetadata::~ModuleMetadata()
@@ -70,6 +71,47 @@ namespace Chronos
 						HRESULT result = _corProfilerInfo->GetModuleInfo(_moduleId, &_baseLoadAddress, NameMaxLength, 0, nativeName, &_assemblyId);
 						_name = new __string(nativeName);
 					}
+				}
+
+				__vector<AssemblyReference*>* ModuleMetadata::GetReferences()
+				{
+					if (_references == null)
+					{
+						_references = new __vector<AssemblyReference*>();
+
+						IMetaDataAssemblyImport* assemblyImport = null;
+						__RETURN_NULL_IF_FAILED(_corProfilerInfo->GetModuleMetaData(_moduleId, ofRead, IID_IMetaDataAssemblyImport, (IUnknown**)&assemblyImport));
+
+						HCORENUM assemblyEnumerator = null;
+						mdAssemblyRef assemblyRefs[32]{ 0 };
+						ULONG assemblyRefsCount = 0;
+						HRESULT result = assemblyImport->EnumAssemblyRefs(&assemblyEnumerator, assemblyRefs, _countof(assemblyRefs), &assemblyRefsCount);
+
+						for (__uint i = 0; i < assemblyRefsCount; i++)
+						{
+							/*AssemblyReference* reference = new AssemblyReference(assemblyRefs[i], new __string(assemblyName), assemblyMetadata, publicKeyToken, publicKeyTokenSize);
+							_references->push_back(reference);*/
+							AssemblyReference* reference = new AssemblyReference(assemblyRefs[i], assemblyImport);
+							_references->push_back(reference);
+
+						}
+						assemblyImport->Release();
+					}
+					return _references;
+				}
+
+				AssemblyReference* ModuleMetadata::FindReference(__string* assemblyName)
+				{
+					__vector<AssemblyReference*>* references = GetReferences();
+					for (__vector<Reflection::AssemblyReference*>::iterator i = references->begin(); i != references->end(); ++i)
+					{
+						AssemblyReference* reference = *i;
+						if (StringComparer::Equals(assemblyName, reference->GetName(), true))
+						{
+							return reference;
+						}
+					}
+					return null;
 				}
 			}
 		}

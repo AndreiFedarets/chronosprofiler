@@ -9,19 +9,14 @@ namespace SqlConsole
 {
     class Program
     {
-        private static void Test22()
-        {
-            
-        }
-
         static void Main(string[] args)
         {
             Console.WriteLine("Press any key to start...");
             Console.ReadKey();
             try
             {
-               Empty();
-                //Test();
+               //Empty();
+                Test();
             }
             catch (Exception e)
             {

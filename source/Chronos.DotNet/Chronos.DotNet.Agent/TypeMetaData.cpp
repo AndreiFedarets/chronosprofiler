@@ -17,6 +17,7 @@ namespace Chronos
 					_moduleId = 0;
 					_typeToken = 0;
 					_name = null;
+					_fields = null;
 				}
 
 				TypeMetadata::~TypeMetadata()
@@ -55,14 +56,55 @@ namespace Chronos
 
 						ModuleMetadata* moduleMetadata = null;
 						result = _provider->GetModule(_moduleId, &moduleMetadata);
-						IMetaDataImport2* metaDataImport =  moduleMetadata->GetMetadataImport();
+						IMetaDataImport2* metadataImport = moduleMetadata->GetMetadataImport();
 						
 						const __uint NameMaxLength = 1000;
 						__wchar nativeName[NameMaxLength];
-						result = metaDataImport->GetTypeDefProps(_typeToken, nativeName, NameMaxLength, 0, 0, 0);
+						result = metadataImport->GetTypeDefProps(_typeToken, nativeName, NameMaxLength, 0, 0, 0);
 
 						_name = new __string(nativeName);
 					}
+				}
+
+				__vector<FieldMetadata*>* TypeMetadata::GetFields()
+				{
+					if (_fields == null)
+					{
+						Initialize();
+						_fields = new __vector<FieldMetadata*>();
+						ModuleMetadata* moduleMetadata = null;
+						__RETURN_NULL_IF_FAILED(_provider->GetModule(_moduleId, &moduleMetadata));
+						IMetaDataImport2* metadataImport = moduleMetadata->GetMetadataImport();
+
+						HCORENUM fieldEnumerator = null;
+						const ULONG fieldTokensMax = 256;
+						mdFieldDef fieldTokens[fieldTokensMax] {0};
+						ULONG fieldTokensCount = 0;
+						__RETURN_NULL_IF_FAILED(metadataImport->EnumFields(&fieldEnumerator, GetTypeToken(), fieldTokens, fieldTokensMax, &fieldTokensCount));
+
+						for (__uint i = 0; i < fieldTokensCount; i++)
+						{
+							mdFieldDef fieldToken = fieldTokens[i];
+							FieldMetadata* fieldMetadata = new FieldMetadata(metadataImport, fieldToken);
+							_fields->push_back(fieldMetadata);
+						}
+
+					}
+					return _fields;
+				}
+
+				FieldMetadata* TypeMetadata::FindField(__string* fieldName)
+				{
+					__vector<FieldMetadata*>* fields = GetFields();
+					for (__vector<Reflection::FieldMetadata*>::iterator i = fields->begin(); i != fields->end(); ++i)
+					{
+						FieldMetadata* field = *i;
+						if (StringComparer::Equals(fieldName, field->GetName(), false))
+						{
+							return field;
+						}
+					}
+					return null;
 				}
 			}
 		}

@@ -25,7 +25,8 @@ namespace Chronos.Client.Win.DotNet.SqlProfiler.ViewModels
         {
             return new List<GridViewDynamicColumn>
             {
-                new GridViewDynamicColumn("Name", "Name", FilterByName)
+                new GridViewDynamicColumn("Name", "Name", FilterByName),
+                new GridViewDynamicColumn("Execution Time (ms)", "Lifetime", null)
             };
         }
 

@@ -38,7 +38,7 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AppDomainMetaData.cpp">
+    <ClCompile Include="AppDomainMetadata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AssemblyMetadata.cpp">
@@ -50,22 +50,22 @@
     <ClCompile Include="FrameworkAdapter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MethodMetaData.cpp">
+    <ClCompile Include="MethodMetadata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleMetaData.cpp">
+    <ClCompile Include="ModuleMetadata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ParameterMetaData.cpp">
+    <ClCompile Include="ParameterMetadata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RuntimeMetaDataProvider.cpp">
+    <ClCompile Include="RuntimeMetadataProvider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ThreadMetadata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TypeMetaData.cpp">
+    <ClCompile Include="TypeMetadata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RuntimeProfilingEvents.cpp">
@@ -90,6 +90,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SignatureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AssemblyReference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

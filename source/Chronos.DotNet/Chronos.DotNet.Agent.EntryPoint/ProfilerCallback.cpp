@@ -264,7 +264,6 @@ STDMETHODIMP ProfilerCallback::JITCachedFunctionSearchStarted(FunctionID functio
 	Chronos::Agent::DotNet::JITCachedFunctionSearchStartedEventArgs eventArgs(functionID, *pbUseCachedFunction);
 	GlobalEvents->RaiseEvent(Chronos::Agent::DotNet::RuntimeProfilingEvents::JITCachedFunctionSearchStarted, &eventArgs);
 	*pbUseCachedFunction = eventArgs.UseCachedFunction;
-	*pbUseCachedFunction = FALSE;
 	return S_OK;
 }
 

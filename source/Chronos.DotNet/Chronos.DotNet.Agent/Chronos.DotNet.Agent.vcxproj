@@ -149,8 +149,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AppDomainMetaData.cpp" />
+    <ClCompile Include="AppDomainMetadata.cpp" />
     <ClCompile Include="AssemblyMetadata.cpp" />
+    <ClCompile Include="AssemblyReference.cpp" />
     <ClCompile Include="Chronos.DotNet.Agent.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -167,11 +168,11 @@
     <ClCompile Include="InstructionManager.cpp" />
     <ClCompile Include="MethodInjector.cpp" />
     <ClCompile Include="MethodManager.cpp" />
-    <ClCompile Include="MethodMetaData.cpp" />
-    <ClCompile Include="ModuleMetaData.cpp" />
+    <ClCompile Include="MethodMetadata.cpp" />
+    <ClCompile Include="ModuleMetadata.cpp" />
     <ClCompile Include="OpCodes.cpp" />
-    <ClCompile Include="ParameterMetaData.cpp" />
-    <ClCompile Include="RuntimeMetaDataProvider.cpp" />
+    <ClCompile Include="ParameterMetadata.cpp" />
+    <ClCompile Include="RuntimeMetadataProvider.cpp" />
     <ClCompile Include="RuntimeProfilingEvents.cpp" />
     <ClCompile Include="SignatureManager.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -181,7 +182,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ThreadMetadata.cpp" />
-    <ClCompile Include="TypeMetaData.cpp" />
+    <ClCompile Include="TypeMetadata.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

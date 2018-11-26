@@ -30,15 +30,20 @@ namespace Chronos
 				{
 					public:
 						MsSqlQueryInfo();
+						void InitializeName(__string* queryText);
 				};
 
 // ==================================================================================================================================================
 				class CHRONOS_DOTNET_SQLPROFILER_API MsSqlQueryCollection : public DotNetUnitCollectionBase<MsSqlQueryInfo>
 				{
 					public:
+						MsSqlQueryCollection();
+						MsSqlQueryInfo* CreateUnit();
+						MsSqlQueryInfo* FindQuery(__string* queryText, __bool create);
 						const static __guid ServiceToken;
 					protected:
 						HRESULT InitializeUnitSpecial(MsSqlQueryInfo* unit);
+						volatile __uint _lastUid;
 				};
 				
 // ==================================================================================================================================================
@@ -60,10 +65,14 @@ namespace Chronos
 						HRESULT EndInitialize();
 						HRESULT SubscribeEvents();
 						HRESULT FlushData();
+						static void BeginExecuteQuery(__string* queryText);
+						static void EndExecuteQuery();
 				
 					private:
 						void FlushMsSqlQueries(IStreamWriter* stream);
 						void OnJITCompilationStarted(void* functionObject);
+						void OnBeginExecuteQuery(__string* queryText);
+						void OnEndExecuteQuery();
 
 					private:
 						MsSqlQueryCollection* _msSqlQueries;
@@ -72,6 +81,7 @@ namespace Chronos
 						Reflection::RuntimeMetadataProvider* _metadataProvider;
 						GatewayClient* _gatewayClient;
 						__byte _dataMarker;
+						static ProfilingTypeAdapter* _current;
 				};
 			}
 		}

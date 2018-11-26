@@ -9,10 +9,24 @@ namespace Chronos
 		{
 			namespace SqlProfiler
 			{
+				MsSqlQueryCollection::MsSqlQueryCollection()
+				{
+					_lastUid = 0;
+				}
+
+				MsSqlQueryInfo* MsSqlQueryCollection::CreateUnit()
+				{
+					__uint currentUid = InterlockedIncrement(&_lastUid);
+					return DotNetUnitCollectionBase<MsSqlQueryInfo>::CreateUnit(currentUid);
+				}
+
+				MsSqlQueryInfo* MsSqlQueryCollection::FindQuery(__string* queryText, __bool create)
+				{
+					return CreateUnit();
+				}
+
 				HRESULT MsSqlQueryCollection::InitializeUnitSpecial(MsSqlQueryInfo* unit)
 				{
-					//HRESULT result = _managedProvider->GetClassInfo(id, (ModuleID*)&(unit->ModuleId), &(unit->Name));
-					//return result;
 					return S_OK;
 				}
 	

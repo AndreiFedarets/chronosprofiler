@@ -8,6 +8,7 @@
 #endif
 #define __RETURN_IF_FAILED(action) { { HRESULT __resultValue__ = action; if (FAILED(__resultValue__)) { return __resultValue__; } } }
 #define __RETURN_VOID_IF_FAILED(action) { { HRESULT __resultValue__ = action; if (FAILED(__resultValue__)) { return; } } }
+#define __RETURN_NULL_IF_FAILED(action) { { HRESULT __resultValue__ = action; if (FAILED(__resultValue__)) { return null; } } }
 
 //#define __ASSERT(expression, message) { }
 #define __RESOLVE_SERVICE(CONTAINER, TYPE, INSTANCE) { if (!CONTAINER->ResolveService(TYPE::ServiceToken, (void**)&INSTANCE)) { return E_FAIL; } }
@@ -276,6 +277,13 @@ namespace Chronos
 				SingleCoreThread** _threads;
 				__uint _threadsCount;
 				ICallback* _callback;
+		};
+
+// ==================================================================================================================================================
+		class CHRONOS_API StringComparer
+		{
+			public:
+				static bool Equals(__string* value1, __string* value2, __bool ignoreCase);
 		};
 
 // ==================================================================================================================================================

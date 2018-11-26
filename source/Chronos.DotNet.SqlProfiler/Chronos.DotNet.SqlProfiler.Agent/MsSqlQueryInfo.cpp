@@ -13,6 +13,11 @@ namespace Chronos
 				{
 
 				}
+
+				void MsSqlQueryInfo::InitializeName(__string* queryText)
+				{
+					_name = queryText;
+				}
 			}
 		}
 	}

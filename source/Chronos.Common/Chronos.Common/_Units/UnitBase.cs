@@ -37,6 +37,11 @@ namespace Chronos.Common
             get { return NativeUnit.EndLifetime; }
         }
 
+        public ulong Lifetime
+        {
+            get { return NativeUnit.EndLifetime - NativeUnit.BeginLifetime; }
+        }
+
         public string Name
         {
             get { return NativeUnit.Name; }

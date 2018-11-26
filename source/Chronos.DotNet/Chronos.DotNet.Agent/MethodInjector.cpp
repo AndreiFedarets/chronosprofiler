@@ -35,82 +35,50 @@ namespace Chronos
 			HRESULT MethodInjector::Initialize(Reflection::RuntimeMetadataProvider* metadataProvider, ModuleID moduleId, std::wstring pinvokeModuleName, std::wstring injectedClassName, std::wstring prologMethodName, std::wstring epilogMethodName)
 			{
 				_moduleId = moduleId;
-
+				_metadataProvider = metadataProvider;
 				__RETURN_IF_FAILED(_initializeResult = metadataProvider->GetCorProfilerInfo2(&_corProfilerInfo));
 				__RETURN_IF_FAILED(_initializeResult = _corProfilerInfo->GetILFunctionBodyAllocator(moduleId, &_methodAlloc));
 				__RETURN_IF_FAILED(_initializeResult = _corProfilerInfo->GetModuleMetaData(moduleId, ofRead | ofWrite, IID_IMetaDataEmit, (IUnknown**)&_metadataEmit));
 				__RETURN_IF_FAILED(_initializeResult = _corProfilerInfo->GetModuleMetaData(_moduleId, ofRead | ofWrite, IID_IMetaDataImport, (IUnknown **)&_metadataImport));
 
-				IMetaDataAssemblyEmit* assemblyEmit = null;
-				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->QueryInterface(IID_IMetaDataAssemblyEmit, (void**)&assemblyEmit));
-
-				IMetaDataAssemblyImport* assemblyImport = null;
-				__RETURN_IF_FAILED(_initializeResult = _corProfilerInfo->GetModuleMetaData(moduleId, ofRead, IID_IMetaDataAssemblyImport, (IUnknown**)&assemblyImport));
-
-				BYTE* publicKeyToken = null;
-				ULONG publicKeyTokenSize = 0;
-
-				HCORENUM hEnumAssembly = NULL;
-				mdAssemblyRef rgAssemblyRefs[32]{ 0 };
-				ULONG numberOfTokens = 0;
-				__RETURN_IF_FAILED(_initializeResult = assemblyImport->EnumAssemblyRefs(&hEnumAssembly, rgAssemblyRefs, _countof(rgAssemblyRefs), &numberOfTokens));
-
-				for (size_t i = 0; i < numberOfTokens; i++)
+				Reflection::ModuleMetadata* moduleMetadata;
+				__RETURN_IF_FAILED(metadataProvider->GetModule(_moduleId, &moduleMetadata));
+				__string mscorlibName(L"mscorlib");
+				Reflection::AssemblyReference* mscorlibReference = moduleMetadata->FindReference(&mscorlibName);
+				if (mscorlibReference == null)
 				{
-					wchar_t assemblyName[255] { 0 };
-					ULONG assemblyNameLength = 0;
-					char* hashValue = null;
-					ULONG hashLength = 0;
-					DWORD flags = 0;
-					ASSEMBLYMETADATA assemblyMetadata{ 0 };
-					HRESULT result = assemblyImport->GetAssemblyRefProps(rgAssemblyRefs[i], (const void**)&publicKeyToken, &publicKeyTokenSize, assemblyName, _countof(assemblyName), &assemblyNameLength, &assemblyMetadata, (const void**)&hashValue, &hashLength, &flags);
-					if (SUCCEEDED(result) && __string(L"mscorlib").compare(assemblyName) == 0)
-					{
-						break;
-					}
+					_initializeResult = E_FAIL;
+					return _initializeResult;
 				}
-
-
-				ASSEMBLYMETADATA amd = {0};
-				mdAssemblyRef mscorlibToken;
-				__RETURN_IF_FAILED(_initializeResult = assemblyEmit->DefineAssemblyRef(publicKeyToken, publicKeyTokenSize, L"mscorlib", &amd, null, 0, 0, &mscorlibToken));
 
 				mdModuleRef pinvokeModule;
 				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->DefineModuleRef(pinvokeModuleName.c_str(), &pinvokeModule));
 
 				mdTypeDef sysObjectToken;
-				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->DefineTypeRefByName(mscorlibToken, L"System.Object", &sysObjectToken));
+				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->DefineTypeRefByName(mscorlibReference->GetToken(), L"System.Object", &sysObjectToken));
 
 				mdTypeDef injectedClassToken;
 				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->DefineTypeDef(injectedClassName.c_str(), tdAbstract | tdSealed, sysObjectToken, null, &injectedClassToken));
 
 				//prologMethod ===============================================
-				//BYTE prologMethodSignature[] = {
-				//	0, // Callconv: IMAGE_CEE_CS_CALLCONV_DEFAULT
-				//	1, // Argument count: 1
-				//	0x1, // Return type: ELEMENT_TYPE_VOID
-				//	ELEMENT_TYPE_STRING //Argument type: string
-				//};
 				BYTE prologMethodSignature[] = {
 					IMAGE_CEE_CS_CALLCONV_DEFAULT, // Callconv
-					0,                             // Argument count
-					ELEMENT_TYPE_VOID              // Return type
+					1,                             // Argument count
+					ELEMENT_TYPE_VOID,             // Return type
+					ELEMENT_TYPE_STRING            // Argument type: string
 				};
 				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->DefineMethod(injectedClassToken, prologMethodName.c_str(), mdPublic | mdStatic | mdPinvokeImpl, prologMethodSignature,
-					                           sizeof(prologMethodSignature), 0, miIL|miManaged|miPreserveSig, &_prologMethod));
+					sizeof(prologMethodSignature), 0, miIL | miManaged | miPreserveSig, &_prologMethod));
 
 				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->DefinePinvokeMap(_prologMethod, 0, prologMethodName.c_str(), pinvokeModule));
 
-				/*mdParamDef prologMethodParam;
-				result = metaEmit->DefineParam(_prologMethod, 1, L"arg0", pdIn|pdHasFieldMarshal, 0, NULL, 0, &prologMethodParam);
-				__RETURN_IF_FAILED(result);
+				mdParamDef prologMethodParam;
+				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->DefineParam(_prologMethod, 1, L"arg0", pdIn | pdHasFieldMarshal, 0, NULL, 0, &prologMethodParam));
 				
 				BYTE paramType = NATIVE_TYPE_LPWSTR;
-				result = metaEmit->SetFieldMarshal(prologMethodParam, &paramType, 1);
-				__RETURN_IF_FAILED(result);*/
+				__RETURN_IF_FAILED(_initializeResult = _metadataEmit->SetFieldMarshal(prologMethodParam, &paramType, 1));
 				
 				//epilogMethod ===============================================
-
 				BYTE epilogMethodSignature[] = {
 					IMAGE_CEE_CS_CALLCONV_DEFAULT, // Callconv
 					0,                             // Argument count
@@ -124,16 +92,13 @@ namespace Chronos
 				return S_OK;
 			}
 
-			HRESULT MethodInjector::InjectById(FunctionID functionId)
+			HRESULT MethodInjector::Inject(FunctionID functionId)
 			{
 				ModuleID moduleId;
+				ClassID classId;
 				mdMethodDef methodToken;
-				__RETURN_IF_FAILED(_corProfilerInfo->GetFunctionInfo(functionId, 0, &moduleId, &methodToken));
-				return InjectByToken(methodToken);
-			}
+				__RETURN_IF_FAILED(_corProfilerInfo->GetFunctionInfo(functionId, &classId, &moduleId, &methodToken));
 
-			HRESULT MethodInjector::InjectByToken(mdMethodDef methodToken)
-			{
 				IMAGE_COR_ILMETHOD* originalMethod = null;
 				ULONG originalMethodSize = 0;
 
@@ -144,20 +109,49 @@ namespace Chronos
 				__RETURN_IF_FAILED(_metadataImport->GetMethodProps(methodToken, 0, 0, 0, 0, 0, &corSignature, &corSignatureSize, 0, 0));
 				
 				Reflection::Emit::Method* method = Reflection::Emit::MethodManager::Read(originalMethod);
-				Reflection::Emit::Signature* argSignature = Reflection::Emit::SignatureManager::Read(corSignature);
-				Reflection::Emit::Signature* localSignature = Reflection::Emit::SignatureManager::Read(method->LocalVarSigTok, _metadataImport);
-				__byte localIndex = Reflection::Emit::SignatureManager::InsertElement(localSignature, argSignature->Front);
+				Reflection::Emit::MethodManager::WriteDebug(method);
 
-				mdSignature localVarSigTok = Reflection::Emit::SignatureManager::Write(localSignature, _metadataEmit);
-				method->LocalVarSigTok = localVarSigTok;
-
-				//Reflection::Emit::MethodManager::WriteDebug(method);
-				//Insert prolog
+				mdFieldDef commandTextFieldToken = 0;
+				//find _commandText field token
 				{
-					Reflection::Emit::Instruction* prologCall = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Call, _prologMethod);
-					Reflection::Emit::MethodManager::InsertChainBefore(method, method->FrontInstruction, prologCall);
+					
+					Reflection::TypeMetadata* typeMetadata;
+					__RETURN_IF_FAILED(_metadataProvider->GetType(classId, &typeMetadata));
+					__string commandTextFieldName(L"_commandText");
+					Reflection::FieldMetadata* fieldMetadata = typeMetadata->FindField(&commandTextFieldName);
+					if (fieldMetadata == null)
+					{
+						return E_FAIL;
+					}
+					commandTextFieldToken = fieldMetadata->GetToken();
 				}
-				//Insert epilog
+
+				//inject one more local variable of method return type if not VOID
+				__bool saveReturn;
+				__byte returnLocalIndex;
+				{
+					Reflection::Emit::Signature* argSignature = Reflection::Emit::SignatureManager::Read(corSignature);
+					saveReturn = argSignature->Front->ElementType != CorElementType::ELEMENT_TYPE_VOID;
+					if (saveReturn)
+					{
+						Reflection::Emit::Signature* localSignature = Reflection::Emit::SignatureManager::Read(method->LocalVarSigTok, _metadataImport);
+						returnLocalIndex = Reflection::Emit::SignatureManager::InsertElement(localSignature, argSignature->Front);
+						mdSignature localVarSigTok = Reflection::Emit::SignatureManager::Write(localSignature, _metadataEmit);
+						method->LocalVarSigTok = localVarSigTok;
+					}
+				}
+				//insert prolog
+				{
+					Reflection::Emit::Instruction* loadThisInstruction = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Ldarg_0);
+					Reflection::Emit::MethodManager::InsertChainBefore(method, method->FrontInstruction, loadThisInstruction);
+
+					Reflection::Emit::Instruction* loadCommandTextInstruction = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Ldfld, commandTextFieldToken);
+					Reflection::Emit::MethodManager::InsertChainAfter(method, loadThisInstruction, loadCommandTextInstruction);
+
+					Reflection::Emit::Instruction* prologCall = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Call, _prologMethod);
+					Reflection::Emit::MethodManager::InsertChainAfter(method, loadCommandTextInstruction, prologCall);
+				}
+				//insert epilog
 				{
 					//NOTE: method could have many RET instructions (e.g. in SWITCH). TODO: handle this case
 					Reflection::Emit::Instruction* finalInstruction = Reflection::Emit::InstructionManager::MoveToFinal(method->FrontInstruction);
@@ -170,19 +164,25 @@ namespace Chronos
 					}
 					insertAfterInstruction = returnInstruction->Previous;
 
-					Reflection::Emit::Instruction* setLocalInstruction = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Stloc_S, localIndex);
-					insertAfterInstruction = Reflection::Emit::MethodManager::InsertChainAfter(method, insertAfterInstruction, setLocalInstruction);
+					if (saveReturn)
+					{
+						Reflection::Emit::Instruction* setLocalInstruction = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Stloc_S, returnLocalIndex);
+						insertAfterInstruction = Reflection::Emit::MethodManager::InsertChainAfter(method, insertAfterInstruction, setLocalInstruction);
+					}
 
 					Reflection::Emit::Instruction* epilogCall = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Call, _epilogMethod);
 					insertAfterInstruction = Reflection::Emit::MethodManager::InsertChainAfter(method, insertAfterInstruction, epilogCall);
 
-					Reflection::Emit::Instruction* loadLocalInstruction = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Ldloc_S, localIndex);
-					insertAfterInstruction = Reflection::Emit::MethodManager::InsertChainAfter(method, insertAfterInstruction, loadLocalInstruction);
+					if (saveReturn)
+					{
+						Reflection::Emit::Instruction* loadLocalInstruction = Reflection::Emit::InstructionManager::Create(Reflection::Emit::OpCodes::Ldloc_S, returnLocalIndex);
+						insertAfterInstruction = Reflection::Emit::MethodManager::InsertChainAfter(method, insertAfterInstruction, loadLocalInstruction);
+					}
 					
 					Reflection::Emit::ExceptionHandlerManager::DefineTryFinally(method, method->FrontInstruction, epilogCall->Previous, epilogCall, epilogCall);
 				}
 
-				//Reflection::Emit::MethodManager::WriteDebug(method);
+				Reflection::Emit::MethodManager::WriteDebug(method);
 
 				__uint copyMethodSize = Reflection::Emit::MethodManager::GetSize(method);
 				BYTE* copyMethodData = (BYTE*)_methodAlloc->Alloc(copyMethodSize);
