@@ -115,6 +115,7 @@ namespace Chronos
 				//find _commandText field token
 				{
 					
+					//use _metadataImport->FindField
 					Reflection::TypeMetadata* typeMetadata;
 					__RETURN_IF_FAILED(_metadataProvider->GetType(classId, &typeMetadata));
 					__string commandTextFieldName(L"_commandText");

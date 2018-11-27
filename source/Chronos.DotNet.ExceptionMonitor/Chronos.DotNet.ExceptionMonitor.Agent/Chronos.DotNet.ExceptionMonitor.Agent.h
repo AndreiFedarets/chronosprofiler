@@ -55,9 +55,7 @@ namespace Chronos
 					private:
 						HRESULT InitializeUnitSpecial(ManagedExceptionInfo* unit);
 						HRESULT GetExceptionMessageField(ObjectID exceptionObjectId, ClassID* exceptionClass, mdFieldDef* fieldToken, IMetaDataImport2** metaDataImport);
-						mdFieldDef _exceptionMessageFieldToken;
-						IMetaDataImport2* _metaDataImport;
-						ClassID _exceptionClassId;
+
 				};
 
 // ==================================================================================================================================================

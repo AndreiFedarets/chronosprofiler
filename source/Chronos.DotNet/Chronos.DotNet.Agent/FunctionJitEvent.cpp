@@ -58,7 +58,7 @@ namespace Chronos
 					}
 
 				}
-				_subscription->RaiseNextEvent(RuntimeProfilingEvents::AssemblyLoadFinished, eventArgs);
+				_subscription->RaiseNextEvent(RuntimeProfilingEvents::JITCachedFunctionSearchStarted, eventArgs);
 			}
 
 			void FunctionJitEvent::OnAssemblyLoadStarted(void* eventArgs)
@@ -70,14 +70,14 @@ namespace Chronos
 				{
 					_assemblies->Add(temp->AssemblyId);
 				}
-				_subscription->RaiseNextEvent(RuntimeProfilingEvents::AssemblyLoadFinished, eventArgs);
+				_subscription->RaiseNextEvent(RuntimeProfilingEvents::AssemblyLoadStarted, eventArgs);
 			}
 
 			void FunctionJitEvent::OnAssemblyUnloadStarted(void* eventArgs)
 			{
 				AssemblyUnloadStartedEventArgs* temp = static_cast<AssemblyUnloadStartedEventArgs*>(eventArgs);
 				_assemblies->Remove(temp->AssemblyId);
-				_subscription->RaiseNextEvent(RuntimeProfilingEvents::AssemblyLoadFinished, eventArgs);
+				_subscription->RaiseNextEvent(RuntimeProfilingEvents::AssemblyUnloadStarted, eventArgs);
 			}
 
 			void FunctionJitEvent::OnModuleAttachedToAssembly(void* eventArgs)
@@ -111,32 +111,6 @@ namespace Chronos
 						ULONG paramsCount = 0;
 						result = metaDataImport->EnumParams(&phEnum, functionToken, params, paramsMaxCount, &paramsCount);
 						__bool methodMatches = paramsCount == _argumentsCount;
-						/*if (_arguments->size() == paramsCount)
-						{
-							methodMatches = true;
-							for (__uint k = 0; k < paramsCount; k++)
-							{
-								mdParamDef paramToken = params[k];
-								mdMethodDef methodToken = 0;
-								ULONG pulSequence = 0;
-								const __byte paramNameMaxLength = 255;
-								__wchar paramName[paramNameMaxLength];
-								memset(&paramName, 0, sizeof(__wchar) * paramNameMaxLength);
-								ULONG paramNameLength = 0;
-								DWORD attributes = 0;
-								DWORD typeFlags = 0;
-								UVCP_CONSTANT uvcp = 0;
-								ULONG uvcpLenght = 0;
-								result = metaDataImport->GetParamProps(paramToken, &methodToken, &pulSequence, (LPWSTR)&paramName, paramNameMaxLength, &paramNameLength, &attributes, &typeFlags, &uvcp, &uvcpLenght);
-								__int argumentIndex = pulSequence - 1;
-								__string argument = _arguments->at(argumentIndex);
-								if (argument.compare(paramName) != 0)
-								{
-									methodMatches = false;
-									break;
-								}
-							}
-						}*/
 						if (methodMatches)
 						{
 							functions->Add(functionToken);
@@ -144,6 +118,7 @@ namespace Chronos
 						}
 					}
 				}
+				_subscription->RaiseNextEvent(RuntimeProfilingEvents::ModuleAttachedToAssembly, eventArgs);
 			}
 
 			void FunctionJitEvent::OnJITCompilationStarted(void* eventArgs)
@@ -162,70 +137,6 @@ namespace Chronos
 					}
 				}
 				_subscription->RaiseNextEvent(RuntimeProfilingEvents::JITCompilationStarted, eventArgs);
-
-				////check class
-				//ClassID classId = methodMetadata->GetTypeId();
-				//Reflection::TypeMetadata* typeMetadata;
-				//__RETURN_VOID_IF_FAILED(_metadataProvider->GetType(classId, &typeMetadata));
-				//if (_className->compare(*typeMetadata->GetName()) != 0)
-				//{
-				//	_subscription->RaiseNextEvent(RuntimeProfilingEvents::JITCompilationStarted, eventArgs);
-				//	return;
-				//}
-
-				////check function
-				//if (_functionName->compare(*methodMetadata->GetName()) != 0)
-				//{
-				//	_subscription->RaiseNextEvent(RuntimeProfilingEvents::JITCompilationStarted, eventArgs);
-				//	return;
-				//}
-				//
-				////check parameters
-				//HRESULT result;
-				//ModuleID moduleId = methodMetadata->GetModuleId();
-				//mdToken functionToken = methodMetadata->GetMethodToken();
-
-				//ICorProfilerInfo2* profilerInfo = null;
-				//result = _metadataProvider->GetCorProfilerInfo2(&profilerInfo);
-
-				//IMetaDataImport2* metaDataImport;
-				//result = profilerInfo->GetModuleMetaData(moduleId, ofRead, IID_IMetaDataImport2, (IUnknown**)&metaDataImport);
-
-				//HCORENUM phEnum = 0;
-				//const __byte paramsMaxCount = 16;
-				//ULONG paramsCount = 0;
-				//mdToken params[paramsMaxCount];
-				//result = metaDataImport->EnumParams(&phEnum, functionToken, params, paramsMaxCount, &paramsCount);
-				//if (_arguments->size() != paramsCount)
-				//{
-				//	_subscription->RaiseNextEvent(RuntimeProfilingEvents::JITCompilationStarted, eventArgs);
-				//	return;
-				//}
-				//for (__uint k = 0; k < paramsCount; k++)
-				//{
-				//	mdParamDef paramToken = params[k];
-				//	mdMethodDef methodToken = 0;
-				//	ULONG pulSequence = 0;
-				//	const __byte paramNameMaxLength = 255;
-				//	__wchar paramName[paramNameMaxLength];
-				//	memset(&paramName, 0, sizeof(__wchar) * paramNameMaxLength);
-				//	ULONG paramNameLength = 0;
-				//	DWORD attributes = 0;
-				//	DWORD typeFlags = 0;
-				//	UVCP_CONSTANT uvcp = 0;
-				//	ULONG uvcpLenght = 0;
-				//	result = metaDataImport->GetParamProps(paramToken, &methodToken, &pulSequence, (LPWSTR)&paramName, paramNameMaxLength, &paramNameLength, &attributes, &typeFlags, &uvcp, &uvcpLenght);
-				//	__int argumentIndex = pulSequence - 1;
-				//	__string argument = _arguments->at(argumentIndex);
-				//	if (argument.compare(paramName) != 0)
-				//	{
-				//		_subscription->RaiseNextEvent(RuntimeProfilingEvents::JITCompilationStarted, eventArgs);
-				//		return;
-				//	}
-				//}
-
-				////all checks passed, call callback
-				//_callback->Call(eventArgs);
 			}
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------

@@ -11,9 +11,6 @@ namespace Chronos
 			{
 				ManagedExceptionCollection::ManagedExceptionCollection()
 				{
-					_exceptionMessageFieldToken = null;
-					_metaDataImport = null;
-					_exceptionClassId = null;
 				}
 
 				HRESULT ManagedExceptionCollection::InitializeUnitSpecial(ManagedExceptionInfo* unit)
@@ -69,47 +66,41 @@ namespace Chronos
 					return S_OK;
 				}
 
-				HRESULT ManagedExceptionCollection::GetExceptionMessageField(ObjectID exceptionObjectId, ClassID* exceptionClass, mdFieldDef* fieldToken, IMetaDataImport2** metaDataImport)
+				HRESULT ManagedExceptionCollection::GetExceptionMessageField(ObjectID exceptionObjectId, ClassID* exceptionClassId, mdFieldDef* fieldToken, IMetaDataImport2** metaDataImport)
 				{
-					if (_exceptionMessageFieldToken == null || _metaDataImport == null || _exceptionClassId == null)
+					ICorProfilerInfo2* corProfilerInfo = null;
+					__RETURN_IF_FAILED( _metadataProvider->GetCorProfilerInfo2(&corProfilerInfo) );
+
+					//get class id by object instance id
+					__RETURN_IF_FAILED( corProfilerInfo->GetClassFromObject(exceptionObjectId, exceptionClassId) );
+
+					HRESULT result;
+					do 
 					{
-						ICorProfilerInfo2* corProfilerInfo = null;
-						__RETURN_IF_FAILED( _metadataProvider->GetCorProfilerInfo2(&corProfilerInfo) );
+						//get module id and class token by class id
+						ModuleID moduleId = 0;
+						mdTypeDef classToken;
 
-						//get class id by object instance id
-						__RETURN_IF_FAILED( corProfilerInfo->GetClassFromObject(exceptionObjectId, &_exceptionClassId) );
+						__RETURN_IF_FAILED(corProfilerInfo->GetClassIDInfo(*exceptionClassId, &moduleId, &classToken));
 
-						HRESULT result;
-						do 
+						//get module metadata by module id
+						__RETURN_IF_FAILED( corProfilerInfo->GetModuleMetaData(moduleId, ofRead, IID_IMetaDataImport2, (IUnknown**)metaDataImport) );
+
+						//find field in class by name and class token
+						result = (*metaDataImport)->FindField(classToken, L"_message", null, 0, fieldToken);
+
+						if (FAILED(result))
 						{
-							//get module id and class token by class id
-							ModuleID moduleId = 0;
-							mdTypeDef classToken;
-
-							__RETURN_IF_FAILED( corProfilerInfo->GetClassIDInfo(_exceptionClassId, &moduleId, &classToken) );
-
-							//get module metadata by module id
-							__RETURN_IF_FAILED( corProfilerInfo->GetModuleMetaData(moduleId, ofRead, IID_IMetaDataImport2, (IUnknown**)&_metaDataImport) );
-
-							//find field in class by name and class token
-							result = _metaDataImport->FindField(classToken, L"_message", null, 0, &_exceptionMessageFieldToken);
-
-							if (FAILED(result))
-							{
-								ClassID parentClassId = 0;
-								__RETURN_IF_FAILED( corProfilerInfo->GetClassIDInfo2(_exceptionClassId, &moduleId, &classToken, &parentClassId, 0, null, null) );
-								_exceptionClassId = parentClassId;
-							}
+							ClassID parentClassId = 0;
+							__RETURN_IF_FAILED( corProfilerInfo->GetClassIDInfo2(*exceptionClassId, &moduleId, &classToken, &parentClassId, 0, null, null) );
+							*exceptionClassId = parentClassId;
 						}
-						while (!SUCCEEDED(result));
 					}
-					if (_exceptionMessageFieldToken == null || _metaDataImport == null || _exceptionClassId == null)
+					while (!SUCCEEDED(result));
+					if (*fieldToken == 0 || *metaDataImport == null || *exceptionClassId == 0)
 					{
 						return E_FAIL;
 					}
-					*fieldToken = _exceptionMessageFieldToken;
-					*metaDataImport = _metaDataImport;
-					*exceptionClass = _exceptionClassId;
 					return S_OK;
 				}
 	
