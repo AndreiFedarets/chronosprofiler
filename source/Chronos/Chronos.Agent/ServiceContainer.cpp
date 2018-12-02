@@ -15,6 +15,13 @@ namespace Chronos
 			__FREEOBJ(_services);
 		}
 
+		__bool ServiceContainer::IsRegistered(__guid serviceToken)
+		{
+			Lock lock(&_criticalSection);
+			std::map<__guid, void*>::iterator i = _services->find(serviceToken);
+			return (i != _services->end());
+		}
+
 		bool ServiceContainer::ResolveService(__guid serviceToken, void** service)
 		{
 			Lock lock(&_criticalSection);
@@ -22,6 +29,7 @@ namespace Chronos
 			//container has no service registered as 'serviceToken'
 			if (i == _services->end())
 			{
+				*service = null;
 				return false;
 			}
 			*service = i->second;

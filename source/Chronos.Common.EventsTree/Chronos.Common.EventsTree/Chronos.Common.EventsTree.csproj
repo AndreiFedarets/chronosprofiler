@@ -48,6 +48,7 @@
     <Compile Include="ISingleEventTree.cs" />
     <Compile Include="IThreadEventTree.cs" />
     <Compile Include="IThreadEventTreeMessage.cs" />
+    <Compile Include="ProfilingTypeSettings.cs" />
     <Compile Include="Proxy\EventMessageBuilder.cs" />
     <Compile Include="Proxy\ThreadEventTreeMessage.cs" />
     <Compile Include="StaticEventTreeCollection.cs" />

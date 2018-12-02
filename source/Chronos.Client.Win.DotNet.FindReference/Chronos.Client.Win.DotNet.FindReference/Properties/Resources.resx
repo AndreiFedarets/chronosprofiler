@@ -129,4 +129,7 @@
   <data name="ModuleReferenceMenuItem_Text" xml:space="preserve">
     <value>Search in Events Tree</value>
   </data>
+  <data name="SqlQueryReferenceMenuItem_Text" xml:space="preserve">
+    <value>Search in Events Tree</value>
+  </data>
 </root>

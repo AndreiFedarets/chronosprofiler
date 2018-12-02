@@ -10,6 +10,7 @@
             <File Id="Chronos_DotNet_TracingProfiler_dll" Name="Chronos.DotNet.TracingProfiler.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.DotNet.TracingProfiler.dll" />
             <File Id="Chronos_DotNet_TracingProfiler_xchronex" Name="Chronos.DotNet.TracingProfiler.xchronex" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.DotNet.TracingProfiler.xchronex" />
             <File Id="Chronos_DotNet_TracingProfiler_Agent_dll" Name="Chronos.DotNet.TracingProfiler.Agent.dll" DiskId="1" Source="$(var.ModuleSourceDir)\Chronos.DotNet.TracingProfiler.Agent.dll" />
+            <File Id="DefaultExclusions_txt" Name="DefaultExclusions.txt" DiskId="1" Source="$(var.ModuleSourceDir)\DefaultExclusions.txt" />
           </Component>
           <Directory Id="Chronos_DotNet_TracingProfiler_Directory_64" Name="$(var.ModuleDir64)">
             <Component Id="Chronos_DotNet_TracingProfiler_Component_64" Guid="891dbbd4-108d-4bf0-b6b6-b81087b1918b">

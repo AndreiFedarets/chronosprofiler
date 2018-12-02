@@ -8,12 +8,12 @@
     <Export Application="core" EntryPoint="Chronos.DotNet.TracingProfiler.ProfilingTypeAdapter, Chronos.DotNet.TracingProfiler" />
     <Export Application="agent" EntryPoint32="Chronos.DotNet.TracingProfiler.Agent.dll" EntryPoint64="x64\Chronos.DotNet.TracingProfiler.Agent.dll" />
     <Localization Culture="en-US">
-      <Name>Microsoft.NET Tracing Performance</Name>
+      <Name>Tracing Performance</Name>
       <Description>Tracing performance profiler for applications based on Microsoft.NET</Description>
     </Localization>
   </ProfilingType>
   <Localization Culture="en-US">
-    <Name>Microsoft.NET Tracing Performance</Name>
+    <Name>Tracing Performance</Name>
     <Description>Tracing performance profiler for applications based on Microsoft.NET</Description>
   </Localization>
 </Extension>

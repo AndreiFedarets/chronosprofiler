@@ -46,6 +46,9 @@ namespace Chronos
 					__RESOLVE_SERVICE(container, RuntimeProfilingEvents, profilingEvents);
 					__RESOLVE_SERVICE(container, Reflection::RuntimeMetadataProvider, _metadataProvider);
 					__RESOLVE_SERVICE(container, ProfilingTimer, _profilingTimer);
+					//try to resolve Events Tree Logger
+					_eventTreeAvailable = container->IsRegistered(Converter::ConvertStringToGuid(L"{D47A2680-33AF-4BB9-BBBA-22BB177B39D7}"));
+					//init jit events
 					_jitEvents->Initialize(profilingEvents, _metadataProvider);
 					return S_OK;
 				}
@@ -67,25 +70,16 @@ namespace Chronos
 				{
 					//Gateway has limit on package size (3mb), so we split data in 2 packages to minimize its size:
 
-					GatewayPackage* package = GatewayPackage::CreateDynamic(_dataMarker);
+					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::MsSqlSquery, _msSqlQueries, UnitMarshaler::MarshalMsSqlQuery, _gatewayClient, _dataMarker);
+					/*GatewayPackage* package = GatewayPackage::CreateDynamic(_dataMarker);
 
 					FlushMsSqlQueries(package);
 					_gatewayClient->Send(package, false);
-
+*/
 					return S_OK;
 				}
 
-				void ProfilingTypeAdapter::BeginExecuteQuery(__string* query)
-				{
-					_current->OnBeginExecuteQuery(query);
-				}
-
-				void ProfilingTypeAdapter::EndExecuteQuery()
-				{
-					_current->OnEndExecuteQuery();
-				}
-
-				void ProfilingTypeAdapter::FlushMsSqlQueries(IStreamWriter* stream)
+				/*void ProfilingTypeAdapter::FlushMsSqlQueries(IStreamWriter* stream)
 				{
 					std::list<MsSqlQueryInfo*> updates;
 					_msSqlQueries->GetUpdates(&updates);
@@ -96,7 +90,7 @@ namespace Chronos
 						MsSqlQueryInfo* unit = *i;
 						UnitMarshaler::MarshalMsSqlQuery(unit, stream);
 					}
-				}
+				}*/
 
 				void ProfilingTypeAdapter::OnJITCompilationStarted(void* eventArgs)
 				{
@@ -123,17 +117,36 @@ namespace Chronos
 					MsSqlQueryInfo* query = _msSqlQueries->CreateUnit();
 					query->InitializeName(queryText);
 					QueryContext::CurrentMsSqlQuery = query;
+					if (_eventTreeAvailable)
+					{
+						Chronos::Agent::Common::EventsTree::EventsTreeLoggerCollection_LogEventEnter(EventType::SqlQuery, query->Uid);
+					}
 				}
 
 				void ProfilingTypeAdapter::OnEndExecuteQuery()
 				{
-					if (QueryContext::CurrentMsSqlQuery == null)
+					MsSqlQueryInfo* query = QueryContext::CurrentMsSqlQuery;
+					if (query == null)
 					{
 						// not possible!
 						return;
 					}
-					_msSqlQueries->CloseUnit(QueryContext::CurrentMsSqlQuery->Id);
+					_msSqlQueries->CloseUnit(query->Id);
 					QueryContext::CurrentMsSqlQuery = null;
+					if (_eventTreeAvailable)
+					{
+						Chronos::Agent::Common::EventsTree::EventsTreeLoggerCollection_LogEventLeave(EventType::SqlQuery, query->Uid);
+					}
+				}
+
+				void ProfilingTypeAdapter::BeginExecuteQuery(__string* query)
+				{
+					_current->OnBeginExecuteQuery(query);
+				}
+
+				void ProfilingTypeAdapter::EndExecuteQuery()
+				{
+					_current->OnEndExecuteQuery();
 				}
 
 				ProfilingTypeAdapter* ProfilingTypeAdapter::_current = null;

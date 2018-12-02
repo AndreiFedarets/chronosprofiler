@@ -34,6 +34,10 @@ namespace Chronos.DotNet.ExceptionMonitor
             _exceptions.Save(_storage);
         }
 
+        public void ConfigureForProfiling(ProfilingTypeSettings settings)
+        {
+        }
+
         public void StartProfiling(ProfilingTypeSettings settings)
         {
         }

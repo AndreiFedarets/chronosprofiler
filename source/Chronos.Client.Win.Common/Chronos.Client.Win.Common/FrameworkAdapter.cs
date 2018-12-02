@@ -13,5 +13,10 @@ namespace Chronos.Client.Win.Common
         {
             return LayoutFileReader.ReadViewModelLayout(targetViewModel);
         }
+
+        public void InitializeSettings(FrameworkSettings settings)
+        {
+            
+        }
     }
 }

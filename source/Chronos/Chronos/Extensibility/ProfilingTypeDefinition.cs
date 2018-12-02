@@ -5,11 +5,12 @@ namespace Chronos.Extensibility
 {
     public sealed class ProfilingTypeDefinition
     {
-        internal ProfilingTypeDefinition(Guid uid, Guid frameworkUid, List<ExportDefinition> exports, List<DependencyDefinition> dependencies,
+        internal ProfilingTypeDefinition(Guid uid, Guid frameworkUid, bool isHidden, List<ExportDefinition> exports, List<DependencyDefinition> dependencies,
             List<LocalizationDefinition> localizations, List<AttributeDefinition> attributes, List<PrerequisiteDefinition> prerequisites)
         {
             Uid = uid;
             FrameworkUid = frameworkUid;
+            IsHidden = isHidden;
             Exports = new ExportDefinitionCollection(exports);
             Dependencies = new DependencyDefinitionCollection(dependencies);
             Localization = new LocalizationDefinitionCollection(localizations);

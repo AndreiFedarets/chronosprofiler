@@ -480,6 +480,8 @@ namespace Chronos
 			public:
 				static void MarshalBool(__bool value, IStreamWriter* stream);
 				static void MarshalByte(__byte value, IStreamWriter* stream);
+				static void MarshalShort(__short value, IStreamWriter* stream);
+				static void MarshalUShort(__ushort value, IStreamWriter* stream);
 				static void MarshalInt(__int value, IStreamWriter* stream);
 				static void MarshalUInt(__uint value, IStreamWriter* stream);
 				static void MarshalLong(__long value, IStreamWriter* stream);
@@ -491,6 +493,8 @@ namespace Chronos
 				
 				static __bool DemarshalBool(IStreamReader* stream);
 				static __byte DemarshalByte(IStreamReader* stream);
+				static __short DemarshalShort(IStreamReader* stream);
+				static __ushort DemarshalUShort(IStreamReader* stream);
 				static __int DemarshalInt(IStreamReader* stream);
 				static __uint DemarshalUInt(IStreamReader* stream);
 				static __long DemarshalLong(IStreamReader* stream);
@@ -502,6 +506,7 @@ namespace Chronos
 
 				const static __uint BoolSize;
 				const static __uint ByteSize;
+				const static __uint ShortSize;
 				const static __uint IntSize;
 				const static __uint LongSize;
 				const static __uint SizeSize;
@@ -517,6 +522,8 @@ namespace Chronos
 				~DynamicSettingBlock(void);
 				__byte AsByte();
 				__bool AsBool();
+				__short AsShort();
+				__ushort AsUShort();
 				__int AsInt();
 				__uint AsUInt();
 				__long AsLong();
@@ -723,10 +730,11 @@ namespace Chronos
 		{
 			public:
 				ServiceContainer(void);
-				bool ResolveService(__guid serviceToken, void** service);
-				bool RegisterService(__guid serviceToken, void* service);
-				bool RegisterService(__guid serviceToken, void* service, __bool overrideExisting);
-				bool UnregisterService(__guid serviceToken);
+				__bool IsRegistered(__guid serviceToken);
+				__bool ResolveService(__guid serviceToken, void** service);
+				__bool RegisterService(__guid serviceToken, void* service);
+				__bool RegisterService(__guid serviceToken, void* service, __bool overrideExisting);
+				__bool UnregisterService(__guid serviceToken);
 				~ServiceContainer(void);
 			private:
 				std::map<__guid, void*>* _services;
@@ -1001,7 +1009,7 @@ namespace Chronos
 			private:
 				__uint _asyncStreamsCount;
 				IStreamFactory* _streamFactory;
-				SingleCoreThread* _sendingThread;
+				MultiCoreThread* _sendingThread;
 				volatile __bool _sending;
 				const static __uint PackagesMaxCount = 256;
 				GatewayPackageContainer* _packages[PackagesMaxCount];
@@ -1016,6 +1024,8 @@ namespace Chronos
 				HRESULT Initialize(GatewaySettings* gatewaySettings);
 				void Send(GatewayPackage* package, __bool leavePackageAlive);
 				void Send(GatewayPackage* package);
+				void SendAsync(GatewayPackage* package);
+				void SendAsync(GatewayPackage* package, __bool leavePackageAlive);
 				void GetWorkingThreads(std::vector<SingleCoreThread*>* threads);
 				void WaitWhileSending();
 				

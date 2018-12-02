@@ -20,11 +20,11 @@ namespace Chronos
 
 		HRESULT GatewayClient::Initialize(GatewaySettings* gatewaySettings)
 		{
-			__RETURN_IF_FAILED( _asyncGateway->Initialize(gatewaySettings) );
-			__RETURN_IF_FAILED( _syncGateway->Initialize(gatewaySettings) );
+			__RETURN_IF_FAILED(_asyncGateway->Initialize(gatewaySettings));
+			__RETURN_IF_FAILED(_syncGateway->Initialize(gatewaySettings));
 			return S_OK;
 		}
-		
+
 		void GatewayClient::Send(GatewayPackage* package)
 		{
 			if (GatewayClientSettings::IsSyncClientEnabled)
@@ -56,6 +56,21 @@ namespace Chronos
 				}
 				_asyncGateway->Send(package);
 			}
+		}
+
+		void GatewayClient::SendAsync(GatewayPackage* package)
+		{
+			package = GatewayPackage::CreateClone(package);
+			_asyncGateway->Send(package);
+		}
+
+		void GatewayClient::SendAsync(GatewayPackage* package, __bool leavePackageAlive)
+		{
+			if (leavePackageAlive)
+			{
+				package = GatewayPackage::CreateClone(package);
+			}
+			_asyncGateway->Send(package);
 		}
 
 		void GatewayClient::GetWorkingThreads(std::vector<SingleCoreThread*>* threads)

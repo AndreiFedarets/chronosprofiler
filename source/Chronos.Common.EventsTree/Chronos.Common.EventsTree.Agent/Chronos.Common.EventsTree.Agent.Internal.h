@@ -313,8 +313,13 @@ namespace Chronos
 						EventsTreeLoggerCollection* _loggers;
 						GatewayClient* _gatewayClient;
 						__byte _dataMarker;
+						__ushort _eventsMaxDepth;
+						__uint _eventsBufferSize;
 						ProfilingTimer* _profilingTimer;
 						ProfilingTypeSettings* _settings;
+
+						const static __guid EventsMaxDepthIndex;
+						const static __guid EventsBufferSizeIndex;
 				};
 
 // ==================================================================================================================================================

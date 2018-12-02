@@ -15,6 +15,16 @@ namespace Chronos
 			stream->Write(&value, ByteSize);
 		}
 
+		void Marshaler::MarshalShort(__short value, IStreamWriter* stream)
+		{
+			stream->Write(&value, ShortSize);
+		}
+
+		void Marshaler::MarshalUShort(__ushort value, IStreamWriter* stream)
+		{
+			stream->Write(&value, ShortSize);
+		}
+
 		void Marshaler::MarshalInt(__int value, IStreamWriter* stream)
 		{
 			stream->Write(&value, IntSize);
@@ -80,6 +90,20 @@ namespace Chronos
 		{
 			__byte value = 0;
 			stream->Read(&value, ByteSize);
+			return value;
+		}
+
+		__short Marshaler::DemarshalShort(IStreamReader* stream)
+		{
+			__short value = 0;
+			stream->Read(&value, ShortSize);
+			return value;
+		}
+
+		__ushort Marshaler::DemarshalUShort(IStreamReader* stream)
+		{
+			__ushort value = 0;
+			stream->Read(&value, ShortSize);
 			return value;
 		}
 
@@ -153,6 +177,7 @@ namespace Chronos
 		const __uint Marshaler::BoolSize = sizeof(__bool);
 		const __uint Marshaler::ByteSize = sizeof(__byte);
 		const __uint Marshaler::CharSize = sizeof(__wchar);
+		const __uint Marshaler::ShortSize = sizeof(__short);
 		const __uint Marshaler::IntSize = sizeof(__int);
 		const __uint Marshaler::SizeSize = sizeof(__size);
 		const __uint Marshaler::LongSize = sizeof(__long);

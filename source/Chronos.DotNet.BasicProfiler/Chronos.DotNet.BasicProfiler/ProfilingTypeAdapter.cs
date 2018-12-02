@@ -35,14 +35,16 @@ namespace Chronos.DotNet.BasicProfiler
             _threads = new ThreadCollection();
         }
 
+        public void ConfigureForProfiling(ProfilingTypeSettings settings)
+        {
+        }
+
         public void StartProfiling(ProfilingTypeSettings settings)
         {
-            
         }
 
         public void StopProfiling()
         {
-            
         }
 
         public void LoadData()

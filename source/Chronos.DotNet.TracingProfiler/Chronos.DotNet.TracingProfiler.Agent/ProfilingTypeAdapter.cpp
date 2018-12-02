@@ -13,7 +13,7 @@ namespace Chronos
 				void ProfilingTypeAdapter::OnFunctionLoadStarted(void* eventArgs)
 				{
 					FunctionLoadStartedEventArgs* temp = static_cast<FunctionLoadStartedEventArgs*>(eventArgs);
-					temp->HookFunction = true;
+					temp->HookFunction = ProfilingTypeAdapter::Current->HookFunction(temp->FunctionId);
 				}
 
 				void Chronos_DotNet_TracingProfiler_OnFunctionEnter(void* eventArgs)
@@ -107,6 +107,7 @@ namespace Chronos
 				{
 					Current = this;
 					_profilingEvents = null;
+					_exclusions = new __vector<__string>();
 				}
 
 				ProfilingTypeAdapter::~ProfilingTypeAdapter(void)
@@ -118,6 +119,18 @@ namespace Chronos
 				{
 					//Initialize local settings
 					_settings = settings;
+					//get Exclusions
+					DynamicSettingBlock* exclusionsBlock = settings->GetSettingBlock(ExclusionsIndex);
+					IStreamReader* reader = exclusionsBlock->OpenRead();
+					if (reader != null)
+					{
+						__uint count = Marshaler::DemarshalUInt(reader);
+						for (__uint i = 0; i < count; i++)
+						{
+							__string exclusion = Marshaler::DemarshalString(reader);
+							_exclusions->push_back(exclusion);
+						}
+					}
 					return S_OK;
 				}
 
@@ -163,8 +176,38 @@ namespace Chronos
 				{
 					return S_OK;
 				}
+
+				__bool ProfilingTypeAdapter::HookFunction(FunctionID functionId)
+				{
+					//TODO: need to be optimized, too many code!
+					Chronos::Agent::DotNet::Reflection::MethodMetadata* methodMetadata = null;
+					HRESULT result = _metadataProvider->GetMethod(functionId, &methodMetadata);
+					if (FAILED(result))
+					{
+						return true;
+					}
+					AssemblyID assemblyId = methodMetadata->GetAssemblyId();
+
+					Chronos::Agent::DotNet::Reflection::AssemblyMetadata* assemblyMetadata = null;
+					result = _metadataProvider->GetAssembly(assemblyId, &assemblyMetadata);
+					if (FAILED(result))
+					{
+						return true;
+					}
+
+					__string* assemblyName = assemblyMetadata->GetName();
+					for (__vector<__string>::iterator i = _exclusions->begin(); i != _exclusions->end(); ++i)
+					{
+						if (StringComparer::Equals(assemblyName, &(*i), true))
+						{
+							return false;
+						}
+					}
+					return true;
+				}
 				
-				const ProfilingTypeAdapter* ProfilingTypeAdapter::Current = null;
+				ProfilingTypeAdapter* ProfilingTypeAdapter::Current = null;
+				const __guid ProfilingTypeAdapter::ExclusionsIndex = Converter::ConvertStringToGuid(L"{9049FDEB-CE96-447F-A5C1-73B77D2BCD43}");
 			}
 		}
 	}

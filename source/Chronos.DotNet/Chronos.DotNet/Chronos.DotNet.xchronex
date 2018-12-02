@@ -5,14 +5,14 @@
     <Export Application="core" EntryPoint="Chronos.DotNet.FrameworkAdapter, Chronos.DotNet"/>
     <Export Application="agent" EntryPoint32="Chronos.DotNet.Agent.EntryPoint.dll" EntryPoint64="x64\Chronos.DotNet.Agent.EntryPoint.dll" MethodName="CreateDotNetFramework" />
     <Localization Culture="en-US">
-      <Name>Microsoft.NET (4.0+)</Name>
-      <Description>Profiling applications based on Microsoft.NET 4.0 and higher</Description>
+      <Name>Microsoft.NET Framework</Name>
+      <Description>Profiling applications based on Microsoft.NET Framework 4.0+</Description>
     </Localization>
   </Framework>
 
   <Localization Culture="en-US">
-    <Name>Microsoft.NET (4.0+)</Name>
-    <Description>Profiling applications based on Microsoft.NET 4.0 and higher</Description>
+    <Name>Microsoft.NET Framework</Name>
+    <Description>Profiling applications based on Microsoft.NET Framework 4.0+</Description>
   </Localization>
   
 </Extension>

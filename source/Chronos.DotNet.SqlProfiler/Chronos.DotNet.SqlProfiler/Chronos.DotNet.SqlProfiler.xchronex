@@ -4,12 +4,12 @@
     <Export Application="core" EntryPoint="Chronos.DotNet.SqlProfiler.ProfilingTypeAdapter, Chronos.DotNet.SqlProfiler" />
     <Export Application="agent" EntryPoint32="Chronos.DotNet.SqlProfiler.Agent.dll" EntryPoint64="x64\Chronos.DotNet.SqlProfiler.Agent.dll" />
     <Localization Culture="en-US">
-      <Name>Microsoft.NET SQL</Name>
+      <Name>MS SQL Profiler</Name>
       <Description>Profiling Microsoft.NET SQL requests</Description>
     </Localization>
   </ProfilingType>
   <Localization Culture="en-US">
-    <Name>Microsoft.NET SQL</Name>
+    <Name>MS SQL Profiler</Name>
     <Description>Profiling Microsoft.NET SQL requests</Description>
   </Localization>
 </Extension>

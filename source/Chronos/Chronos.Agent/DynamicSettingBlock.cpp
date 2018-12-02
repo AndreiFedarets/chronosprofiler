@@ -35,6 +35,18 @@ namespace Chronos
 			return _buffer->Data[0];
 		}
 
+		__short DynamicSettingBlock::AsShort()
+		{
+			MemoryStream stream(_buffer->Data, _buffer->Size);
+			return Marshaler::DemarshalShort(&stream);
+		}
+
+		__ushort DynamicSettingBlock::AsUShort()
+		{
+			MemoryStream stream(_buffer->Data, _buffer->Size);
+			return Marshaler::DemarshalUShort(&stream);
+		}
+
 		__int DynamicSettingBlock::AsInt()
 		{
 			MemoryStream stream(_buffer->Data, _buffer->Size);

@@ -1,5 +1,6 @@
 #pragma once
 #include "Chronos.DotNet/Chronos.DotNet.Agent.h"
+#include "Chronos.Common.EventsTree/Chronos.Common.EventsTree.Agent.h"
 
 #ifdef CHRONOS_DOTNET_SQLPROFILER_EXPORT_API
 #define CHRONOS_DOTNET_SQLPROFILER_API __declspec(dllexport) 
@@ -15,6 +16,13 @@ namespace Chronos
 		{
 			namespace SqlProfiler
 			{
+
+// ==================================================================================================================================================
+				class EventType
+				{
+					public:
+						static const __byte SqlQuery = 0x10;
+				};
 // ==================================================================================================================================================
 				class UnitType
 				{
@@ -26,7 +34,7 @@ namespace Chronos
 				};
 
 // ==================================================================================================================================================
-				struct MsSqlQueryInfo : public Chronos::Agent::UnitBase
+				struct CHRONOS_DOTNET_SQLPROFILER_API MsSqlQueryInfo : public Chronos::Agent::UnitBase
 				{
 					public:
 						MsSqlQueryInfo();
@@ -69,12 +77,13 @@ namespace Chronos
 						static void EndExecuteQuery();
 				
 					private:
-						void FlushMsSqlQueries(IStreamWriter* stream);
+						//void FlushMsSqlQueries(IStreamWriter* stream);
 						void OnJITCompilationStarted(void* functionObject);
 						void OnBeginExecuteQuery(__string* queryText);
 						void OnEndExecuteQuery();
 
 					private:
+						__bool _eventTreeAvailable;
 						MsSqlQueryCollection* _msSqlQueries;
 						FunctionJitEvent* _jitEvents;
 						ProfilingTimer* _profilingTimer;

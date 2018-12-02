@@ -4,6 +4,8 @@ namespace Chronos
 {
     public interface IProfilingTypeAdapter : IServiceConsumer
     {
+        void ConfigureForProfiling(ProfilingTypeSettings settings);
+
         void AttachStorage(IDataStorage storage);
 
         void StartProfiling(ProfilingTypeSettings settings);

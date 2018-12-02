@@ -64,7 +64,7 @@ namespace Chronos.Host
             _frameworks = new FrameworkCollection(Catalog.Frameworks, ExportLoader);
             _profilingTypes = new ProfilingTypeCollection(Catalog.ProfilingTypes, ExportLoader);
             _profilingTargets = new ProfilingTargetCollection(Catalog.ProfilingTargets, ExportLoader);
-            _configurations = new ConfigurationCollection(_profilingTargets, _frameworks, this);
+            _configurations = new ConfigurationCollection(_profilingTargets, _frameworks, _profilingTypes, this);
             _sessions = new SessionCollection(this);
             _requestServer = new RequestServer();
 

@@ -95,5 +95,14 @@ namespace Chronos.Client.Win.DotNet.FindReference.Properties {
                 return ResourceManager.GetString("ModuleReferenceMenuItem_Text", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search in Events Tree.
+        /// </summary>
+        internal static string SqlQueryReferenceMenuItem_Text {
+            get {
+                return ResourceManager.GetString("SqlQueryReferenceMenuItem_Text", resourceCulture);
+            }
+        }
     }
 }

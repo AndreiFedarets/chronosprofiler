@@ -89,6 +89,15 @@ namespace Chronos
             }
         }
 
+        void IProfilingTypeAdapter.ConfigureForProfiling(ProfilingTypeSettings settings)
+        {
+            lock (Lock)
+            {
+                VerifyDisposed();
+                Adapter.ConfigureForProfiling(settings);
+            }
+        }
+
         void IProfilingTypeAdapter.StartProfiling(ProfilingTypeSettings settings)
         {
             lock (Lock)

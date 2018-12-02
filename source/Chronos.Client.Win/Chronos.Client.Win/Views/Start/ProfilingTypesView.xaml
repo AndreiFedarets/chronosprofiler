@@ -6,12 +6,13 @@
             xmlns:viewModels="clr-namespace:Chronos.Client.Win.ViewModels.Start"
             DisplayPanel="True">
     <adenium:View.Resources>
+        <adenium:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <local:ProfilingTypesDataTemplateSelector x:Key="ProfilingTypesDataTemplateSelector" />
         <HierarchicalDataTemplate x:Key="FrameworkDataTemplate" ItemsSource="{Binding ProfilingTypes}" DataType="{x:Type viewModels:FrameworkViewModel}">
             <TextBlock Text="{Binding Framework.Definition.Localization.CurrentName}" />
         </HierarchicalDataTemplate>
         <DataTemplate x:Key="ProflingTypeDataTemplate" DataType="{x:Type viewModels:ProfilingTypeViewModel}">
-            <Grid IsEnabled="{Binding IsEnabled}">
+            <Grid IsEnabled="{Binding IsEnabled}" Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                 <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding ProfilingType.Definition.Localization.CurrentName}" />
             </Grid>
         </DataTemplate>
@@ -28,6 +29,11 @@
                     <Setter Property="IsExpanded" Value="True"/>
                     <Setter Property="IsSelected" Value="False" />
                     <Setter Property="Focusable" Value="False" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsVisible}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
                 </Style>
             </TreeView.ItemContainerStyle>
             <!--<interactivity:Interaction.Behaviors>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Extension Uid="{9E92EBB3-2545-444E-9A03-0BC8CFA16ADA}">
-  <ProfilingType Uid="{B3352C62-FCAB-45CA-8EEB-EA296E8C3122}" Version="0.1" FrameworkUid="{11A6E088-B964-4729-A299-3F005743A74C}" FrameworkVersion="0.1">
+  <ProfilingType Uid="{B3352C62-FCAB-45CA-8EEB-EA296E8C3122}" Version="0.1" FrameworkUid="{11A6E088-B964-4729-A299-3F005743A74C}" FrameworkVersion="0.1" Hidden="true">
     <Export Application="core" EntryPoint="Chronos.Common.EventsTree.ProfilingTypeAdapter, Chronos.Common.EventsTree" />
     <Export Application="agent" EntryPoint32="Chronos.Common.EventsTree.Agent.dll" EntryPoint64="x64\Chronos.Common.EventsTree.Agent.dll" />
     <Localization Culture="en-US">

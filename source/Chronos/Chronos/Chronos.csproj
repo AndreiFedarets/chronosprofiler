@@ -63,6 +63,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ISessionHistory.cs" />
+    <Compile Include="Marshaling\Generic\Int16Marshaler.cs" />
+    <Compile Include="Marshaling\Generic\UInt16Marshaler.cs" />
     <Compile Include="Messaging\IMessageBus.cs" />
     <Compile Include="Messaging\IMessageBusHandler.cs" />
     <Compile Include="Messaging\MessageHandlerAttribute.cs" />

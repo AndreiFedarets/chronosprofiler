@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Menu\AssemblyReferenceMenuItem.cs" />
+    <Compile Include="Menu\SqlQueryReferenceMenuItem.cs" />
     <Compile Include="Menu\ModuleReferenceMenuItem.cs" />
     <Compile Include="Menu\ClassReferenceMenuItem.cs" />
     <Compile Include="Menu\FunctionReferenceMenuItem.cs" />
@@ -60,6 +61,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="_Internal\ClassEventSearchAdapter.cs" />
+    <Compile Include="_Internal\SqlQueryEventSearchAdapter.cs" />
     <Compile Include="_Internal\ModuleEventSearchAdapter.cs" />
     <Compile Include="_Internal\EventSearch.cs" />
     <Compile Include="_Internal\EventTextSearchAdapter.cs" />
@@ -118,6 +120,11 @@
       <Name>Chronos.DotNet.BasicProfiler</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\Chronos.DotNet.SqlProfiler\Chronos.DotNet.SqlProfiler\Chronos.DotNet.SqlProfiler.csproj">
+      <Project>{09e516dd-c29c-4fea-8b13-db51681ca2c8}</Project>
+      <Name>Chronos.DotNet.SqlProfiler</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\Chronos.DotNet.TracingProfiler\Chronos.DotNet.TracingProfiler\Chronos.DotNet.TracingProfiler.csproj">
       <Project>{9ccb0f7a-1475-4c1b-b8fb-6d9c52cbae6a}</Project>
       <Name>Chronos.DotNet.TracingProfiler</Name>
@@ -146,6 +153,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Layouts\Profiling.Common.EventsTree.EventTree.layout">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Layouts\Profiling.DotNet.SqlProfiler.SqlQueries.layout">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <EmbeddedResource Include="Properties\Resources.resx">

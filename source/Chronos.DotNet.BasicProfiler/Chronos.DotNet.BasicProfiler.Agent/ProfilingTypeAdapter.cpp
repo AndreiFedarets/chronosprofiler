@@ -282,12 +282,12 @@ namespace Chronos
 
 				HRESULT ProfilingTypeAdapter::FlushData()
 				{
-					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::Thread, _threads, UnitMarshaler::MarshalThread, _gatewayClient, _dataMarker);
-					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::AppDomain, _appDomains, UnitMarshaler::MarshalAppDomain, _gatewayClient, _dataMarker);
-					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::Assembly, _assemblies, UnitMarshaler::MarshalAssembly, _gatewayClient, _dataMarker);
-					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::Module, _modules, UnitMarshaler::MarshalModule, _gatewayClient, _dataMarker);
-					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::Class, _classes, UnitMarshaler::MarshalClass, _gatewayClient, _dataMarker);
 					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::Function, _functions, UnitMarshaler::MarshalFunction, _gatewayClient, _dataMarker);
+					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::Class, _classes, UnitMarshaler::MarshalClass, _gatewayClient, _dataMarker);
+					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::Module, _modules, UnitMarshaler::MarshalModule, _gatewayClient, _dataMarker);
+					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::Assembly, _assemblies, UnitMarshaler::MarshalAssembly, _gatewayClient, _dataMarker);
+					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::AppDomain, _appDomains, UnitMarshaler::MarshalAppDomain, _gatewayClient, _dataMarker);
+					Chronos::Agent::UnitMarshaler::SendUnits(UnitType::Thread, _threads, UnitMarshaler::MarshalThread, _gatewayClient, _dataMarker);
 					return S_OK;
 				}
 			}

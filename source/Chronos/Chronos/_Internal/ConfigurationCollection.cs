@@ -10,14 +10,16 @@ namespace Chronos
         private readonly Host.IApplication _application;
         private readonly IProfilingTargetCollection _profilingTargets;
         private readonly IFrameworkCollection _frameworks;
+        private readonly IProfilingTypeCollection _profilingTypes;
         private readonly Dictionary<Guid, Configuration> _collection;
         private readonly RemoteEventHandler<ConfigurationEventArgs> _configurationCreatedEvent;
         private readonly RemoteEventHandler<ConfigurationEventArgs> _configurationRemovedEvent;
 
-        public ConfigurationCollection(IProfilingTargetCollection profilingTargets, IFrameworkCollection frameworks, Host.IApplication application)
+        public ConfigurationCollection(IProfilingTargetCollection profilingTargets, IFrameworkCollection frameworks, IProfilingTypeCollection profilingTypes, Host.IApplication application)
         {
             _profilingTargets = profilingTargets;
             _frameworks = frameworks;
+            _profilingTypes = profilingTypes;
             _application = application;
             _collection = new Dictionary<Guid, Configuration>();
             _configurationCreatedEvent = new RemoteEventHandler<ConfigurationEventArgs>(this);
@@ -76,7 +78,7 @@ namespace Chronos
                     throw new ConfigurationAlreadyExistsException(settings.ConfigurationUid);
                 }
                 IProfilingTarget profilingTarget = _profilingTargets[settings.ProfilingTargetSettings.Uid];
-                Configuration configuration = new Configuration(settings, this, profilingTarget, _frameworks, _application);
+                Configuration configuration = new Configuration(settings, this, profilingTarget, _frameworks, _profilingTypes, _application);
                 _collection.Add(configuration.Uid, configuration);
                 _configurationCreatedEvent.Invoke(() => new ConfigurationEventArgs(configuration));
                 return configuration;

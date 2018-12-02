@@ -33,7 +33,9 @@ namespace Chronos.Marshaling
             RegisterMarshaler(new GuidMarshaler());
             RegisterMarshaler(new BoolMarshaler());
             RegisterMarshaler(new ByteMarshaler());
+            RegisterMarshaler(new Int16Marshaler());
             RegisterMarshaler(new Int32Marshaler());
+            RegisterMarshaler(new UInt16Marshaler());
             RegisterMarshaler(new UInt32Marshaler());
             RegisterMarshaler(new Int64Marshaler());
             RegisterMarshaler(new UInt64Marshaler());

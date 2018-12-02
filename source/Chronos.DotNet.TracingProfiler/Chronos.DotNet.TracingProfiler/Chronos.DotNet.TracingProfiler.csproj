@@ -47,11 +47,13 @@
     <Compile Include="IThreadCreateEventMessage.cs" />
     <Compile Include="IThreadDestroyEventMessage.cs" />
     <Compile Include="ProfilingTypeAdapter.cs" />
+    <Compile Include="ProfilingTypeSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxy\UnmanagedToManagedTransactionEventMessage.cs" />
     <Compile Include="Proxy\ManagedToUnmanagedTransactionEventMessage.cs" />
     <Compile Include="Proxy\ThreadDestroyEventMessage.cs" />
     <Compile Include="Proxy\ThreadCreateEventMessage.cs" />
+    <Compile Include="_Internal\ExclusionsProvider.cs" />
     <Compile Include="_Internal\UnmanagedToManagedTransactionEventMessage.cs" />
     <Compile Include="_Internal\ManagedToUnmanagedTransactionEventMessage.cs" />
     <Compile Include="_Internal\ThreadDestroyEventMessage.cs" />
@@ -91,6 +93,11 @@
       <Name>Chronos</Name>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DefaultExclusions.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

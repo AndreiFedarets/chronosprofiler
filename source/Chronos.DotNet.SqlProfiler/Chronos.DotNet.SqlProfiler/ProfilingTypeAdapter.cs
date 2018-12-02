@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Chronos.Common.EventsTree;
 using Chronos.Communication.Native;
 using Chronos.Marshaling;
 using Chronos.Storage;
@@ -19,6 +20,10 @@ namespace Chronos.DotNet.SqlProfiler
         public ProfilingTypeAdapter()
         {
             _sqlQueries = new SqlQueryCollection();
+        }
+
+        public void ConfigureForProfiling(ProfilingTypeSettings settings)
+        {
         }
 
         public void AttachStorage(IDataStorage storage)
@@ -55,6 +60,9 @@ namespace Chronos.DotNet.SqlProfiler
 
         public void ImportServices(IServiceContainer container)
         {
+            IEventMessageBuilder messageBuilder = container.Resolve<IEventMessageBuilder>();
+            ISqlQueryEventMessage sqlQueryEventMessage = new SqlQueryEventMessage(_sqlQueries);
+            messageBuilder.RegisterMessage(Constants.EventType.SqlQuery, sqlQueryEventMessage);
         }
 
         public bool HandlePackage(NativeArray array)

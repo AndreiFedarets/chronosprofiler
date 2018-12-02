@@ -20,14 +20,13 @@ namespace Chronos
         public ProfilingTypeSettings(Guid uid)
             : base(uid)
         {
-            DataMarker = 0;
-            Dependencies = new Guid[0];
-            FrameworkUid = Guid.Empty;
+            Initialize();
         }
 
         public ProfilingTypeSettings(Dictionary<Guid, DynamicSettingsValue> collection)
             : base(collection)
         {
+            Initialize();
         }
 
         public byte DataMarker
@@ -68,6 +67,22 @@ namespace Chronos
             if (!Contains(FrameworkUidIndex) || FrameworkUid == Guid.Empty)
             {
                 throw new TempException();
+            }
+        }
+
+        public virtual void Initialize()
+        {
+            if (!Contains(DataMarkerIndex))
+            {
+                DataMarker = 0;
+            }
+            if (!Contains(DependenciesIndex))
+            {
+                Dependencies = new Guid[0];
+            }
+            if (!Contains(FrameworkUidIndex))
+            {
+                FrameworkUid = Guid.Empty;
             }
         }
     }

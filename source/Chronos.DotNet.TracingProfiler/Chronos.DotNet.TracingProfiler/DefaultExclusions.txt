@@ -1,0 +1,9 @@
+﻿mscorlib
+System
+System.Core
+System.Configuration
+System.Data
+System.EnterpriseServices
+System.Runtime.Cache
+System.Transactions
+System.Xml

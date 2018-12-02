@@ -9,6 +9,7 @@ namespace Chronos.Extensibility
     internal sealed class XmlExtensionReader : IExtensionReader
     {
         private const string UidAttributeName = "Uid";
+        private const string HiddendAttributeName = "Hidden";
         private const string FrameworkUidAttributeName = "FrameworkUid";
         private const string ProfilingTypeUidAttributeName = "ProfilingTypeUid";
         private const string EntryPointAttributeName = "EntryPoint";
@@ -247,6 +248,7 @@ namespace Chronos.Extensibility
             //Prepare ProfilingType properties
             Guid uid = Guid.Empty;
             Guid frameworkUid = Guid.Empty;
+            bool isHidden = false;
             List<ExportDefinition> exports = new List<ExportDefinition>();
             List<DependencyDefinition> dependencies = new List<DependencyDefinition>();
             List<LocalizationDefinition> localizations = new List<LocalizationDefinition>();
@@ -263,6 +265,9 @@ namespace Chronos.Extensibility
                         break;
                     case FrameworkUidAttributeName:
                         frameworkUid = reader.ReadContentAsGuid();
+                        break;
+                    case HiddendAttributeName:
+                        isHidden = reader.ReadContentAsBoolean();
                         break;
                 }
             }
@@ -306,7 +311,7 @@ namespace Chronos.Extensibility
                         break;
                 }
             }
-            ProfilingTypeDefinition definition = new ProfilingTypeDefinition(uid, frameworkUid, exports, dependencies, localizations, attributes, prerequisites);
+            ProfilingTypeDefinition definition = new ProfilingTypeDefinition(uid, frameworkUid, isHidden, exports, dependencies, localizations, attributes, prerequisites);
             return definition;
         }
 

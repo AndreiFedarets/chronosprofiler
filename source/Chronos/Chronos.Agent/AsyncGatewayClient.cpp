@@ -12,8 +12,6 @@ namespace Chronos
 				_packages[i] = new GatewayPackageContainer();
 			}
 			_streamFactory = streamFactory;
-			ThisCallback<AsyncGatewayClient>* callback = new ThisCallback<AsyncGatewayClient>(this, &AsyncGatewayClient::StartSending);
-			_sendingThread = new SingleCoreThread(callback);
 			_asyncStreamsCount = 0;
 		}
 
@@ -37,6 +35,8 @@ namespace Chronos
 			{
 				return E_FAIL;
 			}
+			ThisCallback<AsyncGatewayClient>* callback = new ThisCallback<AsyncGatewayClient>(this, &AsyncGatewayClient::StartSending);
+			_sendingThread = new MultiCoreThread(callback, _asyncStreamsCount);
 			_sending = true;
 			_sendingThread->Start();
 			//_sendingThread->SetPriority(IThread::HighestPriority);
@@ -114,7 +114,7 @@ namespace Chronos
 
 		void AsyncGatewayClient::GetWorkingThreads(std::vector<SingleCoreThread*>* threads)
 		{
-			threads->push_back(_sendingThread);
+			_sendingThread->GetWorkingThreads(threads);
 		}
 
 		void AsyncGatewayClient::WaitWhileSending()

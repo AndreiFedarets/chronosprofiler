@@ -19,7 +19,14 @@ namespace Chronos.Common.EventsTree
             _eventMessageBuilder.RegisterMessage(ThreadEventTreeMessage.EventType, new ThreadEventTreeMessage());
         }
 
-        public void StartProfiling(ProfilingTypeSettings settings)
+        public void ConfigureForProfiling(Chronos.ProfilingTypeSettings settings)
+        {
+            ProfilingTypeSettings profilingTypeSettings = new ProfilingTypeSettings(settings);
+            profilingTypeSettings.EventsBufferSize = Constants.EventsBufferSize;
+            profilingTypeSettings.EventsMaxDepth = Constants.EventsMaxDepth;
+        }
+
+        public void StartProfiling(Chronos.ProfilingTypeSettings settings)
         {
             _eventTrees.ReadOnly = false;
             _dataHandler = new DataHandler(_agentLibrary, _eventTrees);

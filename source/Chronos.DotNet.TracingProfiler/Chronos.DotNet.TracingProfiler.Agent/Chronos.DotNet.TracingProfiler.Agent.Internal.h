@@ -22,8 +22,9 @@ namespace Chronos
 						HRESULT EndInitialize();
 						HRESULT SubscribeEvents();
 						HRESULT FlushData();
+						__bool HookFunction(FunctionID functionId);
 
-						static const ProfilingTypeAdapter* Current;
+						static ProfilingTypeAdapter* Current;
 						Chronos::Agent::Common::EventsTree::IEventsTreeLoggerCollection* Loggers;
 						Chronos::Agent::DotNet::BasicProfiler::FunctionCollection* Functions;
 
@@ -40,6 +41,9 @@ namespace Chronos
 						ProfilingTypeSettings* _settings;
 						ProfilingEventsSubscription<ProfilingTypeAdapter>* _subscription;
 						RuntimeProfilingEvents* _profilingEvents;
+						__vector<__string>* _exclusions;
+
+						const static __guid ExclusionsIndex;
 
 				};
 

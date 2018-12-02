@@ -19,7 +19,16 @@ namespace Chronos.DotNet.TracingProfiler
         {
         }
 
-        public void StartProfiling(ProfilingTypeSettings settings)
+        public void ConfigureForProfiling(Chronos.ProfilingTypeSettings settings)
+        {
+            ProfilingTypeSettings profilingTypeSettings = new ProfilingTypeSettings(settings);
+            if (profilingTypeSettings.EnableExclusions)
+            {
+                profilingTypeSettings.Exclusions = ExclusionsProvider.GetDefaultExclusions();
+            }
+        }
+
+        public void StartProfiling(Chronos.ProfilingTypeSettings settings)
         {
         }
 

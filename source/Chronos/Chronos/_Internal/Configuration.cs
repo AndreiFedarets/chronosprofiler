@@ -11,15 +11,17 @@ namespace Chronos
         private readonly ConfigurationSettings _configurationSettings;
         private readonly IProfilingTarget _profilingTarget;
         private readonly IFrameworkCollection _frameworks;
+        private readonly IProfilingTypeCollection _profilingTypes;
         private readonly List<IProfilingTargetController> _controllers;
 
         public Configuration(ConfigurationSettings configurationSettings, ConfigurationCollection configurations,
-            IProfilingTarget profilingTarget, IFrameworkCollection frameworks, Host.IApplication application)
+            IProfilingTarget profilingTarget, IFrameworkCollection frameworks, IProfilingTypeCollection profilingTypes, Host.IApplication application)
         {
             _configurations = configurations;
             _configurationSettings = configurationSettings;
             _profilingTarget = profilingTarget;
             _frameworks = frameworks;
+            _profilingTypes = profilingTypes;
             _application = application;
             _controllers = new List<IProfilingTargetController>();
         }
@@ -95,6 +97,13 @@ namespace Chronos
                     IFramework framework = _frameworks[frameworkSettings.Uid];
                     IFrameworkAdapter frameworkAdapter = framework.GetSafeAdapter();
                     frameworkAdapter.ConfigureForProfiling(_configurationSettings);
+                }
+                //Select all ProfilingTypes that involved into profiling and notify them
+                foreach (ProfilingTypeSettings profilingTypeSettings in _configurationSettings.ProfilingTypesSettings)
+                {
+                    IProfilingType profilingType = _profilingTypes[profilingTypeSettings.Uid];
+                    IProfilingTypeAdapter profilingTypeAdapter = profilingType.GetSafeAdapter();
+                    profilingTypeAdapter.ConfigureForProfiling(profilingTypeSettings);
                 }
                 //Add correct path to Chronos.Agent.dll (native)
                 Agent.AgentResolver.SetupAgentPath(_configurationSettings);
