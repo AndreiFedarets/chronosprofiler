@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Chronos.DotNet.SqlProfiler.Agent.Internal.h"
+#include "ILCodeInjector.h"
 
 namespace Chronos
 {

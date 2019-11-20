@@ -294,23 +294,6 @@ namespace Chronos
 
 				namespace Emit
 				{
-					/*class CHRONOS_DOTNET_API ILHelper
-					{
-						public:
-							static IMAGE_COR_ILMETHOD* ConvertTinyMethodToFat(COR_ILMETHOD_TINY* sourceMethod, IMethodMalloc* methodMalloc);
-							static IMAGE_COR_ILMETHOD* ConvertTinyMethodToFat(COR_ILMETHOD_TINY* sourceMethod);
-
-							static IMAGE_COR_ILMETHOD* CloneFatMethod(COR_ILMETHOD_FAT* sourceMethod);
-							static IMAGE_COR_ILMETHOD* CloneFatMethod(COR_ILMETHOD_FAT* sourceMethod, IMethodMalloc* methodMalloc);
-							static void UpdateEHSectionsOffset(COR_ILMETHOD_FAT* method, int offsetDelta);
-						private:
-							static BYTE* GetMethodSectionsData(COR_ILMETHOD_FAT* method, unsigned long* dataSize);
-							static void CopyTinyToFat(COR_ILMETHOD_TINY* sourceMethod, COR_ILMETHOD_FAT* targetMethod);
-							static void CopyFatToFat(COR_ILMETHOD_FAT* sourceMethod, COR_ILMETHOD_FAT* targetMethod);
-							static unsigned long GetMethodFullSize(COR_ILMETHOD_TINY* method);
-							static unsigned long GetMethodFullSize(COR_ILMETHOD_FAT* method);
-					};*/
-
 // ==================================================================================================================================================
 					typedef __byte (*GetOpCodeValueSize)(__byte* code);
 					struct CHRONOS_DOTNET_API OpCode
