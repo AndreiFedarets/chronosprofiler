@@ -23,8 +23,9 @@
     <ProjectGuid>{68BAA918-48B3-489F-BECC-1342D4217F1E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ChronosDotNetAgent</RootNamespace>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

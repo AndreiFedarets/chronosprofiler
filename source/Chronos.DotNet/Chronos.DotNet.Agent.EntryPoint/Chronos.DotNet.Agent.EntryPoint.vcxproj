@@ -22,8 +22,9 @@
     <ChronosModuleName>Chronos.DotNet</ChronosModuleName>
     <ProjectGuid>{65775615-5BB2-4D55-8EC3-D09563A191D2}</ProjectGuid>
     <Keyword>AtlProj</Keyword>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

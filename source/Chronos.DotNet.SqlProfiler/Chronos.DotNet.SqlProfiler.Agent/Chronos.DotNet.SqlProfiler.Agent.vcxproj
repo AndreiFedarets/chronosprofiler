@@ -23,7 +23,8 @@
     <ProjectGuid>{5C8C1AC3-CEAF-4224-AB93-F3F57FD03ADF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ChronosDotNetSqlProfilerAgent</RootNamespace>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
