@@ -5,4 +5,4 @@ Current version of performance profiler is tracing. Tracing profiling is most de
 The profiler also collects information about created appdomains, loaded assemblies, modules, classes, functions, created threads and thrown exceptions.
 
 
-NOTE: to build source code you need Visual Studion 2013.
+NOTE: to open and/or build source code you need Visual Studion 2017.
