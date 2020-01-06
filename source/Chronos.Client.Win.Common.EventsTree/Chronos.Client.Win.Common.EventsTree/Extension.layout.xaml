@@ -1,0 +1,20 @@
+﻿<Application xmlns="clr-namespace:Layex.Layouts;assembly=Layex"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:a="clr-namespace:Chronos.Client.Win.Common.EventsTree.Actions;assembly=Chronos.Client.Win.Common.EventsTree"
+             xmlns:v="clr-namespace:Chronos.Client.Win.Common.EventsTree.ViewModels;assembly=Chronos.Client.Win.Common.EventsTree">
+    <Layout Name="Profiling">
+        <Layout.ViewModels>
+            <ViewModel Name="Profiling.Common.EventsTree.EventsTree" Type="{x:Type v:EventsTreeViewModel}" Singleton="True" AutoActivate="False" />
+            <ViewModel Name="Profiling.Common.EventsTree.EventTree" Type="{x:Type v:EventTreeViewModel}" Singleton="False" AutoActivate="False" />
+            <ViewModel Name="Profiling.Common.EventsTree.Timeline" Type="{x:Type v:TimelineViewModel}" Singleton="True" AutoActivate="False" />
+        </Layout.ViewModels>
+        <Layout.ActionItems>
+            <ActionGroup Name="Main">
+                <ActionGroup Name="Common">
+                    <ActionCommand Name="EventsTree.EventsTree" Type="{x:Type a:EventsTreeCommand}" />
+                    <ActionCommand Name="EventsTree.Timeline" Type="{x:Type a:TimelineCommand}" />
+                </ActionGroup>
+            </ActionGroup>
+        </Layout.ActionItems>
+    </Layout>
+</Application>

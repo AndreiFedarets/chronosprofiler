@@ -1,8 +1,8 @@
-﻿using Adenium;
+﻿using Caliburn.Micro;
 
 namespace Chronos.Client.Win.ViewModels.Home
 {
-    public sealed class SessionInformation : PropertyChangedBaseEx
+    public sealed class SessionInformation : PropertyChangedBase
     {
         public SessionInformation(ISession session)
         {

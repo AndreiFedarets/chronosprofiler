@@ -1,14 +1,11 @@
-﻿using System;
-using Chronos.Client.Win.Converters;
-using Chronos.Common.EventsTree;
+﻿using Chronos.Common.EventsTree;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Collections;
-using System.Collections.ObjectModel;
-using Adenium;
 
 namespace Chronos.Client.Win.Controls.Common.EventsTree
 {

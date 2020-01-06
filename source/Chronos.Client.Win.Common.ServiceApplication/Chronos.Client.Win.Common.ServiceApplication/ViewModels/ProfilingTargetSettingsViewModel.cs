@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Adenium;
-using Chronos.Accessibility.WS;
+﻿using Chronos.Accessibility.WS;
 using Chronos.Client.Win.ViewModels.Start;
+using Layex.ViewModels;
+using System.Collections.Generic;
 
 namespace Chronos.Client.Win.Common.ServiceApplication.ViewModels
 {

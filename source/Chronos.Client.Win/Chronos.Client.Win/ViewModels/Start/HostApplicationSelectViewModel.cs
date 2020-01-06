@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Layex.Contracts;
+using Layex.ViewModels;
+using System;
 using System.Collections.Generic;
-using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
@@ -22,7 +23,6 @@ namespace Chronos.Client.Win.ViewModels.Start
         public override string DisplayName
         {
             get { return "Target Machine"; }
-            set { }
         }
 
         public bool DialogReady

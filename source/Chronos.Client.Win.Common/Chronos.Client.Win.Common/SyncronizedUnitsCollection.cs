@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using Adenium;
 
 namespace Chronos.Client.Win.Common
 {
@@ -23,7 +23,7 @@ namespace Chronos.Client.Win.Common
 
         private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            SmartDispatcher.Main.BeginInvoke(() =>
+            Execute.BeginOnUIThread(() =>
             {
                 CollectionChanged.SafeInvoke(this, e);
             });

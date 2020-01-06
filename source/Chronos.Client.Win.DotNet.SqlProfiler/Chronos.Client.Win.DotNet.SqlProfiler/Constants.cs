@@ -14,7 +14,7 @@
 
         public static class Menus
         {
-            public const string SqlQueryContentMenu = "Profiling.DotNet.SqlProfiler.SqlQueries.ItemContextMenu";
+            public const string SqlQueryContentMenu = "ItemContextMenu";
         }
     }
 }

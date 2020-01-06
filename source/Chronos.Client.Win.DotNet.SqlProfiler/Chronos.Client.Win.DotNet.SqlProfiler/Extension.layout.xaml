@@ -1,0 +1,22 @@
+﻿<Application xmlns="clr-namespace:Layex.Layouts;assembly=Layex"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:a="clr-namespace:Chronos.Client.Win.DotNet.SqlProfiler.Actions;assembly=Chronos.Client.Win.DotNet.SqlProfiler"
+             xmlns:v="clr-namespace:Chronos.Client.Win.DotNet.SqlProfiler.ViewModels;assembly=Chronos.Client.Win.DotNet.SqlProfiler">
+    <Layout Name="Profiling">
+        <Layout.ViewModels>
+            <ViewModel Type="{x:Type v:SqlQueriesViewModel}" Singleton="True" AutoActivate="False" />
+        </Layout.ViewModels>
+        <Layout.ActionItems>
+            <ActionGroup Name="Main">
+                <ActionGroup Name="DotNet">
+                    <ActionCommand Name="SqlProfiler.SqlQueries" Type="{x:Type a:SqlQueriesCommand}" />
+                </ActionGroup>
+            </ActionGroup>
+        </Layout.ActionItems>
+    </Layout>
+    <Layout Name="Profiling.DotNet.SqlProfiler.SqlQueries">
+        <Layout.ActionItems>
+            <ActionGroup Name="ItemContextMenu" />
+        </Layout.ActionItems>
+    </Layout>
+</Application>

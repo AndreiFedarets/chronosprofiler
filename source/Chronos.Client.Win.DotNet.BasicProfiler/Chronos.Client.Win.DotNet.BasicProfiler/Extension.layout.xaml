@@ -1,0 +1,58 @@
+﻿<Application xmlns="clr-namespace:Layex.Layouts;assembly=Layex"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="clr-namespace:Chronos.Client.Win.DotNet.BasicProfiler.ViewModels;assembly=Chronos.Client.Win.DotNet.BasicProfiler"
+             xmlns:a="clr-namespace:Chronos.Client.Win.DotNet.BasicProfiler.Actions;assembly=Chronos.Client.Win.DotNet.BasicProfiler">
+    <Layout Name="Profiling">
+        <Layout.ViewModels>
+            <ViewModel 
+            <!--<ViewModel Id="Profiling.DotNet.BasicProfiler.AppDomains" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.AppDomainsViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />
+            <ViewModel Id="Profiling.DotNet.BasicProfiler.Assemblies" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.AssembliesViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />
+            <ViewModel Id="Profiling.DotNet.BasicProfiler.Modules" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.ModulesViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />
+            <ViewModel Id="Profiling.DotNet.BasicProfiler.Classes" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.ClassesViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />
+            <ViewModel Id="Profiling.DotNet.BasicProfiler.Functions" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.FunctionsViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />
+            <ViewModel Id="Profiling.DotNet.BasicProfiler.Threads" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.ThreadsViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />-->
+        </Layout.ViewModels>
+        <Layout.ActionItems>
+            <ActionGroup Name="Main">
+                <ActionGroup Name="DotNet">
+                    <ActionCommand Name="BasicProfiler.AppDomains" Type="{x:Type a:AppDomainsCommand}" />
+                    <ActionCommand Name="BasicProfiler.Assemblies" Type="{x:Type a:AssembliesCommand}" />
+                    <ActionCommand Name="BasicProfiler.Modules" Type="{x:Type a:ModulesCommand}" />
+                    <ActionCommand Name="BasicProfiler.Classes" Type="{x:Type a:ClassesCommand}" />
+                    <ActionCommand Name="BasicProfiler.Functions" Type="{x:Type a:FunctionsCommand}" />
+                    <ActionCommand Name="BasicProfiler.Threads" Type="{x:Type a:ThreadsCommand}" />
+                </ActionGroup>
+            </ActionGroup>
+        </Layout.ActionItems>
+    </Layout>
+    <Layout Name="Profiling.DotNet.BasicProfiler.AppDomains">
+        <Layout.ActionItems>
+            <ActionGroup Name="ItemContextMenu" />
+        </Layout.ActionItems>
+    </Layout>
+    <Layout Name="Profiling.DotNet.BasicProfiler.Assemblies">
+        <Layout.ActionItems>
+            <ActionGroup Name="ItemContextMenu" />
+        </Layout.ActionItems>
+    </Layout>
+    <Layout Name="Profiling.DotNet.BasicProfiler.Modules">
+        <Layout.ActionItems>
+            <ActionGroup Name="ItemContextMenu" />
+        </Layout.ActionItems>
+    </Layout>
+    <Layout Name="Profiling.DotNet.BasicProfiler.Classes">
+        <Layout.ActionItems>
+            <ActionGroup Name="ItemContextMenu" />
+        </Layout.ActionItems>
+    </Layout>
+    <Layout Name="Profiling.DotNet.BasicProfiler.Functions">
+        <Layout.ActionItems>
+            <ActionGroup Name="ItemContextMenu" />
+        </Layout.ActionItems>
+    </Layout>
+    <Layout Name="Profiling.DotNet.BasicProfiler.Threads">
+        <Layout.ActionItems>
+            <ActionGroup Name="ItemContextMenu" />
+        </Layout.ActionItems>
+    </Layout>
+</Application>

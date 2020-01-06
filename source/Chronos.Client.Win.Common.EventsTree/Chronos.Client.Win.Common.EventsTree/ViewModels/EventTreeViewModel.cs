@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using Adenium;
-using Chronos.Client.Win.Controls.Common.EventsTree;
+﻿using Chronos.Client.Win.Controls.Common.EventsTree;
 using Chronos.Common.EventsTree;
+using Layex.ViewModels;
+using System.Collections.Generic;
 
 namespace Chronos.Client.Win.Common.EventsTree.ViewModels
 {
-    [ViewModelAttribute(Constants.ViewModels.EventTreeViewModel)]
+    [ViewModel(Constants.ViewModels.EventTreeViewModel)]
     public sealed class EventTreeViewModel : ViewModel
     {
         public EventTreeViewModel(ISingleEventTree eventTree, IEventMessageBuilder eventMessageBuilder)

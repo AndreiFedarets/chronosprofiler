@@ -1,9 +1,8 @@
-﻿<adenium:View x:Class="Chronos.Client.Win.Views.Home.RecentSessionsView"
+﻿<views:View x:Class="Chronos.Client.Win.Views.Home.RecentSessionsView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:adenium="clr-namespace:Adenium;assembly=Adenium"
-            DisplayPanel="True">
+            xmlns:views="clr-namespace:Layex.Views;assembly=Layex">
     <Grid>
             
     </Grid>
-</adenium:View>
+</views:View>

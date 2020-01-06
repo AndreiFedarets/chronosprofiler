@@ -393,7 +393,7 @@
     </Style>
 
     <!-- CustomWindow =========================================================================================================== -->
-    <Style TargetType="{x:Type controls:CustomWindow}">
+    <!--<Style TargetType="{x:Type controls:CustomWindow}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="FontFamily" Value="{x:Static local:FontsAndColors.FontFamily}" />
         <Setter Property="FontWeight" Value="{x:Static local:FontsAndColors.ContentFontWeight}" />
@@ -486,7 +486,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 
 
     <!-- ImageButton ========================================================================================================= -->

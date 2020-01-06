@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Chronos.Accessibility.IO;
+using Layex.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows;
-using Adenium;
-using Chronos.Accessibility.IO;
 
 namespace Chronos.Client.Win.ViewModels.Common
 {
+    [ViewModel(Constants.ViewModels.OpenFile)]
     public sealed class OpenFileViewModel : ViewModel
     {
         private readonly ObservableCollection<object> _fileSystemInfos;
@@ -46,10 +47,9 @@ namespace Chronos.Client.Win.ViewModels.Common
         public override string DisplayName
         {
             get { return "Open File"; }
-            set { }
         }
 
-        public string Name
+        public string SelectedName
         {
             get
             {
@@ -128,7 +128,7 @@ namespace Chronos.Client.Win.ViewModels.Common
             set
             {
                 _selectedFileSystemInfo = value;
-                NotifyOfPropertyChange(() => Name);
+                NotifyOfPropertyChange(() => SelectedName);
                 NotifyOfPropertyChange(() => SelectedFileSystemInfo);
             }
         }
@@ -194,6 +194,11 @@ namespace Chronos.Client.Win.ViewModels.Common
                 FileName = ((FileInfo)fileSystemInfo).FullName;
                 TryClose(true);
             }
+        }
+
+        public void Submit()
+        {
+
         }
 
         internal void OpenFileSystemInfo(string path)

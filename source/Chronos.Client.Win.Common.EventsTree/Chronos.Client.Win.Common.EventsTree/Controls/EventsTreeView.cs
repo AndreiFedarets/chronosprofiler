@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Chronos.Common.EventsTree;
+using Layex.Extensions;
+using System;
 using System.Collections;
-using Chronos.Common.EventsTree;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using Adenium;
 
 namespace Chronos.Client.Win.Controls.Common.EventsTree
 {

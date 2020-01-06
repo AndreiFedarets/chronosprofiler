@@ -50,7 +50,7 @@ namespace Chronos.Daemon
             }
             _profilingTimer = new ProfilingTimer(profilingBeginTime);
             DirectoryInfo profilingResultsDirectory = _application.ApplicationSettings.ProfilingResults.GetDirectory();
-            _storage = DataStorage.CreateNew(profilingResultsDirectory.FullName, _application.Uid);
+            //_storage = DataStorage.CreateNew(profilingResultsDirectory.FullName, _application.Uid);
             _profiledProcess = new ProfiledProcessManager(profiledProcessId);
             _profiledProcess.Exited += OnProfiledProcessExited;
             ProcessInformation = _profiledProcess.GetProcessInformation();

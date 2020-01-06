@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Layex;
+using Layex.ViewModels;
+using System;
 using System.Collections.Generic;
-using Adenium;
-using Adenium.Layouting;
-using Chronos.Client.Win.ViewModels.Home;
 
 namespace Chronos.Client.Win
 {
@@ -13,12 +12,12 @@ namespace Chronos.Client.Win
         {
         }
 
-        protected override IContainerViewModel BuildMainViewModel()
+        protected override void ShowMainViewModel()
         {
-            return ViewModelManager.CreateViewModel<HomePageViewModel>();
+            Container.Resolve<IViewModelManager>().Activate(Constants.ViewModels.Home);
         }
 
-        protected override void ConfigureContainer(IContainer container)
+        protected override void ConfigureContainer(IDependencyContainer container)
         {
             container.RegisterInstance<IMainApplication>(this);
             base.ConfigureContainer(container);
@@ -44,14 +43,6 @@ namespace Chronos.Client.Win
                 IProfilingTargetAdapter adapter = profilingTarget.GetWinAdapter();
                 adapters.Add(adapter);
             }
-            foreach (IProfilingTargetAdapter adapter in adapters)
-            {
-                ILayoutProvider layoutProvider = adapter as ILayoutProvider;
-                if (layoutProvider != null)
-                {
-                    ViewModelManager.RegisterLayoutProvider(layoutProvider);
-                }
-            }
         }
 
         private void RunFrameworks()
@@ -61,14 +52,6 @@ namespace Chronos.Client.Win
             {
                 IFrameworkAdapter adapter = framework.GetWinAdapter();
                 adapters.Add(adapter);
-            }
-            foreach (IFrameworkAdapter adapter in adapters)
-            {
-                ILayoutProvider layoutProvider = adapter as ILayoutProvider;
-                if (layoutProvider != null)
-                {
-                    ViewModelManager.RegisterLayoutProvider(layoutProvider);
-                }
             }
         }
 
@@ -80,14 +63,6 @@ namespace Chronos.Client.Win
                 IProfilingTypeAdapter adapter = profilingType.GetWinAdapter();
                 adapters.Add(adapter);
             }
-            foreach (IProfilingTypeAdapter adapter in adapters)
-            {
-                ILayoutProvider layoutProvider = adapter as ILayoutProvider;
-                if (layoutProvider != null)
-                {
-                    ViewModelManager.RegisterLayoutProvider(layoutProvider);
-                }
-            }
         }
 
         private void RunProductivities()
@@ -97,14 +72,6 @@ namespace Chronos.Client.Win
             {
                 IProductivityAdapter adapter = productivity.GetWinAdapter();
                 adapters.Add(adapter);
-            }
-            foreach (IProductivityAdapter adapter in adapters)
-            {
-                ILayoutProvider layoutProvider = adapter as ILayoutProvider;
-                if (layoutProvider != null)
-                {
-                    ViewModelManager.RegisterLayoutProvider(layoutProvider);
-                }
             }
         }
 

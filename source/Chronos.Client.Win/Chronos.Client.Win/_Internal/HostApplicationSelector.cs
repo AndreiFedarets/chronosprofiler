@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Adenium;
+using Caliburn.Micro;
 
 namespace Chronos.Client.Win
 {
-    internal sealed class HostApplicationSelector : PropertyChangedBaseEx, IHostApplicationSelector
+    internal sealed class HostApplicationSelector : PropertyChangedBase, IHostApplicationSelector
     {
         private readonly Host.IApplicationCollection _applications;
         private Host.IApplication _selectedApplication;
@@ -24,11 +24,7 @@ namespace Chronos.Client.Win
             {
                 _selectedApplication = value;
                 NotifyOfPropertyChange(() => SelectedApplication);
-                EventHandler handler = SelectionChanged;
-                if (handler != null)
-                {
-                    handler(this, EventArgs.Empty);
-                }
+                SelectionChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 

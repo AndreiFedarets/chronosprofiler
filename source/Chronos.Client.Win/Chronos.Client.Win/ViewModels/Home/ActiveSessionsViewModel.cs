@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Caliburn.Micro;
+using Layex.ViewModels;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Home
 {
@@ -15,7 +16,8 @@ namespace Chronos.Client.Win.ViewModels.Home
         {
             _sessions = application.Sessions;
             _collection = new ObservableCollection<SessionInformation>();
-            OpenSessionCommand = new SyncCommand<SessionInformation>(OpenSession);
+            //TODO: use Caliburn capabilities
+            //OpenSessionCommand = new SyncCommand<SessionInformation>(OpenSession);
             lock (_collection)
             {
                 _sessions.SessionCreated += OnSessionCreated;
@@ -66,7 +68,7 @@ namespace Chronos.Client.Win.ViewModels.Home
                 if (sessionInformation == null && eventArgs.Session.IsActive)
                 {
                     sessionInformation = new SessionInformation(eventArgs.Session);
-                    SmartDispatcher.Main.Invoke(() => _collection.Add(sessionInformation));
+                    Execute.BeginOnUIThread(() => _collection.Add(sessionInformation));
                 }
             }
         }
@@ -76,7 +78,7 @@ namespace Chronos.Client.Win.ViewModels.Home
             lock (_collection)
             {
                 SessionInformation sessionInformation = _collection.FirstOrDefault(x => Equals(x.Session, eventArgs.Session));
-                SmartDispatcher.Main.Invoke(() => _collection.Remove(sessionInformation));
+                Execute.BeginOnUIThread(() => _collection.Remove(sessionInformation));
             }
         }
 
@@ -90,15 +92,15 @@ namespace Chronos.Client.Win.ViewModels.Home
                 if (sessionInformation == null && isActive)
                 {
                     sessionInformation = new SessionInformation(eventArgs.Session);
-                    SmartDispatcher.Main.Invoke(() => _collection.Add(sessionInformation));
+                    Execute.BeginOnUIThread(() => _collection.Add(sessionInformation));
                 }
                 else if (sessionInformation != null && !isActive)
                 {
-                    SmartDispatcher.Main.Invoke(() => _collection.Remove(sessionInformation));
+                    Execute.BeginOnUIThread(() => _collection.Remove(sessionInformation));
                 }
                 else if (sessionInformation != null)
                 {
-                    SmartDispatcher.Main.Invoke(() => sessionInformation.NotifyChanged());
+                    Execute.BeginOnUIThread(() => sessionInformation.NotifyChanged());
                 }
             }
         }

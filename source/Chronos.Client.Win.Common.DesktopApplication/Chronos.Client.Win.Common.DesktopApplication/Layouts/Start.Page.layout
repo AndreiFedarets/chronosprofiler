@@ -1,4 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
-<Layout>
-  <ViewModel Id="Start.Common.DesktopApplication.ProfilingTargetSettings" Type="Chronos.Client.Win.Common.DesktopApplication.ViewModels.ProfilingTargetSettingsViewModel, Chronos.Client.Win.Common.DesktopApplication" Mode="Single" Activation="OnStartup" Order="20" />
-</Layout>

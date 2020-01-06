@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Chronos.Common;
+using Layex.Actions;
+using Layex.Extensions;
+using Layex.ViewModels;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
-using Adenium;
-using Adenium.Layouting;
-using Chronos.Common;
 
 namespace Chronos.Client.Win.Common.ViewModels
 {
@@ -14,13 +15,13 @@ namespace Chronos.Client.Win.Common.ViewModels
         private readonly SyncronizedUnitsCollection<T> _units;
         private GridViewDynamicColumn _selectedColumn;
         private T _selectedUnit;
-        private readonly string _itemContextMenuId;
+        private readonly string _itemContextGroupName;
 
-        protected UnitsListViewModel(IEnumerable<T> units, IEnumerable<GridViewDynamicColumn> columns, string itemContextMenuId)
+        protected UnitsListViewModel(IEnumerable<T> units, IEnumerable<GridViewDynamicColumn> columns, string itemContextGroupName)
         {
             //Units = units;
             _units = new SyncronizedUnitsCollection<T>(units);
-            _itemContextMenuId = itemContextMenuId;
+            _itemContextGroupName = itemContextGroupName;
             Columns = new ObservableCollection<GridViewDynamicColumn>(columns);
             ICollectionView collectionView = CollectionViewSource.GetDefaultView(Units);
             foreach (GridViewDynamicColumn column in Columns)
@@ -30,9 +31,9 @@ namespace Chronos.Client.Win.Common.ViewModels
             SelectedColumn = Columns.FirstOrDefault();
         }
 
-        public IMenu ItemContextMenu
+        public ActionGroup ItemContextGroup
         {
-            get { return Menus[_itemContextMenuId]; }
+            get { return (ActionGroup)Actions[_itemContextGroupName]; }
         }
         
         public ObservableCollection<GridViewDynamicColumn> Columns { get; private set; }

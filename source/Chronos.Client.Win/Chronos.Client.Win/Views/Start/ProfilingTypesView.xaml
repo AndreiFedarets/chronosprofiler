@@ -1,22 +1,21 @@
-﻿<adenium:View x:Class="Chronos.Client.Win.Views.Start.ProfilingTypesView"
+﻿<v:View x:Class="Chronos.Client.Win.Views.Start.ProfilingTypesView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:adenium="clr-namespace:Adenium;assembly=Adenium"
-            xmlns:local="clr-namespace:Chronos.Client.Win.Views.Start"
-            xmlns:viewModels="clr-namespace:Chronos.Client.Win.ViewModels.Start"
-            DisplayPanel="True">
-    <adenium:View.Resources>
-        <adenium:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <local:ProfilingTypesDataTemplateSelector x:Key="ProfilingTypesDataTemplateSelector" />
-        <HierarchicalDataTemplate x:Key="FrameworkDataTemplate" ItemsSource="{Binding ProfilingTypes}" DataType="{x:Type viewModels:FrameworkViewModel}">
+            xmlns:v="clr-namespace:Layex.Views;assembly=Layex"
+            xmlns:l="clr-namespace:Chronos.Client.Win.Views.Start"
+            xmlns:vm="clr-namespace:Chronos.Client.Win.ViewModels.Start">
+    <v:View.Resources>
+        <v:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <l:ProfilingTypesDataTemplateSelector x:Key="ProfilingTypesDataTemplateSelector" />
+        <HierarchicalDataTemplate x:Key="FrameworkDataTemplate" ItemsSource="{Binding ProfilingTypes}" DataType="{x:Type vm:FrameworkViewModel}">
             <TextBlock Text="{Binding Framework.Definition.Localization.CurrentName}" />
         </HierarchicalDataTemplate>
-        <DataTemplate x:Key="ProflingTypeDataTemplate" DataType="{x:Type viewModels:ProfilingTypeViewModel}">
+        <DataTemplate x:Key="ProflingTypeDataTemplate" DataType="{x:Type vm:ProfilingTypeViewModel}">
             <Grid IsEnabled="{Binding IsEnabled}" Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                 <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding ProfilingType.Definition.Localization.CurrentName}" />
             </Grid>
         </DataTemplate>
-    </adenium:View.Resources>
+    </v:View.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -48,4 +47,4 @@
             <Button Grid.Column="1" Content="Configure" />
         </Grid>
     </Grid>
-</adenium:View>
+</v:View>

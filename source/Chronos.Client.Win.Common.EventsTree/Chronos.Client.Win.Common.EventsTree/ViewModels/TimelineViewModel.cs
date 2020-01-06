@@ -1,10 +1,11 @@
-﻿using System.Windows.Input;
-using Adenium;
-using Chronos.Common.EventsTree;
+﻿using Chronos.Common.EventsTree;
+using Layex.ViewModels;
+using System;
+using System.Windows.Input;
 
 namespace Chronos.Client.Win.Common.EventsTree.ViewModels
 {
-    [ViewModelAttribute(Constants.ViewModels.TimelineViewModel)]
+    [ViewModel(Constants.ViewModels.TimelineViewModel)]
     public sealed class TimelineViewModel : ViewModel
     {
         private IEventTreeCollection _eventTrees;
@@ -14,7 +15,7 @@ namespace Chronos.Client.Win.Common.EventsTree.ViewModels
             _eventTrees = eventTrees;
             ProfilingTimer = profilingTimer;
             EventMessageBuilder = eventMessageBuilder;
-            OpenEventTreeCommand = new SyncCommand<ISingleEventTree>(OpenEventTree);
+            //OpenEventTreeCommand = new SyncCommand<ISingleEventTree>(OpenEventTree);
             _eventTrees.CollectionUpdated += OnEventTreesCollectionUpdated;
         }
 
@@ -51,7 +52,8 @@ namespace Chronos.Client.Win.Common.EventsTree.ViewModels
 
         private void OpenEventTree(ISingleEventTree eventTree)
         {
-            LogicalParent.ActivateItem(Constants.ViewModels.EventTreeViewModel, eventTree);
+            throw new NotImplementedException();
+            //LogicalParent.ActivateItem(Constants.ViewModels.EventTreeViewModel, eventTree);
         }
 
         public override void Dispose()

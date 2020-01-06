@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Layex.Contracts;
+using Layex.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {

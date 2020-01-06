@@ -1,10 +1,11 @@
-﻿using Adenium;
+﻿using Layex.ViewModels;
 
 namespace Chronos.Client.Win.ViewModels.Home
 {
     internal class ProfilingTargetsViewModel : ViewModel
     {
         private readonly IMainApplication _application;
+        private readonly IViewModelManager _viewModelManager;
 
         public ProfilingTargetsViewModel(IMainApplication application)
         {
@@ -14,7 +15,6 @@ namespace Chronos.Client.Win.ViewModels.Home
         public override string DisplayName
         {
             get { return "Start Profiling"; }
-            set { }
         }
 
         public IProfilingTargetCollection ProfilingTargets
@@ -24,7 +24,7 @@ namespace Chronos.Client.Win.ViewModels.Home
 
         public void CreateConfiguration(IProfilingTarget profilingTarget)
         {
-            _application.ViewModelManager.ShowDialog<Start.StartPageViewModel, IProfilingTarget>(null, profilingTarget);
+            _viewModelManager.Activate<IProfilingTarget>(Constants.ViewModels.Start, profilingTarget);
         }
 
         public bool CanCreateConfiguration(IProfilingTarget profilingTarget)

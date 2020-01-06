@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using Adenium;
-using Chronos.Client.Win.Common.ViewModels;
+﻿using Chronos.Client.Win.Common.ViewModels;
 using Chronos.Common;
 using Chronos.DotNet.BasicProfiler;
 using Chronos.DotNet.ExceptionMonitor;
+using Layex.Extensions;
+using Layex.ViewModels;
+using System;
+using System.Collections.Generic;
 
 namespace Chronos.Client.Win.DotNet.ExceptionMonitor.ViewModels
 {
-    [ViewModelAttribute(Constants.ViewModels.ExceptionsViewModel, Constants.Views.UnitsListView)]
+    [ViewModel(Constants.ViewModels.ExceptionsViewModel, Constants.Views.UnitsListView)]
     public sealed class ExceptionsViewModel : UnitsListViewModel<ExceptionInfo>
     {
         public ExceptionsViewModel(IExceptionCollection units)
@@ -19,7 +20,6 @@ namespace Chronos.Client.Win.DotNet.ExceptionMonitor.ViewModels
         public override string DisplayName
         {
             get { return "Exceptions"; }
-            set { }
         }
 
         private static IEnumerable<GridViewDynamicColumn> GetColumns()

@@ -1,5 +1,5 @@
-﻿using System.Windows.Controls;
-using Adenium.Layouting;
+﻿using Layex.Actions;
+using System.Windows.Controls;
 
 namespace Chronos.Client.Win.Common.Views
 {
@@ -13,6 +13,12 @@ namespace Chronos.Client.Win.Common.Views
 
         private void OnUnitsListViewSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            dynamic viewModel = DataContext;
+            ActionGroup group = viewModel.ItemContextGroup;
+            if (group == null)
+            {
+                return;
+            }
             if (e.RemovedItems != null && e.RemovedItems.Count > 0)
             {
                 foreach (object item in e.RemovedItems)
@@ -31,12 +37,7 @@ namespace Chronos.Client.Win.Common.Views
                     ListViewItem listViewItem = (ListViewItem)UnitsList.ItemContainerGenerator.ContainerFromItem(item);
                     if (listViewItem != null)
                     {
-                        dynamic viewModel = ViewModel;
-                        IMenu menu = viewModel.ItemContextMenu;
-                        if (menu != null)
-                        {
-                            listViewItem.ContextMenu = new Adenium.Controls.ContextMenu { Source = menu };      
-                        }
+                        listViewItem.ContextMenu = new ContextMenu { ItemsSource = group };
                     }
                 }
             }

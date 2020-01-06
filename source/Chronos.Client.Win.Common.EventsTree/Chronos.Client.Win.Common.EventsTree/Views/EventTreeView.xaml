@@ -1,13 +1,13 @@
-﻿<adenium:View x:Class="Chronos.Client.Win.Common.EventsTree.Views.EventTreeView"
+﻿<views:View x:Class="Chronos.Client.Win.Common.EventsTree.Views.EventTreeView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:adenium="clr-namespace:Adenium;assembly=Adenium">
+            xmlns:views="clr-namespace:Layex.Views;assembly=Layex">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Background="{x:Static adenium:FontsAndColors.DarkNeutralBrush}">
+        <Grid> <!-- Background="{x:Static adenium:FontsAndColors.DarkNeutralBrush}"-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -18,8 +18,8 @@
             <TextBlock Grid.Column="1" Text="Sort:" />
             <ComboBox Grid.Column="2" ItemsSource="{Binding AvailableSortTypes}" SelectedItem="{Binding SelectedSortType}" Width="100" />
         </Grid>
-        <Border Grid.Row="1" BorderBrush="{x:Static adenium:FontsAndColors.DarkNeutralBrush}" BorderThickness="1">
+        <Border Grid.Row="1" BorderThickness="1"> <!-- BorderBrush="{x:Static adenium:FontsAndColors.DarkNeutralBrush}" -->
             <ContentControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding View}" />
         </Border>
     </Grid>
-</adenium:View>
+</views:View>

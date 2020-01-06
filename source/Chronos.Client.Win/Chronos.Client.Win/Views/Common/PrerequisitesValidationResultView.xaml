@@ -1,8 +1,7 @@
-﻿<adenium:View x:Class="Chronos.Client.Win.Views.Common.PrerequisitesValidationResultView"
+﻿<views:View x:Class="Chronos.Client.Win.Views.Common.PrerequisitesValidationResultView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:adenium="clr-namespace:Adenium;assembly=Adenium"
-            ContentHeight="100">
+            xmlns:views="clr-namespace:Layex.Views;assembly=Layex">
     <Grid>
         <ItemsControl ItemsSource="{Binding ValidationResults}">
             <ItemsControl.ItemTemplate>
@@ -12,4 +11,4 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
     </Grid>
-</adenium:View>
+</views:View>

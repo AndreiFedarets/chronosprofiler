@@ -1,0 +1,22 @@
+﻿<Application xmlns="clr-namespace:Layex.Layouts;assembly=Layex"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:a="clr-namespace:Chronos.Client.Win.DotNet.ExceptionMonitor.Actions;assembly=Chronos.Client.Win.DotNet.ExceptionMonitor"
+             xmlns:v="clr-namespace:Chronos.Client.Win.DotNet.ExceptionMonitor.ViewModels;assembly=Chronos.Client.Win.DotNet.ExceptionMonitor">
+    <Layout Name="Profiling">
+        <Layout.ViewModels>
+            <ViewModel Type="{x:Type v:ExceptionsViewModel}" Singleton="True" AutoActivate="False" />
+        </Layout.ViewModels>
+        <Layout.ActionItems>
+            <ActionGroup Name="Main">
+                <ActionGroup Name="DotNet">
+                    <ActionCommand Name="ExceptionMonitor.Exceptions" Type="{x:Type a:ExceptionsCommand}" />
+                </ActionGroup>
+            </ActionGroup>
+        </Layout.ActionItems>
+    </Layout>
+    <Layout Name="Profiling.DotNet.ExceptionMonitor.Exceptions">
+        <Layout.ActionItems>
+            <ActionGroup Name="ItemContextMenu" />
+        </Layout.ActionItems>
+    </Layout>
+</Application>

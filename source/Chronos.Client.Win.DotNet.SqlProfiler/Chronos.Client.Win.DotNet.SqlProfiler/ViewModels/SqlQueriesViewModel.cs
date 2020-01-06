@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Adenium;
-using Chronos.Client.Win.Common.ViewModels;
+﻿using Chronos.Client.Win.Common.ViewModels;
 using Chronos.Common;
 using Chronos.DotNet.SqlProfiler;
+using Layex.Extensions;
+using Layex.ViewModels;
+using System;
+using System.Collections.Generic;
 
 namespace Chronos.Client.Win.DotNet.SqlProfiler.ViewModels
 {
-    [ViewModelAttribute(Constants.ViewModels.SqlQueriesViewModel, Constants.Views.UnitsListView)]
+    [ViewModel(Constants.ViewModels.SqlQueriesViewModel, Constants.Views.UnitsListView)]
     public sealed class SqlQueriesViewModel : UnitsListViewModel<SqlQueryInfo>
     {
         public SqlQueriesViewModel(ISqlQueryCollection units)
@@ -18,7 +19,6 @@ namespace Chronos.Client.Win.DotNet.SqlProfiler.ViewModels
         public override string DisplayName
         {
             get { return "SQL Queries"; }
-            set { }
         }
 
         private static IEnumerable<GridViewDynamicColumn> GetColumns()

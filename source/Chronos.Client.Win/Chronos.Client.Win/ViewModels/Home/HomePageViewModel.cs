@@ -1,10 +1,10 @@
-﻿using System;
-using Adenium;
+﻿using Layex.ViewModels;
+using System;
 
 namespace Chronos.Client.Win.ViewModels.Home
 {
-    [ViewModelAttribute("Home.Page")]
-    public class HomePageViewModel : GridViewModel
+    [ViewModel(Constants.ViewModels.Home)]
+    public class HomePageViewModel : ItemsViewModel
     {
         private readonly IMainApplication _application;
 
@@ -22,7 +22,6 @@ namespace Chronos.Client.Win.ViewModels.Home
         public override string DisplayName
         {
             get { return "Chronos Profiler"; }
-            set { }
         }
 
         private void OnApplicationStateChanged(object sender, ApplicationStateEventArgs e)

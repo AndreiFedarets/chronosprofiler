@@ -14,7 +14,7 @@
 
         public static class Menus
         {
-            public const string ExceptionContentMenu = "Profiling.DotNet.ExceptionMonitor.Exceptions.ItemContextMenu";
+            public const string ExceptionContentMenu = "ItemContextMenu";
         }
     }
 }

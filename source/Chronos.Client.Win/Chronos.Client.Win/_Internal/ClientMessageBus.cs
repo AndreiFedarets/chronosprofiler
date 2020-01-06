@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using Chronos.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Adenium;
-using Chronos.Messaging;
 
 namespace Chronos.Client.Win
 {
@@ -24,12 +24,12 @@ namespace Chronos.Client.Win
 
         public void SendMessage(object sender, uint message, object parameter)
         {
-            SmartDispatcher.Main.Invoke(() => SendMessageInternal(sender, message, parameter));
+            Execute.BeginOnUIThread(() => SendMessageInternal(sender, message, parameter));
         }
 
         public void PostMessage(object sender, uint message, object parameter)
         {
-            SmartDispatcher.Main.BeginInvoke(() => SendMessageInternal(sender, message, parameter));
+            Execute.BeginOnUIThread(() => SendMessageInternal(sender, message, parameter));
         }
 
         public IDisposable Subscribe(IMessageBusHandler handler)

@@ -1,25 +1,22 @@
-﻿using System;
-using System.Diagnostics;
-using Adenium;
-using Adenium.Layouting;
-using Caliburn.Micro;
-using Chronos.Settings;
+﻿using Chronos.Settings;
 using Chronos.Win32;
+using Layex;
+using Layex.ViewModels;
+using System;
+using System.Diagnostics;
 
 namespace Chronos.Client.Win
 {
     internal abstract class ApplicationBase : Client.ApplicationBase, IApplicationBase
     {
-        protected readonly IContainer Container;
-        private readonly Bootstrapper _bootstrapper;
         private readonly Guid _uid;
-        
+        private Bootstrapper _bootstrapper;
+
         protected ApplicationBase(Guid uid, bool processOwner)
             : base(processOwner)
         {
             _uid = uid;
-            Container = new Container();
-            _bootstrapper = new Bootstrapper(Container);
+            _bootstrapper = new Bootstrapper();
             //Debugger.Launch();
         }
 
@@ -33,9 +30,7 @@ namespace Chronos.Client.Win
             get { return Constants.ApplicationCodeName.WinClient; }
         }
 
-        public IContainerViewModel MainViewModel { get; private set; }
-
-        public IViewModelManager ViewModelManager { get; private set; }
+        public IDependencyContainer Container { get; private set; }
 
         public void Activate()
         {
@@ -45,41 +40,35 @@ namespace Chronos.Client.Win
             }
         }
 
+        protected virtual IDependencyContainer GetDependencyContainer()
+        {
+            return _bootstrapper.DependencyContainer;
+        }
+
         protected override void RunInternal()
         {
             base.RunInternal();
-            ConfigureContainer(Container);
             _bootstrapper.Initialize();
-            MainViewModel = BuildMainViewModel();
+            Container = GetDependencyContainer();
+            ConfigureContainer(Container);
         }
 
         protected override void OnEndInitialize()
         {
             base.OnEndInitialize();
-            ShowMainWindow();
+            ShowMainViewModel();
         }
 
-        protected abstract IContainerViewModel BuildMainViewModel();
+        protected abstract void ShowMainViewModel();
 
-        private void ShowMainWindow()
-        {
-            ViewModelManager.ShowWindow(MainViewModel);
-        }
-
-        protected virtual void ConfigureContainer(IContainer container)
+        protected virtual void ConfigureContainer(IDependencyContainer container)
         {
             container.RegisterInstance<IApplicationBase>(this);
             container.RegisterInstance<IApplicationSettings>(ApplicationSettings);
-            container.RegisterType<IWindowManager, CustomWindowManager>();
-            container.RegisterType<IViewModelManager, ViewModelManager>();
-            ViewModelManager = container.Resolve<IViewModelManager>();
-            ILayoutProvider layoutProvider = container.Resolve<ClientLayoutProvider>();
-            ViewModelManager.RegisterLayoutProvider(layoutProvider);
         }
 
         public override void Dispose()
         {
-            MainViewModel.Dispose();
             Properties.Settings.Default.Save();
             base.Dispose();
         }

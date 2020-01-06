@@ -4,6 +4,7 @@ msi
 obj
 bin
 package
+source/packages
 *.user
 *.opensdf
 *.suo

@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using Layex.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
-    public sealed class FrameworkViewModel : PropertyChangedBaseEx, IDialogContractSource
+    public sealed class FrameworkViewModel : PropertyChangedBase, IDialogContractSource, IDisposable
     {
-        private readonly IFramework _framework;
         private readonly FrameworkSettingsCollection _frameworksSettings;
         private readonly List<ProfilingTypeViewModel> _profilingTypes;
         private FrameworkSettings _frameworkSettings;
@@ -16,10 +16,10 @@ namespace Chronos.Client.Win.ViewModels.Start
         public FrameworkViewModel(IFramework framework, List<ProfilingTypeViewModel> profilingTypes, ConfigurationSettings configurationSettings)
         {
             _references = 0;
-            _framework = framework;
+            Framework = framework;
             _frameworksSettings = configurationSettings.FrameworksSettings;
             _profilingTypes = new List<ProfilingTypeViewModel>();
-            foreach (IProfilingType profilingType in _framework.ProfilingTypes)
+            foreach (IProfilingType profilingType in Framework.ProfilingTypes)
             {
                 ProfilingTypeViewModel viewModel = new ProfilingTypeViewModel(profilingType, this, profilingTypes, configurationSettings.ProfilingTypesSettings);
                 viewModel.ContractSourceChanged += OnContractSourceChanged;
@@ -33,10 +33,7 @@ namespace Chronos.Client.Win.ViewModels.Start
             get { return _profilingTypes.Any(x => x.DialogReady); }
         }
 
-        public IFramework Framework
-        {
-            get { return _framework; }
-        }
+        public IFramework Framework { get; private set; }
 
         public IEnumerable<ProfilingTypeViewModel> ProfilingTypes
         {
@@ -45,7 +42,7 @@ namespace Chronos.Client.Win.ViewModels.Start
 
         public bool IsVisible
         {
-            get { return !_framework.IsHidden; }
+            get { return !Framework.IsHidden; }
         }
 
         public bool IsEnabled
@@ -66,23 +63,22 @@ namespace Chronos.Client.Win.ViewModels.Start
 
         public event EventHandler ContractSourceChanged;
 
-        public override void Dispose()
+        public void Dispose()
         {
             foreach (ProfilingTypeViewModel profilingType in _profilingTypes)
             {
                 profilingType.ContractSourceChanged -= OnContractSourceChanged;
             }
-            base.Dispose();
         }
 
         internal void AddReference()
         {
             _references++;
-            if (!_frameworksSettings.Contains(_framework.Definition.Uid))
+            if (!_frameworksSettings.Contains(Framework.Definition.Uid))
             {
                 if (_frameworkSettings == null)
                 {
-                    _frameworkSettings = _frameworksSettings.GetOrCreate(_framework.Definition.Uid);
+                    _frameworkSettings = _frameworksSettings.GetOrCreate(Framework.Definition.Uid);
                 }
                 else
                 {
@@ -96,7 +92,7 @@ namespace Chronos.Client.Win.ViewModels.Start
             _references--;
             if (!IsEnabled)
             {
-                _frameworksSettings.Remove(_framework.Definition.Uid);
+                _frameworksSettings.Remove(Framework.Definition.Uid);
             }
         }
 

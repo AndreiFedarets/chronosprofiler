@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Adenium;
-using Chronos.Accessibility.IIS;
+﻿using Chronos.Accessibility.IIS;
 using Chronos.Client.Win.ViewModels.Start;
+using Layex.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Chronos.Client.Win.Common.WebApplication.ViewModels
 {
-    [ViewModelAttribute(Constants.ViewModels.ProfilingTargetSettings)]
+    [ViewModel(Constants.ViewModels.ProfilingTargetSettings)]
     public class ProfilingTargetSettingsViewModel : ProfilingTargetSettingsBaseViewModel
     {
         private readonly Chronos.Common.WebApplication.ProfilingTargetSettings _profilingTargetSettings;
@@ -21,7 +21,6 @@ namespace Chronos.Client.Win.Common.WebApplication.ViewModels
         public override string DisplayName
         {
             get { return "Target AppPool"; }
-            set { }
         }
 
         public override bool DialogReady

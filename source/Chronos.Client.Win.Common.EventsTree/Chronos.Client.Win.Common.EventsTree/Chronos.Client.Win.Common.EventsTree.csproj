@@ -37,8 +37,16 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Caliburn.Micro">
-      <HintPath>..\..\..\externals\Caliburn.Micro.dll</HintPath>
+    <Reference Include="Caliburn.Micro, Version=2.0.0.6, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Layex.1.0.85-alpha\lib\net40\Caliburn.Micro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Platform, Version=2.0.0.6, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Layex.1.0.85-alpha\lib\net40\Caliburn.Micro.Platform.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Layex, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c28f3cd3ba59a60f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Layex.1.0.85-alpha\lib\net40\Layex.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -46,19 +54,22 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\externals\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\packages\Layex.1.0.85-alpha\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.XML" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Extension.layout.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -77,6 +88,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\TimelineCommand.cs" />
+    <Compile Include="Actions\EventsTreeCommand.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controls\EventsTreeViewEnumerator.cs" />
     <Compile Include="Controls\EventTreeItemCollection.cs" />
@@ -85,7 +98,6 @@
     <Compile Include="Controls\EventTreeItemSorter.cs" />
     <Compile Include="Controls\EventTreeSortType.cs" />
     <Compile Include="Controls\ThreadTimeline.cs" />
-    <Compile Include="Menu\TimelineMenuItem.cs" />
     <Compile Include="ProfilingTypeAdapter.cs" />
     <Compile Include="Controls\EventTreeItem.cs" />
     <Compile Include="Controls\EventsTreeView.cs" />
@@ -109,11 +121,6 @@
     <Compile Include="Views\EventsTreeView.xaml.cs">
       <DependentUpon>EventsTreeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Menu\EventsTreeMenuItem.cs" />
-    <Compile Include="Menu\PerformanceMenuItem.cs" />
-    <None Include="Layouts\Profiling.Page.layout">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -124,13 +131,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Adenuim\Adenium\Adenium.csproj">
-      <Project>{8abfd019-e257-4896-a31c-cf180936d329}</Project>
-      <Name>Adenium</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\Chronos.Client.Win\Chronos.Client.Win\Chronos.Client.Win.csproj">
       <Project>{6db0686c-3f7a-4156-a4bb-3709bc048454}</Project>
       <Name>Chronos.Client.Win</Name>

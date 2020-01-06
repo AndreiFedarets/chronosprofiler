@@ -1,5 +1,5 @@
-﻿using System;
-using Adenium;
+﻿using Layex;
+using System;
 
 namespace Chronos.Client.Win
 {
@@ -7,7 +7,7 @@ namespace Chronos.Client.Win
     {
         Guid Uid { get; }
 
-        void Initialize(IApplicationBase application, IContainer container);
+        void Initialize(IApplicationBase application, IDependencyContainer container);
 
         void Run();
     }

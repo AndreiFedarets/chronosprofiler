@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using Adenium;
+﻿using Caliburn.Micro;
 using Chronos.Client.Win.Controls.Common.EventsTree;
 using Chronos.Common.EventsTree;
+using Layex.ViewModels;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Chronos.Client.Win.Common.EventsTree.ViewModels
 {
-    [ViewModelAttribute(Constants.ViewModels.EventsTreeViewModel)]
+    [ViewModel(Constants.ViewModels.EventsTreeViewModel)]
     public sealed class EventsTreeViewModel : ViewModel
     {
         private readonly EventTreeMerger _eventTreeMerger;
@@ -67,7 +68,7 @@ namespace Chronos.Client.Win.Common.EventsTree.ViewModels
             get { return View.Events; }
             private set
             {
-                SmartDispatcher.Main.BeginInvoke(() =>
+                Execute.BeginOnUIThread(() =>
                 {
                     //This Thread.Sleep is hotfix of issue when EventsTree is loaded earlier than Units
                     Thread.Sleep(500);

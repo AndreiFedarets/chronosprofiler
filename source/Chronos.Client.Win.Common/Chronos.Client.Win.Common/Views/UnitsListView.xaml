@@ -1,7 +1,8 @@
-﻿<adenium:View x:Class="Chronos.Client.Win.Common.Views.UnitsListView"
+﻿<views:View x:Class="Chronos.Client.Win.Common.Views.UnitsListView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:adenium="clr-namespace:Adenium;assembly=Adenium"
+            xmlns:views="clr-namespace:Layex.Views;assembly=Layex"
+            xmlns:extensions="clr-namespace:Layex.Extensions;assembly=Layex"
             x:Name="RootView">
     <Grid>
         <Grid.RowDefinitions>
@@ -10,9 +11,16 @@
         </Grid.RowDefinitions>
         <ListView Grid.Row="0" ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnit}" 
                   IsSynchronizedWithCurrentItem="True" VirtualizingStackPanel.IsVirtualizing="True"
-                  adenium:GridViewSorting.AutoSort="True" x:Name="UnitsList">
+                  extensions:GridViewSorting.AutoSort="True" x:Name="UnitsList">
+            <ListView.Resources>
+                <Style TargetType="{x:Type MenuItem}">
+                    <Setter Property="Header" Value="{Binding DisplayName}" />
+                    <Setter Property="Command" Value="{Binding}"/>
+                    <Setter Property="ItemsSource" Value="{Binding}" />
+                </Style>
+            </ListView.Resources>
             <ListView.View>
-                <GridView adenium:GridViewComposition.DynamicColumns="{Binding Columns}" />
+                <GridView extensions:GridViewComposition.DynamicColumns="{Binding Columns}" />
             </ListView.View>
         </ListView>
         <Grid Grid.Row="1">
@@ -28,4 +36,4 @@
             <ComboBox Grid.Column="2" ItemsSource="{Binding Columns}" SelectedItem="{Binding SelectedColumn}" DisplayMemberPath="Header" />
         </Grid>
     </Grid>
-</adenium:View>
+</views:View>

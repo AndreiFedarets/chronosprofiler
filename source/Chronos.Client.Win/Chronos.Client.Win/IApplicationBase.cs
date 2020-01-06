@@ -1,11 +1,9 @@
-﻿using Adenium;
+﻿using Layex.ViewModels;
 
 namespace Chronos.Client.Win
 {
     public interface IApplicationBase : IChronosApplication
     {
-        IContainerViewModel MainViewModel { get; }
-
         IFrameworkCollection Frameworks { get; }
 
         IProfilingTypeCollection ProfilingTypes { get; }
@@ -13,8 +11,6 @@ namespace Chronos.Client.Win
         IProfilingTargetCollection ProfilingTargets { get; }
 
         IProductivityCollection Productivities { get; }
-
-        IViewModelManager ViewModelManager { get; }
 
         void Activate();
     }

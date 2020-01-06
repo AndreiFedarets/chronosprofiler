@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Chronos.Client.Win.Controls.Common.EventsTree;
+using Layex.ViewModels;
+using System.Collections.Generic;
 using System.Windows.Input;
-using Adenium;
-using Adenium.Layouting;
-using Chronos.Client.Win.Controls.Common.EventsTree;
 
 namespace Chronos.Client.Win.DotNet.FindReference.ViewModels
 {
     [ViewModelAttribute(Constants.ViewModels.FindReferenceViewModel)]
-    public sealed class FindReferenceViewModel : ViewModel, IAttachmentViewModel
+    public sealed class FindReferenceViewModel : ViewModel
     {
         private EventsTreeView _eventsTreeView;
         private IEventSearch _currentEventSearch;

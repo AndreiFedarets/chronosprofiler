@@ -1,12 +1,11 @@
-﻿<adenium:View x:Class="Chronos.Client.Win.Views.Profiling.ProfilingPageView"
-               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:adenium="clr-namespace:Adenium;assembly=Adenium"
-               xmlns:controls="clr-namespace:Adenium.Controls;assembly=Adenium"
-               MinWidth="800" MinHeight="600" IsEnabled="{Binding IsEnabled, Mode=OneWay}">
-    <adenium:View.Resources>
-        <adenium:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-    </adenium:View.Resources>
+﻿<v:View x:Class="Chronos.Client.Win.Views.Profiling.ProfilingPageView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:v="clr-namespace:Layex.Views;assembly=Layex"
+            MinWidth="800" MinHeight="600" IsEnabled="{Binding IsEnabled, Mode=OneWay}">
+    <v:View.Resources>
+        <v:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </v:View.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -14,9 +13,17 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <controls:Menu Grid.Row="0" Source="{Binding Menus[Profiling]}" />
+        <Menu Grid.Row="0" ItemsSource="{Binding Actions[Main]}">
+            <Menu.ItemContainerStyle>
+                <Style TargetType="{x:Type MenuItem}">
+                    <Setter Property="Header" Value="{Binding DisplayName}" />
+                    <Setter Property="Command" Value="{Binding}"/>
+                    <Setter Property="ItemsSource" Value="{Binding}" />
+                </Style>
+            </Menu.ItemContainerStyle>
+        </Menu>
         <ContentControl Grid.Row="1" x:Name="ViewContent" />
         <Button Grid.Row="2" x:Name="ReloadSnapshot" Content="Reload" Visibility="{Binding IsProfilingActive, Converter={StaticResource BoolToVisibilityConverter}}" />
         <TextBlock Grid.Row="3" HorizontalAlignment="Left" Text="{Binding StartupTime, StringFormat='Startup time: {0} sec'}" />
     </Grid>
-</adenium:View>
+</v:View>

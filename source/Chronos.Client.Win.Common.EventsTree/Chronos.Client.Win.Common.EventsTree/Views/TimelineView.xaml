@@ -1,11 +1,11 @@
-﻿<adenium:View x:Class="Chronos.Client.Win.Common.EventsTree.Views.TimelineView"
+﻿<views:View x:Class="Chronos.Client.Win.Common.EventsTree.Views.TimelineView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:controls="clr-namespace:Chronos.Client.Win.Controls.Common.EventsTree"
-            xmlns:adenium="clr-namespace:Adenium;assembly=Adenium">
+            xmlns:views="clr-namespace:Layex.Views;assembly=Layex">
     <Grid>
-        <Border BorderBrush="{x:Static adenium:FontsAndColors.DarkNeutralBrush}" BorderThickness="1">
+        <Border BorderThickness="1"> <!-- BorderBrush="{x:Static adenium:FontsAndColors.DarkNeutralBrush}" -->
             <controls:Timeline Events="{Binding Events}" EventMessageBuilder="{Binding EventMessageBuilder}" ProfilingTimer="{Binding ProfilingTimer}" OpenCommand="{Binding OpenEventTreeCommand}" />
         </Border>
     </Grid>
-</adenium:View>
+</views:View>

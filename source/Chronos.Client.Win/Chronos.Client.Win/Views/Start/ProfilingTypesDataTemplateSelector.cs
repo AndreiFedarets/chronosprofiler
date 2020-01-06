@@ -1,7 +1,7 @@
-﻿using System.Windows;
+﻿using Chronos.Client.Win.ViewModels.Start;
+using Layex.Extensions;
+using System.Windows;
 using System.Windows.Controls;
-using Adenium;
-using Chronos.Client.Win.ViewModels.Start;
 
 namespace Chronos.Client.Win.Views.Start
 {

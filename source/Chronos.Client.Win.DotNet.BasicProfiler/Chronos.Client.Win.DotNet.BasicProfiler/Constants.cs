@@ -19,12 +19,12 @@
 
         public static class Menus
         {
-            public const string AppDomainContentMenu = "Profiling.DotNet.BasicProfiler.AppDomains.ItemContextMenu";
-            public const string AssemblyContentMenu = "Profiling.DotNet.BasicProfiler.Assemblies.ItemContextMenu";
-            public const string ModuleContentMenu = "Profiling.DotNet.BasicProfiler.Modules.ItemContextMenu";
-            public const string ClassContentMenu = "Profiling.DotNet.BasicProfiler.Classes.ItemContextMenu";
-            public const string FunctionContentMenu = "Profiling.DotNet.BasicProfiler.Functions.ItemContextMenu";
-            public const string ThreadContentMenu = "Profiling.DotNet.BasicProfiler.Threads.ItemContextMenu";
+            public const string AppDomainContentMenu = "ItemContextMenu";
+            public const string AssemblyContentMenu = "ItemContextMenu";
+            public const string ModuleContentMenu = "ItemContextMenu";
+            public const string ClassContentMenu = "ItemContextMenu";
+            public const string FunctionContentMenu = "ItemContextMenu";
+            public const string ThreadContentMenu = "ItemContextMenu";
         }
     }
 }

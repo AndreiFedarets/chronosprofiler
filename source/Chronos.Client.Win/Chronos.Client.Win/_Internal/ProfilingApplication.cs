@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Chronos.Extensibility;
+using Layex;
+using Layex.ViewModels;
+using System;
 using System.Collections.Generic;
-using Adenium;
-using Adenium.Layouting;
-using Chronos.Client.Win.ViewModels.Profiling;
-using Chronos.Extensibility;
 
 namespace Chronos.Client.Win
 {
@@ -36,13 +35,14 @@ namespace Chronos.Client.Win
 
         public event EventHandler<SessionStateEventArgs> SessionStateChanged;
 
-        protected override IContainerViewModel BuildMainViewModel()
+        protected override void ShowMainViewModel()
         {
-            return ViewModelManager.CreateViewModel<ProfilingPageViewModel>();
+            Container.Resolve<IViewModelManager>().Activate(Constants.ViewModels.Profiling);
         }
 
-        protected override void ConfigureContainer(IContainer container)
+        protected override void ConfigureContainer(IDependencyContainer container)
         {
+            container.RegisterInstance<IServiceContainer>(_session.ServiceContainer);
             container.RegisterInstance<IProfilingApplication>(this);
             container.RegisterInstance(ProfilingTimer);
             base.ConfigureContainer(container);
@@ -67,11 +67,6 @@ namespace Chronos.Client.Win
             {
                 serviceConsumer.ExportServices(_session.ServiceContainer);
                 serviceConsumer.ImportServices(_session.ServiceContainer);
-            }
-            ILayoutProvider layoutProvider = adapter as ILayoutProvider;
-            if (layoutProvider != null)
-            {
-                ViewModelManager.RegisterLayoutProvider(layoutProvider);
             }
         }
 
@@ -99,14 +94,6 @@ namespace Chronos.Client.Win
                 if (serviceConsumer != null)
                 {
                     serviceConsumer.ImportServices(_session.ServiceContainer);
-                }
-            }
-            foreach (IFrameworkAdapter adapter in adapters)
-            {
-                ILayoutProvider layoutProvider = adapter as ILayoutProvider;
-                if (layoutProvider != null)
-                {
-                    ViewModelManager.RegisterLayoutProvider(layoutProvider);
                 }
             }
         }
@@ -137,14 +124,6 @@ namespace Chronos.Client.Win
                     serviceConsumer.ImportServices(_session.ServiceContainer);
                 }
             }
-            foreach (IProfilingTypeAdapter adapter in adapters)
-            {
-                ILayoutProvider layoutProvider = adapter as ILayoutProvider;
-                if (layoutProvider != null)
-                {
-                    ViewModelManager.RegisterLayoutProvider(layoutProvider);
-                }
-            }
         }
 
         private void RunProductivities()
@@ -169,14 +148,6 @@ namespace Chronos.Client.Win
                 if (serviceConsumer != null)
                 {
                     serviceConsumer.ImportServices(_session.ServiceContainer);
-                }
-            }
-            foreach (IProductivityAdapter adapter in adapters)
-            {
-                ILayoutProvider layoutProvider = adapter as ILayoutProvider;
-                if (layoutProvider != null)
-                {
-                    ViewModelManager.RegisterLayoutProvider(layoutProvider);
                 }
             }
         }
@@ -226,11 +197,7 @@ namespace Chronos.Client.Win
 
         private void OnSessionStateChanged(object sender, SessionStateEventArgs eventArgs)
         {
-            EventHandler<SessionStateEventArgs> eventHandler = SessionStateChanged;
-            if (eventHandler != null)
-            {
-                eventHandler(this, eventArgs);
-            }
+            SessionStateChanged?.Invoke(this, eventArgs);
         }
 
         public void FlushData()
@@ -249,8 +216,9 @@ namespace Chronos.Client.Win
             IDisposable disposable = _session as IDisposable;
             if (disposable != null)
             {
-                disposable.Dispose();   
+                disposable.Dispose();
             }
+            _session = null;
         }
 
         internal static Guid GenerateApplicationUid(Guid sessionUid)

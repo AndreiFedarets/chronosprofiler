@@ -74,6 +74,10 @@
     <Compile Include="IPrerequisiteAdapter.cs" />
     <Compile Include="IPrerequisiteCollection.cs" />
     <Compile Include="PrerequisiteValidationResult.cs" />
+    <Compile Include="Storage\DataTableAttribute.cs" />
+    <Compile Include="Storage\DataTableColumnAttribute.cs" />
+    <Compile Include="Storage\IDataStorage.cs" />
+    <Compile Include="Storage\IDataTable.cs" />
     <Compile Include="Win32\User32.cs" />
     <Compile Include="_Internal\Prerequisite.cs" />
     <Compile Include="_Internal\PrerequisiteCollection.cs" />
@@ -234,13 +238,6 @@
     <Compile Include="Proxy\_Internal\ChronosApplication.cs" />
     <Compile Include="Proxy\_Internal\LazyValue.cs" />
     <Compile Include="Proxy\_Internal\ServiceContainer.cs" />
-    <Compile Include="Storage\DataTableAttribute.cs" />
-    <Compile Include="Storage\_Internal\DataTableColumn.cs" />
-    <Compile Include="Storage\DataTableColumnAttribute.cs" />
-    <Compile Include="Storage\IDataStorage.cs" />
-    <Compile Include="Storage\DataStorage.cs" />
-    <Compile Include="Storage\QueryBuilder.cs" />
-    <Compile Include="Storage\_Internal\DataTable.cs" />
     <Compile Include="Win32\Kernel32.cs" />
     <Compile Include="Win32\ManagedCallbackHolder.cs" />
     <Compile Include="Win32\SafeLibraryHandle.cs" />
@@ -390,7 +387,6 @@
     <Compile Include="_Internal\ErrorMessageFormatter.cs" />
     <Compile Include="_Logging\BaseLogger.cs" />
     <Compile Include="_Logging\EventLogger.cs" />
-    <Compile Include="Storage\IDataTable.cs" />
     <Compile Include="_Extensions\AppDomainExtensions.cs" />
     <Compile Include="_Extensions\AssemblyExtensions.cs" />
     <Compile Include="_Extensions\ObjectExtensions.cs" />

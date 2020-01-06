@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using Chronos.Extensibility;
+using Layex.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Adenium;
-using Caliburn.Micro;
-using Chronos.Extensibility;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
@@ -11,7 +11,6 @@ namespace Chronos.Client.Win.ViewModels.Start
     {
         private readonly ProfilingTypeSettingsCollection _profilingTypesSettings;
         private readonly List<ProfilingTypeViewModel> _profilingTypes;
-        private readonly IProfilingType _profilingType;
         private readonly FrameworkViewModel _framework;
         //private object _settingsViewModel;
         private ProfilingTypeSettings _profilingTypeSettings;
@@ -22,7 +21,7 @@ namespace Chronos.Client.Win.ViewModels.Start
             List<ProfilingTypeViewModel> profilingTypes, ProfilingTypeSettingsCollection profilingTypesSettings)
         {
             _references = 0;
-            _profilingType = profilingType;
+            ProfilingType = profilingType;
             _framework = framework;
             _profilingTypes = profilingTypes;
             _profilingTypesSettings = profilingTypesSettings;
@@ -33,10 +32,7 @@ namespace Chronos.Client.Win.ViewModels.Start
             get { return IsChecked; }
         }
 
-        public IProfilingType ProfilingType
-        {
-            get { return _profilingType; }
-        }
+        public IProfilingType ProfilingType { get; private set; }
 
         //public object SettingsViewModel
         //{
@@ -44,7 +40,7 @@ namespace Chronos.Client.Win.ViewModels.Start
         //    {
         //        if (_settingsViewModel == null && IsChecked)
         //        {
-        //            _settingsViewModel = _profilingType.GetAdapter().CreateSettingsPresentation(_profilingTypeSettings);
+        //            _settingsViewModel = ProfilingType.GetAdapter().CreateSettingsPresentation(_profilingTypeSettings);
         //        }
         //        return _settingsViewModel;
         //    }
@@ -52,12 +48,12 @@ namespace Chronos.Client.Win.ViewModels.Start
 
         public bool IsVisible
         {
-            get { return !_profilingType.Definition.IsHidden; }
+            get { return !ProfilingType.Definition.IsHidden; }
         }
 
         public bool IsEnabled
         {
-            get { return !_profilingType.IsTechnical; }
+            get { return !ProfilingType.IsTechnical; }
         }
 
         public bool IsChecked
@@ -103,12 +99,12 @@ namespace Chronos.Client.Win.ViewModels.Start
             }
             _framework.AddReference();
             //If settings collection doesn't contain setings block then add it
-            if (!_profilingTypesSettings.Contains(_profilingType.Definition.Uid))
+            if (!_profilingTypesSettings.Contains(ProfilingType.Definition.Uid))
             {
                 if (_profilingTypeSettings == null)
                 {
-                    _profilingTypeSettings = _profilingTypesSettings.GetOrCreate(_profilingType.Definition.Uid);
-                    _profilingTypeSettings.FrameworkUid = _profilingType.Definition.FrameworkUid;
+                    _profilingTypeSettings = _profilingTypesSettings.GetOrCreate(ProfilingType.Definition.Uid);
+                    _profilingTypeSettings.FrameworkUid = ProfilingType.Definition.FrameworkUid;
                 }
                 else
                 {
@@ -116,7 +112,7 @@ namespace Chronos.Client.Win.ViewModels.Start
                 }
             }
             //Look through profiling types and enable dependencies of current profiling type
-            IEnumerable<DependencyDefinition> dependencies =_profilingType.Definition.Dependencies;
+            IEnumerable<DependencyDefinition> dependencies =ProfilingType.Definition.Dependencies;
             foreach (ProfilingTypeViewModel profilingTypeViewModel in _profilingTypes)
             {
                 //profilingTypeViewModel is current profiling type - do nothing
@@ -144,10 +140,10 @@ namespace Chronos.Client.Win.ViewModels.Start
             //If is not enabled (last reference was removed) then remove settings block from the collection
             if (!IsChecked)
             {
-                _profilingTypesSettings.Remove(_profilingType.Definition.Uid);
+                _profilingTypesSettings.Remove(ProfilingType.Definition.Uid);
             }
             //Look through profiling types and enable dependencies of current profiling type
-            IEnumerable<DependencyDefinition> dependencies = _profilingType.Definition.Dependencies;
+            IEnumerable<DependencyDefinition> dependencies = ProfilingType.Definition.Dependencies;
             foreach (ProfilingTypeViewModel profilingTypeViewModel in _profilingTypes)
             {
                 //profilingTypeViewModel is current profiling type - do nothing
@@ -177,7 +173,7 @@ namespace Chronos.Client.Win.ViewModels.Start
         //    {
         //        if (_profilingTypeSettings == null)
         //        {
-        //            _profilingTypeSettings = _profilingTypeSettingsCollection.GetOrCreate(_profilingType.Uid);
+        //            _profilingTypeSettings = _profilingTypeSettingsCollection.GetOrCreate(ProfilingType.Uid);
         //        }
         //        else
         //        {
@@ -186,7 +182,7 @@ namespace Chronos.Client.Win.ViewModels.Start
         //    }
         //    else
         //    {
-        //        _profilingTypeSettingsCollection.Remove(_profilingType.Uid);
+        //        _profilingTypeSettingsCollection.Remove(ProfilingType.Uid);
         //    }
         //    if (_isUpdating)
         //    {

@@ -1,6 +1,4 @@
-﻿using Adenium;
-
-namespace Chronos.Client.Win
+﻿namespace Chronos.Client.Win
 {
     public interface IProfilingTargetAdapter : Client.IProfilingTargetAdapter
     {

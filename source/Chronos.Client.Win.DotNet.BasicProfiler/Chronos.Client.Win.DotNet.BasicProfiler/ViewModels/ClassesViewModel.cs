@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Adenium;
-using Chronos.Client.Win.Common.ViewModels;
+﻿using Chronos.Client.Win.Common.ViewModels;
 using Chronos.Common;
 using Chronos.DotNet.BasicProfiler;
+using Layex.Extensions;
+using Layex.ViewModels;
+using System;
+using System.Collections.Generic;
 
 namespace Chronos.Client.Win.DotNet.BasicProfiler.ViewModels
 {
@@ -18,7 +19,6 @@ namespace Chronos.Client.Win.DotNet.BasicProfiler.ViewModels
         public override string DisplayName
         {
             get { return "Classes"; }
-            set { }
         }
 
         private static IEnumerable<GridViewDynamicColumn> GetColumns()

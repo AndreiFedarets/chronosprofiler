@@ -1,0 +1,33 @@
+﻿<Application xmlns="clr-namespace:Layex.Layouts;assembly=Layex" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:vc="clr-namespace:Chronos.Client.Win.ViewModels.Common;assembly=Chronos.Client.Win"
+             xmlns:vh="clr-namespace:Chronos.Client.Win.ViewModels.Home;assembly=Chronos.Client.Win"
+             xmlns:vp="clr-namespace:Chronos.Client.Win.ViewModels.Profiling;assembly=Chronos.Client.Win"
+             xmlns:vs="clr-namespace:Chronos.Client.Win.ViewModels.Start;assembly=Chronos.Client.Win">
+    <Layout>
+        <Layout.ViewModels>
+            <ViewModel Type="{x:Type vc:OpenFileViewModel}" AutoActivate="False" Singleton="True" />
+            <ViewModel Type="{x:Type vh:HomePageViewModel}" AutoActivate="False" Singleton="True" />
+            <ViewModel Type="{x:Type vp:ProfilingPageViewModel}" AutoActivate="False" Singleton="True" />
+            <ViewModel Type="{x:Type vs:StartPageViewModel}" AutoActivate="False" Singleton="True" />
+        </Layout.ViewModels>
+    </Layout>
+    <Layout Name="Home">
+        <Layout.ViewModels>
+            <ViewModel Name="Home.ProfilingTargets" Type="{x:Type vh:ProfilingTargetsViewModel}" AutoActivate="True" Singleton="True" />
+            <ViewModel Name="Home.ActiveSession" Type="{x:Type vh:ActiveSessionsViewModel}" AutoActivate="True" Singleton="True" />
+            <ViewModel Name="Home.RecentSession" Type="{x:Type vh:RecentSessionsViewModel}" AutoActivate="True" Singleton="True" />
+        </Layout.ViewModels>
+    </Layout>
+    <Layout Name="Profiling">
+        <Layout.ActionItems>
+            <ActionGroup Name="Main" />
+        </Layout.ActionItems>
+    </Layout>
+    <Layout Name="Start">
+        <Layout.ViewModels>
+            <ViewModel Name="Start.HostApplicationSelector" Type="{x:Type vs:HostApplicationSelectViewModel}" AutoActivate="True" Singleton="True" />
+            <ViewModel Name="Start.ProfilingTypes" Type="{x:Type vs:ProfilingTypesViewModel}" AutoActivate="True" Singleton="True" />
+        </Layout.ViewModels>
+    </Layout>
+</Application>

@@ -32,11 +32,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Caliburn.Micro">
-      <HintPath>..\..\..\externals\Caliburn.Micro.dll</HintPath>
+    <Reference Include="Caliburn.Micro, Version=2.0.0.6, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Layex.1.0.85-alpha\lib\net40\Caliburn.Micro.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Caliburn.Micro.Platform">
-      <HintPath>..\..\..\externals\Caliburn.Micro.Platform.dll</HintPath>
+    <Reference Include="Caliburn.Micro.Platform, Version=2.0.0.6, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Layex.1.0.85-alpha\lib\net40\Caliburn.Micro.Platform.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Layex, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c28f3cd3ba59a60f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Layex.1.0.85-alpha\lib\net40\Layex.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -46,6 +52,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Layex.1.0.85-alpha\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.XML" />
     <Reference Include="WindowsBase" />
@@ -118,11 +128,13 @@
     <Compile Include="Views\Start\StartPageView.xaml.cs">
       <DependentUpon>StartPageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="_Converters\PercentsToColorConverter.cs" />
     <Compile Include="_Extensions\AdapterResolver.cs" />
     <Compile Include="_Extensions\AppDomainExtensions.cs" />
+    <Compile Include="_Extensions\DispatcherExtensions.cs" />
     <Compile Include="_Internal\Bootstrapper.cs" />
     <Compile Include="_Internal\ChronosCoreLocator.cs" />
-    <Compile Include="_Internal\ClientLayoutProvider.cs" />
+    <Compile Include="_Internal\CompositeDependencyContainer.cs" />
     <Compile Include="_Internal\HostApplicationExtensionAdapter.cs" />
     <Compile Include="_Internal\ClientMessageBus.cs" />
     <Compile Include="_Internal\ProfilingApplication.cs" />
@@ -134,6 +146,11 @@
     <Compile Include="_Internal\MainApplication.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Application.layout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Page Include="Views\Common\PrerequisitesValidationResultView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -180,16 +197,13 @@
     <None Include="Chronos.Client.Win.__xchronex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Adenuim\Adenium\Adenium.csproj">
-      <Project>{8abfd019-e257-4896-a31c-cf180936d329}</Project>
-      <Name>Adenium</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Chronos\Chronos\Chronos.csproj">
       <Project>{75ba0099-4ad5-4a8e-8ca4-4ecb842e169c}</Project>
       <Name>Chronos</Name>
@@ -197,15 +211,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Layouts\Profiling.Page.layout">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Layouts\Home.Page.layout">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Layouts\Start.Page.layout">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

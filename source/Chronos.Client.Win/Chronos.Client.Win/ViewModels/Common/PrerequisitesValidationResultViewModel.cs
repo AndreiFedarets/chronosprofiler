@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Adenium;
+﻿using Layex.ViewModels;
+using System.Collections.Generic;
 
 namespace Chronos.Client.Win.ViewModels.Common
 {

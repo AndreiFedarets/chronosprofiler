@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Layex.ViewModels;
+using System;
 using System.Threading.Tasks;
-using Adenium;
 
 namespace Chronos.Client.Win.ViewModels.Profiling
 {
-    [ViewModelAttribute("Profiling.Page")]
-    public class ProfilingPageViewModel : TabViewModel
+    [ViewModel(Constants.ViewModels.Profiling)]
+    public class ProfilingPageViewModel : ItemsViewModel
     {
         private bool _isEnabled;
         private readonly IProfilingApplication _application;

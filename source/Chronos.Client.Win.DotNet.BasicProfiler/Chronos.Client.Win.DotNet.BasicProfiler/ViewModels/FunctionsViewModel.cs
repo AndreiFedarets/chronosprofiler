@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Adenium;
-using Chronos.Client.Win.Common.ViewModels;
+﻿using Chronos.Client.Win.Common.ViewModels;
 using Chronos.Common;
 using Chronos.DotNet.BasicProfiler;
+using Layex.Extensions;
+using Layex.ViewModels;
+using System;
+using System.Collections.Generic;
 
 namespace Chronos.Client.Win.DotNet.BasicProfiler.ViewModels
 {
-    [ViewModelAttribute(Constants.ViewModels.FunctionsViewModel, Constants.Views.UnitsListView)]
+    [ViewModel(Constants.ViewModels.FunctionsViewModel, Constants.Views.UnitsListView)]
     public sealed class FunctionsViewModel : UnitsListViewModel<FunctionInfo>
     {
         public FunctionsViewModel(IFunctionCollection units)
@@ -18,7 +19,6 @@ namespace Chronos.Client.Win.DotNet.BasicProfiler.ViewModels
         public override string DisplayName
         {
             get { return "Functions"; }
-            set { }
         }
 
         private static IEnumerable<GridViewDynamicColumn> GetColumns()

@@ -32,8 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Caliburn.Micro">
-      <HintPath>..\..\..\externals\Caliburn.Micro.dll</HintPath>
+    <Reference Include="Caliburn.Micro, Version=2.0.0.6, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Layex.1.0.85-alpha\lib\net40\Caliburn.Micro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Platform, Version=2.0.0.6, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Layex.1.0.85-alpha\lib\net40\Caliburn.Micro.Platform.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Layex, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c28f3cd3ba59a60f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Layex.1.0.85-alpha\lib\net40\Layex.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -41,6 +49,10 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Layex.1.0.85-alpha\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -78,13 +90,9 @@
     <None Include="Chronos.Client.Win.DotNet.FindReference.xchronex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Adenuim\Adenium\Adenium.csproj">
-      <Project>{8abfd019-e257-4896-a31c-cf180936d329}</Project>
-      <Name>Adenium</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\Chronos.Client.Win.Common.EventsTree\Chronos.Client.Win.Common.EventsTree\Chronos.Client.Win.Common.EventsTree.csproj">
       <Project>{2f82a13c-1f9f-400c-b802-7b37ac97115f}</Project>
       <Name>Chronos.Client.Win.Common.EventsTree</Name>
@@ -163,8 +171,15 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="Actions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Extension.layout.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Page Include="Views\FindReferenceView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

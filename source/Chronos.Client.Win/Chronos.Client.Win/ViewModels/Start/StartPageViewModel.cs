@@ -1,10 +1,11 @@
-﻿using Adenium;
+﻿using Layex;
+using Layex.Contracts;
+using Layex.ViewModels;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
-    [EnableContract(typeof(DialogContract))]
-    [ViewModelAttribute("Start.Page")]
-    public class StartPageViewModel : GridViewModel, IDialogContractConsumer
+    [ViewModel(Constants.ViewModels.Start)]
+    public class StartPageViewModel : ItemsViewModel, IDialogViewModel
     {
         private bool _startProfilingImmediately;
         private bool _isReady;
@@ -22,7 +23,6 @@ namespace Chronos.Client.Win.ViewModels.Start
         public override string DisplayName
         {
             get { return "Create Configuration"; }
-            set { }
         }
 
         public bool CanCreateConfiguration
@@ -33,6 +33,11 @@ namespace Chronos.Client.Win.ViewModels.Start
                 _isReady = value;
                 NotifyOfPropertyChange(() => CanCreateConfiguration);
             }
+        }
+
+        public bool? DialogResult
+        {
+            get { return _isReady; }
         }
 
         public IMainApplication Application { get; private set; }
@@ -64,12 +69,12 @@ namespace Chronos.Client.Win.ViewModels.Start
             TryClose(true);
         }
 
-        protected override void ConfigureScopeContainer(IContainer container)
+        protected override void ConfigureContainer()
         {
-            base.ConfigureScopeContainer(container);
-            container.RegisterInstance(ConfigurationSettings);
-            container.RegisterInstance(HostApplicationSelector);
-            container.RegisterInstance(ProfilingTarget);
+            base.ConfigureContainer();
+            DependencyContainer.RegisterInstance(ConfigurationSettings);
+            DependencyContainer.RegisterInstance(HostApplicationSelector);
+            DependencyContainer.RegisterInstance(ProfilingTarget);
         }
 
         void IDialogContractConsumer.OnReadyChanged(bool ready)
