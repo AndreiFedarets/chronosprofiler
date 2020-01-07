@@ -1,6 +1,0 @@
-﻿<adenuim:View x:Class="Adenium.ErrorView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:adenuim="clr-namespace:Adenium">
-    <ContentControl x:Name="ContentControl" />
-</adenuim:View>

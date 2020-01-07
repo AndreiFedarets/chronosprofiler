@@ -39,7 +39,7 @@
       <HintPath>..\..\packages\Caliburn.Micro.2.0.0\lib\net40\Caliburn.Micro.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Layex, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c28f3cd3ba59a60f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Layex.1.0.86-alpha\lib\net40\Layex.dll</HintPath>
+      <HintPath>..\..\packages\Layex.1.0.88-alpha\lib\net40\Layex.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>

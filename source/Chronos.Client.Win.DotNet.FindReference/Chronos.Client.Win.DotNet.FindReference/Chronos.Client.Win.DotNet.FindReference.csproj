@@ -33,15 +33,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro, Version=2.0.0.6, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Layex.1.0.86-alpha\lib\net40\Caliburn.Micro.dll</HintPath>
+      <HintPath>..\..\packages\Layex.1.0.88-alpha\lib\net40\Caliburn.Micro.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Caliburn.Micro.Platform, Version=2.0.0.6, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Layex.1.0.86-alpha\lib\net40\Caliburn.Micro.Platform.dll</HintPath>
+      <HintPath>..\..\packages\Layex.1.0.88-alpha\lib\net40\Caliburn.Micro.Platform.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Layex, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c28f3cd3ba59a60f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Layex.1.0.86-alpha\lib\net40\Layex.dll</HintPath>
+      <HintPath>..\..\packages\Layex.1.0.88-alpha\lib\net40\Layex.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -50,7 +50,7 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Layex.1.0.86-alpha\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\packages\Layex.1.0.88-alpha\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Xaml" />
