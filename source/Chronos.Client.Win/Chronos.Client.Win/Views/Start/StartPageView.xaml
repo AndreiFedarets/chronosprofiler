@@ -2,7 +2,7 @@
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:views="clr-namespace:Layex.Views;assembly=Layex"
-            MinHeight="600" MinWidth="600">
+            Height="600" Width="500" DisplayMode="Grid">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

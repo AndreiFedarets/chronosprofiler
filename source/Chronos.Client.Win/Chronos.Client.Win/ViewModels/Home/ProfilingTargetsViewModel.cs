@@ -7,14 +7,16 @@ namespace Chronos.Client.Win.ViewModels.Home
         private readonly IMainApplication _application;
         private readonly IViewModelManager _viewModelManager;
 
-        public ProfilingTargetsViewModel(IMainApplication application)
+        public ProfilingTargetsViewModel(IMainApplication application, IViewModelManager viewModelManager)
         {
             _application = application;
+            _viewModelManager = viewModelManager;
         }
 
         public override string DisplayName
         {
-            get { return "Start Profiling"; }
+            get { return Properties.Resources.ProfilingTargetsViewModel_DisplayName; }
+            set { }
         }
 
         public IProfilingTargetCollection ProfilingTargets

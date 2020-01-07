@@ -1,6 +1,6 @@
 ﻿namespace Chronos.Client.Win.Common.ServiceApplication
 {
-    public class ProfilingTargetAdapter : IProfilingTargetAdapter
+    public class ProfilingTargetAdapter : ProfilingTargetAdapterBase
     {
     }
 }

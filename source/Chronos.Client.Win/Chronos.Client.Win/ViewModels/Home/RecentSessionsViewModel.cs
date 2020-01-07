@@ -13,7 +13,8 @@ namespace Chronos.Client.Win.ViewModels.Home
 
         public override string DisplayName
         {
-            get { return "Recent Sessions"; }
+            get { return Properties.Resources.RecentSessionsViewModel_DisplayName; }
+            set { }
         }
     }
 }

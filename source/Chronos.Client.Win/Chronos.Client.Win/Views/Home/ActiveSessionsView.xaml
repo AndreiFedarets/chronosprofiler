@@ -1,22 +1,30 @@
 ﻿<views:View x:Class="Chronos.Client.Win.Views.Home.ActiveSessionsView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:caliburn="http://www.caliburnproject.org"
             xmlns:views="clr-namespace:Layex.Views;assembly=Layex">
     <Grid>
         <ListView ItemsSource="{Binding ActiveSessions}">
-            <!--<ListView.ItemContainerStyle>
+            <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
-                    <Setter Property="adenium:Event.Command" Value="{Binding DataContext.OpenSessionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type views:View}}}" />
-                    <Setter Property="adenium:Event.EventName" Value="MouseDoubleClick" />
-                    <Setter Property="adenium:Event.CommandParameter" Value="{Binding}" />
+                    <Setter Property="caliburn:Message.Attach" Value="[Event MouseDoubleClick] = [Action OpenSession($dataContext)]" />
+                    <Setter Property="caliburn:Bind.ModelWithoutContext" Value="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type views:View}}}" />
                 </Style>
-            </ListView.ItemContainerStyle>-->
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="PID" DisplayMemberBinding="{Binding Process.ProcessId}" Width="70"/>
                     <GridViewColumn Header="Process Name" DisplayMemberBinding="{Binding Process.ProcessName}" Width="250"/>
                     <GridViewColumn Header="Started At" DisplayMemberBinding="{Binding Process.StartTime}" Width="200"/>
                     <GridViewColumn Header="State" DisplayMemberBinding="{Binding SessionState}" Width="100"/>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Open" caliburn:Message.Attach="OpenSession($dataContext)"
+                                        caliburn:Bind.ModelWithoutContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type views:View}}}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Windows;
-using Chronos.Client.Win.ViewModels.Common;
+﻿using Chronos.Client.Win.ViewModels.Common;
+using System;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Chronos.Client.Win.Views.Common
 {

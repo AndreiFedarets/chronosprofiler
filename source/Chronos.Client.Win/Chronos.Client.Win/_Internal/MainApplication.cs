@@ -1,5 +1,5 @@
 ﻿using Layex;
-using Layex.ViewModels;
+using Layex.Layouts;
 using System;
 using System.Collections.Generic;
 
@@ -7,28 +7,46 @@ namespace Chronos.Client.Win
 {
     internal sealed class MainApplication : ApplicationBase, IMainApplication
     {
+        private readonly CompositeLayoutProvider _layoutProvider;
+        private BuiltinDependencyContainer _container;
+
         public MainApplication(bool processOwner)
-            : base(Guid.NewGuid(), processOwner)
+            : base(Guid.NewGuid(), processOwner, Constants.ViewModels.Home)
         {
+            _layoutProvider = new CompositeLayoutProvider();
+            _layoutProvider.RegisterProvider(new FileSystemLayoutProvider());
         }
 
-        protected override void ShowMainViewModel()
+        protected override IDependencyContainer Container
         {
-            Container.Resolve<IViewModelManager>().Activate(Constants.ViewModels.Home);
+            get { return _container; }
         }
 
-        protected override void ConfigureContainer(IDependencyContainer container)
+        protected override ILayoutProvider LayoutProvider
         {
-            container.RegisterInstance<IMainApplication>(this);
-            base.ConfigureContainer(container);
+            get { return _layoutProvider; }
+        }
+
+        private void ConfigureContainer()
+        {
+            _container = new BuiltinDependencyContainer();
+            _container.RegisterInstance<IApplicationBase>(this);
+            _container.RegisterInstance<IMainApplication>(this);
+            //container.RegisterInstance<IApplicationSettings>(ApplicationSettings);
+        }
+
+        private void RestoreConnection()
+        {
+            Host.ConnectionManager connectionManager = new Host.ConnectionManager();
+            connectionManager.RestoreConnections(HostApplications, ApplicationSettings.HostConnections);
+            Sessions.SessionCreated += OnSessionCreated;
         }
 
         protected override void RunInternal()
         {
             base.RunInternal();
-            Host.ConnectionManager connectionManager = new Host.ConnectionManager();
-            connectionManager.RestoreConnections(HostApplications, ApplicationSettings.HostConnections);
-            Sessions.SessionCreated += OnSessionCreated;
+            RestoreConnection();
+            ConfigureContainer();
             RunProfilingTargets();
             RunFrameworks();
             RunProfilingTypes();
@@ -43,6 +61,14 @@ namespace Chronos.Client.Win
                 IProfilingTargetAdapter adapter = profilingTarget.GetWinAdapter();
                 adapters.Add(adapter);
             }
+            //foreach (IProfilingTargetAdapter adapter in adapters)
+            //{
+            //    ILayoutProvider layoutProvider = adapter as ILayoutProvider;
+            //    if (layoutProvider != null)
+            //    {
+            //        _layoutProvider.RegisterProvider(layoutProvider);
+            //    }
+            //}
         }
 
         private void RunFrameworks()
@@ -53,6 +79,14 @@ namespace Chronos.Client.Win
                 IFrameworkAdapter adapter = framework.GetWinAdapter();
                 adapters.Add(adapter);
             }
+            //foreach (IFrameworkAdapter adapter in adapters)
+            //{
+            //    ILayoutProvider layoutProvider = adapter as ILayoutProvider;
+            //    if (layoutProvider != null)
+            //    {
+            //        _layoutProvider.RegisterProvider(layoutProvider);
+            //    }
+            //}
         }
 
         private void RunProfilingTypes()
@@ -63,6 +97,14 @@ namespace Chronos.Client.Win
                 IProfilingTypeAdapter adapter = profilingType.GetWinAdapter();
                 adapters.Add(adapter);
             }
+            //foreach (IProfilingTypeAdapter adapter in adapters)
+            //{
+            //    ILayoutProvider layoutProvider = adapter as ILayoutProvider;
+            //    if (layoutProvider != null)
+            //    {
+            //        _layoutProvider.RegisterProvider(layoutProvider);
+            //    }
+            //}
         }
 
         private void RunProductivities()
@@ -73,6 +115,14 @@ namespace Chronos.Client.Win
                 IProductivityAdapter adapter = productivity.GetWinAdapter();
                 adapters.Add(adapter);
             }
+            //foreach (IProductivityAdapter adapter in adapters)
+            //{
+            //    ILayoutProvider layoutProvider = adapter as ILayoutProvider;
+            //    if (layoutProvider != null)
+            //    {
+            //        _layoutProvider.RegisterProvider(layoutProvider);
+            //    }
+            //}
         }
 
         private void OnSessionCreated(object sender, SessionEventArgs e)

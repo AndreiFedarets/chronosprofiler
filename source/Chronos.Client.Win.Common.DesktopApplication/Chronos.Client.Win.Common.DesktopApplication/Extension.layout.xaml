@@ -1,9 +1,9 @@
 ﻿<Application xmlns="clr-namespace:Layex.Layouts;assembly=Layex"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:v="clr-namespace:Chronos.Client.Win.Common.DesktopApplication.ViewModels;assembly=Chronos.Client.Win.Common.DesktopApplication">
-    <Layout Name="Start">
+    <Layout Name="Home.Start">
         <Layout.ViewModels>
-            <ViewModel Type="{x:Type v:ProfilingTargetSettingsViewModel}" FilterType="{x:Type v:ProfilingTargetSettingsViewModelFilter}" Singleton="True" AutoActivate="True" Order="20" />
+            <ViewModel Type="{x:Type v:ProfilingTargetSettingsViewModel}" FilterType="{x:Type v:ProfilingTargetSettingsViewModelFilter}" Singleton="True" AutoActivate="True" Locked="True" Order="20" />
         </Layout.ViewModels>
     </Layout>
 </Application>

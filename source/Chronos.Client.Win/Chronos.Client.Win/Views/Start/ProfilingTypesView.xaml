@@ -1,9 +1,9 @@
 ﻿<v:View x:Class="Chronos.Client.Win.Views.Start.ProfilingTypesView"
-            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:v="clr-namespace:Layex.Views;assembly=Layex"
-            xmlns:l="clr-namespace:Chronos.Client.Win.Views.Start"
-            xmlns:vm="clr-namespace:Chronos.Client.Win.ViewModels.Start">
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:v="clr-namespace:Layex.Views;assembly=Layex"
+        xmlns:l="clr-namespace:Chronos.Client.Win.Views.Start"
+        xmlns:vm="clr-namespace:Chronos.Client.Win.ViewModels.Start">
     <v:View.Resources>
         <v:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <l:ProfilingTypesDataTemplateSelector x:Key="ProfilingTypesDataTemplateSelector" />

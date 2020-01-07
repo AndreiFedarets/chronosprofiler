@@ -1,7 +1,6 @@
-﻿using Chronos.Settings;
-using Chronos.Win32;
+﻿using Chronos.Win32;
 using Layex;
-using Layex.ViewModels;
+using Layex.Layouts;
 using System;
 using System.Diagnostics;
 
@@ -9,15 +8,15 @@ namespace Chronos.Client.Win
 {
     internal abstract class ApplicationBase : Client.ApplicationBase, IApplicationBase
     {
-        private readonly Guid _uid;
         private Bootstrapper _bootstrapper;
+        private readonly Guid _uid;
+        private string _mainViewModelName;
 
-        protected ApplicationBase(Guid uid, bool processOwner)
+        protected ApplicationBase(Guid uid, bool processOwner, string mainViewModelName)
             : base(processOwner)
         {
             _uid = uid;
-            _bootstrapper = new Bootstrapper();
-            //Debugger.Launch();
+            _mainViewModelName = mainViewModelName;
         }
 
         public override Guid Uid
@@ -30,7 +29,9 @@ namespace Chronos.Client.Win
             get { return Constants.ApplicationCodeName.WinClient; }
         }
 
-        public IDependencyContainer Container { get; private set; }
+        protected abstract IDependencyContainer Container { get; }
+
+        protected abstract ILayoutProvider LayoutProvider { get; }
 
         public void Activate()
         {
@@ -40,31 +41,11 @@ namespace Chronos.Client.Win
             }
         }
 
-        protected virtual IDependencyContainer GetDependencyContainer()
-        {
-            return _bootstrapper.DependencyContainer;
-        }
-
-        protected override void RunInternal()
-        {
-            base.RunInternal();
-            _bootstrapper.Initialize();
-            Container = GetDependencyContainer();
-            ConfigureContainer(Container);
-        }
-
         protected override void OnEndInitialize()
         {
             base.OnEndInitialize();
-            ShowMainViewModel();
-        }
-
-        protected abstract void ShowMainViewModel();
-
-        protected virtual void ConfigureContainer(IDependencyContainer container)
-        {
-            container.RegisterInstance<IApplicationBase>(this);
-            container.RegisterInstance<IApplicationSettings>(ApplicationSettings);
+            _bootstrapper = new Bootstrapper(Container, LayoutProvider, _mainViewModelName);
+            _bootstrapper.Initialize();
         }
 
         public override void Dispose()

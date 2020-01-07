@@ -4,7 +4,12 @@
              xmlns:a="clr-namespace:Chronos.Client.Win.DotNet.BasicProfiler.Actions;assembly=Chronos.Client.Win.DotNet.BasicProfiler">
     <Layout Name="Profiling">
         <Layout.ViewModels>
-            <ViewModel 
+            <ViewModel Type="{x:Type v:AppDomainsViewModel}" Singleton="True" AutoActivate="False" />
+            <ViewModel Type="{x:Type v:AssembliesViewModel}" Singleton="True" AutoActivate="False" />
+            <ViewModel Type="{x:Type v:ModulesViewModel}" Singleton="True" AutoActivate="False" />
+            <ViewModel Type="{x:Type v:ClassesViewModel}" Singleton="True" AutoActivate="False" />
+            <ViewModel Type="{x:Type v:FunctionsViewModel}" Singleton="True" AutoActivate="False" />
+            <ViewModel Type="{x:Type v:ThreadsViewModel}" Singleton="True" AutoActivate="False" />
             <!--<ViewModel Id="Profiling.DotNet.BasicProfiler.AppDomains" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.AppDomainsViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />
             <ViewModel Id="Profiling.DotNet.BasicProfiler.Assemblies" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.AssembliesViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />
             <ViewModel Id="Profiling.DotNet.BasicProfiler.Modules" Type="Chronos.Client.Win.DotNet.BasicProfiler.ViewModels.ModulesViewModel, Chronos.Client.Win.DotNet.BasicProfiler" Mode="Single" Activation="OnDemand" />

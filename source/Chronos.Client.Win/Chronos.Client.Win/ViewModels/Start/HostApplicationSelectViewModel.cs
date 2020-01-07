@@ -22,7 +22,8 @@ namespace Chronos.Client.Win.ViewModels.Start
 
         public override string DisplayName
         {
-            get { return "Target Machine"; }
+            get { return Properties.Resources.HostApplicationSelectViewModel_DisplayName; }
+            set { }
         }
 
         public bool DialogReady

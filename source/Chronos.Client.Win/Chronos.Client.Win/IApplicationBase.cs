@@ -1,6 +1,4 @@
-﻿using Layex.ViewModels;
-
-namespace Chronos.Client.Win
+﻿namespace Chronos.Client.Win
 {
     public interface IApplicationBase : IChronosApplication
     {

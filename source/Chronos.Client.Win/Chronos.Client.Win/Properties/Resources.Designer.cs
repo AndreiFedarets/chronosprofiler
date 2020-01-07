@@ -19,7 +19,7 @@ namespace Chronos.Client.Win.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -57,6 +57,78 @@ namespace Chronos.Client.Win.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active Sessions.
+        /// </summary>
+        internal static string ActiveSessionsViewModel_DisplayName {
+            get {
+                return ResourceManager.GetString("ActiveSessionsViewModel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chronos Profiler.
+        /// </summary>
+        internal static string HomePageViewModel_DisplayName {
+            get {
+                return ResourceManager.GetString("HomePageViewModel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target Machine.
+        /// </summary>
+        internal static string HostApplicationSelectViewModel_DisplayName {
+            get {
+                return ResourceManager.GetString("HostApplicationSelectViewModel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open File.
+        /// </summary>
+        internal static string OpenFileViewModel_DisplayName {
+            get {
+                return ResourceManager.GetString("OpenFileViewModel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Profiling.
+        /// </summary>
+        internal static string ProfilingTargetsViewModel_DisplayName {
+            get {
+                return ResourceManager.GetString("ProfilingTargetsViewModel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profiling Types.
+        /// </summary>
+        internal static string ProfilingTypesViewModel_DisplayName {
+            get {
+                return ResourceManager.GetString("ProfilingTypesViewModel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recent Sessions.
+        /// </summary>
+        internal static string RecentSessionsViewModel_DisplayName {
+            get {
+                return ResourceManager.GetString("RecentSessionsViewModel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Configuration.
+        /// </summary>
+        internal static string StartPageViewModel_DisplayName {
+            get {
+                return ResourceManager.GetString("StartPageViewModel_DisplayName", resourceCulture);
             }
         }
         

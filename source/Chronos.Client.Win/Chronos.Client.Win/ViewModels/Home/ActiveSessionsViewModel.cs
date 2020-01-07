@@ -36,7 +36,8 @@ namespace Chronos.Client.Win.ViewModels.Home
 
         public override string DisplayName
         {
-            get { return "Active Sessions"; }
+            get { return Properties.Resources.ActiveSessionsViewModel_DisplayName; }
+            set { }
         }
 
         public ICommand OpenSessionCommand { get; private set; }
@@ -54,7 +55,7 @@ namespace Chronos.Client.Win.ViewModels.Home
             _sessions.SessionStateChanged -= OnSessionStateChanged;
         }
 
-        private void OpenSession(SessionInformation sessionInformation)
+        public void OpenSession(SessionInformation sessionInformation)
         {
             //TODO: hide (move) this logic somewhere in MainApplication or SessionCollection
             ApplicationManager.Profiling.RunOrActivateApplication(sessionInformation.Session.Uid);

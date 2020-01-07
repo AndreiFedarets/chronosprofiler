@@ -10,7 +10,7 @@ using System.Windows;
 namespace Chronos.Client.Win.ViewModels.Common
 {
     [ViewModel(Constants.ViewModels.OpenFile)]
-    public sealed class OpenFileViewModel : ViewModel
+    public sealed class OpenFileViewModel : ViewModel, IDialogViewModel
     {
         private readonly ObservableCollection<object> _fileSystemInfos;
         private readonly FilteredFileSystemAccessor _accessor;
@@ -46,8 +46,11 @@ namespace Chronos.Client.Win.ViewModels.Common
 
         public override string DisplayName
         {
-            get { return "Open File"; }
+            get { return Properties.Resources.OpenFileViewModel_DisplayName; }
+            set { }
         }
+
+        public bool? DialogResult { get; set; }
 
         public string SelectedName
         {
@@ -192,13 +195,13 @@ namespace Chronos.Client.Win.ViewModels.Common
             else if (fileSystemInfo is FileInfo)
             {
                 FileName = ((FileInfo)fileSystemInfo).FullName;
-                TryClose(true);
+                Submit();
             }
         }
 
         public void Submit()
         {
-
+            TryClose(true);
         }
 
         internal void OpenFileSystemInfo(string path)

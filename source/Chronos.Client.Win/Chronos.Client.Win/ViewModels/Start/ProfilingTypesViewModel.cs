@@ -68,7 +68,7 @@ namespace Chronos.Client.Win.ViewModels.Start
 
         public override string DisplayName
         {
-            get { return "Profiling Types"; }
+            get { return Properties.Resources.ProfilingTypesViewModel_DisplayName; }
         }
 
         public IEnumerable<FrameworkViewModel> Frameworks

@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:Adenium.Controls"
-                    xmlns:wpfshell="clr-namespace:Microsoft.Windows.Shell;assembly=Microsoft.Windows.Shell"
                     xmlns:caliburn="http://www.caliburnproject.org"
                     xmlns:local="clr-namespace:Adenium">
 
@@ -644,9 +643,9 @@
     </DataTemplate>
 
     <!-- TabControlContentDataTempate =========================================================================================== -->
-    <DataTemplate x:Key="TabViewContentDataTempate">
+    <!--<DataTemplate x:Key="TabViewContentDataTempate">
         <ContentControl caliburn:View.Model="{Binding}" />
-    </DataTemplate>
+    </DataTemplate>-->
 
     <!-- MenuUserControlStyle =================================================================================================== -->
     <Style x:Key="MenuUserControlStyle" TargetType="{x:Type UserControl}" BasedOn="{StaticResource BaseStyle}">

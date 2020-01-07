@@ -117,6 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActiveSessionsViewModel_DisplayName" xml:space="preserve">
+    <value>Active Sessions</value>
+  </data>
+  <data name="HomePageViewModel_DisplayName" xml:space="preserve">
+    <value>Chronos Profiler</value>
+  </data>
+  <data name="HostApplicationSelectViewModel_DisplayName" xml:space="preserve">
+    <value>Target Machine</value>
+  </data>
+  <data name="OpenFileViewModel_DisplayName" xml:space="preserve">
+    <value>Open File</value>
+  </data>
+  <data name="ProfilingTargetsViewModel_DisplayName" xml:space="preserve">
+    <value>Start Profiling</value>
+  </data>
+  <data name="ProfilingTypesViewModel_DisplayName" xml:space="preserve">
+    <value>Profiling Types</value>
+  </data>
+  <data name="RecentSessionsViewModel_DisplayName" xml:space="preserve">
+    <value>Recent Sessions</value>
+  </data>
+  <data name="StartPageViewModel_DisplayName" xml:space="preserve">
+    <value>Create Configuration</value>
+  </data>
   <data name="TargetMachineIsNotSelectedErrorMessage" xml:space="preserve">
     <value>Target Machine is not selected</value>
   </data>

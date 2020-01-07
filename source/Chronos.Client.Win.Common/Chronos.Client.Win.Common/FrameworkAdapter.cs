@@ -1,9 +1,6 @@
 ﻿namespace Chronos.Client.Win.Common
 {
-    public class FrameworkAdapter : IFrameworkAdapter
+    public class FrameworkAdapter : FrameworkAdapterBase
     {
-        public void InitializeSettings(FrameworkSettings settings)
-        {
-        }
     }
 }

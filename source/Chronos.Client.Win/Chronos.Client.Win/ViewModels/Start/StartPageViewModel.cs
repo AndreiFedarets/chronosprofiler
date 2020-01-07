@@ -1,11 +1,12 @@
 ﻿using Layex;
 using Layex.Contracts;
+using Layex.Layouts;
 using Layex.ViewModels;
 
 namespace Chronos.Client.Win.ViewModels.Start
 {
     [ViewModel(Constants.ViewModels.Start)]
-    public class StartPageViewModel : ItemsViewModel, IDialogViewModel
+    public class StartPageViewModel : ItemsViewModel, IDialogViewModel, IDialogContractConsumer
     {
         private bool _startProfilingImmediately;
         private bool _isReady;
@@ -22,7 +23,8 @@ namespace Chronos.Client.Win.ViewModels.Start
 
         public override string DisplayName
         {
-            get { return "Create Configuration"; }
+            get { return Properties.Resources.StartPageViewModel_DisplayName; }
+            set { }
         }
 
         public bool CanCreateConfiguration
@@ -35,10 +37,7 @@ namespace Chronos.Client.Win.ViewModels.Start
             }
         }
 
-        public bool? DialogResult
-        {
-            get { return _isReady; }
-        }
+        public bool? DialogResult { get; set; }
 
         public IMainApplication Application { get; private set; }
 
@@ -67,6 +66,19 @@ namespace Chronos.Client.Win.ViewModels.Start
                 configuration.Activate();
             }
             TryClose(true);
+        }
+
+        protected override Layout LoadLayout()
+        {
+            Layout layout = base.LoadLayout();
+            ILayoutProvider layoutProvider = ProfilingTarget.GetWinAdapter() as ILayoutProvider;
+            if (layoutProvider != null)
+            {
+                Layout profilingTargetLayout = layoutProvider.GetLayout(this);
+                layout.Append(profilingTargetLayout);
+            }
+            return layout;
+
         }
 
         protected override void ConfigureContainer()

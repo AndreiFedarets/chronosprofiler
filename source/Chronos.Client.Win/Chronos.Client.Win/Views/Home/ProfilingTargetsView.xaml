@@ -4,8 +4,7 @@
             xmlns:caliburn="http://www.caliburnproject.org"
             xmlns:views="clr-namespace:Layex.Views;assembly=Layex"
             xmlns:core="clr-namespace:Chronos.Client;assembly=Chronos"
-            xmlns:controls="clr-namespace:Layex.Controls;assembly=Layex"
-            MinHeight="200">
+            xmlns:controls="clr-namespace:Layex.Controls;assembly=Layex">
     <views:View.Resources>
         <views:ObjectToBitmapSourceConverter x:Key="ObjectToBitmapSourceConverter" />
     </views:View.Resources>
@@ -15,7 +14,8 @@
                 <DataTemplate DataType="{x:Type core:IProfilingTarget}">
                     <controls:TileButton Background="#31B6FD" Foreground="#FFFFFF" Margin="5" Text="{Binding Definition.Localization.CurrentName}"
                                          Icon="{Binding Definition.Localization.CurrentIconUri, Converter={StaticResource ObjectToBitmapSourceConverter}}"
-                                         caliburn:Message.Attach="CreateConfiguration($dataContext)" HorizontalAlignment="Stretch"/>
+                                         caliburn:Message.Attach="CreateConfiguration($dataContext)" HorizontalAlignment="Stretch"
+                                         caliburn:Bind.ModelWithoutContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type views:View}}}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>

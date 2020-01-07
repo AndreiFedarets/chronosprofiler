@@ -14,20 +14,20 @@
     </Layout>
     <Layout Name="Home">
         <Layout.ViewModels>
-            <ViewModel Name="Home.ProfilingTargets" Type="{x:Type vh:ProfilingTargetsViewModel}" AutoActivate="True" Singleton="True" />
-            <ViewModel Name="Home.ActiveSession" Type="{x:Type vh:ActiveSessionsViewModel}" AutoActivate="True" Singleton="True" />
-            <ViewModel Name="Home.RecentSession" Type="{x:Type vh:RecentSessionsViewModel}" AutoActivate="True" Singleton="True" />
+            <ViewModel Name="Home.ProfilingTargets" Type="{x:Type vh:ProfilingTargetsViewModel}" AutoActivate="True" Singleton="True" Order="10" Locked="True" />
+            <ViewModel Name="Home.ActiveSession" Type="{x:Type vh:ActiveSessionsViewModel}" AutoActivate="True" Singleton="True" Order="20" Locked="True" />
+            <ViewModel Name="Home.RecentSession" Type="{x:Type vh:RecentSessionsViewModel}" AutoActivate="True" Singleton="True" Order="30" Locked="True" />
+        </Layout.ViewModels>
+    </Layout>
+    <Layout Name="Home.Start">
+        <Layout.ViewModels>
+            <ViewModel Name="Start.HostApplicationSelector" Type="{x:Type vs:HostApplicationSelectViewModel}" AutoActivate="True" Singleton="True" Order="10" Locked="True" />
+            <ViewModel Name="Start.ProfilingTypes" Type="{x:Type vs:ProfilingTypesViewModel}" AutoActivate="True" Singleton="True" Order="30" Locked="True" />
         </Layout.ViewModels>
     </Layout>
     <Layout Name="Profiling">
         <Layout.ActionItems>
             <ActionGroup Name="Main" />
         </Layout.ActionItems>
-    </Layout>
-    <Layout Name="Start">
-        <Layout.ViewModels>
-            <ViewModel Name="Start.HostApplicationSelector" Type="{x:Type vs:HostApplicationSelectViewModel}" AutoActivate="True" Singleton="True" />
-            <ViewModel Name="Start.ProfilingTypes" Type="{x:Type vs:ProfilingTypesViewModel}" AutoActivate="True" Singleton="True" />
-        </Layout.ViewModels>
     </Layout>
 </Application>

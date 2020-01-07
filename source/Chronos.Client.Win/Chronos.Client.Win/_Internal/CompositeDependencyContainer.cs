@@ -4,87 +4,35 @@ using System.Collections.Generic;
 
 namespace Chronos.Client.Win
 {
-    internal sealed class CompositeDependencyContainer : IDependencyContainer
+    internal sealed class CompositeDependencyContainer : BuiltinDependencyContainer
     {
-        private readonly IDependencyContainer _currentContainer;
         private readonly IServiceContainer _serviceContainer;
 
+        public CompositeDependencyContainer(IServiceContainer serviceContainer)
+            : this(serviceContainer, null)
+        {
+        }
 
-        public CompositeDependencyContainer(IServiceContainer serviceContainer, IDependencyContainer currentContainer)
+        private CompositeDependencyContainer(IServiceContainer serviceContainer, BuiltinDependencyContainer parent)
+            : base(parent)
         {
             _serviceContainer = serviceContainer;
-            _currentContainer = currentContainer;
         }
 
-        public bool IsRegistered(Type type)
+        protected override bool TryGetRegistration(Type type, string key, out IRegistration registration)
         {
-            return _currentContainer.IsRegistered(type) || _serviceContainer.IsRegistered(type);
-        }
-
-        public bool IsRegistered(Type type, string key)
-        {
-            if (string.IsNullOrEmpty(key) && IsPublicService(type))
+            if (IsPublicService(type) && _serviceContainer.IsRegistered(type))
             {
-                return _serviceContainer.IsRegistered(type);
+                object instance = _serviceContainer.Resolve(type);
+                registration = new InstanceRegistration(instance);
+                return true;
             }
-            return _currentContainer.IsRegistered(type, key);
+            return base.TryGetRegistration(type, key, out registration);
         }
 
-        public IDependencyContainer CreateChildContainer()
+        public override IDependencyContainer CreateChildContainer()
         {
-            IDependencyContainer childContainer = _currentContainer.CreateChildContainer();
-            return new CompositeDependencyContainer(_serviceContainer, childContainer);
-        }
-
-        public IDependencyContainer RegisterInstance(Type type, object instance)
-        {
-            _currentContainer.RegisterInstance(type, instance);
-            return this;
-        }
-
-        public IDependencyContainer RegisterInstance(Type type, object instance, string key)
-        {
-            _currentContainer.RegisterInstance(type, instance, key);
-            return this;
-        }
-
-        public IDependencyContainer RegisterType(Type from, Type to, bool singleton = false)
-        {
-            _currentContainer.RegisterType(from, to, singleton);
-            return this;
-        }
-
-        public IDependencyContainer RegisterType(Type from, Type to, string key, bool singleton = false)
-        {
-            _currentContainer.RegisterType(from, to, key, singleton);
-            return this;
-        }
-
-        public object Resolve(Type type)
-        {
-            if (IsPublicService(type))
-            {
-                return _serviceContainer.Resolve(type);
-            }
-            return _currentContainer.Resolve(type);
-        }
-
-        public object Resolve(Type type, string key)
-        {
-            if (string.IsNullOrEmpty(key) && IsPublicService(type))
-            {
-                return _serviceContainer.Resolve(type);
-            }
-            return _currentContainer.Resolve(type);
-        }
-
-        public IEnumerable<object> ResolveAll(Type type)
-        {
-            if (IsPublicService(type))
-            {
-                return new[] { _serviceContainer.Resolve(type) };
-            }
-            return _currentContainer.ResolveAll(type);
+            return new CompositeDependencyContainer(_serviceContainer, this);
         }
 
         private bool IsPublicService(Type type)

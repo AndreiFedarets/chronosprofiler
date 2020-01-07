@@ -21,7 +21,8 @@ namespace Chronos.Client.Win.ViewModels.Home
 
         public override string DisplayName
         {
-            get { return "Chronos Profiler"; }
+            get { return Properties.Resources.HomePageViewModel_DisplayName; }
+            set { }
         }
 
         private void OnApplicationStateChanged(object sender, ApplicationStateEventArgs e)
