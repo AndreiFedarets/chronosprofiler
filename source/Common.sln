@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos", "Chronos", "{7FC0C73A-69E2-41C9-8F63-555EF099A6BB}"
 EndProject
@@ -313,10 +313,6 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Chronos.Client.Win.DotNet.F
 		{7E71A746-6141-4A4A-96C9-85139F9C6C29} = {7E71A746-6141-4A4A-96C9-85139F9C6C29}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adenuim", "Adenuim", "{C320AFF1-C53E-4A2C-8CAF-A71197F1617C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adenium", "Adenuim\Adenium\Adenium.csproj", "{8ABFD019-E257-4896-A31C-CF180936D329}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Core", "Chronos.Core", "{56658A62-AFE0-4590-B416-F95AB897BA7E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chronos.Client.Win", "Chronos.Client.Win", "{58D420C3-699D-4F28-BBC5-A8ADC4E5E3D0}"
@@ -540,10 +536,6 @@ Global
 		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D}.Release|Mixed Platforms.Build.0 = Release|x86
-		{8ABFD019-E257-4896-A31C-CF180936D329}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{8ABFD019-E257-4896-A31C-CF180936D329}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{8ABFD019-E257-4896-A31C-CF180936D329}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{8ABFD019-E257-4896-A31C-CF180936D329}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -631,6 +623,8 @@ Global
 		{78525251-56C3-429C-9118-28D57CE943B1} = {58D420C3-699D-4F28-BBC5-A8ADC4E5E3D0}
 		{7E71A746-6141-4A4A-96C9-85139F9C6C29} = {78525251-56C3-429C-9118-28D57CE943B1}
 		{5382540C-69DF-496E-8CD0-E85A9C7B4B3D} = {78525251-56C3-429C-9118-28D57CE943B1}
-		{8ABFD019-E257-4896-A31C-CF180936D329} = {C320AFF1-C53E-4A2C-8CAF-A71197F1617C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E28D69B8-6A36-48AF-97A3-A7517A1E82B2}
 	EndGlobalSection
 EndGlobal

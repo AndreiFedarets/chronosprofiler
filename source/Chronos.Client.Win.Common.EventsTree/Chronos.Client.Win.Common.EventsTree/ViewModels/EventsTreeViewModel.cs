@@ -13,12 +13,13 @@ namespace Chronos.Client.Win.Common.EventsTree.ViewModels
         private readonly EventTreeMerger _eventTreeMerger;
         private readonly IEventTreeCollection _eventTrees;
         private EventTreeMergeType _selectedMergeType;
+        private EventTreeSortType _selectedSortType;
+        private IEnumerable<IEventTree> _events;
 
         public EventsTreeViewModel(IEventTreeCollection eventTrees, IEventMessageBuilder eventMessageBuilder)
         {
             _eventTrees = eventTrees;
-            View = new EventsTreeView();
-            View.EventMessageBuilder = eventMessageBuilder;
+            EventMessageBuilder = eventMessageBuilder;
             _eventTrees.CollectionUpdated += OnEventTreesCollectionUpdated;
             _eventTreeMerger = new EventTreeMerger();
             AvailableMergeTypes = new List<EventTreeMergeType> { EventTreeMergeType.None, EventTreeMergeType.Root, EventTreeMergeType.Thread };
@@ -32,11 +33,11 @@ namespace Chronos.Client.Win.Common.EventsTree.ViewModels
             get { return "Events Tree"; }
         }
 
+        public IEventMessageBuilder EventMessageBuilder { get; private set; }
+
         public IEnumerable<EventTreeMergeType> AvailableMergeTypes { get; private set; }
 
         public IEnumerable<EventTreeSortType> AvailableSortTypes { get; private set; }
-
-        public EventsTreeView View { get; private set; }
 
         public EventTreeMergeType SelectedMergeType
         {
@@ -55,25 +56,21 @@ namespace Chronos.Client.Win.Common.EventsTree.ViewModels
 
         public EventTreeSortType SelectedSortType
         {
-            get { return View.EventsSortType; }
+            get { return _selectedSortType; }
             set
             {
-                View.EventsSortType = value;
+                _selectedSortType = value;
                 NotifyOfPropertyChange(() => SelectedSortType);
             }
         }
 
         public IEnumerable<IEventTree> Events
         {
-            get { return View.Events; }
+            get { return _events; }
             private set
             {
-                Execute.BeginOnUIThread(() =>
-                {
-                    //This Thread.Sleep is hotfix of issue when EventsTree is loaded earlier than Units
-                    Thread.Sleep(500);
-                    View.Events = value;
-                });
+                _events = value;
+                NotifyOfPropertyChange(() => Events);
             }
         }
 

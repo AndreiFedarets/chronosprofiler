@@ -6,13 +6,13 @@ namespace Chronos.Client.Win.Common.EventsTree.Actions
     public sealed class TimelineCommand : ActivateViewModelAction
     {
         public TimelineCommand()
-            : base(Constants.ViewModels.EventsTreeViewModel)
+            : base(Constants.ViewModels.TimelineViewModel)
         {
         }
 
         public override string DisplayName
         {
-            get { return Resources.EventsTreeMenuItem_Text; }
+            get { return Resources.TimelineMenuItem_Text; }
         }
     }
 }
