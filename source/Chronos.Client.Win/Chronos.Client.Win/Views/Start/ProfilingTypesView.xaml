@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:v="clr-namespace:Layex.Views;assembly=Layex"
         xmlns:l="clr-namespace:Chronos.Client.Win.Views.Start"
-        xmlns:vm="clr-namespace:Chronos.Client.Win.ViewModels.Start">
+        xmlns:vm="clr-namespace:Chronos.Client.Win.ViewModels.Start"
+        HorizontalAlignment="Stretch">
     <v:View.Resources>
         <v:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <l:ProfilingTypesDataTemplateSelector x:Key="ProfilingTypesDataTemplateSelector" />

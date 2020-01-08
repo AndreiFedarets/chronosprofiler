@@ -4,7 +4,8 @@
             xmlns:caliburn="http://www.caliburnproject.org"
             xmlns:views="clr-namespace:Layex.Views;assembly=Layex"
             xmlns:core="clr-namespace:Chronos.Client;assembly=Chronos"
-            xmlns:controls="clr-namespace:Layex.Controls;assembly=Layex">
+            xmlns:controls="clr-namespace:Layex.Controls;assembly=Layex"
+            HorizontalAlignment="Stretch">
     <views:View.Resources>
         <views:ObjectToBitmapSourceConverter x:Key="ObjectToBitmapSourceConverter" />
     </views:View.Resources>

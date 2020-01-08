@@ -1,6 +1,7 @@
 ﻿<views:View x:Class="Chronos.Client.Win.Views.Start.HostApplicationSelectView"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:views="clr-namespace:Layex.Views;assembly=Layex">
+            xmlns:views="clr-namespace:Layex.Views;assembly=Layex"
+            HorizontalAlignment="Stretch">
     <ComboBox ItemsSource="{Binding Applications}" SelectedItem="{Binding SelectedApplication}" DisplayMemberPath="EnvironmentInformation.MachineName" />
 </views:View>
