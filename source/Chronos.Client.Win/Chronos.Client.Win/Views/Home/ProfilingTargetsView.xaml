@@ -5,7 +5,7 @@
             xmlns:views="clr-namespace:Layex.Views;assembly=Layex"
             xmlns:core="clr-namespace:Chronos.Client;assembly=Chronos"
             xmlns:controls="clr-namespace:Layex.Controls;assembly=Layex"
-            HorizontalAlignment="Stretch">
+            HorizontalAlignment="Stretch" MinHeight="100">
     <views:View.Resources>
         <views:ObjectToBitmapSourceConverter x:Key="ObjectToBitmapSourceConverter" />
     </views:View.Resources>

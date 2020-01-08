@@ -3,7 +3,7 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:caliburn="http://www.caliburnproject.org"
             xmlns:views="clr-namespace:Layex.Views;assembly=Layex"
-            HorizontalAlignment="Stretch">
+            HorizontalAlignment="Stretch" MinHeight="100">
     <Grid>
         <ListView ItemsSource="{Binding ActiveSessions}">
             <ListView.ItemContainerStyle>
